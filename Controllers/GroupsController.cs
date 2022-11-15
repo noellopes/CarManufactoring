@@ -7,5 +7,10 @@ namespace CarManufactoring.Controllers {
         }
 
         // TODO: Each group should add a page to show their group information and status
+
+        public IActionResult Group3Details()
+        {
+            return View();
+        }
     }
 }
