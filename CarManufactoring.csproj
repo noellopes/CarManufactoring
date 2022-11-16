@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\documents\" />
+    <Folder Include="wwwroot\documents\grupo5\" />
+    <Folder Include="wwwroot\documents\grupo5\Ricardo_Sousa\" />
   </ItemGroup>
 
 </Project>
