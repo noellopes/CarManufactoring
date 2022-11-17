@@ -5,6 +5,11 @@ namespace CarManufactoring.Controllers {
         public IActionResult Index() {
             return View();
         }
+        //get: Groups/Grupo6details
+        public IActionResult Grupo6details()
+        {
+            return View();
+        }
 
         // TODO: Each group should add a page to show their group information and status
     }
