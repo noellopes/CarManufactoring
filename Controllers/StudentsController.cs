@@ -5,5 +5,7 @@ namespace CarManufactoring.Controllers {
         public IActionResult Index() {
             return View();
         }
+
+        public IActionResult LuisBarrosDetails() { return View(); }
     }
 }
