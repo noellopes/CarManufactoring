@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Students information";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number</th>
+            <th scope="col">Group</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <img class="img-fluid" src="documents/group4/JuanSilva/JuanSilva.jpg" />
+            </td>
+            <td class="pt-5">Juan de Almeida Silva</td>
+            <td class="pt-5">17</td>
+            <td class="pt-5">Grupo 4</td>
+            <td class="pt-5">
+                <a asp-action="JuanSilvaDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img class="img-fluid" src="documents/group4/JucimarCabral/1012639.jpg" />
+            </td>
+            <td class="pt-5">Jucimar Cabral da Costa</td>
+            <td class="pt-5">1012639</td>
+            <td class="pt-5">Grupo 4</td>
+            <td class="pt-5">
+                <a asp-action="JucimarCabralDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img class="img-fluid" src="documents/group4/RafaelaLopes/RafaelaLopes.jpg" />
+            </td>
+            <td class="pt-5">Rafaela Lopes</td>
+            <td class="pt-5">1012659</td>
+            <td class="pt-5">Grupo 4</td>
+            <td class="pt-5">
+                <a asp-action="RafaelaLopesDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
