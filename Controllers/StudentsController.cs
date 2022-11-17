@@ -42,5 +42,9 @@ namespace CarManufactoring.Controllers {
         {
             return View();
         }
+        public IActionResult PedroMatosDetails()
+        {
+            return View();
+        }
     }
 }
