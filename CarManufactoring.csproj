@@ -18,5 +18,4 @@
   <ItemGroup>
     <Folder Include="wwwroot\documents\Group6\Documentos\" />
   </ItemGroup>
-
 </Project>
