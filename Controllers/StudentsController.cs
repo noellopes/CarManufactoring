@@ -7,6 +7,11 @@ namespace CarManufactoring.Controllers {
         }
 
 
+        public IActionResult RodrigoLourencoDetails()
+        {
+            return View();
+        }
+
         public IActionResult LuisBarrosDetails() { return View(); }
 
         public IActionResult MustafaBukhariDetails()
