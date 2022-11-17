@@ -55,5 +55,9 @@ namespace CarManufactoring.Controllers {
         {
             return View();
         }
+        public IActionResult TelmoMoraisDetails()
+        {
+            return View();
+        }
     }
 }

@@ -17,5 +17,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\documents\Group6\Documentos\" />
+    <Folder Include="wwwroot\documents\Group9\GroupDocumentation\" />
   </ItemGroup>
 </Project>
