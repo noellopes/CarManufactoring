@@ -6,6 +6,11 @@ namespace CarManufactoring.Controllers {
             return View();
         }
 
+        //get: Students/AnaVidalDetails
+        public IActionResult AnaVidalDetails()
+        {
+            return View();
+        }
 
         public IActionResult RodrigoLourencoDetails()
         {
