@@ -1,0 +1,17 @@
+﻿body {
+}
+
+
+.diagramMenu:hover .list {
+   max-height:fit-content;  
+}
+
+.diagramMenu .list {
+    max-height: 0px;
+    overflow: hidden;
+    transition:ease-in;
+}
+
+
+
+
