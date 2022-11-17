@@ -9,7 +9,12 @@
 .diagramMenu .list {
     max-height: 0px;
     overflow: hidden;
-    transition:ease-in;
+    transition: ease-in;
+}
+
+.personalList{
+    font-size:large;
+    color:cornflowerblue;
 }
 
 
