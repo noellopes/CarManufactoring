@@ -32,5 +32,10 @@ namespace CarManufactoring.Controllers {
 
             return View();
         }
+        public IActionResult Group3Details()
+        {
+
+            return View();
+        }
     }
 }
