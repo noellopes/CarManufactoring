@@ -6,7 +6,27 @@ namespace CarManufactoring.Controllers {
             return View();
         }
 
+        public IActionResult TomasEstevesDetails()
+        {
+            return View();
+        }
+
+        public IActionResult RicardoSousaDetails()
+        {
+            return View();
+        }
+        
         public IActionResult RicardoAndradeDetails() {
+         return View();
+        }
+
+        public IActionResult PauloProencaDetails()
+        {
+            return View();
+        }
+
+        public IActionResult RuiCondessoDetails()
+        {
             return View();
         }
     }
