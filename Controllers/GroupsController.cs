@@ -28,7 +28,7 @@ namespace CarManufactoring.Controllers {
         {
           return View();
         }
-        public IActionResult Grupo2Details() {
+        public IActionResult Group2Details() {
 
             return View();
         }
