@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Students information";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Photo</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number</th>
+            <th scope="col">Group</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <img src="documents/grupo5/Ricardo_Sousa/Ricardo_Sousa.jpg" width="70" height="70" />
+            </td>
+            <td>
+                Ricardo Sousa
+            </td>
+            <td>
+                1705109
+            </td>
+            <td>
+                5
+            </td>
+            <td>
+                <a asp-action="RicardoSousaDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+        <tr>
+            <tr>
+            <td>
+                <img src="documents/grupo5/Rui_Condesso/Rui_Condesso.jpg" width="70" height="70" />
+            </td>
+            <td>
+                Rui Condesso
+            </td>
+            <td>
+                1701429
+            </td>
+            <td>
+                5
+            </td>
+            <td>
+                <a asp-action="RuiCondessoDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+        <tr>
+    </tbody>
+</table>
