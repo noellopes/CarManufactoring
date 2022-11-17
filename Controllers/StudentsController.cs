@@ -59,5 +59,9 @@ namespace CarManufactoring.Controllers {
         {
             return View();
         }
+        public IActionResult FabioAbreuDetails()
+        {
+            return View();
+        }
     }
 }
