@@ -5,5 +5,10 @@ namespace CarManufactoring.Controllers {
         public IActionResult Index() {
             return View();
         }
+        //get: Students/AnaVidalDetails
+        public IActionResult AnaVidalDetails()
+        {
+            return View();
+        }
     }
 }
