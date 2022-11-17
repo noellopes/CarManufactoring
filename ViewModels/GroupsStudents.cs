@@ -19,6 +19,7 @@ namespace CarManufactoring.ViewModels {
             new Student { Name="Ricardo Sousa", Number = "1705109", Group = 5},
             new Student { Name="Rui Condesso", Number = "1701429", Group = 5},
             new Student { Name="Pedro Matos", Number = "1700789", Group = 5},
+            new Student { Name="Telmo Morais", Number = "1704003", Group = 9},
         };
     }
 }
