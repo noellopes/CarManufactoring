@@ -14,7 +14,7 @@ namespace CarManufactoring.Controllers {
             return View();
         }
 
-        public IActionResult Privacy() {
+        public IActionResult Todo() {
             return View();
         }
 
