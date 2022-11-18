@@ -13,6 +13,7 @@ namespace CarManufactoring.Controllers {
 
         // GET: Students/Details
         public IActionResult Details(string number) {
+            
             return View();
         }
 
