@@ -63,5 +63,7 @@ namespace CarManufactoring.Controllers {
         {
             return View();
         }
+
+        public IActionResult KevinAlvesDetails() => View();
     }
 }
