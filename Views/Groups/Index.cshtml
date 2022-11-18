@@ -37,9 +37,9 @@
         <tr>
             <td>2</td>
             <td>Ricardo Andrade, Bruno Martins, Filipe Santos</td>
-            <td>Compras ao Fornecedor e critérios de compra</td>
+            <td>Compras ao Fornecedor (peças ou matérias-primas) e critérios de compra de peças</td>
             <td>
-                <a asp-action="Grupo2Details" class="btn btn-info">Details</a>
+                <a asp-action="Group2Details" class="btn btn-info">Details</a>
 
             </td>
         </tr>
@@ -48,7 +48,7 @@
             <td>Luis Barros, Rodrigo Lourenço , Guilherme Alves</td>
             <td>Client's Sales</td>
             <td>
-                <a asp-action="Group1Details" class="btn btn-info">Details</a>
+                <a asp-action="Group3Details" class="btn btn-info">Details</a>
             </td>
         </tr>
         <tr>
@@ -61,22 +61,29 @@
         </tr>
         <tr>
             <td>6</td>
-            <td>Ana vidal e João Aleixo</td>
-            <td>Gestão de Turnos</td>
+            <td>Ana vidal, João Aleixo e Mustafa Bukhari</td>
+            <td>Gestão de Turnos da Produção</td>
             <td>
-                <a class="btn btn-info">Details</a>
+                <a asp-controller="Groups" asp-action="Grupo6details" class="btn btn-info">Details</a>
             </td>
         </tr>
         <tr>
             <td>7</td>
-            <td>
-                Fábio Abreu,
+            <td>               
                 Francisco Pereira,
-                Kevin Alves,
-                Telmo Morais
+                Kevin Alves
             </td>
             <td>Gestão de produtos semi-acabados</td>
             <td><a asp-action="Group7Details" class="btn btn-info">Details</a>
+        </tr>
+
+        <tr>
+            <td>9</td>
+            <td>Fábio Abreu, Telmo Morais</td>
+            <td>...</td>
+            <td>
+                <a asp-controller="Groups" asp-action="Group9details" class="btn btn-info">Details</a>
+            </td>
         </tr>
     </tbody>
 </table>

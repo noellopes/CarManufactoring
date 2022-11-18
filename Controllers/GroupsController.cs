@@ -5,6 +5,11 @@ namespace CarManufactoring.Controllers {
         public IActionResult Index() {
             return View();
         }
+        //get: Groups/Grupo6details
+        public IActionResult Grupo6details()
+        {
+            return View();
+        }
 
         public IActionResult Group1Details()
         {
@@ -23,7 +28,18 @@ namespace CarManufactoring.Controllers {
         {
           return View();
         }
-        public IActionResult Grupo2Details() {
+        public IActionResult Group2Details() {
+
+            return View();
+        }
+        public IActionResult Group3Details()
+        {
+
+            return View();
+        }
+
+        public IActionResult Group9details()
+        {
 
             return View();
         }

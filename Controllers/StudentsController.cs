@@ -6,6 +6,17 @@ namespace CarManufactoring.Controllers {
             return View();
         }
 
+        //get: Students/AnaVidalDetails
+        public IActionResult AnaVidalDetails()
+        {
+            return View();
+        }
+
+        //get: Students/JoaoAleixoDetails
+        public IActionResult JoaoAleixoDetails()
+        {
+            return View();
+        }
 
         public IActionResult RodrigoLourencoDetails()
         {
@@ -46,5 +57,19 @@ namespace CarManufactoring.Controllers {
         {
             return View();
         }
+        public IActionResult GuilhermeAlvesDetails()
+        {
+            return View();
+        }
+        public IActionResult TelmoMoraisDetails()
+        {
+            return View();
+        }
+        public IActionResult FabioAbreuDetails()
+        {
+            return View();
+        }
+
+
     }
 }

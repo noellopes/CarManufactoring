@@ -33,15 +33,6 @@
               <a class="btn btn-info">Details</a>
             </td>            
         </tr>
-        <tr>            
-            <td><img class="img-fluid" src="/documents/Grupo3/RodrigoLourenco/Rodrigo.jpg" width="7%" height="7%" /></td>
-            <td>Rodrigo Luís Santos Lourenço</td>
-            <td>1700254</td>
-            <td>3</td>
-            <td>
-              <a class="btn btn-info">Details</a>
-            </td>
-        </tr>
         <tr>
             <td>
                 <img src="" alt="Foto"/>
@@ -54,25 +45,25 @@
             </td>
         </tr>
         <tr>
-            <td><img class="img-fluid" src="/documents/Group6/AnaVidal/AnaVidal.JPEG" width="100" height="200" /></td>
+            <td><img class="img-fluid" src="/documents/Group6/AnaVidal/AnaVidal1.JPEG" width="200px" height="300px" /></td>
             <td>Ana Raquel Neves Vidal</td>
             <td>1704182</td>
             <td>6</td>
             <td>
-              <a class="btn btn-info"> Details</a>
+               <a asp-controller="Students" asp-action="AnaVidalDetails" class="btn btn-info">Details</a>
             </td>
         </tr>
         <tr>
-            <td><img class="img-fluid" src="/documents/Group6/JoaoAleixo/Aleixo.png" width="10%" height="10%"/></td>
+            <td><img class="img-fluid" src="/documents/Group6/JoaoAleixo/Aleixo.png" width="15%" height="15%"/></td>
             <td>João Saraiva Aleixo</td> 
             <td>1704473</td>
             <td>6</td>
             <td>
-                <a asp-controller="DetailsJoaoAleixo" asp-action="Index"  class="btn btn-info"> Details</a>
+                <a asp-controller="Students" asp-action="JoaoAleixoDetails"  class="btn btn-info"> Details</a>
             </td>
         </tr>
         <tr>
-            <td><img class="img" src="documents/Group3/LuisBarros/LuisBarros.png" width="50" height="50"/> </td>
+            <td><img class="img" src="documents/Group3/LuisBarros/foto1.jpg" width="100" height="100"/> </td>
             <td>Luis Antonio Pinto de Barros</td>
             <td>1700331</td>
             <td>3</td>
@@ -103,7 +94,7 @@
             </td>
         </tr>
         <tr>
-            <td><img class="img" src="documents/Group3/RodrigoLourenco/Rodrigo.jpg" width="50" height="50" /> </td>
+            <td><img class="img" src="documents/Group3/RodrigoLourenco/eu.png" width="100" height="100" /> </td>
             <td>Rodrigo Luis Santos Lourenço</td>
             <td>1700254</td>
             <td>3</td>
@@ -112,12 +103,12 @@
             </td>
         </tr>
         <tr>
-            <td><img class="img" src="~/documents/Group3/GuilhermAlves/GuilhermeAlves.jpg" width="50" height="50" /> </td>
+            <td><img class="img" src="~/documents/Group3/GuilhermeAlves/GuilhermeAlves.jpg" width="100" height="100" /> </td>
             <td>Guilherme Alves</td>
             <td>1701480</td>
             <td>3</td>
             <td>
-                <a class="btn btn-info">Details</a>
+                <a asp-action="GuilhermeAlvesDetails" class="btn btn-info">Details</a>
             </td>
         </tr>
         <tr>
@@ -185,5 +176,25 @@
                 <a asp-action="PedroMatosDetails" class="btn btn-info">Details</a>
             </td>
         </tr>
+        <tr>
+            <td><img class="img-fluid" src="/documents/Group9/TelmoMorais/TelmoMorais.png" width="75" height="150"/></td>
+            <td>Telmo José Ladeiro Morais</td>
+            <td>1704003</td>
+            <td>9</td>
+            <td>
+                <a asp-controller="Students" asp-action="TelmoMoraisDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td><img class="img-fluid" src="/documents/Group9/FabioAbreu/fabio_abreu.png" width="70" height="70"/></td>
+            <td>Fábio Emanuel Fiqueli Abreu</td>
+            <td>1704154</td>
+            <td>9</td>
+            <td>
+                <a asp-controller="Students" asp-action="FabioAbreuDetails" class="btn btn-info">Details</a>
+            </td>
+        </tr>
+
     </tbody>
 </table>
