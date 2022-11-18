@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\documents\Group6\Documentos\" />
+    <Folder Include="wwwroot\documents\Group8\FábioViegas\" />
+    <Folder Include="wwwroot\documents\Group8\PropauloFerreira\" />
     <Folder Include="wwwroot\documents\Group9\GroupDocumentation\" />
   </ItemGroup>
 </Project>

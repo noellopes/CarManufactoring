@@ -63,5 +63,14 @@ namespace CarManufactoring.Controllers {
         {
             return View();
         }
+        public IActionResult PropauloFerreiraDetails()
+        {
+            return View();
+        }
+
+        public IActionResult FabioViegasDetails()
+        {
+            return View();
+        }
     }
 }
