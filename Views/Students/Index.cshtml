@@ -1,3 +1,5 @@
+@model List<Student>
+
 @{
     ViewData["Title"] = "Students information";
 }
@@ -9,192 +11,24 @@
         <tr>
             <th scope="col">Photo</th>
             <th scope="col">Name</th>
-            <th scope="col">Number</th>            
+            <th scope="col">Number</th>
             <th scope="col">Group</th>
             <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>Blanck</td>
-            <td>Filipe Santos</td>
-            <td>1702072</td>
-            <td>2</td>
-            <td>
-              <a class="btn btn-info">Details</a>
-            </td>   
-        </tr>
-        <tr>
-            <td><img src="" alt="photo"/></td>
-            <td>Bruno Martins</td>
-            <td>1704756</td>
-            <td>2</td>
-            <td>
-              <a class="btn btn-info">Details</a>
-            </td>            
-        </tr>
-        <tr>
-            <td>
-                <img src="" alt="Foto"/>
-            </td>
-            <td>Ricardo Dias Andrade</td>
-            <td>1705258</td>
-            <td>2</td>
-            <td>
-                <a asp-action ="RicardoAndradeDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td><img class="img-fluid" src="/documents/Group6/AnaVidal/AnaVidal.JPEG" width="100" height="200" /></td>
-            <td>Ana Raquel Neves Vidal</td>
-            <td>1704182</td>
-            <td>6</td>
-            <td>
-               <a asp-controller="Students" asp-action="AnaVidalDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td><img class="img-fluid" src="/documents/Group6/JoaoAleixo/Aleixo.png" width="10%" height="10%"/></td>
-            <td>João Saraiva Aleixo</td> 
-            <td>1704473</td>
-            <td>6</td>
-            <td>
-                <a asp-controller="DetailsJoaoAleixo" asp-action="Index"  class="btn btn-info"> Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td><img class="img" src="documents/Group3/LuisBarros/foto1.jpg" width="100" height="100"/> </td>
-            <td>Luis Antonio Pinto de Barros</td>
-            <td>1700331</td>
-            <td>3</td>
-            <td>
-                <a asp-action="LuisBarrosDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img class="img-fluid h-25 w-25" src="documents/grupo1/tomas_esteves/tomas_esteves.jpg" />
-            </td>
-            <td class="pt-5">Tomás de Sousa Esteves</td>
-            <td class="pt-5">1704696</td>
-            <td class="pt-5">1</td>
-            <td class="pt-5">
-                <a  asp-action="TomasEstevesDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img class="img-fluid" width="50" height="50" src="documents/grupo1/Paulo_Proenca/PauloProenca.jpeg" />
-            </td>
-            <td class="pt-5">Paulo Jorge Mendes Proença</td>
-            <td class="pt-5">1704890</td>
-            <td class="pt-5">1</td>
-            <td class="pt-5">
-                <a asp-action="PauloProencaDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td><img class="img" src="documents/Group3/RodrigoLourenco/eu.png" width="100" height="100" /> </td>
-            <td>Rodrigo Luis Santos Lourenço</td>
-            <td>1700254</td>
-            <td>3</td>
-            <td>
-                <a asp-action="RodrigoLourencoDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td><img class="img" src="~/documents/Group3/GuilhermeAlves/GuilhermeAlves.jpg" width="100" height="100" /> </td>
-            <td>Guilherme Alves</td>
-            <td>1701480</td>
-            <td>3</td>
-            <td>
-                <a asp-action="GuilhermeAlvesDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <img src="#" alt="Mustafa Bukhari">
-            </td>
-            <td>Mustafa Bukhari</td>
-            <td>1707864</td>
-            <td>UND</td>
-            <td>
-                <a asp-action ="MustafaBukhariDetails" class="btn btn-info">Details</a>
-             </td>
-         </tr>
-        </tr>
-        <tr>
-            <td>        
-                <img src="documents/grupo5/Ricardo_Sousa/Ricardo_Sousa.jpg" width="70" height="70" class="rounded-circle" />
-            </td>
-            <td>
-                Ricardo Sousa
-            </td>
-            <td>
-                1705109
-            </td>
-            <td>
-                5
-            </td>
-            <td>
-                <a asp-action="RicardoSousaDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
+        @foreach (Student s in Model) {
             <tr>
-            <td>
-                <img src="documents/grupo5/Rui_Condesso/Rui_Condesso.jpg" width="70" height="70" />
-            </td>
-            <td>
-                Rui Condesso
-            </td>
-            <td>
-                1701429
-            </td>
-            <td>
-                5
-            </td>
-            <td>
-                <a asp-action="RuiCondessoDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-        <tr>
-            <td>
-                <img src="documents/grupo5/Pedro_Matos/PedroMatos.jpg" width="70" height="70" />
-            </td>
-            <td>
-                Pedro Matos
-            </td>
-            <td>
-                1700789
-            </td>
-            <td>
-                5
-            </td>
-            <td>
-                <a asp-action="PedroMatosDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td><img class="img-fluid" src="/documents/Group9/TelmoMorais/TelmoMorais.png" width="75" height="150"/></td>
-            <td>Telmo José Ladeiro Morais</td>
-            <td>1704003</td>
-            <td>9</td>
-            <td>
-                <a asp-controller="Students" asp-action="TelmoMoraisDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-
-        <tr>
-            <td><img class="img-fluid" src="/documents/Group9/FabioAbreu/fabio_abreu.png" width="70" height="70"/></td>
-            <td>Fábio Emanuel Fiqueli Abreu</td>
-            <td>1704154</td>
-            <td>9</td>
-            <td>
-                <a asp-controller="Students" asp-action="FabioAbreuDetails" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-
+                <td>
+                    <img src="~/img/students/@(s.Number).jpg" alt="Photo of @s.Name" />
+                </td>
+                <td>@s.Name</td>
+                <td>@s.Number</td>
+                <td>@s.Group</td>
+                <td>
+                    <a asp-controller="Students" asp-action="Details" asp-route-number="@s.Number" class="btn btn-info">Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
