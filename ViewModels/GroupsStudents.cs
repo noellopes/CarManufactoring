@@ -31,7 +31,7 @@ namespace CarManufactoring.ViewModels {
             new Group{Number=5, Work="Planear produção com base nas encomendas"},
             new Group{Number=6, Work="Gestão de Turnos da Produção"},
             new Group{Number=7, Work="Gestão de produtos semi-acabados"},
-            new Group{Number=9, Work="..."}
+            new Group{Number=9, Work="Inspeção e testes de semi-acabados"}
         };
     }
 
