@@ -4,9 +4,7 @@ using CarManufactoring.ViewModels;
 namespace CarManufactoring.Controllers {
     public class StudentsController : Controller {
         public IActionResult Index() {
-            var students = GroupsStudents.Students;
-
-            students.Sort((a, b) => a.Group.CompareTo(b.Group));
+            var students = GroupsStudents.Students.OrderBy(s => s.Group).ThenBy(s => s.Name);
             
             return View(students);
         }
