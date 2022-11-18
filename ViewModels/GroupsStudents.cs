@@ -23,5 +23,17 @@ namespace CarManufactoring.ViewModels {
             new Student { Name="Fabio Abreu", Number = "1704154", Group = 9},
             new Student { Name="Kevin Alves", Number="1704033", Group=7}
         };
+
+        public readonly static List<Group> Groups = new List<Group>() {
+            new Group{Number=1, Work="Gestão de máquinas/recursos para a produção"},
+            new Group{Number=2, Work="Compras ao Fornecedor (peças ou matérias-primas) e critérios de compra de peças"},
+            new Group{Number=3, Work="Client's Sales"},
+            new Group{Number=5, Work="Planear produção com base nas encomendas"},
+            new Group{Number=6, Work="Gestão de Turnos da Produção"},
+            new Group{Number=7, Work="Gestão de produtos semi-acabados"},
+            new Group{Number=9, Work="..."}
+        };
     }
+
+    
 }

@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Group>
+
+@{
     ViewData["Title"] = "Groups information";
 }
 
@@ -14,76 +16,19 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>1</td>
-            <td>
-                <ul>
-                    <li>
-                        Diogo Neto
-                    </li>
-                    <li>
-                        Paulo Proença
-                    </li>
-                    <li>
-                        Tomás Esteves
-                    </li>
-                </ul>
-            </td>
-            <td>Gestão de máquinas/recursos para a produção</td>
-            <td>
-                <a asp-action="Group1Details" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Ricardo Andrade, Bruno Martins, Filipe Santos</td>
-            <td>Compras ao Fornecedor (peças ou matérias-primas) e critérios de compra de peças</td>
-            <td>
-                <a asp-action="Group2Details" class="btn btn-info">Details</a>
-
-            </td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Luis Barros, Rodrigo Lourenço , Guilherme Alves</td>
-            <td>Client's Sales</td>
-            <td>
-                <a asp-action="Group3Details" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Ricardo Sousa, Rui Condesso, Pedro Matos</td>
-            <td>Planear produção com base nas encomendas</td>
-            <td>
-                <a asp-action="Group5Details" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>Ana vidal, João Aleixo e Mustafa Bukhari</td>
-            <td>Gestão de Turnos da Produção</td>
-            <td>
-                <a asp-controller="Groups" asp-action="Grupo6details" class="btn btn-info">Details</a>
-            </td>
-        </tr>
-        <tr>
-            <td>7</td>
-            <td>               
-                Francisco Pereira,
-                Kevin Alves
-            </td>
-            <td>Gestão de produtos semi-acabados</td>
-            <td><a asp-action="Group7Details" class="btn btn-info">Details</a>
-        </tr>
-
-        <tr>
-            <td>9</td>
-            <td>Fábio Abreu, Telmo Morais</td>
-            <td>...</td>
-            <td>
-                <a asp-controller="Groups" asp-action="Group9details" class="btn btn-info">Details</a>
-            </td>
-        </tr>
+        @foreach(Group g in Model){
+            <tr>
+                <td>@g.Number</td>
+                <td>
+                    
+                </td>
+                <td>@g.Work</td>
+                <td>
+                    <a asp-controller="Groups" asp-action="Details" asp-route-number="@g.Number" class="btn btn-info">Details</a>
+                </td>
+            </tr>
+        }
+        
+        
     </tbody>
 </table>
