@@ -16,32 +16,35 @@
             </h3>
         </div>
     </div>
-    <div class="col-12">
-       <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th scope="col">Formato</th>
-                <th scope="col">Documento</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(Documents d in Model){
-           
+    <div class="row">
+        <div class="col-12">
+           <table class="table table-striped table-hover">
+            <thead>
                 <tr>
-                       <td scope="col">
-                            <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
-                        </td>
-                        <td scope="col">@d.Name</td>
-                        <td>
-                            <a href="@d.DocPath" target="_blank">
-                                <img class="img-fluid " src="/documents/grupo1/img/download.png">
-                            </a>
-                        </td>
+                    <th scope="col">Formato</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col"></th>
                 </tr>
-            }
-            </tbody>
-        </table>
+            </thead>
+            <tbody>
+                @foreach(Documents d in Model){
+           
+                    <tr>
+                           <td scope="col">
+                                <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                            </td>
+                            <td scope="col">@d.Name</td>
+                            <td>
+                                <a href="@d.DocPath" target="_blank">
+                                    <img class="img-fluid " src="/documents/grupo1/img/download.png">
+                                </a>
+                            </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
     </div>
+    
 </div>
 
