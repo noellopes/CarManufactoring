@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CarManufactoring.ViewModels;
+using CarManufactoring.ViewModels.Group1;
 
 namespace CarManufactoring.Controllers {
     public class StudentsController : Controller {
@@ -11,6 +12,15 @@ namespace CarManufactoring.Controllers {
 
         // GET: Students/Details
         public IActionResult Details(string number) {
+
+            if(number == "1704696")
+            {
+                List<Documents> tomasDocs = Group1Documents.TomasDocuments;
+                
+                tomasDocs.Sort((a,b) => a.Name.CompareTo(b.Name));
+
+                return View($"Details{number}", tomasDocs);
+            }
             return View($"Details{number}");
         }
     }
