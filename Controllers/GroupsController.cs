@@ -46,5 +46,12 @@ namespace CarManufactoring.Controllers {
 
             return View();
         }
+
+        //get: Groups/Group4details
+        public IActionResult Group4Details()
+        {
+            return View();
+        }
+
     }
 }
