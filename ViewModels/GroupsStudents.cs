@@ -22,7 +22,10 @@ namespace CarManufactoring.ViewModels {
             new Student { Name="Telmo Morais", Number = "1704003", Group = 9},
             new Student { Name="Fabio Abreu", Number = "1704154", Group = 9},
             new Student { Name="Kevin Alves", Number="1704033", Group=7},
-            new Student { Name="Francisco Pereira", Number="1704082", Group=7}
+            new Student { Name="Francisco Pereira", Number="1704082", Group=7},
+            new Student { Name="Juan Silva", Number = "170", Group = 4},
+            new Student { Name="Jucimar Cabral da Costa", Number = "1012639", Group = 4},
+            new Student { Name="Rafaela Lopes", Number = "1012659", Group = 4}
 
         };
 
@@ -30,6 +33,7 @@ namespace CarManufactoring.ViewModels {
             new Group{Number=1, Work="Gestão de máquinas/recursos para a produção"},
             new Group{Number=2, Work="Compras ao Fornecedor (peças ou matérias-primas) e critérios de compra de peças"},
             new Group{Number=3, Work="Client's Sales"},
+            new Group{Number=4, Work="Feasility analysis of equipment acquisition (machinery/resources for production)"},
             new Group{Number=5, Work="Planear produção com base nas encomendas"},
             new Group{Number=6, Work="Gestão de Turnos da Produção"},
             new Group{Number=7, Work="Gestão de produtos semi-acabados"},
