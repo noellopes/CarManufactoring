@@ -21,6 +21,16 @@ namespace CarManufactoring.Controllers {
 
                 return View($"Details{number}", tomasDocs);
             }
+
+            if (number == "1704479")
+            {
+                List<Documents> DiogoDocs = Group1Documents.DiogoDocuments;
+
+                DiogoDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
+
+                return View($"Details{number}",DiogoDocs);
+            }
+
             return View($"Details{number}");
         }
     }
