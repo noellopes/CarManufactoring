@@ -25,6 +25,7 @@ namespace CarManufactoring.Controllers {
             return View($"Details{number}");
         }
 
+
         
     }
 }

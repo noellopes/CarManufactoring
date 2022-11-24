@@ -19,12 +19,16 @@
         @foreach(Group g in Model){
             <tr>
                 <td>@g.Number</td>
-                <td>
-                    
-                </td>
-                <td>@g.Work</td>
-                <td>
 
+                <td>
+                    @foreach(Student s in g.Students) {
+                        <p>@s.Name</p>    
+                    }  
+                </td>
+
+                <td>@g.Work</td>
+
+                <td>
                     <a asp-controller="Groups" asp-action="Details" asp-route-number="@g.Number" class="btn btn-info">Details</a>
                 </td>
             </tr>
