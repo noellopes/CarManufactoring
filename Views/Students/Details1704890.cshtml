@@ -3,27 +3,33 @@
 }
 <link rel="stylesheet" href="~/css/Group1.css" asp-append-version="true" />
 <h1>@ViewBag.Title</h1>
-<h3 class="pt-4">Group 1</h3>
-<div class="pt-4">
-    <h5>What i'm doing: </h5>
-    <div class="ms-3">
-        <p> 1. Adding group and personal docs from the project of the project, maded on Software Engeneering class</p>
-        <p> 2. Resizing photo to the required size</p>
-    </div>
-</div>
-<div class="pt-4">
-    <h5>What i'm going to do: </h5>
-    <div class="ms-3">
-        <p> 1. Add resized image to the students model </p>
-    </div>
-</div>
 
+
+<div class="container pt-5">
+    <div class="row">
+        <div class="col">
+            <img class="img-fluid rounded-3" width="200px" alt="Paulo Proença Photo" src="~/img/students/1704890.jpg" />
+
+        </div>
+        <div class="col">
+            <div class="row">
+                <h5>What i'm doing: </h5>
+                <p> 1. Adding group and personal docs from the project of the project, maded on Software Engeneering class</p>
+                <p> 2. Resizing photo to the required size</p>
+            </div>
+            <div class="row">
+                <h5>What i'm going to do: </h5>
+                <p> 1. Add resized image to the students model </p>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div class="pt-5">
     <div class="mt-5"><a asp-controller="Groups" asp-action="Group1Details" class="btn btn-primary"> To Group Details </a></div>
 
-    <div class="diagramMenu down text-decoration-underline">
+    <div class="diagramMenu down pt-5 text-decoration-underline">
         <h4>Personal Docs List: </h4>
 
         <div class="d-flex justify-content-between">
