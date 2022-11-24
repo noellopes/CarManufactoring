@@ -21,6 +21,10 @@
                 <td>@g.Number</td>
                 <td>
                     
+                    @foreach(Student s in g.Students) {
+                        <p><a asp-controller="Students" asp-action="Details" asp-route-number="@s.Number" class="text-decoration-none text-black">@s.Name</a></p>
+                    }
+                    
                 </td>
                 <td>@g.Work</td>
                 <td>
@@ -29,7 +33,6 @@
                 </td>
             </tr>
         }
-        
         
     </tbody>
 </table>
