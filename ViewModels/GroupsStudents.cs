@@ -9,7 +9,7 @@ namespace CarManufactoring.ViewModels {
             new Student { Name="Bruno Martins", Number = "1704756", Group = 2},
             new Student { Name="Rodrigo Luís Santos Lourenço", Number = "1700254", Group = 3},
             new Student { Name="Ricardo Dias Andrade", Number = "1705258", Group = 2},
-            new Student { Name="Ana Raquel Neves Vidal", Number = "1704182", Group = 6},
+            new Student { Name="Ana Raquel Neves Vidal", Number = "1705182", Group = 6},
             new Student { Name="João Saraiva Aleixo", Number = "1704473", Group = 6},
             new Student { Name="Luis Antonio Pinto de Barros", Number = "1700331", Group = 3},
             new Student { Name="Tomás de Sousa Esteves", Number = "1704696", Group = 1},
