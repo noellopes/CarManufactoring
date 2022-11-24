@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group1;
+using CarManufactoring.ViewModels.Group3;
 
 namespace CarManufactoring.Controllers {
     public class StudentsController : Controller {
@@ -29,6 +30,13 @@ namespace CarManufactoring.Controllers {
                 DiogoDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
 
                 return View($"Details{number}",DiogoDocs);
+            }
+
+            if(number == "1700331")
+            {
+                List<Documents> LuisDocs = Group3Documents.LuisDocuments;
+                LuisDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
+                return View($"Details{number}", LuisDocs);
             }
 
             return View($"Details{number}");

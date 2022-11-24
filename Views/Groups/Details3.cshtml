@@ -1,4 +1,8 @@
-﻿@{
+﻿@using CarManufactoring.ViewModels.Group1;
+@using CarManufactoring.ViewModels.Group3;
+@model IEnumerable<Documents>
+
+@{
     ViewData["Title"] = "Group 3";
 }
 
@@ -18,8 +22,31 @@
 
 <hr>
 
-<h1>Classes Diagram</h1>
-<img  class="img" src="~/documents/Group3/GroupDocumentation/ModeloClassesGrupo.jpeg" width="70%" height="70%" \>
-<h1>Sequence Diagram</h1>
-<img  class="img" src="~/documents/Group3/GroupDocumentation/DiagramaDeSequenciaProjeto.png" width="70%" height="70%" \>
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Format</th>
+                <th scope="col">Document</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Documents d in Model)
+            {
+                <tr>
+                    <td scope="col">
+                        <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                    </td>
+                    <td scope="col">@d.Name</td>
+                    <td>
+                        <a href="@d.DocPath" target="_blank">
+                            <img class="img-fluid" src="/documents/grupo1/img/download.png">
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
