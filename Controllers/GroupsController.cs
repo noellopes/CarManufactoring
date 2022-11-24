@@ -9,46 +9,7 @@ namespace CarManufactoring.Controllers {
 
             return View(groups);
         }
-        //get: Groups/Grupo6details
-        public IActionResult Grupo6details()
-        {
-            return View();
-        }
-
-        public IActionResult Group1Details()
-        {
-            
-
-            return View();
-        }
-        
-        public IActionResult Group5Details()
-        {
-            return View();
-        }
-
-        // TODO: Each group should add a page to show their group information and status
-
-
-        public IActionResult Group7Details()
-        {
-          return View();
-        }
-        public IActionResult Group2Details() {
-
-            return View();
-        }
-        public IActionResult Group3Details()
-        {
-
-            return View();
-        }
-
-        public IActionResult Group9details()
-        {
-
-            return View();
-        }
+       
 
         // GET: Group/Details
         public IActionResult Details(string number)
@@ -63,5 +24,7 @@ namespace CarManufactoring.Controllers {
             }
             return View($"Details{number}");
         }
+
+        
     }
 }
