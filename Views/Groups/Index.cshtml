@@ -16,19 +16,27 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Group g in Model){
+        @foreach (Group g in Model) {
             <tr>
                 <td>@g.Number</td>
+
                 <td>
-                    
+                    @foreach (Student s in g.Students) {
+                        <p>
+                            <a asp-controller="Students" asp-action="Details" asp-route-number="@s.Number" class="text-decoration-none text-black">@s.Name </a>
+                        </p>
+
+                    }
                 </td>
+
                 <td>@g.Work</td>
+
                 <td>
                     <a asp-controller="Groups" asp-action="Details" asp-route-number="@g.Number" class="btn btn-info">Details</a>
                 </td>
             </tr>
         }
-        
-        
+
+
     </tbody>
 </table>

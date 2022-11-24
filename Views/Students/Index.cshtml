@@ -20,7 +20,7 @@
         @foreach (Student s in Model) {
             <tr>
                 <td>
-                    <img src="~/img/students/@(s.Number).jpg" alt="Photo of @s.Name" />
+                    <img src="~/img/students/@(s.Number).jpg" width="100px" class="rounded-circle" alt="Photo of @s.Name" />
                 </td>
                 <td>@s.Name</td>
                 <td>@s.Number</td>
