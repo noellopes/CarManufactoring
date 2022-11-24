@@ -9,7 +9,6 @@ namespace CarManufactoring.Controllers {
 
             return View(groups);
         }
-       
 
         // GET: Group/Details
         public IActionResult Details(string number)
@@ -22,6 +21,7 @@ namespace CarManufactoring.Controllers {
 
                 return View($"Details{number}", docs);
             }
+
             return View($"Details{number}");
         }
 
