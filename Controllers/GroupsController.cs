@@ -1,4 +1,5 @@
 ﻿using CarManufactoring.ViewModels;
+using CarManufactoring.ViewModels.Group1;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarManufactoring.Controllers {
@@ -8,10 +9,22 @@ namespace CarManufactoring.Controllers {
 
             return View(groups);
         }
-        //get: Groups/Grupo6details
-        public IActionResult Details(string number) {
+
+        // GET: Group/Details
+        public IActionResult Details(string number)
+        {
+            if(number == "1")
+            {
+                var docs = Group1Documents.GroupDocuments;
+
+                docs.Sort((a, b) => a.Name.CompareTo(b.Name));
+
+                return View($"Details{number}", docs);
+            }
+
             return View($"Details{number}");
         }
 
+        
     }
 }
