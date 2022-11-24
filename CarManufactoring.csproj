@@ -29,5 +29,6 @@
     <Folder Include="wwwroot\documents\Group4\RafaelaLopes\" />
     <Folder Include="wwwroot\documents\Group9\TelmoMorais\" />
     <Folder Include="wwwroot\documents\Grupo2\FilipeSantos\" />
+    <Folder Include="wwwroot\documents\grupo5\Pedro_Matos\" />
   </ItemGroup>
 </Project>
