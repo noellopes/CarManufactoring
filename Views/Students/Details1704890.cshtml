@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Group>
+
+@{
     ViewData["Title"] = "Paulo Proenca";
 }
 <link rel="stylesheet" href="~/css/Group1.css" asp-append-version="true" />
@@ -27,8 +29,6 @@
 
 
 <div class="pt-5">
-    <div class="mt-5"><a asp-controller="Groups" asp-action="Group1Details" class="btn btn-primary"> To Group Details </a></div>
-
     <div class="diagramMenu down pt-5 text-decoration-underline">
         <h4>Personal Docs List: </h4>
 
