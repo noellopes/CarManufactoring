@@ -1,0 +1,58 @@
+﻿@using CarManufactoring.ViewModels.Group1;
+@model IEnumerable<Documents>
+
+@{
+    ViewData["Title"] = "Paulo Proenca";
+}
+<link rel="stylesheet" href="~/css/Group1.css" asp-append-version="true" />
+<h1>@ViewBag.Title</h1>
+<h3 class="pt-4">Group 1</h3>
+<div class="pt-4">
+    <h5>What i'm doing: </h5>
+    <div class="ms-3">
+        <p> 1. Adding group and personal docs from the project of the project, maded on Software Engeneering class</p>
+        <p> 2. Resizing photo to the required size</p>
+    </div>
+</div>
+<div class="pt-4">
+    <h5>What i'm going to do: </h5>
+    <div class="ms-3">
+        <p> 1. Add resized image to the students model </p>
+    </div>
+</div>
+
+
+
+<div class="mt-5"><a asp-controller="Groups" asp-action="Group1Details" class="btn btn-primary"> To Group Details </a></div>
+
+
+
+<div class="row">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Formato</th>
+                <th scope="col">Documento</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Documents d in Model)
+            {
+
+                <tr>
+                    <td scope="col">
+                        <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                    </td>
+                    <td scope="col">@d.Name</td>
+                    <td>
+                        <a href="@d.DocPath" target="_blank">
+                            <img class="img-fluid " src="/documents/grupo1/img/download.png">
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</div>

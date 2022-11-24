@@ -21,6 +21,15 @@ namespace CarManufactoring.Controllers {
 
                 return View($"Details{number}", tomasDocs);
             }
+            
+            if(number == "1704890")
+            {
+                List<Documents> pauloDocs = Group1Documents.PauloDocuments;
+
+                pauloDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
+
+                return View($"Details{number}", pauloDocs);
+            }
             return View($"Details{number}");
         }
     }
