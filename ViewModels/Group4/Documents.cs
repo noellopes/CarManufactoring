@@ -2,7 +2,6 @@
 {
     public class Documents
     {
-    
         public string Name { get; set; }
     }
 }

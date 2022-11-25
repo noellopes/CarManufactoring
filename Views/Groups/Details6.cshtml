@@ -1,14 +1,19 @@
-﻿@{
+﻿@using CarManufactoring.ViewModels.Group6
+@model IEnumerable<Documents>
+
+@{
     ViewData["Title"] = "Group 6";
 }
 
-<img align="right" class="img p-1" src="~/img/students/1707864.jpg" width="12%" height="12%">
-<img align="right" class="img p-1" src="~/img/students/1704473.jpg" width="12%" height="12%">
-<img align="right" class="img p-1" src="~/img/students/1705182.jpg" width="12%" height="12%">
+<img align="right" class="img p-1" src="~/img/students/1707864.jpg" width="10%" height="10%">
+<img align="right" class="img p-1" src="~/img/students/1704473.jpg" width="10%" height="10%">
+<img align="right" class="img p-1" src="~/img/students/1705182.jpg" width="10%" height="10%">
 
 <h1 align="left">@ViewData["Title"]</h1>
 <h3 align="left">Shift Management</h3>
-<p><strong>Members:</strong> Ana Vidal, João Aleixo and Mustafa Bukhari</p>
+<p><strong>Members:</strong> <a asp-controller="Students" asp-action="Details" asp-route-number="1705182" class="text-decoration-none text-black">Ana Vidal</a>, 
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1704473" class="text-decoration-none text-black">João Aleixo</a> and 
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1707864" class="text-decoration-none text-black">Mustafa Bukhari</a></p>
 
 <hr/>
 
@@ -20,12 +25,44 @@ collaborator.</p>
 
 <h3> Documentation: </h3>
 
-<h5 style="text-align:center">Diagrama Atividade</h5>
+<!--<h5 style="text-align:center">Diagrama Atividade</h5>
 <img class="img-fluid" src="/documents/Group6/AnaVidal/DiagramaAtividadeTrabalho.JPG" width="70%" height="60%" />
 <h5 style="text-align:center">Diagrama Class</h5>
 <img class="img-fluid" src="/documents/Group6/AnaVidal/DiagramaClass_Ana_Vidal.drawio.JPG" width="70%" height="60%" />
 <h5 style="text-align:center">Descrição caso de uso</h5>
 <img class="img-fluid" src="/documents/Group6/AnaVidal/DescricaoCasoUso.png" width="70%" height="60%" />
 <h5 style="text-align:center">Diagrama Sequência</h5>
-<img class="img-fluid" src="/documents/Group6/AnaVidal/DiagramaSequenciaTurnos.JPG" width="70%" height="60%" />
+<img class="img-fluid" src="/documents/Group6/AnaVidal/DiagramaSequenciaTurnos.JPG" width="70%" height="60%" />-->
+
+<div class="row">
+        <div class="col-12">
+           <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Format</th>
+                    <th scope="col">Document</th>
+                    <th scope="col">From</th>
+                    <th scope="col">Donwload</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Documents d in Model){
+           
+                    <tr>
+                           <td scope="col">
+                                <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                            </td>
+                            <td scope="col">@d.Name</td>
+                            <td scope="col">Ana Vidal</td>
+                            <td>
+                                <a href="@d.DocPath" target="_blank">
+                                    <img class="img-fluid" src="/documents/grupo1/img/download.png">
+                                </a>
+                            </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+</div>
 

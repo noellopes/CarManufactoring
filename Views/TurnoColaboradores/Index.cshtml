@@ -1,0 +1,59 @@
+﻿@model IEnumerable<CarManufactoring.Models.TurnoColaboradores>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.horas_turno)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dataInicio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dataFim)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.turnoEstado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dataEstado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.horas_turno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataInicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataFim)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.turnoEstado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dataEstado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.TurnoColaboradoresId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.TurnoColaboradoresId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.TurnoColaboradoresId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
