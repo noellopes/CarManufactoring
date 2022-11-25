@@ -39,6 +39,13 @@ namespace CarManufactoring.Controllers {
                 return View($"Details{number}", LuisDocs);
             }
 
+            if (number == "1701480")
+            {
+                List<Documents> GuiDocs = Group3Documents.GuiDocuments;
+                GuiDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
+                return View($"Details{number}", GuiDocs);
+            }
+
             return View($"Details{number}");
         }
     }

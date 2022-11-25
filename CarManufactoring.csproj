@@ -34,4 +34,18 @@
     <Folder Include="wwwroot\documents\Grupo2\FilipeSantos\" />
     <Folder Include="wwwroot\documents\grupo5\Pedro_Matos\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\Aplicações Semelhantes\GuilhermeAlves_1701480_ES2.docx" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaCasoUsoProjeto\DiagramaCasoUsosProjeto.drawio" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaCasoUsoProjeto\DiagramaER.pdf" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaClassesProjeto\DiagramaDeClassesProjeto.drawio" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaCorrigidoRicardoAndrade\DiagramasRicardoAndrade.drawio" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaEstadosProjeto\DiagramaEstados.drawio" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaSequenciaProjeto\DiagramaSequenciaProjeto.drawio" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\Semantica de Classes\SemanticaClasseCliente.docx" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\UseCaseEstadoProjeto\UseCaseEstadoProjeto.docx" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\UseCaseTabelaProjeto.docx" />
+    <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\UserStoryProjeto\UserStoryProjeto.docx" />
+  </ItemGroup>
 </Project>
