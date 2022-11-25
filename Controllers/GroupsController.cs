@@ -7,10 +7,10 @@ namespace CarManufactoring.Controllers {
     public class GroupsController : Controller {
         public IActionResult Index() {
             var groups = GroupsStudents.Groups.OrderBy(g => g.Number);
+           
 
             return View(groups);
         }
-       
 
         // GET: Group/Details
         public IActionResult Details(string number)
