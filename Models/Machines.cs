@@ -10,11 +10,11 @@ namespace CarManufactoring.Models
 
         [Required]
         [StringLength(60, MinimumLength = 10)]
-        public string Brand { get; set; }
+        public string MachineBrand { get; set; }
 
         [Required]
         [StringLength(60, MinimumLength = 10)]
-        public string Model { get; set; }
+        public string MachineModel { get; set; }
 
         [Required]
         public bool Available { get; set; }
