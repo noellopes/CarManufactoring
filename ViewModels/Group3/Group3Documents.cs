@@ -25,7 +25,10 @@ namespace CarManufactoring.ViewModels.Group3
 
         public readonly static List<Documents> GuiDocuments = new List<Documents>()
         {
-
+          
+            new Documents {Name = "Use Cases Diagram ", DocPath= "/documents/Group3/GuilhermeAlves/Projeto_ES2/DiagramaCasoUsoProjeto/DiagramaCasoUsosProjeto.drawio.png"},
+            new Documents {Name = "Sequence Diagram", DocPath= "/documents/Group3/GuilhermeAlves/Projeto_ES2/DiagramaSequenciaProjeto/DiagramaSequenciaProjeto.drawio.png"},
+          
         };
 
         public readonly static List<Documents> RodrigoDocuments = new List<Documents>()
