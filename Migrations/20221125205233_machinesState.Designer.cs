@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221125205233_machinesState")]
+    partial class machinesState
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,7 +57,6 @@ namespace CarManufactoring.Migrations
 
                     b.ToTable("Collaborator");
                 });
-
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
@@ -100,33 +101,9 @@ namespace CarManufactoring.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineStateId"), 1L, 1);
 
                     b.Property<string>("StateMachine")
-
-            modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>
-                {
-                    b.Property<int>("TurnoColaboradoresId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
-
-                    b.Property<int>("dataEstado")
-                        .HasColumnType("int");
-
-                    b.Property<int>("dataFim")
-                        .HasColumnType("int");
-
-                    b.Property<int>("dataInicio")
-                        .HasColumnType("int");
-
-                    b.Property<int>("horas_turno")
-                        .HasColumnType("int");
-
-                    b.Property<string>("turnoEstado")
-
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
 
                     b.HasKey("MachineStateId");
 
@@ -142,7 +119,10 @@ namespace CarManufactoring.Migrations
                         .IsRequired();
                 });
 
-
+            modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>
+                {
+                    b.Navigation("Machines");
+                });
 #pragma warning restore 612, 618
         }
     }
