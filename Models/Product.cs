@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace CarManufactoring.Models {
-    public class Produto {
+    public class Product {
 
         public int ProdutoId {get; set;}
 
