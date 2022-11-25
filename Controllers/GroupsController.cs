@@ -1,16 +1,16 @@
 ﻿using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group1;
-using CarManufactoring.ViewModels.Group4;
 using Microsoft.AspNetCore.Mvc;
-
+using CarManufactoring.ViewModels.Group3;
+using CarManufactoring.ViewModels.Group4;
 namespace CarManufactoring.Controllers {
     public class GroupsController : Controller {
         public IActionResult Index() {
             var groups = GroupsStudents.Groups.OrderBy(g => g.Number);
+           
 
             return View(groups);
         }
-       
 
         // GET: Group/Details
         public IActionResult Details(string number)
@@ -24,18 +24,16 @@ namespace CarManufactoring.Controllers {
                 return View($"Details{number}", docs);
             }
 
-            if(number == "4")
+            if(number == "3")
             {
-                var docs = Group4Documents.GroupDocuments;
+                var docs = Group3Documents.G3Documents;
 
                 docs.Sort((a, b) => a.Name.CompareTo(b.Name));
 
                 return View($"Details{number}", docs);
             }
-
             return View($"Details{number}");
         }
-
 
         
     }
