@@ -15,5 +15,7 @@ namespace CarManufactoring.Data
         }
 
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.TurnoColaboradores> TurnoColaboradores { get; set; }
     }
 }
