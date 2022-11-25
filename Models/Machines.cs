@@ -23,6 +23,6 @@ namespace CarManufactoring.Models
         public DateTime AquisitionDate { get; set; }
 
         [Required]
-        public MachineState MachineStateId { get; set; }
+        public int MachineStateId { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace CarManufactoring.Models
         [StringLength(100)]
         public string StateMachine { get; set; }
 
+        public ICollection<Machines> Machines { get; set; }
+
     }
 }
