@@ -5,6 +5,7 @@ namespace CarManufactoring.Models {
 
         public int CollaboratorId { get; set; }
 
+
         [StringLength(100,MinimumLength = 10 ) ]
         [Required]
         public string Name { get; set; }
