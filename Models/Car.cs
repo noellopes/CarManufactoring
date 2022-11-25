@@ -9,11 +9,11 @@ namespace CarManufactoring.Models
        
         [Required]
         [StringLength(100, MinimumLength = 5)]
-        public string Name { get; set; }
+        public string CarName { get; set; }
         
         [Required]
         [StringLength(100, MinimumLength = 5)]
-        public string Model { get; set; }
+        public string CarModel { get; set; }
         
         [Required]
         public int LaunchYear { get; set; }
