@@ -99,51 +99,52 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineStateId"), 1L, 1);
 
-                    b.Property<string>("StateMachine")
+                    b.Property<string>("StateMachine");
 
-            modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>
-                {
-                    b.Property<int>("TurnoColaboradoresId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>
+                        {
+                            b.Property<int>("TurnoColaboradoresId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
 
-                    b.Property<int>("dataEstado")
-                        .HasColumnType("int");
+                            b.Property<int>("dataEstado")
+                                .HasColumnType("int");
 
-                    b.Property<int>("dataFim")
-                        .HasColumnType("int");
+                            b.Property<int>("dataFim")
+                                .HasColumnType("int");
 
-                    b.Property<int>("dataInicio")
-                        .HasColumnType("int");
+                            b.Property<int>("dataInicio")
+                                .HasColumnType("int");
 
-                    b.Property<int>("horas_turno")
-                        .HasColumnType("int");
+                            b.Property<int>("horas_turno")
+                                .HasColumnType("int");
 
-                    b.Property<string>("turnoEstado")
+                            b.Property<string>("turnoEstado")
 
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)");
 
 
-                    b.HasKey("MachineStateId");
+                            b.HasKey("MachineStateId");
 
-                    b.ToTable("MachineState");
-                });
+                            b.ToTable("MachineState");
+                        });
 
-            modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.MachineState", null)
-                        .WithMany("Machines")
-                        .HasForeignKey("MachineStateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                    modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
+                        {
+                            b.HasOne("CarManufactoring.Models.MachineState", null)
+                                .WithMany("Machines")
+                                .HasForeignKey("MachineStateId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
 
 
 #pragma warning restore 612, 618
+                });
         }
     }
 }
