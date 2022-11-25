@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("TurnoColaboradoresId,horas_turno,dataInicio,dataFim,turnoEstado,dataEstado")] TurnoColaboradores turnoColaboradores)
+        public async Task<IActionResult> Create([Bind("TurnoColaboradoresId,horas_turno,dataInicio,dataFim,turnoEstado")] TurnoColaboradores turnoColaboradores)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("TurnoColaboradoresId,horas_turno,dataInicio,dataFim,turnoEstado,dataEstado")] TurnoColaboradores turnoColaboradores)
+        public async Task<IActionResult> Edit(int id, [Bind("TurnoColaboradoresId,horas_turno,dataInicio,dataFim,turnoEstado")] TurnoColaboradores turnoColaboradores)
         {
             if (id != turnoColaboradores.TurnoColaboradoresId)
             {
