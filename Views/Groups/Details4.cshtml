@@ -1,8 +1,96 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using CarManufactoring.ViewModels.Group4;
+@model IEnumerable<Documents>
 @{
     ViewData["Title"] = "Group 4";
 }
 
-<h1 align="left">@ViewData["Title"]</h1>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <h1>
+                @ViewBag.Title 
+            </h1>
+            <h5> Gestão de máquinas/recursos para a produção</h5>
+            <hr />
+            
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover">
+                <!--<thead>
+                    <tr>
+                        <th scope="col">Documento</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>-->
+                <tbody>
+                    <div>
+                        <img class="img" src="~/documents/Group4/GroupDocuments/DocForProject_ESII-_2_.png" width="70%" height="70%" \>
+                    </div>
+                    
+                    <div>
+                        @foreach (Documents d in Model)
+                        {
+                        <tr>
+                            <td scope="col">@d.Name</td>
+                            <td>
+                                <button onclick="downloadPDF(`@d.Name`)" class="border-0">
+                                    <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    </div>
+                     
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+    function downloadPDF(name){
+
+        if (name == "Diagrama de Classes "){
+
+            var url = "/documents/Group4/GroupDocuments/Diagrama_de_Classes.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Diagrama de Estado ") {
+
+            var url = "/documents/Group4/GroupDocuments/Diagrama_de_Estado.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Diagrama de Caso de Uso ") {
+
+            var url = "/documents/Group4/GroupDocuments/Diagrama_de_Caso_de_Uso.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Diagrama de Sequencia ") {
+
+            var url = "/documents/Group4/GroupDocuments/Diagrama_de_Sequencia.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Fornecedores ") {
+
+            var url = "/documents/Group4/GroupDocuments/Fornecedores.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Tabela de Funcionalidades ") {
+
+            var url = "/documents/Group4/GroupDocuments/Tabela_de_Funcionalidades.pdf";
+
+            window.location.assign(url);
+        }
+
+    }
+
+</script>
