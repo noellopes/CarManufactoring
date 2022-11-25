@@ -3,6 +3,8 @@ using CarManufactoring.ViewModels.Group1;
 using Microsoft.AspNetCore.Mvc;
 using CarManufactoring.ViewModels.Group3;
 using CarManufactoring.ViewModels.Group4;
+using CarManufactoring.ViewModels.Group6;
+
 namespace CarManufactoring.Controllers {
     public class GroupsController : Controller {
         public IActionResult Index() {
@@ -36,6 +38,16 @@ namespace CarManufactoring.Controllers {
             if (number == "4")
             {
                 var docs = Group4Documents.GroupDocuments;
+
+                docs.Sort((a, b) => a.Name.CompareTo(b.Name));
+
+                return View($"Details{number}", docs);
+            }
+            
+
+            if (number == "6")
+            {
+                var docs = Group6Documents.GroupDocuments;
 
                 docs.Sort((a, b) => a.Name.CompareTo(b.Name));
 
