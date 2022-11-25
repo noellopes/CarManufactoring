@@ -5,12 +5,12 @@ namespace CarManufactoring.Models {
 
         public int CollaboratorId { get; set; }
 
+
+        [StringLength(100,MinimumLength = 10 ) ]
         [Required]
-        [StringLength(100, MinimumLength =1)]
         public string Name { get; set; }
 
         [Required]
-        
         public DateTime BirthDate { get; set; }
 
         [Required]
@@ -19,10 +19,11 @@ namespace CarManufactoring.Models {
         public string Phone { get; set; }
 
         [Required]
-        [StringLength(256)]
         [EmailAddress]
+        [StringLength(256)]
         public string Email { get; set; }
 
+        [Required]
         public bool Available { get; set; }
 
     }
