@@ -22,5 +22,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.TurnoColaboradores> TurnoColaboradores { get; set; }
 
+        public DbSet<CarManufactoring.Models.Car> Car { get; set; }
+
     }
 }
