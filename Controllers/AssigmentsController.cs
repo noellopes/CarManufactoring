@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 
+
 namespace CarManufactoring.Controllers
 {
     public class AssigmentsController : Controller
