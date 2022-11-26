@@ -4,18 +4,19 @@ namespace CarManufactoring.Models
 {
     public class Assigment
     {
-    public int AssigmentId { get; set; }
+        [Key]
+        public int AssigmentId { get; set; }
 
-    [StringLength(200, MinimumLength = 10)]
-    [Required]
-    public string Description { get; set; }
+        [StringLength(200, MinimumLength = 10)]
+        [Required]
+        public string Description { get; set; }
 
-    [Required]
-    [StringLength(100, MinimumLength = 5)]
-    public string State { get; set; }
+        [Required]
+        [StringLength(100, MinimumLength = 5)]
+        public string State { get; set; }
 
-    [Required]
-    public DateTime LimitDate { get; set; }
+        [Required]
+        public DateTime LimitDate { get; set; }
 
     }
 }
