@@ -7,9 +7,9 @@ namespace CarManufactoring.Models
         public int MachineStateId { get; set; }
         [Required]
         [StringLength(100)]
-        public string StateMachine { get; set; }
+        public string? StateMachine { get; set; }
 
-        public ICollection<Machines> Machines { get; set; }
+        public ICollection<Machines>? Machines { get; set; }
 
     }
 }

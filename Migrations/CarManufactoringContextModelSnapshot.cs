@@ -22,6 +22,35 @@ namespace CarManufactoring.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CarManufactoring.Models.Car", b =>
+                {
+                    b.Property<int>("CarId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarId"), 1L, 1);
+
+                    b.Property<double>("BasePrice")
+                        .HasColumnType("float");
+
+                    b.Property<string>("CarModel")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CarName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("LaunchYear")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarId");
+
+                    b.ToTable("Car");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.Property<int>("CollaboratorId")
@@ -55,7 +84,6 @@ namespace CarManufactoring.Migrations
 
                     b.ToTable("Collaborator");
                 });
-
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
@@ -99,57 +127,100 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineStateId"), 1L, 1);
 
-                    b.Property<string>("StateMachine");
+                    b.Property<string>("StateMachine")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>
-                        {
-                            b.Property<int>("TurnoColaboradoresId")
-                                .ValueGeneratedOnAdd()
-                                .HasColumnType("int");
+                    b.HasKey("MachineStateId");
 
-                            b.HasKey("MachineStateId");
-
-                            b.ToTable("MachineState");
-                        });
-
-                    modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
-                        {
-                            b.HasOne("CarManufactoring.Models.MachineState", null)
-                                .WithMany("Machines")
-                                .HasForeignKey("MachineStateId")
-                                .OnDelete(DeleteBehavior.Cascade)
-                                .IsRequired();
-                        });
-
-
-#pragma warning restore 612, 618
+                    b.ToTable("MachineState");
                 });
+
+            modelBuilder.Entity("CarManufactoring.Models.SemiFinished", b =>
+                {
+                    b.Property<int>("SemiFinishedId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SemiFinishedId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("EAN")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Family")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Manufacter")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("SemiFinishedState")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("SemiFinishedId");
+
+                    b.ToTable("SemiFinished");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>
-            {
-                b.Property<int>("TurnoColaboradoresId")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("int");
+                {
+                    b.Property<int>("TurnoColaboradoresId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
 
-                b.Property<int>("dataFim")
-                    .HasColumnType("int");
+                    b.Property<int>("dataFim")
+                        .HasColumnType("int");
 
-                b.Property<int>("dataInicio")
-                    .HasColumnType("int");
+                    b.Property<int>("dataInicio")
+                        .HasColumnType("int");
 
-                b.Property<int>("horas_turno")
-                    .HasColumnType("int");
+                    b.Property<int>("horas_turno")
+                        .HasColumnType("int");
 
-                b.Property<string>("turnoEstado")
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .HasColumnType("nvarchar(100)");
+                    b.Property<string>("turnoEstado")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                b.HasKey("TurnoColaboradoresId");
+                    b.HasKey("TurnoColaboradoresId");
 
-                b.ToTable("TurnoColaboradores");
-            });
+                    b.ToTable("TurnoColaboradores");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.MachineState", null)
+                        .WithMany("Machines")
+                        .HasForeignKey("MachineStateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>
+                {
+                    b.Navigation("Machines");
+                });
+#pragma warning restore 612, 618
         }
     }
 }
