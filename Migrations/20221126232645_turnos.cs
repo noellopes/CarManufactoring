@@ -4,7 +4,7 @@
 
 namespace CarManufactoring.Migrations
 {
-    public partial class turnosAtualizados : Migration
+    public partial class turnos : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

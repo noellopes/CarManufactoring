@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221126223403_turnosAtualizados")]
-    partial class turnosAtualizados
+    [Migration("20221126232645_turnos")]
+    partial class turnos
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,32 @@ namespace CarManufactoring.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CarManufactoring.Models.Assigment", b =>
+                {
+                    b.Property<int>("AssigmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssigmentId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("LimitDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("AssigmentId");
+
+                    b.ToTable("Assigment");
+                });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
                 {
@@ -190,11 +216,11 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
 
-                    b.Property<int>("dataFim")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("dataFim")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("dataInicio")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("dataInicio")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("horas_turno")
                         .HasColumnType("int");
