@@ -22,6 +22,32 @@ namespace CarManufactoring.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CarManufactoring.Models.Assigment", b =>
+                {
+                    b.Property<int>("AssigmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AssigmentId"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime>("LimitDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("AssigmentId");
+
+                    b.ToTable("Assigment");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
                 {
                     b.Property<int>("CarId")
@@ -188,11 +214,11 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
 
-                    b.Property<int>("dataFim")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("dataFim")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("dataInicio")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("dataInicio")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("horas_turno")
                         .HasColumnType("int");
