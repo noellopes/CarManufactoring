@@ -26,5 +26,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
 
+        public DbSet<CarManufactoring.Models.Assigment> Assigment { get; set; }
+
     }
 }
