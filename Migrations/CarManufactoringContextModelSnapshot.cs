@@ -107,27 +107,6 @@ namespace CarManufactoring.Migrations
                                 .ValueGeneratedOnAdd()
                                 .HasColumnType("int");
 
-                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
-
-                            b.Property<int>("dataEstado")
-                                .HasColumnType("int");
-
-                            b.Property<int>("dataFim")
-                                .HasColumnType("int");
-
-                            b.Property<int>("dataInicio")
-                                .HasColumnType("int");
-
-                            b.Property<int>("horas_turno")
-                                .HasColumnType("int");
-
-                            b.Property<string>("turnoEstado")
-
-                                .IsRequired()
-                                .HasMaxLength(100)
-                                .HasColumnType("nvarchar(100)");
-
-
                             b.HasKey("MachineStateId");
 
                             b.ToTable("MachineState");
@@ -145,6 +124,32 @@ namespace CarManufactoring.Migrations
 
 #pragma warning restore 612, 618
                 });
+            modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>
+            {
+                b.Property<int>("TurnoColaboradoresId")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TurnoColaboradoresId"), 1L, 1);
+
+                b.Property<int>("dataFim")
+                    .HasColumnType("int");
+
+                b.Property<int>("dataInicio")
+                    .HasColumnType("int");
+
+                b.Property<int>("horas_turno")
+                    .HasColumnType("int");
+
+                b.Property<string>("turnoEstado")
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .HasColumnType("nvarchar(100)");
+
+                b.HasKey("TurnoColaboradoresId");
+
+                b.ToTable("TurnoColaboradores");
+            });
         }
     }
 }
