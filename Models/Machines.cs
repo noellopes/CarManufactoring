@@ -10,16 +10,19 @@ namespace CarManufactoring.Models
 
         [Required]
         [StringLength(60, MinimumLength = 10)]
+        [Display(Name = "Brand")]
         public string? MachineBrand { get; set; }
 
         [Required]
         [StringLength(60, MinimumLength = 10)]
+        [Display(Name ="Model")]
         public string? MachineModel { get; set; }
 
         [Required]
         public bool Available { get; set; }
        
-        [Required]  
+        [Required]
+        [Display(Name = "Aquisition Date")]
         public DateTime AquisitionDate { get; set; }
 
         [Required]
