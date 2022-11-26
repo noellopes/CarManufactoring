@@ -13,10 +13,10 @@ namespace CarManufactoring.Models
         public int horas_turno { get; set; }
 
         [Required]
-        public int dataInicio { get; set; }
+        public DataType dataInicio { get; set; }
 
         [Required]
-        public int dataFim { get; set; }
+        public DataType dataFim { get; set; }
 
         [StringLength(100, MinimumLength = 10)]
         [Required]
