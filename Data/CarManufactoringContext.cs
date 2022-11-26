@@ -24,5 +24,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
+        public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
+
     }
 }
