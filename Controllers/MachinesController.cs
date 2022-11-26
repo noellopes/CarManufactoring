@@ -46,6 +46,7 @@ namespace CarManufactoring.Controllers
         // GET: Machines/Create
         public IActionResult Create()
         {
+            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
             return View();
         }
 
@@ -62,6 +63,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
             return View(machines);
         }
 
@@ -78,6 +80,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
             return View(machines);
         }
 
@@ -113,6 +116,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
             return View(machines);
         }
 
