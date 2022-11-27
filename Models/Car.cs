@@ -19,6 +19,7 @@ namespace CarManufactoring.Models
         public string CarModel { get; set; }
 
         //TODO : Get help if it is possible to use SystemDate 
+        //And to put directly on form 
         //static System.DateTime systemDate = System.DateTime.Now;
         //static int DateYear = systemDate.Year;
 
