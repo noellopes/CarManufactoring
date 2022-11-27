@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221126235605_CarMigrationUpdated")]
+    [Migration("20221127001838_CarMigrationUpdated")]
     partial class CarMigrationUpdated
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

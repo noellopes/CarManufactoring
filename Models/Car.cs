@@ -18,15 +18,9 @@ namespace CarManufactoring.Models
         [StringLength(100, MinimumLength = 4)]
         public string CarModel { get; set; }
 
-        //TODO : Get help if it is possible to use SystemDate 
-        //And to put directly on form 
-        //static System.DateTime systemDate = System.DateTime.Now;
-        //static int DateYear = systemDate.Year;
-
         [Required]
         [Display(Name = "Year of Launch")]
-        [Range(2023, maximum: 2023, ErrorMessage = "Must be between 1950 and 2023")]
-        public int LaunchYear { get; set; } = System.DateTime.Now.Year;        
+        public int LaunchYear { get; set; } = System.DateTime.Now.Year;     
         
         [Required]
         [Display(Name ="Base Price")]
