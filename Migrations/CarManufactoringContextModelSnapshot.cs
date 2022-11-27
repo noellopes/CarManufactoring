@@ -53,7 +53,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("CollaboratorId");
 
-                    b.ToTable("Collaborator");
+                    b.ToTable("Collaborator", (string)null);
                 });
 #pragma warning restore 612, 618
         }

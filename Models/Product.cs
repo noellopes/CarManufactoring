@@ -3,7 +3,8 @@
 namespace CarManufactoring.Models {
     public abstract class Product {
 
-        public int ProdutoId {get; set;}
+        [Key] // This is needed so the program knows what is the primary key of the descendants
+        public int ProductId { get; set; }
 
         [Required]
         [StringLength(9,MinimumLength =3)]
