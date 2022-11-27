@@ -22,6 +22,57 @@ namespace CarManufactoring.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CarManufactoring.Models.CarParts", b =>
+                {
+                    b.Property<int>("ProductId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
+
+                    b.Property<string>("CarBrand")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("CarModel")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("CarType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<decimal>("LevelService")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<int>("PointOfPurchase")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reference")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<int>("SafetyStock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StockState")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProductId");
+
+                    b.ToTable("CarParts");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.Property<int>("CollaboratorId")
@@ -53,7 +104,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("CollaboratorId");
 
-                    b.ToTable("Collaborator", (string)null);
+                    b.ToTable("Collaborator");
                 });
 #pragma warning restore 612, 618
         }
