@@ -24,12 +24,14 @@ namespace CarManufactoring.ViewModels {
             new Student { Name="Fabio Abreu", Number = "1704154", Group = 9},
             new Student { Name="Kevin Alves", Number="1704033", Group=7},
             new Student { Name="Francisco Pereira", Number="1704082", Group=7},
+            new Student { Name="Leonardo Marques", Number="1704008", Group=7},
             new Student { Name="Juan de Almeida Silva", Number = "1707787", Group = 4},
             new Student { Name="Jucimar Cabral da Costa", Number = "1012639", Group = 4},
             new Student { Name="Rafaela Lopes", Number = "1012659", Group = 4},
             new Student { Name="Propaulo De Sousa Martins Ferreira", Number = "1012646", Group = 8},
-            new Student { Name="Fabio Junior Viegas Marques", Number = "1012469", Group = 8}
-
+            new Student { Name="Fabio Junior Viegas Marques", Number = "1012469", Group = 8},
+            new Student {Name ="Mahmut Aran", Number="1707820", Group = 10},
+            new Student {Name ="Osman Can Ofraz", Number="1707785", Group = 10},
         };
 
         public readonly static List<Group> Groups = new List<Group>() {
@@ -41,7 +43,8 @@ namespace CarManufactoring.ViewModels {
             new Group{Number=6, Work="Gestão de Turnos da Produção"},
             new Group{Number=7, Work="Gestão de produtos semi-acabados"},
             new Group{Number=8, Work="Encomenda dos Clientes"},
-            new Group{Number=9, Work="Inspeção e testes de semi-acabados"}
+            new Group{Number=9, Work="Inspeção e testes de semi-acabados"},
+            new Group{Number=10,Work="scheduling people for the production line of a car factory"},
         };
     }
 

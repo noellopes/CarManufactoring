@@ -1,26 +1,60 @@
-﻿@{
-    
-    ViewData["Title"] = "Guilherme Alves Details";
+﻿@using CarManufactoring.ViewModels.Group1;
+@using CarManufactoring.ViewModels.Group3;
+@model IEnumerable<Documents>
+@{
+    ViewData["Title"] = "Guilherme Alves";
 }
 
-<h1><img align="right" class="img" src="~/img/students/1701480.jpg" width="100" height="100" \>@ViewData["Title"]</h1>
+
+<h1><img align="right" class="rounded-circle" src="/img/students/1701480.jpg">@ViewData["Title"]</h1>
 <h2>Group 3</h2>
+<h3>Number : 1701480</h3>
 
-
-<hr>
+<hr></hr>
 
 <h4> What I'm doing:</h4>
-<p>Atualizaçao  dos ficheiros individuais de ES2 e da informaçao pessoal </p>
+<p>Updating individual ES2 files and personal information </p>
 
 <h4>What I'm going to do:</h4>
 
-<p>Criaçao das classes relacionadas com a encomenda:
-<p>-Encomenda</p>
-<p>-Cliente</p>
-<p>-Linha de Venda</p>
+<p>Creation of classes related to the order:</p>
+<p>-Client</p>
+<p>-Order</p>
+<p>-Sales Line</p>
+
+<h4>What I've done so far: </h4>
+<p> Group and personal view with documentation with links implemented, uploaded documents and personal photo - 25/11/2022 </p>
+<p> Creation of classes related to the order (Client,Order,Sales Line) </p>
+<hr />
+
+<div class="row">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Format</th>
+            <th scope="col">Document</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+                    @foreach (Documents d in Model)
+                    {
+                    <tr>
+                        <td scope="col">
+                            <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                        </td>
+                        <td scope="col">@d.Name</td>
+                        <td>
+                            <a href="@d.DocPath" target="_blank">
+                                <img class="img-fluid" src="/documents/grupo1/img/download.png">
+                            </a>
+                        </td>
+                    </tr>
+                    }
+        </tbody>
+    </table>
+</div>
 
 <hr />
 
-<a class="btn btn-info">Personal documentation</a>
-
-<a class="btn btn-secondary" asp-controller="Groups" asp-action="Group3Details">Group Info</a>
+<a class="btn btn-secondary" asp-controller="Groups" asp-action="Details" asp-route-number="3">Group Info</a>
