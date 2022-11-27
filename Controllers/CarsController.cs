@@ -46,7 +46,8 @@ namespace CarManufactoring.Controllers
         // GET: Cars/Create
         public IActionResult Create()
         {
-            return View();
+            Car obj = new Car();
+            return View(obj);
         }
 
         // POST: Cars/Create
