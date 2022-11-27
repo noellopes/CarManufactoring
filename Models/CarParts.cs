@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace CarManufactoring.Models {
-    public class CarParts : Product { // CarParts inherence the attributes from Product
+    public class CarParts:Product { // CarParts inherence the attributes from Product
 
         [Required]
         [StringLength(20)]
