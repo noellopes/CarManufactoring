@@ -24,6 +24,7 @@ namespace CarManufactoring.Models
         
         [Required]
         [Display(Name ="Base Price")]
+        [Range(0,int.MaxValue, ErrorMessage ="Price must be greater than 0")]
         public Double BasePrice { get; set; }
     }
 }
