@@ -77,6 +77,34 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Car");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.CarConfig", b =>
+                {
+                    b.Property<int>("CarConfigId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarConfigId"), 1L, 1);
+
+                    b.Property<double>("AddedPrice")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConfigName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NumExtras")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarConfigId");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("CarConfig");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.Property<int>("CollaboratorId")
@@ -233,6 +261,17 @@ namespace CarManufactoring.Migrations
                     b.ToTable("TurnoColaboradores");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.CarConfig", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.Car", "Car")
+                        .WithMany("CarConfigs")
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
                     b.HasOne("CarManufactoring.Models.MachineState", "MachineState")
@@ -242,6 +281,11 @@ namespace CarManufactoring.Migrations
                         .IsRequired();
 
                     b.Navigation("MachineState");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Car", b =>
+                {
+                    b.Navigation("CarConfigs");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>

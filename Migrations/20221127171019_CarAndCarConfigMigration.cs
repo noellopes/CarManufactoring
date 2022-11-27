@@ -5,10 +5,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class CarMigrationUpdated : Migration
+    public partial class CarAndCarConfigMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Assigment",
+                columns: table => new
+                {
+                    AssigmentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    State = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LimitDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assigment", x => x.AssigmentId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Car",
                 columns: table => new
@@ -80,13 +95,35 @@ namespace CarManufactoring.Migrations
                     TurnoColaboradoresId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     horas_turno = table.Column<int>(type: "int", nullable: false),
-                    dataInicio = table.Column<int>(type: "int", nullable: false),
-                    dataFim = table.Column<int>(type: "int", nullable: false),
+                    dataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dataFim = table.Column<DateTime>(type: "datetime2", nullable: false),
                     turnoEstado = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TurnoColaboradores", x => x.TurnoColaboradoresId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarConfig",
+                columns: table => new
+                {
+                    CarConfigId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ConfigName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NumExtras = table.Column<int>(type: "int", nullable: false),
+                    AddedPrice = table.Column<double>(type: "float", nullable: false),
+                    CarId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CarConfig", x => x.CarConfigId);
+                    table.ForeignKey(
+                        name: "FK_CarConfig_Car_CarId",
+                        column: x => x.CarId,
+                        principalTable: "Car",
+                        principalColumn: "CarId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,6 +150,11 @@ namespace CarManufactoring.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CarConfig_CarId",
+                table: "CarConfig",
+                column: "CarId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Machines_MachineStateId",
                 table: "Machines",
                 column: "MachineStateId");
@@ -121,7 +163,10 @@ namespace CarManufactoring.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Car");
+                name: "Assigment");
+
+            migrationBuilder.DropTable(
+                name: "CarConfig");
 
             migrationBuilder.DropTable(
                 name: "Collaborator");
@@ -134,6 +179,9 @@ namespace CarManufactoring.Migrations
 
             migrationBuilder.DropTable(
                 name: "TurnoColaboradores");
+
+            migrationBuilder.DropTable(
+                name: "Car");
 
             migrationBuilder.DropTable(
                 name: "MachineState");
