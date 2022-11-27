@@ -1,21 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection.Metadata;
 
 namespace CarManufactoring.Models
 {
     public class Car
     {
-        [Required]
         public int CarId { get; set; }
        
         [Required]
         [Display(Name= "Name")]
-        [StringLength(100, MinimumLength = 4)]
+        [StringLength(100, MinimumLength = 2)]
         public string CarName { get; set; }
         
         [Required]
         [Display(Name ="Model")]
-        [StringLength(100, MinimumLength = 4)]
+        [StringLength(100, MinimumLength = 2)]
         public string CarModel { get; set; }
 
         [Required]
@@ -24,7 +22,9 @@ namespace CarManufactoring.Models
         
         [Required]
         [Display(Name ="Base Price")]
-        [Range(0,int.MaxValue, ErrorMessage ="Price must be greater than 0")]
-        public Double BasePrice { get; set; }
+        [Range(0,int.MaxValue, ErrorMessage ="Price must be greater than zero")]
+        public double BasePrice { get; set; }
+        
+        public ICollection<CarConfig>? CarConfigs { get; set; }
     }
 }
