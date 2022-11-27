@@ -16,6 +16,8 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
 
+        public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
+
         public DbSet<CarManufactoring.Models.MachineState> MachineState { get; set; }
 
         public DbSet<CarManufactoring.Models.Machines> Machines { get; set; }
