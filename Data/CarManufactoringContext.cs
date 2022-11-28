@@ -32,5 +32,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 
+        public DbSet<CarManufactoring.Models.SectionManager> SectionManager { get; set; }
+
     }
 }
