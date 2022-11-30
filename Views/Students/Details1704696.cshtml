@@ -14,28 +14,59 @@
             <hr />
         </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-6">
-            <img class="img-fluid" src="/documents/grupo1/tomas_esteves/tomas_esteves.jpg" />
+            <img class="img-fluid rounded-circle" src="/documents/grupo1/tomas_esteves/tomas_esteves.jpg" />
         </div>
         <div class="col-6">
             <h3>Trabalho a Realizar</h3>
             <ul class="nav">
                 <li class="nav-item">
-                    A preencher
+                   <ul class="list-group">
+                       <li class="list-item">
+                           Criar Modelo e Scafold da tabela "Trabalhos"
+                       </li>
+                   </ul>
                 </li>
             </ul>
             <hr />
             <h3>Trabalho Realizado</h3>
             <ul class="nav">
                 <li class="nav-item">
-                    A preencher
+                    <ul class="list-group">
+                        <li class="list-item">
+                            Modelo e Scafold da tabela "WorkStates"
+                        </li>
+                        <li class="list-item">
+                            Modelo e Scafold da tabela "Section Manager"
+                        </li>
+                        <li class="list-item">
+                            História de Utilizador para o responsável - Engenharia Software II
+                        </li>
+                        <li class="list-item">
+                            Diagrama de estados do projecto - Engenharia Software II
+                        </li>
+                        <li class="list-item">
+                            Diagrama de Semântica da Classe "Trabalho_Manutenção" - Engenharia Software II
+                        </li>
+                        <li class="list-item">
+                            Diagrama de classes do Projecto - Engenharia Software II
+                        </li>
+                        <li class="list-item">
+                            Diagrama de Actividades do Projecto - Engenharia Software II
+                        </li>
+                         <li class="list-item">
+                            Diagrama de casos de uso do projecto - Engenharia Software II
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
     
     <div class="row">
+        <h2>Documento</h2>
+        <hr />
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -52,7 +83,11 @@
                         <td scope="col">
                             <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
                         </td>
-                        <td scope="col">@d.Name</td>
+                        <td scope="col">
+                            <a class="text-black text-decoration-none " href="@d.DocPath" target="_blank">
+                                @d.Name
+                             </a>
+                        </td>
                         <td>
                             <a href="@d.DocPath" target="_blank">
                                 <img class="img-fluid " src="/documents/grupo1/img/download.png">
