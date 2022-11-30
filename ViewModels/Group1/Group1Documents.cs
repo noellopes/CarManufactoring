@@ -20,7 +20,10 @@
              new Documents {Name = "Diagrama de Classes ", DocPath="/documents/grupo1/Diogo_Neto/Diagrama de Classes - Projeto.drawio-2.pdf"},
              new Documents {Name = "Diagrama de Estados  ", DocPath="/documents/grupo1/Diogo_Neto/Diagrama de Estados_V2.pdf"},
              new Documents {Name = "Máquina - Semântica de Classes  ", DocPath="/documents/grupo1/Diogo_Neto/Máquina - Semântica de Classe.pdf"},
-            
+             new Documents {Name = "Descrição Caso de Uso ", DocPath="/documents/grupo1/Diogo_Neto/Descricao caso de uso.pdf"},
+             new Documents {Name = "User Story  ", DocPath="/documents/grupo1/Diogo_Neto/User Story.pdf"},
+             new Documents {Name = "Gestão de Máquina de Produção  ", DocPath="/documents/grupo1/Diogo_Neto/Gestão de Máquina de Produção.png"},
+
         };
     }
 }
