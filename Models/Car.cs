@@ -4,21 +4,27 @@ namespace CarManufactoring.Models
 {
     public class Car
     {
-        [Required]
         public int CarId { get; set; }
        
         [Required]
-        [StringLength(100, MinimumLength = 5)]
+        [Display(Name= "Name")]
+        [StringLength(100, MinimumLength = 2)]
         public string CarName { get; set; }
         
         [Required]
-        [StringLength(100, MinimumLength = 5)]
+        [Display(Name ="Model")]
+        [StringLength(100, MinimumLength = 2)]
         public string CarModel { get; set; }
+
+        [Required]
+        [Display(Name = "Year of Launch")]
+        public int LaunchYear { get; set; } = System.DateTime.Now.Year;     
         
         [Required]
-        public int LaunchYear { get; set; }
+        [Display(Name ="Base Price")]
+        [Range(0,int.MaxValue, ErrorMessage ="Price must be greater than zero")]
+        public double BasePrice { get; set; }
         
-        [Required]
-        public Double BasePrice { get; set; }
+        public ICollection<CarConfig>? CarConfigs { get; set; }
     }
 }
