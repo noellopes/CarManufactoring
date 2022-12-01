@@ -38,5 +38,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Client> Client { get; set; }
 
+        public DbSet<CarManufactoring.Models.Order> Order { get; set; }
+
     }
 }
