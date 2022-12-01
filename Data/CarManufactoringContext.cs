@@ -40,5 +40,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Order> Order { get; set; }
 
+        public DbSet<CarManufactoring.Models.Section> Section { get; set; }
+
     }
 }
