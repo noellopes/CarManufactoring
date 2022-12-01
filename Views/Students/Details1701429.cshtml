@@ -1,0 +1,50 @@
+﻿@{
+	ViewData["Title"] = "Rui Condesso Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+<img class="img-fluid" src="~/img/students/1701429.jpg" width="100" height="200" />
+<p>student number: 1701429</p>
+
+
+<h2>Tarefas de Rui Condesso</h2>
+
+<table class="table">
+    <thead class="table-dark">
+        <tr>
+            <th>
+                To Do
+            </th>
+            <th>
+                Doing
+            </th>
+            <th>
+                Done
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <ul class="list-group">
+                    <li class="list-group-item">Criar classe produção</li>
+                    <li class="list-group-item">Update group5 details</li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-group">
+                    <li class="list-group-item">Group details (updated)</li>
+                </ul>
+            </td>
+            <td>
+                <ul class="list-group">
+                    <li class="list-group-item">Student details (updated)</li>
+                    <li class="list-group-item">Group details</li>
+                    <li class="list-group-item">Student details</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+ <a asp-controller="Groups" asp-action="Details" asp-route-number = "5" class="btn btn-info">Groupe Information</a>
