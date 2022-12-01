@@ -36,5 +36,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.WorkStates> WorkStates { get; set; }
 
+        public DbSet<CarManufactoring.Models.Client> Client { get; set; }
+
     }
 }
