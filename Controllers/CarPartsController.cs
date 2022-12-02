@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarType,CarModel,CarBrand,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService,StockState")] CarParts carParts)
+        public async Task<IActionResult> Create([Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarType,CarModel,CarBrand,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService,StockState")] CarParts carParts)
+        public async Task<IActionResult> Edit(int id, [Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
         {
             if (id != carParts.ProductId)
             {

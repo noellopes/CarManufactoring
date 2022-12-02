@@ -13,13 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CarType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarModel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CarBrand)
+                @Html.DisplayNameFor(model => model.PartType)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Reference)
@@ -36,9 +30,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.LevelService)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StockState)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -46,13 +37,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CarType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarModel)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CarBrand)
+                @Html.DisplayFor(modelItem => item.PartType)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Reference)
@@ -68,9 +53,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LevelService)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StockState)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |

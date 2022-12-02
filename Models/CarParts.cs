@@ -5,15 +5,9 @@ namespace CarManufactoring.Models {
 
         //TODO: Change these attributes to something more specific to a car part.
         [Required]
-        [StringLength(20)]
-        public string CarType { get; set; } //light-duty or heavy-duty vehicle
+        [StringLength(120, MinimumLength = 3)]
+        public string PartType { get; set; } //i.e Filters, brakes, ignition, suspension, etc.
 
-        [Required]
-        [StringLength(80, MinimumLength =3)]
-        public string CarModel { get; set; }
-
-        [Required]
-        [StringLength(80, MinimumLength = 3)]
-        public string CarBrand { get; set; }
+        
     }
 }

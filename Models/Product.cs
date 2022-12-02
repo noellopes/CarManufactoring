@@ -7,7 +7,7 @@ namespace CarManufactoring.Models {
         public int ProductId { get; set; }
 
         [Required]
-        [StringLength(9,MinimumLength =3)]
+        [StringLength(20,MinimumLength =3)]
         public string Reference { get; set; }
 
         [Required]
@@ -15,10 +15,10 @@ namespace CarManufactoring.Models {
         public string Name { get; set; }
 
         [Required]
-        public int PointOfPurchase { get; set; }
+        public double PointOfPurchase { get; set; }
 
         [Required]
-        public int SafetyStock { get; set; }
+        public double SafetyStock { get; set; }
 
         [Required]
         [Range(0,1)]
