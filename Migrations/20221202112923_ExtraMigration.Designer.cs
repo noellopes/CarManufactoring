@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221202112923_ExtraMigration")]
+    partial class ExtraMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,32 +245,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Estimate");
                 });
 
-
-            modelBuilder.Entity("CarManufactoring.Models.InspectionAndTesting", b =>
-                {
-                    b.Property<int>("InspectionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InspectionId"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("InspectionId");
-
-                    b.ToTable("inspectionAndTestings");
-
             modelBuilder.Entity("CarManufactoring.Models.Extra", b =>
                 {
                     b.Property<int>("ExtraID")
@@ -288,7 +264,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("ExtraID");
 
                     b.ToTable("Extra");
-
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
