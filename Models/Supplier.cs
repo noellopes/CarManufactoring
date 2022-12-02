@@ -9,7 +9,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Name")]
-        [StringLength(100, MinimumLength = 10)]
+        [StringLength(100, MinimumLength = 2)]
         public string SupplierName { get; set; }
 
         [Required]
@@ -20,7 +20,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Phone Number")]
-        [StringLength(13)]
+        [StringLength(20)]
         [Phone]
         public string SupplierContact { get; set; }
     }
