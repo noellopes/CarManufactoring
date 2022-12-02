@@ -14,7 +14,30 @@ namespace CarManufactoring.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<CollaboratorShift>().HasKey(cs => new { cs.ShifId, cs.CollaboratorId });
+
+            modelBuilder.Entity<CollaboratorShift>()
+                .HasOne(cs => cs.Shift)
+                .WithMany(c => c.Collaborators)
+                .HasForeignKey(cs => cs.ShifId);
+
+            modelBuilder.Entity<CollaboratorShift>()
+                .HasOne(cs => cs.Shift)
+                .WithMany(s => s.Collaborators)
+                .HasForeignKey(cs => cs.ShifId);
+        }
+
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.Shift> Shift { get; set; }
+
+        public DbSet<CarManufactoring.Models.Task> Task { get; set; }
+
+        public DbSet<CarManufactoring.Models.CollaboratorShift> CollaboratorShift { get; set; } = default!;
 
         public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
 
@@ -22,13 +45,9 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Machines> Machines { get; set; }
 
-        public DbSet<CarManufactoring.Models.TurnoColaboradores> TurnoColaboradores { get; set; }
-
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
-
-        public DbSet<CarManufactoring.Models.Assigment> Assigment { get; set; }
 
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 

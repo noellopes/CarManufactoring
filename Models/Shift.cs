@@ -5,23 +5,25 @@ using System.Data;
 using System.ComponentModel.DataAnnotations;
 namespace CarManufactoring.Models
 {
-    public class TurnoColaboradores
+    public class Shift
     {
         //chave primária
         [Key]
-        public int TurnoColaboradoresId  {get;set;}
+        public int ShiftId { get; set; }
 
         [Required]
-        public int horas_turno { get; set; }
+        public int ShiftHours { get; set; }
 
         [Required]
-        public DateTime dataInicio { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required]
-        public DateTime dataFim { get; set; }
+        public DateTime EndDate { get; set; }
+
+        public ICollection<CollaboratorShift>? Collaborators { get; set; }
 
         [StringLength(100, MinimumLength = 10)]
         [Required]
-        public string turnoEstado { get; set; }
+        public string ShiftStatus { get; set; }
     }
 }

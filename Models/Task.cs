@@ -2,10 +2,10 @@
 
 namespace CarManufactoring.Models
 {
-    public class Assigment
+    public class Task
     {
         [Key]
-        public int AssigmentId { get; set; }
+        public int TaskId { get; set; }
 
         [StringLength(200, MinimumLength = 10)]
         [Required]
