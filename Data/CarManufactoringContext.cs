@@ -42,8 +42,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Section> Section { get; set; }
 
-        public DbSet<CarManufactoring.Models.InspectionAndTesting> inspectionAndTestings { get; set; }
-
 
 
 
