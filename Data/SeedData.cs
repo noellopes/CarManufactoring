@@ -7,7 +7,6 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
             PopulateSemiFinisheds(db);
-            PopulateInspectionTesting(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -22,22 +21,6 @@ namespace CarManufactoring.Data
                 new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", EAN = "4047026300192", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
 
                 );
-
-            db.SaveChanges();
-        }
-
-        private static void PopulateInspectionTesting(CarManufactoringContext db)
-        {
-            if (db.inspectionAndTestings.Any()) return;
-
-
-            db.inspectionAndTestings.AddRange(
-            
-                new InspectionAndTesting { Date = new DateTime(2022 , 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues."},
-                new InspectionAndTesting { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test."},
-                new InspectionAndTesting { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested." }
-
-            );
 
             db.SaveChanges();
         }

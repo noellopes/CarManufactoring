@@ -243,32 +243,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Estimate");
                 });
 
-
-            modelBuilder.Entity("CarManufactoring.Models.InspectionAndTesting", b =>
-                {
-                    b.Property<int>("InspectionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InspectionId"), 1L, 1);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("InspectionId");
-
-                    b.ToTable("inspectionAndTestings");
-
             modelBuilder.Entity("CarManufactoring.Models.Extra", b =>
                 {
                     b.Property<int>("ExtraID")
@@ -288,7 +262,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("ExtraID");
 
                     b.ToTable("Extra");
-
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
