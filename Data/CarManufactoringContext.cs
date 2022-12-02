@@ -48,5 +48,11 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Estimate> Estimate { get; set; }
 
+
+
+
+
+        public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
+
     }
 }
