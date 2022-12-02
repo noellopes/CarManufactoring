@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221202111114_InspectionTesting")]
+    partial class InspectionTesting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,7 +245,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Estimate");
                 });
 
-
             modelBuilder.Entity("CarManufactoring.Models.InspectionAndTesting", b =>
                 {
                     b.Property<int>("InspectionId")
@@ -268,27 +269,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("InspectionId");
 
                     b.ToTable("inspectionAndTestings");
-
-            modelBuilder.Entity("CarManufactoring.Models.Extra", b =>
-                {
-                    b.Property<int>("ExtraID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExtraID"), 1L, 1);
-
-                    b.Property<string>("DescExtra")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.HasKey("ExtraID");
-
-                    b.ToTable("Extra");
-
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
