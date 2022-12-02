@@ -3,6 +3,7 @@
 namespace CarManufactoring.Models {
     public class CarParts:Product { // CarParts inherence the attributes from Product
 
+        //TODO: Change these attributes to something more specific to a car part.
         [Required]
         [StringLength(20)]
         public string CarType { get; set; } //light-duty or heavy-duty vehicle

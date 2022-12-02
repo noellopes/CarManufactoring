@@ -24,8 +24,7 @@ namespace CarManufactoring.Models {
         [Range(0,1)]
         public decimal LevelService { get; set; }
 
-        [Required]
-        public string StockState { get; set; } //String for now, will later change to it's corresponding state type
+        public string StockState { get; } //Changed to method to not be inside the database
 
         //Methods (will be added later)
     }
