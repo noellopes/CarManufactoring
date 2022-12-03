@@ -21,9 +21,14 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Assigments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string description = null, string state = null, DateTime limiteDate = default(DateTime))
         {
-              return View(await _context.Assigment.ToListAsync());
+
+            var assigment = _context.Assigment.OrderBy(b => b.LimitDate);
+            return View(assigment);
+
+            
+            
         }
 
         // GET: Assigments/Details/5
@@ -61,6 +66,9 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(assigment);
                 await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
                 return RedirectToAction(nameof(Index));
             }
             return View(assigment);
