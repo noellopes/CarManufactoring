@@ -29,5 +29,8 @@ namespace CarManufactoring.Models
         [Display(Name ="Machine State")]
         public int MachineStateId { get; set; }
         public MachineState? MachineState { get; set; }
+
+        public int SectionId { get; set; }
+        public Section? Section { get; set; }
     }
 }

@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: SectionManagers
         public async Task<IActionResult> Index()
         {
-              return View(await _context.SectionManager.ToListAsync());
+            var carManufactoringContext = _context.SectionManager.Include(s => s.Section);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: SectionManagers/Details/5
@@ -34,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var sectionManager = await _context.SectionManager
+                .Include(s => s.Section)
                 .FirstOrDefaultAsync(m => m.SectionManagerId == id);
             if (sectionManager == null)
             {
@@ -46,6 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: SectionManagers/Create
         public IActionResult Create()
         {
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SectionManagerId,Name,BirthDate,Phone,Email,Section")] SectionManager sectionManager)
+        public async Task<IActionResult> Create([Bind("SectionManagerId,Name,BirthDate,Phone,Email,SectionId")] SectionManager sectionManager)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
             return View(sectionManager);
         }
 
@@ -78,6 +82,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
             return View(sectionManager);
         }
 
@@ -86,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SectionManagerId,Name,BirthDate,Phone,Email,Section")] SectionManager sectionManager)
+        public async Task<IActionResult> Edit(int id, [Bind("SectionManagerId,Name,BirthDate,Phone,Email,SectionId")] SectionManager sectionManager)
         {
             if (id != sectionManager.SectionManagerId)
             {
@@ -113,6 +118,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
             return View(sectionManager);
         }
 
@@ -125,6 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var sectionManager = await _context.SectionManager
+                .Include(s => s.Section)
                 .FirstOrDefaultAsync(m => m.SectionManagerId == id);
             if (sectionManager == null)
             {
