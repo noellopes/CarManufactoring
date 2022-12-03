@@ -110,6 +110,10 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(assigment);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = assigment.AssigmentId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
