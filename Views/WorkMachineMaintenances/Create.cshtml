@@ -1,0 +1,69 @@
+﻿@model CarManufactoring.Models.WorkMachineMaintenance
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>WorkMachineMaintenance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaintenanceStateDate" class="control-label"></label>
+                <input asp-for="MaintenanceStateDate" class="form-control" />
+                <span asp-validation-for="MaintenanceStateDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkPriority" class="control-label"></label>
+                <input asp-for="WorkPriority" class="form-control" />
+                <span asp-validation-for="WorkPriority" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Deleted" class="control-label"></label>
+                <input asp-for="Deleted" class="form-control" />
+                <span asp-validation-for="Deleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreationDate" class="control-label"></label>
+                <input asp-for="CreationDate" class="form-control" />
+                <span asp-validation-for="CreationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreviewStartDate" class="control-label"></label>
+                <input asp-for="PreviewStartDate" class="form-control" />
+                <span asp-validation-for="PreviewStartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollaboratorId" class="control-label"></label>
+                <select asp-for="CollaboratorId" class ="form-control" asp-items="ViewBag.CollaboratorId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SectionManagerId" class="control-label"></label>
+                <select asp-for="SectionManagerId" class ="form-control" asp-items="ViewBag.SectionManagerId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaintenanceTaskId" class="control-label"></label>
+                <select asp-for="MaintenanceTaskId" class ="form-control" asp-items="ViewBag.MaintenanceTaskId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="WorkStatesId" class="control-label"></label>
+                <select asp-for="WorkStatesId" class ="form-control" asp-items="ViewBag.WorkStatesId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

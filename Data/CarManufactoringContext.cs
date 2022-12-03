@@ -54,5 +54,17 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
 
+
+
+
+
+        public DbSet<CarManufactoring.Models.WorkMachineMaintenance> WorkMachineMaintenance { get; set; }
+
+
+
+
+
+        public DbSet<CarManufactoring.Models.MaintenanceTask> MaintenanceTask { get; set; }
+
     }
 }
