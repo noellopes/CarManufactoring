@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221203122224_correctMachines")]
+    partial class correctMachines
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,9 +293,14 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("MachineStateId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
+
                     b.HasKey("MachinesId");
 
                     b.HasIndex("MachineStateId");
+
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Machines");
                 });
@@ -384,11 +391,12 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<bool>("Section")
-                        .HasMaxLength(20)
-                        .HasColumnType("bit");
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
 
                     b.HasKey("SectionManagerId");
+
+                    b.HasIndex("SectionId");
 
                     b.ToTable("SectionManager");
                 });
@@ -500,7 +508,26 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarManufactoring.Models.Section", "Section")
+                        .WithMany("Machines")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("MachineState");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.Section", "Section")
+                        .WithMany("Manager")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
@@ -511,6 +538,13 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>
                 {
                     b.Navigation("Machines");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Section", b =>
+                {
+                    b.Navigation("Machines");
+
+                    b.Navigation("Manager");
                 });
 #pragma warning restore 612, 618
         }

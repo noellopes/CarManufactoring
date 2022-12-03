@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Section)
+                @Html.DisplayFor(modelItem => item.Section.Name)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.SectionManagerId">Edit</a> |

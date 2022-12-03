@@ -25,7 +25,8 @@ namespace CarManufactoring.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public bool Section { get; set; }
+     
+        public int SectionId { get; set; }
+        public Section? Section { get; set; }
     }
 }
