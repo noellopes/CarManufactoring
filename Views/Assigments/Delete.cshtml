@@ -1,14 +1,13 @@
 ﻿@model CarManufactoring.Models.Assigment
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Assigment";
 }
 
-<h1>Delete</h1>
+<h2>@ViewBag.Title</h2>
 
-<h3>Are you sure you want to delete this?</h3>
+<h4>Are you sure you want to delete this Assigment?</h4>
 <div>
-    <h4>Assigment</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -33,7 +32,7 @@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="AssigmentId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
