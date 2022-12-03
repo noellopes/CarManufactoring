@@ -5,6 +5,8 @@ using System.Xml.Linq;
 
 namespace CarManufactoring.Models
 {
+
+    //Orçamento de máquinas
     public class Estimate
     {
         public int EstimateID { get; set; }
