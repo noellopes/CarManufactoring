@@ -111,7 +111,7 @@ namespace CarManufactoring.Controllers
                     _context.Update(assigment);
                     await _context.SaveChangesAsync();
 
-                    TempData["SuccessMessage"] = "Assigment created successfully.";
+                    TempData["SuccessMessage"] = "Assigment edited successfully.";
 
                     return RedirectToAction(nameof(Details), new { id = assigment.AssigmentId });
                 }
@@ -162,10 +162,10 @@ namespace CarManufactoring.Controllers
             if (assigment != null)
             {
                 _context.Assigment.Remove(assigment);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("AssigmentDeleted");
         }
 
         private bool AssigmentExists(int id)
