@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 
 namespace CarManufactoring.Controllers
@@ -46,6 +47,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(assigment);
         }
 
@@ -69,7 +71,7 @@ namespace CarManufactoring.Controllers
 
                 TempData["SuccessMessage"] = "Assigment created successfully.";
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details),new {id = assigment.AssigmentId});
             }
             return View(assigment);
         }
