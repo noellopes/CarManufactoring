@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: WorkMachineMaintenances
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.WorkMachineMaintenance.Include(w => w.Collaborator).Include(w => w.MaintenanceTask).Include(w => w.SectionManager).Include(w => w.WorkStates);
+            var carManufactoringContext = _context.WorkMachineMaintenance.Include(w => w.Machines).Include(w => w.MaintenanceTask).Include(w => w.SectionManager).Include(w => w.WorkStates);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var workMachineMaintenance = await _context.WorkMachineMaintenance
-                .Include(w => w.Collaborator)
+                .Include(w => w.Machines)
                 .Include(w => w.MaintenanceTask)
                 .Include(w => w.SectionManager)
                 .Include(w => w.WorkStates)
@@ -51,8 +51,8 @@ namespace CarManufactoring.Controllers
         // GET: WorkMachineMaintenances/Create
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
-            ViewData["MaintenanceTaskId"] = new SelectList(_context.Set<MaintenanceTask>(), "MaintenanceTaskId", "TaskDef");
+            ViewData["MachinesId"] = new SelectList(_context.Machines, "MachinesId", "MachineBrand");
+            ViewData["MaintenanceTaskId"] = new SelectList(_context.MaintenanceTask, "MaintenanceTaskId", "TaskDef");
             ViewData["SectionManagerId"] = new SelectList(_context.SectionManager, "SectionManagerId", "Name");
             ViewData["WorkStatesId"] = new SelectList(_context.WorkStates, "WorkStatesId", "StateWork");
             return View();
@@ -63,7 +63,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkMachineMaintenanceId,MaintenanceStateDate,WorkPriority,Deleted,CreationDate,PreviewStartDate,CollaboratorId,SectionManagerId,MaintenanceTaskId,WorkStatesId")] WorkMachineMaintenance workMachineMaintenance)
+        public async Task<IActionResult> Create([Bind("WorkMachineMaintenanceId,MaintenanceStateDate,WorkPriority,Deleted,CreationDate,PreviewStartDate,MachinesId,SectionManagerId,MaintenanceTaskId,WorkStatesId")] WorkMachineMaintenance workMachineMaintenance)
         {
             if (ModelState.IsValid)
             {
@@ -71,8 +71,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", workMachineMaintenance.CollaboratorId);
-            ViewData["MaintenanceTaskId"] = new SelectList(_context.Set<MaintenanceTask>(), "MaintenanceTaskId", "TaskDef", workMachineMaintenance.MaintenanceTaskId);
+            ViewData["MachinesId"] = new SelectList(_context.Machines, "MachinesId", "MachineBrand", workMachineMaintenance.MachinesId);
+            ViewData["MaintenanceTaskId"] = new SelectList(_context.MaintenanceTask, "MaintenanceTaskId", "TaskDef", workMachineMaintenance.MaintenanceTaskId);
             ViewData["SectionManagerId"] = new SelectList(_context.SectionManager, "SectionManagerId", "Name", workMachineMaintenance.SectionManagerId);
             ViewData["WorkStatesId"] = new SelectList(_context.WorkStates, "WorkStatesId", "StateWork", workMachineMaintenance.WorkStatesId);
             return View(workMachineMaintenance);
@@ -91,8 +91,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", workMachineMaintenance.CollaboratorId);
-            ViewData["MaintenanceTaskId"] = new SelectList(_context.Set<MaintenanceTask>(), "MaintenanceTaskId", "TaskDef", workMachineMaintenance.MaintenanceTaskId);
+            ViewData["MachinesId"] = new SelectList(_context.Machines, "MachinesId", "MachineBrand", workMachineMaintenance.MachinesId);
+            ViewData["MaintenanceTaskId"] = new SelectList(_context.MaintenanceTask, "MaintenanceTaskId", "TaskDef", workMachineMaintenance.MaintenanceTaskId);
             ViewData["SectionManagerId"] = new SelectList(_context.SectionManager, "SectionManagerId", "Name", workMachineMaintenance.SectionManagerId);
             ViewData["WorkStatesId"] = new SelectList(_context.WorkStates, "WorkStatesId", "StateWork", workMachineMaintenance.WorkStatesId);
             return View(workMachineMaintenance);
@@ -103,7 +103,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WorkMachineMaintenanceId,MaintenanceStateDate,WorkPriority,Deleted,CreationDate,PreviewStartDate,CollaboratorId,SectionManagerId,MaintenanceTaskId,WorkStatesId")] WorkMachineMaintenance workMachineMaintenance)
+        public async Task<IActionResult> Edit(int id, [Bind("WorkMachineMaintenanceId,MaintenanceStateDate,WorkPriority,Deleted,CreationDate,PreviewStartDate,MachinesId,SectionManagerId,MaintenanceTaskId,WorkStatesId")] WorkMachineMaintenance workMachineMaintenance)
         {
             if (id != workMachineMaintenance.WorkMachineMaintenanceId)
             {
@@ -130,8 +130,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", workMachineMaintenance.CollaboratorId);
-            ViewData["MaintenanceTaskId"] = new SelectList(_context.Set<MaintenanceTask>(), "MaintenanceTaskId", "TaskDef", workMachineMaintenance.MaintenanceTaskId);
+            ViewData["MachinesId"] = new SelectList(_context.Machines, "MachinesId", "MachineBrand", workMachineMaintenance.MachinesId);
+            ViewData["MaintenanceTaskId"] = new SelectList(_context.MaintenanceTask, "MaintenanceTaskId", "TaskDef", workMachineMaintenance.MaintenanceTaskId);
             ViewData["SectionManagerId"] = new SelectList(_context.SectionManager, "SectionManagerId", "Name", workMachineMaintenance.SectionManagerId);
             ViewData["WorkStatesId"] = new SelectList(_context.WorkStates, "WorkStatesId", "StateWork", workMachineMaintenance.WorkStatesId);
             return View(workMachineMaintenance);
@@ -146,7 +146,7 @@ namespace CarManufactoring.Controllers
             }
 
             var workMachineMaintenance = await _context.WorkMachineMaintenance
-                .Include(w => w.Collaborator)
+                .Include(w => w.Machines)
                 .Include(w => w.MaintenanceTask)
                 .Include(w => w.SectionManager)
                 .Include(w => w.WorkStates)
