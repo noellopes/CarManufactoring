@@ -25,9 +25,8 @@ namespace CarManufactoring.Models
         public DateTime PreviewStartDate { get; set; }
 
         [Required]
-        public int CollaboratorId { get; set; }
-        public Collaborator Collaborator { get; set; }
-
+        public int MachinesId { get; set; }
+        public Machines Machines { get; set; }
         [Required]
         public int SectionManagerId { get; set; }
         public SectionManager SectionManager { get; set; }

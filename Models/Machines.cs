@@ -32,5 +32,7 @@ namespace CarManufactoring.Models
 
         public int SectionId { get; set; }
         public Section? Section { get; set; }
+
+        public IEnumerable<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
     }
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221203170734_WorkMacinheMaintenance")]
-    partial class WorkMacinheMaintenance
+    [Migration("20221204131018_CorrectClass")]
+    partial class CorrectClass
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -497,15 +497,15 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkMachineMaintenanceId"), 1L, 1);
 
-                    b.Property<int>("CollaboratorId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool?>("Deleted")
                         .IsRequired()
                         .HasColumnType("bit");
+
+                    b.Property<int>("MachinesId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("MaintenanceStateDate")
                         .HasColumnType("datetime2");
@@ -528,7 +528,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("WorkMachineMaintenanceId");
 
-                    b.HasIndex("CollaboratorId");
+                    b.HasIndex("MachinesId");
 
                     b.HasIndex("MaintenanceTaskId");
 
@@ -600,9 +600,9 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.WorkMachineMaintenance", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
+                    b.HasOne("CarManufactoring.Models.Machines", "Machines")
                         .WithMany("WorkMachineMaintenances")
-                        .HasForeignKey("CollaboratorId")
+                        .HasForeignKey("MachinesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -624,7 +624,7 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Collaborator");
+                    b.Navigation("Machines");
 
                     b.Navigation("MaintenanceTask");
 
@@ -638,7 +638,7 @@ namespace CarManufactoring.Migrations
                     b.Navigation("CarConfigs");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
+            modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
                     b.Navigation("WorkMachineMaintenances");
                 });

@@ -26,7 +26,7 @@ namespace CarManufactoring.Models {
         [Required]
         public bool Available { get; set; }
 
-        public ICollection<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
+        
 
     }
 }

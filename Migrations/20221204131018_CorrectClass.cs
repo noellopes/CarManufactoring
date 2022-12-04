@@ -5,10 +5,16 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class WorkMacinheMaintenance : Migration
+    public partial class CorrectClass : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+           
+
+          
+
+          
+
            
 
             migrationBuilder.CreateTable(
@@ -22,7 +28,7 @@ namespace CarManufactoring.Migrations
                     Deleted = table.Column<bool>(type: "bit", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     PreviewStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CollaboratorId = table.Column<int>(type: "int", nullable: false),
+                    MachinesId = table.Column<int>(type: "int", nullable: false),
                     SectionManagerId = table.Column<int>(type: "int", nullable: false),
                     MaintenanceTaskId = table.Column<int>(type: "int", nullable: false),
                     WorkStatesId = table.Column<int>(type: "int", nullable: false)
@@ -31,10 +37,10 @@ namespace CarManufactoring.Migrations
                 {
                     table.PrimaryKey("PK_WorkMachineMaintenance", x => x.WorkMachineMaintenanceId);
                     table.ForeignKey(
-                        name: "FK_WorkMachineMaintenance_Collaborator_CollaboratorId",
-                        column: x => x.CollaboratorId,
-                        principalTable: "Collaborator",
-                        principalColumn: "CollaboratorId",
+                        name: "FK_WorkMachineMaintenance_Machines_MachinesId",
+                        column: x => x.MachinesId,
+                        principalTable: "Machines",
+                        principalColumn: "MachinesId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_WorkMachineMaintenance_MaintenanceTask_MaintenanceTaskId",
@@ -47,7 +53,7 @@ namespace CarManufactoring.Migrations
                         column: x => x.SectionManagerId,
                         principalTable: "SectionManager",
                         principalColumn: "SectionManagerId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                     table.ForeignKey(
                         name: "FK_WorkMachineMaintenance_WorkStates_WorkStatesId",
                         column: x => x.WorkStatesId,
@@ -56,11 +62,12 @@ namespace CarManufactoring.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+          
 
             migrationBuilder.CreateIndex(
-                name: "IX_WorkMachineMaintenance_CollaboratorId",
+                name: "IX_WorkMachineMaintenance_MachinesId",
                 table: "WorkMachineMaintenance",
-                column: "CollaboratorId");
+                column: "MachinesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkMachineMaintenance_MaintenanceTaskId",
@@ -80,12 +87,12 @@ namespace CarManufactoring.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-           
+            
 
             migrationBuilder.DropTable(
                 name: "WorkMachineMaintenance");
 
-       
+      
         }
     }
 }
