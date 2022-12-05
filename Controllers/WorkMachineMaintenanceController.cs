@@ -10,11 +10,11 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class WorkMachineMaintenancesController : Controller
+    public class WorkMachineMaintenanceController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public WorkMachineMaintenancesController(CarManufactoringContext context)
+        public WorkMachineMaintenanceController(CarManufactoringContext context)
         {
             _context = context;
         }

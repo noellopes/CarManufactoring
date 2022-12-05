@@ -26,18 +26,18 @@ namespace CarManufactoring.Models
 
         [Required]
         public int MachinesId { get; set; }
-        public Machines Machines { get; set; }
+        public Machines? Machines { get; set; }
         [Required]
         public int SectionManagerId { get; set; }
-        public SectionManager SectionManager { get; set; }
+        public SectionManager? SectionManager { get; set; }
 
         [Required]
         public int MaintenanceTaskId { get; set; }
-        public MaintenanceTask MaintenanceTask { get; set; }
+        public MaintenanceTask? MaintenanceTask { get; set; }
 
         [Required]
         public int WorkStatesId { get; set; }
-        public WorkStates WorkStates { get; set; }
+        public WorkStates? WorkStates { get; set; }
 
     }
 }
