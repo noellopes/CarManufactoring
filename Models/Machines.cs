@@ -9,12 +9,12 @@ namespace CarManufactoring.Models
         public int MachinesId { get; set; }
 
         [Required]
-        [StringLength(60, MinimumLength = 10)]
+        [StringLength(60, MinimumLength = 3)]
         [Display(Name = "Brand")]
         public string? MachineBrand { get; set; }
 
         [Required]
-        [StringLength(60, MinimumLength = 10)]
+        [StringLength(60, MinimumLength = 3)]
         [Display(Name ="Model")]
         public string? MachineModel { get; set; }
 
@@ -26,7 +26,7 @@ namespace CarManufactoring.Models
         public DateTime AquisitionDate { get; set; }
 
         [Required]
-        [Display(Name ="Machine State")]
+        [Display(Name ="Machine State")]    
         public int MachineStateId { get; set; }
         public MachineState? MachineState { get; set; }
 
