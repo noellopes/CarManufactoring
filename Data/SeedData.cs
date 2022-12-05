@@ -8,6 +8,9 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
             PopulateSemiFinisheds(db);
+            PopulateSection(db);
+            PopulateMachineState(db);
+            PopulateMachines(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -66,9 +69,13 @@ namespace CarManufactoring.Data
 
             db.Machines.AddRange(
 
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Now, MachineStateId = 1, SectionId = 1 }
+                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("30/08/2018"), MachineStateId = 1, SectionId = 1 },
+                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/05/2019"), MachineStateId = 1, SectionId = 1 },
+                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("23/02/2019"), MachineStateId = 1, SectionId = 2 },
+                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("03/05/2020"), MachineStateId = 1, SectionId = 3 },
+                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/10/2020"), MachineStateId = 1, SectionId = 2 }
 
-                ) ;
+                );
 
             db.SaveChanges();
         }
