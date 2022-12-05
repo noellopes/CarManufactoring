@@ -9,13 +9,21 @@ namespace CarManufactoring.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
 
-          
+            migrationBuilder.CreateTable(
+                   name: "MaintenanceTask",
+                       columns: table => new
+                       {
+                           MaintenanceTaskId = table.Column<int>(type: "int", nullable: false)
+                               .Annotation("SqlServer:Identity", "1, 1"),
+                           TaskDef = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false)
+                       },
+                       constraints: table =>
+                       {
+                           table.PrimaryKey("PK_MaintenanceTask", x => x.MaintenanceTaskId);
+                       });
 
-          
-
-           
+            
 
             migrationBuilder.CreateTable(
                 name: "WorkMachineMaintenance",
@@ -62,8 +70,6 @@ namespace CarManufactoring.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-          
-
             migrationBuilder.CreateIndex(
                 name: "IX_WorkMachineMaintenance_MachinesId",
                 table: "WorkMachineMaintenance",
@@ -87,7 +93,9 @@ namespace CarManufactoring.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            
+
+            migrationBuilder.DropTable(
+                  name: "MaintenanceTask");
 
             migrationBuilder.DropTable(
                 name: "WorkMachineMaintenance");

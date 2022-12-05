@@ -9,7 +9,6 @@ namespace CarManufactoring.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
 
             migrationBuilder.CreateTable(
                 name: "Machines",
@@ -53,7 +52,7 @@ namespace CarManufactoring.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            
+           
 
             migrationBuilder.DropTable(
                 name: "Machines");

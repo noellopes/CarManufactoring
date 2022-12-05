@@ -4,7 +4,6 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,10 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221128113706_SectionManagerCreated")]
-    partial class SectionManagerCreated
+    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,6 +156,37 @@ namespace CarManufactoring.Migrations
                     b.ToTable("CarParts");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.Client", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"), 1L, 1);
+
+                    b.Property<string>("ClientContact")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<DateTime>("ClientDataNasc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ClientSex")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("ClientId");
+
+                    b.ToTable("Client");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.Property<int>("CollaboratorId")
@@ -192,6 +221,49 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Collaborator");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.Estimate", b =>
+                {
+                    b.Property<int>("EstimateID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstimateID"), 1L, 1);
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("dataEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dataSolicitada")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("EstimateID");
+
+                    b.ToTable("Estimate");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Extra", b =>
+                {
+                    b.Property<int>("ExtraID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExtraID"), 1L, 1);
+
+                    b.Property<string>("DescExtra")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("ExtraID");
+
+                    b.ToTable("Extra");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
                     b.Property<int>("MachinesId")
@@ -219,9 +291,14 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("MachineStateId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
+
                     b.HasKey("MachinesId");
 
                     b.HasIndex("MachineStateId");
+
+                    b.HasIndex("SectionId");
 
                     b.ToTable("Machines");
                 });
@@ -242,6 +319,66 @@ namespace CarManufactoring.Migrations
                     b.HasKey("MachineStateId");
 
                     b.ToTable("MachineState");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.MaintenanceTask", b =>
+                {
+                    b.Property<int>("MaintenanceTaskId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaintenanceTaskId"), 1L, 1);
+
+                    b.Property<string>("TaskDef")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("MaintenanceTaskId");
+
+                    b.ToTable("MaintenanceTask");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
+
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OrderState")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
+
+                    b.Property<DateTime>("StateDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("OrderId");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Section", b =>
+                {
+                    b.Property<int>("SectionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("SectionId");
+
+                    b.ToTable("Section");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
@@ -270,11 +407,12 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<bool>("Section")
-                        .HasMaxLength(20)
-                        .HasColumnType("bit");
+                    b.Property<int>("SectionId")
+                        .HasColumnType("int");
 
                     b.HasKey("SectionManagerId");
+
+                    b.HasIndex("SectionId");
 
                     b.ToTable("SectionManager");
                 });
@@ -349,6 +487,74 @@ namespace CarManufactoring.Migrations
                     b.ToTable("TurnoColaboradores");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.WorkMachineMaintenance", b =>
+                {
+                    b.Property<int>("WorkMachineMaintenanceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkMachineMaintenanceId"), 1L, 1);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("Deleted")
+                        .IsRequired()
+                        .HasColumnType("bit");
+
+                    b.Property<int>("MachinesId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MaintenanceStateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MaintenanceTaskId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PreviewStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SectionManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WorkPriority")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WorkStatesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("WorkMachineMaintenanceId");
+
+                    b.HasIndex("MachinesId");
+
+                    b.HasIndex("MaintenanceTaskId");
+
+                    b.HasIndex("SectionManagerId");
+
+                    b.HasIndex("WorkStatesId");
+
+                    b.ToTable("WorkMachineMaintenance");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.WorkStates", b =>
+                {
+                    b.Property<int>("WorkStatesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkStatesId"), 1L, 1);
+
+                    b.Property<string>("StateWork")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("WorkStatesId");
+
+                    b.ToTable("WorkStates");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.CarConfig", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Car", "Car")
@@ -368,7 +574,61 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarManufactoring.Models.Section", "Section")
+                        .WithMany("Machines")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("MachineState");
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.Section", "Section")
+                        .WithMany("Manager")
+                        .HasForeignKey("SectionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Section");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.WorkMachineMaintenance", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.Machines", "Machines")
+                        .WithMany("WorkMachineMaintenances")
+                        .HasForeignKey("MachinesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.MaintenanceTask", "MaintenanceTask")
+                        .WithMany("WorkMachineMaintenances")
+                        .HasForeignKey("MaintenanceTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.SectionManager", "SectionManager")
+                        .WithMany("WorkMachineMaintenances")
+                        .HasForeignKey("SectionManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.WorkStates", "WorkStates")
+                        .WithMany("WorkMachineMaintenances")
+                        .HasForeignKey("WorkStatesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Machines");
+
+                    b.Navigation("MaintenanceTask");
+
+                    b.Navigation("SectionManager");
+
+                    b.Navigation("WorkStates");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
@@ -376,9 +636,36 @@ namespace CarManufactoring.Migrations
                     b.Navigation("CarConfigs");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
+                {
+                    b.Navigation("WorkMachineMaintenances");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>
                 {
                     b.Navigation("Machines");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.MaintenanceTask", b =>
+                {
+                    b.Navigation("WorkMachineMaintenances");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Section", b =>
+                {
+                    b.Navigation("Machines");
+
+                    b.Navigation("Manager");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
+                {
+                    b.Navigation("WorkMachineMaintenances");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.WorkStates", b =>
+                {
+                    b.Navigation("WorkMachineMaintenances");
                 });
 #pragma warning restore 612, 618
         }
