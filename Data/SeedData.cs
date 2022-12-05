@@ -1,4 +1,5 @@
 ﻿using CarManufactoring.Models;
+using Microsoft.AspNetCore.Http.Connections;
 
 namespace CarManufactoring.Data
 {
@@ -21,6 +22,53 @@ namespace CarManufactoring.Data
                 new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", EAN = "4047026300192", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
 
                 );
+
+            db.SaveChanges();
+        }
+
+        // Seed da tabela MachineState
+        private static void PopulateMachineState(CarManufactoringContext db)
+        {
+            if (db.MachineState.Any()) return;
+
+            db.MachineState.AddRange(
+
+                new MachineState { StateMachine = "Operacional" },
+                new MachineState { StateMachine = "Avariada" },
+                new MachineState { StateMachine = "Em utilização" }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        // Seed da tabela Machine
+        private static void PopulateSection(CarManufactoringContext db)
+        {
+            if (db.Section.Any()) return;
+
+            db.Section.AddRange(
+
+                new Section {Name = "Secção 1"},
+                new Section { Name = "Secção 2" },
+                new Section { Name = "Secção 3" },
+                new Section { Name = "Secção 4" }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        // Seed da tabela Machine
+        private static void PopulateMachines(CarManufactoringContext db)
+        {
+            if (db.Machines.Any()) return;
+
+            db.Machines.AddRange(
+
+                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Now, MachineStateId = 1, SectionId = 1 }
+
+                ) ;
 
             db.SaveChanges();
         }
