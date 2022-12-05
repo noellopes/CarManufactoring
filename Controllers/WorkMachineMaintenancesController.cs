@@ -10,11 +10,11 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class WorkMachineMaintenanceController : Controller
+    public class WorkMachineMaintenancesController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public WorkMachineMaintenanceController(CarManufactoringContext context)
+        public WorkMachineMaintenancesController(CarManufactoringContext context)
         {
             _context = context;
         }
@@ -48,7 +48,7 @@ namespace CarManufactoring.Controllers
             return View(workMachineMaintenance);
         }
 
-        // GET: WorkMachineMaintenances/Create
+        // GET: WorkMachineMaintenance/Create
         public IActionResult Create()
         {
             ViewData["MachinesId"] = new SelectList(_context.Machines, "MachinesId", "MachineBrand");
