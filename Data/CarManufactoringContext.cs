@@ -66,5 +66,8 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MaintenanceTask> MaintenanceTask { get; set; }
 
+
+        public DbSet<CarManufactoring.Models.Material> Material { get; set; }
+
     }
 }
