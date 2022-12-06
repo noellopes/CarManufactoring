@@ -22,8 +22,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Machines> Machines { get; set; }
 
-        public DbSet<CarManufactoring.Models.TurnoColaboradores> TurnoColaboradores { get; set; }
-
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
