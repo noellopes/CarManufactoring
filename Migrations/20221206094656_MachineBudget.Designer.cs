@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221201234702_Estimate")]
-    partial class Estimate
+    [Migration("20221206094656_MachineBudget")]
+    partial class MachineBudget
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,13 +223,13 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Collaborator");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.Estimate", b =>
+            modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
                 {
-                    b.Property<int>("EstimateID")
+                    b.Property<int>("MachineBudgetID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstimateID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineBudgetID"), 1L, 1);
 
                     b.Property<double>("Valor")
                         .HasColumnType("float");
@@ -240,9 +240,9 @@ namespace CarManufactoring.Migrations
                     b.Property<DateTime>("dataSolicitada")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("EstimateID");
+                    b.HasKey("MachineBudgetID");
 
-                    b.ToTable("Estimate");
+                    b.ToTable("MachineBudget");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
@@ -415,6 +415,34 @@ namespace CarManufactoring.Migrations
                     b.HasKey("SemiFinishedId");
 
                     b.ToTable("SemiFinished");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Supplier", b =>
+                {
+                    b.Property<int>("SupplierId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"), 1L, 1);
+
+                    b.Property<string>("SupplierContact")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("SupplierEmail")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("SupplierName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("SupplierId");
+
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.TurnoColaboradores", b =>

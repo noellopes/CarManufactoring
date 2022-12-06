@@ -221,13 +221,13 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Collaborator");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.Estimate", b =>
+            modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
                 {
-                    b.Property<int>("EstimateID")
+                    b.Property<int>("MachineBudgetID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstimateID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineBudgetID"), 1L, 1);
 
                     b.Property<double>("Valor")
                         .HasColumnType("float");
@@ -238,9 +238,9 @@ namespace CarManufactoring.Migrations
                     b.Property<DateTime>("dataSolicitada")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("EstimateID");
+                    b.HasKey("MachineBudgetID");
 
-                    b.ToTable("Estimate");
+                    b.ToTable("MachineBudget");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
@@ -425,8 +425,8 @@ namespace CarManufactoring.Migrations
 
                     b.Property<string>("SupplierContact")
                         .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("SupplierEmail")
                         .IsRequired()

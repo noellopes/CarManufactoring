@@ -7,9 +7,9 @@ namespace CarManufactoring.Models
 {
 
     //Orçamento de máquinas
-    public class Estimate
+    public class MachineBudget
     {
-        public int EstimateID { get; set; }
+        public int MachineBudgetID { get; set; }
 
         [Required]
         [Display(Name = "Data de Solicitamento")]
