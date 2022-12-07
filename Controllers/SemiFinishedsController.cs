@@ -40,6 +40,8 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.SuccessMessage = TempData["SemiFinished_SuccessMessage"];
+
             return View(semiFinished);
         }
 
@@ -61,8 +63,8 @@ namespace CarManufactoring.Controllers
                 _context.Add(semiFinished);
                 await _context.SaveChangesAsync();
 
-                ViewBag.SemiFinished_SuccessMessage = "Semi Finished created successfully";
-                return View("Details", semiFinished);
+                TempData["SemiFinished_SuccessMessage"] = "Semi Finished created successfully.";
+                return RedirectToAction(nameof(Details), new { id = semiFinished.SemiFinishedId });
             }
             return View(semiFinished);
         }
@@ -101,9 +103,8 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(semiFinished);
                     await _context.SaveChangesAsync();
-
-                    ViewBag.SemiFinished_SuccessMessage = "Semi Finished Successfully Edited";
-                    return View("Details", semiFinished);
+                    TempData["SemiFinished_SuccessMessage"] = "Semi Finished Successfully Edited";
+                    return RedirectToAction(nameof(Details), new { id = semiFinished.SemiFinishedId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
