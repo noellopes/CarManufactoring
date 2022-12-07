@@ -1,4 +1,4 @@
-﻿@model ListViewModel<SemiFinished>
+﻿@model IEnumerable<CarManufactoring.Models.SemiFinished>
 
 @{
     ViewData["Title"] = "Semi Finisheds List";
@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => new SemiFinished().Family)
+                @Html.DisplayNameFor(model => model.Family)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new SemiFinished().Reference)
+                @Html.DisplayNameFor(model => model.Reference)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new SemiFinished().EAN)
+                @Html.DisplayNameFor(model => model.EAN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new SemiFinished().Manufacter)
+                @Html.DisplayNameFor(model => model.Manufacter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new SemiFinished().Description)
+                @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new SemiFinished().SemiFinishedState)
+                @Html.DisplayNameFor(model => model.SemiFinishedState)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.List) {
+@foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Family)
