@@ -152,12 +152,11 @@ namespace CarManufactoring.Controllers
             var semiFinished = await _context.SemiFinished.FindAsync(id);
             if (semiFinished != null)
             {
-                // todo: semi finished was not found!!!
-               
+                _context.SemiFinished.Remove(semiFinished);
+                await _context.SaveChangesAsync();
+
             }
 
-            _context.SemiFinished.Remove(semiFinished);
-            await _context.SaveChangesAsync();
             return View("SemiFinishedDeleted");
         }
 
