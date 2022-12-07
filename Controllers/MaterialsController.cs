@@ -37,7 +37,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.MaterialId == id);
             if (material == null)
             {
-                return NotFound();
+                return View("MaterialNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
@@ -80,7 +80,7 @@ namespace CarManufactoring.Controllers
             var material = await _context.Material.FindAsync(id);
             if (material == null)
             {
-                return NotFound();
+                return View("MaterialNotFound");
             }
             return View(material);
         }
@@ -113,7 +113,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!MaterialExists(material.MaterialId))
                     {
-                        return NotFound();
+                        return View("MaterialNotFound");
                     }
                     else
                     {
@@ -153,7 +153,7 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.Material'  is null.");
             }
             var material = await _context.Material.FindAsync(id);
-            if (material == null)
+            if (material != null)
             {
                 
             }
