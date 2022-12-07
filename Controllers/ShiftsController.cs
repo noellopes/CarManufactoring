@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +21,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(DateTime StartDate = default)
         {
-              return View(await _context.Shift.ToListAsync());
+            var shift = _context.Shift.OrderBy(b => b.StartDate);
+              return View(shift);
         }
 
         // GET: Shifts/Details/5
@@ -39,6 +41,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(shift);
         }
@@ -60,7 +63,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(shift);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
             }
             return View(shift);
         }
@@ -99,6 +105,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(shift);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,10 +156,10 @@ namespace CarManufactoring.Controllers
             if (shift != null)
             {
                 _context.Shift.Remove(shift);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("ShiftDeleted");
         }
 
         private bool ShiftExists(int id)
