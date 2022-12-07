@@ -150,13 +150,14 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.SemiFinished'  is null.");
             }
             var semiFinished = await _context.SemiFinished.FindAsync(id);
-            if (semiFinished != null)
+            if (semiFinished == null)
             {
-                _context.SemiFinished.Remove(semiFinished);
-                await _context.SaveChangesAsync();
+                // todo: semi finished was not found!!!
+               
             }
 
-
+            _context.SemiFinished.Remove(semiFinished);
+            await _context.SaveChangesAsync();
             return View("SemiFinishedDeleted");
         }
 
