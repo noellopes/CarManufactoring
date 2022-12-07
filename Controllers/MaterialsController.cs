@@ -60,7 +60,9 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(material);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                ViewBag.SuccessMessage = "Book created successfully";
+
+                return View("Details");
             }
             return View(material);
         }
