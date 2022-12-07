@@ -1,4 +1,4 @@
-﻿//using static Humanizer.In;
+﻿using static Humanizer.In;
 using System.Text;
 using System;
 
