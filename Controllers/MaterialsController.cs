@@ -153,13 +153,14 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.Material'  is null.");
             }
             var material = await _context.Material.FindAsync(id);
-            if (material != null)
+            if (material == null)
             {
-                _context.Material.Remove(material);
+                
             }
-            
+
+            _context.Material.Remove(material);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("MaterialDeleted");
         }
 
         private bool MaterialExists(int id)
