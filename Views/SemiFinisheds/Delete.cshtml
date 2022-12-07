@@ -7,9 +7,10 @@
 <h1>Delete</h1>
 
 <h3 class="text-danger">Are you sure you want to delete this?</h3>
+<hr />
+
 <div>
-    <h4>SemiFinished</h4>
-    <hr />
+
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Family)
@@ -52,6 +53,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="SemiFinishedId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Details" asp-route-id="@Model.SemiFinishedId" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
