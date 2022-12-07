@@ -39,6 +39,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(material);
         }
@@ -60,10 +61,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(material);
                 await _context.SaveChangesAsync();
-                ViewBag.SuccessMessage = "Material created successfully.";
+                
+                TempData["SuccessMessage"] = "Material created successfully.";
 
-                return View("Details");
-            }
+                return RedirectToAction(nameof(Details), new { id = material.MaterialId});
+}
             return View(material);
         }
 
@@ -101,11 +103,11 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(material);
                     await _context.SaveChangesAsync();
-                    
-                    ViewBag.SuccessMessage = "Material successfully edited.";
 
+                    TempData["SuccessMessage"] = "Material successfully edited.";
 
-                    return View("Details");
+                    return RedirectToAction(nameof(Details), new { id = material.MaterialId });
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
