@@ -37,7 +37,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.SemiFinishedId == id);
             if (semiFinished == null)
             {
-                return NotFound();
+                return View("SemiFinishedNotFound");
             }
 
             ViewBag.SuccessMessage = TempData["SemiFinished_SuccessMessage"];
@@ -80,7 +80,7 @@ namespace CarManufactoring.Controllers
             var semiFinished = await _context.SemiFinished.FindAsync(id);
             if (semiFinished == null)
             {
-                return NotFound();
+                return View("SemiFinishedNotFound");
             }
             return View(semiFinished);
         }
@@ -110,7 +110,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!SemiFinishedExists(semiFinished.SemiFinishedId))
                     {
-                        return NotFound();
+                        return View("SemiFinishedNotFound");
                     }
                     else
                     {
@@ -150,7 +150,7 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.SemiFinished'  is null.");
             }
             var semiFinished = await _context.SemiFinished.FindAsync(id);
-            if (semiFinished == null)
+            if (semiFinished != null)
             {
                 // todo: semi finished was not found!!!
                
