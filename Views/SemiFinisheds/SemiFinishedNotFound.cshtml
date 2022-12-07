@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Semi Finished not found";
 }
+
+<h1>@ViewBag.Title</h1>
+<hr />
+
+@{
+    await Html.RenderPartialAsync("_AlertProblem",
+             new AlertProblemViewModel
+                     {
+                         CssClass = "alert-warning",
+                         Title = "It was not possible to retrive the semi Finish",
+                         Description = "Semi finished not found. Maybe it was deleted by another user."
+                     });
+}
+
+<a asp-action="Index" class="btn btn-primary">Semi Finished list</a>
