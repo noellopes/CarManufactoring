@@ -60,7 +60,7 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(material);
                 await _context.SaveChangesAsync();
-                ViewBag.SuccessMessage = "Book created successfully";
+                ViewBag.SuccessMessage = "Material created successfully.";
 
                 return View("Details");
             }
@@ -101,6 +101,11 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(material);
                     await _context.SaveChangesAsync();
+                    
+                    ViewBag.SuccessMessage = "Material successfully edited.";
+
+
+                    return View("Details");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
