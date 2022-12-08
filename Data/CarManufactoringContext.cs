@@ -16,7 +16,9 @@ namespace CarManufactoring.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<CollaboratorTask>().HasKey(ct => new { ct.ShiftId, ct.TaskId, ct.CollaboratorId });
             modelBuilder.Entity<CollaboratorShift>().HasKey(cs => new { cs.ShiftId, cs.CollaboratorId });
@@ -25,44 +27,29 @@ namespace CarManufactoring.Data
                 .HasOne(cs => cs.Shift)
                 .WithMany(s => s.Collaborators)
                 .HasForeignKey(cs => cs.ShiftId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             modelBuilder.Entity<CollaboratorShift>()
                 .HasOne(ct => ct.Collaborator)
                 .WithMany(s => s.Shifts)
                 .HasForeignKey(cs => cs.CollaboratorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             modelBuilder.Entity<CollaboratorTask>()
                 .HasOne(ct => ct.Task)
-                .WithMany(t => t.Collaborators)
+                .WithMany(t => t.CollaboratorShifts)
                 .HasForeignKey(ct => ct.TaskId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
             modelBuilder.Entity<CollaboratorTask>()
-                .HasOne(ct => ct.Collaborator)
-                .WithMany(c => c.Tasks)
-                .HasForeignKey(ct => ct.CollaboratorId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasOne(ct => ct.CollaboratorShifts)
+                .WithMany(cs => cs.Tasks)
+                .HasForeignKey(ct => new { ct.ShiftId, ct.CollaboratorId })
+                .OnDelete(DeleteBehavior.ClientNoAction);
 
-            modelBuilder.Entity<CollaboratorTask>()
-                .HasOne(ct => ct.Shift)
-                .WithMany(t => t.tasks)
-                .HasForeignKey(ct => ct.ShiftId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-            /*
-             * modelBuilder.Entity<CollaboratorTask>()
-                            .HasOne(ct => ct.Task)
-                            .WithMany(c => c.Collaborators)
-                            .HasForeignKey(ct => ct.TaskId);
-
-                        modelBuilder.Entity<CollaboratorTask>()
-                            .HasOne(ct => ct.Collaborator)
-                            .WithMany(t => t.Tasks)
-                            .HasForeignKey(cs => cs.CollaboratorId);
-            */
+            //gives error whith ondelete restriction
+            //https://stackoverflow.com/questions/17127351/introducing-foreign-key-constraint-may-cause-cycles-or-multiple-cascade-paths
+            //https://stackoverflow.com/questions/5436731/composite-key-as-foreign-key
         }
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
 

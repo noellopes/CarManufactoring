@@ -27,8 +27,6 @@ namespace CarManufactoring.Models
         public string Gender { get; set; }
 
         public ICollection<CollaboratorShift>? Shifts { get; set; }
-        public ICollection<CollaboratorTask>? Tasks { get; set; }
-
 
         [Required]
         public bool OnDuty { get; set; }

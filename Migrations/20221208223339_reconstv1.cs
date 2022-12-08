@@ -5,13 +5,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class reconstructingclasses : Migration
+    public partial class reconstv1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_Collaborator_Shift_ShiftId",
                 table: "Collaborator");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_CollaboratorTask_Task_TaskId",
+                table: "CollaboratorTask");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_CollaboratorTask",
@@ -60,14 +64,12 @@ namespace CarManufactoring.Migrations
                         name: "FK_CollaboratorShift_Collaborator_CollaboratorId",
                         column: x => x.CollaboratorId,
                         principalTable: "Collaborator",
-                        principalColumn: "CollaboratorId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "CollaboratorId");
                     table.ForeignKey(
                         name: "FK_CollaboratorShift_Shift_ShiftId",
                         column: x => x.ShiftId,
                         principalTable: "Shift",
-                        principalColumn: "ShiftId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ShiftId");
                 });
 
             migrationBuilder.CreateIndex(
@@ -90,8 +92,7 @@ namespace CarManufactoring.Migrations
                 table: "CollaboratorTask",
                 columns: new[] { "ShiftId", "CollaboratorId" },
                 principalTable: "CollaboratorShift",
-                principalColumns: new[] { "ShiftId", "CollaboratorId" },
-                onDelete: ReferentialAction.Cascade);
+                principalColumns: new[] { "ShiftId", "CollaboratorId" });
 
             migrationBuilder.AddForeignKey(
                 name: "FK_CollaboratorTask_Shift_ShiftId",
@@ -100,6 +101,13 @@ namespace CarManufactoring.Migrations
                 principalTable: "Shift",
                 principalColumn: "ShiftId",
                 onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_CollaboratorTask_Task_TaskId",
+                table: "CollaboratorTask",
+                column: "TaskId",
+                principalTable: "Task",
+                principalColumn: "TaskId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -110,6 +118,10 @@ namespace CarManufactoring.Migrations
 
             migrationBuilder.DropForeignKey(
                 name: "FK_CollaboratorTask_Shift_ShiftId",
+                table: "CollaboratorTask");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_CollaboratorTask_Task_TaskId",
                 table: "CollaboratorTask");
 
             migrationBuilder.DropTable(
@@ -158,6 +170,14 @@ namespace CarManufactoring.Migrations
                 column: "ShiftId",
                 principalTable: "Shift",
                 principalColumn: "ShiftId",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_CollaboratorTask_Task_TaskId",
+                table: "CollaboratorTask",
+                column: "TaskId",
+                principalTable: "Task",
+                principalColumn: "TaskId",
                 onDelete: ReferentialAction.Cascade);
         }
     }

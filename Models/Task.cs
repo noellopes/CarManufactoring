@@ -18,8 +18,7 @@ namespace CarManufactoring.Models
         [Required]
         public DateTime LimitDate { get; set; }
 
-        public ICollection<CollaboratorTask>? Collaborators { get; set; }
-        public ICollection<CollaboratorTask>? shifts { get; set; }
+        public ICollection<CollaboratorTask>? CollaboratorShifts { get; set; }
 
     }
 }

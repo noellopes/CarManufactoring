@@ -231,16 +231,11 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("CollaboratorId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TaskId1")
-                        .HasColumnType("int");
-
                     b.HasKey("ShiftId", "TaskId", "CollaboratorId");
 
                     b.HasIndex("CollaboratorId");
 
                     b.HasIndex("TaskId");
-
-                    b.HasIndex("TaskId1");
 
                     b.HasIndex("ShiftId", "CollaboratorId");
 
@@ -656,13 +651,13 @@ namespace CarManufactoring.Migrations
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
                         .WithMany("Shifts")
                         .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.HasOne("CarManufactoring.Models.Shift", "Shift")
                         .WithMany("Collaborators")
                         .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.ClientNoAction)
                         .IsRequired();
 
                     b.Navigation("Collaborator");
@@ -673,34 +668,32 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.CollaboratorTask", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
-                        .WithMany("Tasks")
+                        .WithMany()
                         .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.Shift", "Shift")
-                        .WithMany("tasks")
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.Task", "Task")
-                        .WithMany("Collaborators")
-                        .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.Task", null)
-                        .WithMany("shifts")
-                        .HasForeignKey("TaskId1");
-
-                    b.HasOne("CarManufactoring.Models.CollaboratorShift", null)
-                        .WithMany("Tasks")
-                        .HasForeignKey("ShiftId", "CollaboratorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("CarManufactoring.Models.Shift", "Shift")
+                        .WithMany()
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.Task", "Task")
+                        .WithMany("CollaboratorShifts")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.CollaboratorShift", "CollaboratorShifts")
+                        .WithMany("Tasks")
+                        .HasForeignKey("ShiftId", "CollaboratorId")
+                        .OnDelete(DeleteBehavior.ClientNoAction)
+                        .IsRequired();
+
                     b.Navigation("Collaborator");
+
+                    b.Navigation("CollaboratorShifts");
 
                     b.Navigation("Shift");
 
@@ -780,8 +773,6 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.Navigation("Shifts");
-
-                    b.Navigation("Tasks");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.CollaboratorShift", b =>
@@ -819,15 +810,11 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
                 {
                     b.Navigation("Collaborators");
-
-                    b.Navigation("tasks");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Task", b =>
                 {
-                    b.Navigation("Collaborators");
-
-                    b.Navigation("shifts");
+                    b.Navigation("CollaboratorShifts");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkStates", b =>
