@@ -8,12 +8,16 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Stock of material")]
-        [Range(-1, int.MaxValue, ErrorMessage = "Stock must be greater or equal than zero")]
-        public string Quantity { get; set; }
+        //Quantidade tem de ser um valor double para calculo deste campo Ass:Grupo2
+        public double Quantity { get; set; }
 
         [Required]
         [StringLength(30, MinimumLength = 3)]
         public string Location { get; set; }
+
+        public int CollaboratorId { get; set; }
+
+        public Collaborator? Collaborator { get; set; }
 
         public int MaterialId { get; set; }
         public Material? Material { get; set; }
