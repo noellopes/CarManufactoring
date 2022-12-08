@@ -5,9 +5,11 @@ using System.Xml.Linq;
 
 namespace CarManufactoring.Models
 {
-    public class Estimate
+
+    //Orçamento de máquinas
+    public class MachineBudget
     {
-        public int EstimateID { get; set; }
+        public int MachineBudgetID { get; set; }
 
         [Required]
         [Display(Name = "Data de Solicitamento")]

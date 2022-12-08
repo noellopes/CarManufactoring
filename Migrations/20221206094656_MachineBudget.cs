@@ -5,15 +5,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class Estimate : Migration
+    public partial class MachineBudget : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Estimate",
+                name: "MachineBudget",
                 columns: table => new
                 {
-                    EstimateID = table.Column<int>(type: "int", nullable: false)
+                    MachineBudgetID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     dataSolicitada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     dataEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -21,14 +21,14 @@ namespace CarManufactoring.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Estimate", x => x.EstimateID);
+                    table.PrimaryKey("PK_MachineBudget", x => x.MachineBudgetID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Estimate");
+                name: "MachineBudget");
         }
     }
 }
