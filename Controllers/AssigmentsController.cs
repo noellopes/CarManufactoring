@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 
 namespace CarManufactoring.Controllers
@@ -21,9 +22,14 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Assigments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string description = null, string state = null, DateTime limiteDate = default(DateTime))
         {
-              return View(await _context.Assigment.ToListAsync());
+
+            var assigment = _context.Assigment.OrderBy(b => b.LimitDate);
+            return View(assigment);
+
+            
+            
         }
 
         // GET: Assigments/Details/5
@@ -41,6 +47,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(assigment);
         }
 
@@ -61,7 +68,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(assigment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                return RedirectToAction(nameof(Details),new {id = assigment.AssigmentId});
             }
             return View(assigment);
         }
@@ -100,6 +110,10 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(assigment);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Assigment edited successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = assigment.AssigmentId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,10 +162,10 @@ namespace CarManufactoring.Controllers
             if (assigment != null)
             {
                 _context.Assigment.Remove(assigment);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("AssigmentDeleted");
         }
 
         private bool AssigmentExists(int id)

@@ -37,8 +37,10 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.SemiFinishedId == id);
             if (semiFinished == null)
             {
-                return NotFound();
+                return View("SemiFinishedNotFound");
             }
+
+            ViewBag.SuccessMessage = TempData["SemiFinished_SuccessMessage"];
 
             return View(semiFinished);
         }
@@ -61,8 +63,8 @@ namespace CarManufactoring.Controllers
                 _context.Add(semiFinished);
                 await _context.SaveChangesAsync();
 
-                ViewBag.SemiFinished_SuccessMessage = "Semi Finished created successfully";
-                return View("Details", semiFinished);
+                TempData["SemiFinished_SuccessMessage"] = "Semi Finished created successfully.";
+                return RedirectToAction(nameof(Details), new { id = semiFinished.SemiFinishedId });
             }
             return View(semiFinished);
         }
@@ -78,7 +80,7 @@ namespace CarManufactoring.Controllers
             var semiFinished = await _context.SemiFinished.FindAsync(id);
             if (semiFinished == null)
             {
-                return NotFound();
+                return View("SemiFinishedNotFound");
             }
             return View(semiFinished);
         }
@@ -101,15 +103,14 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(semiFinished);
                     await _context.SaveChangesAsync();
-
-                    ViewBag.SemiFinished_SuccessMessage = "Semi Finished Successfully Edited";
-                    return View("Details", semiFinished);
+                    TempData["SemiFinished_SuccessMessage"] = "Semi Finished Successfully Edited";
+                    return RedirectToAction(nameof(Details), new { id = semiFinished.SemiFinishedId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!SemiFinishedExists(semiFinished.SemiFinishedId))
                     {
-                        return NotFound();
+                        return View("SemiFinishedNotFound");
                     }
                     else
                     {
@@ -153,8 +154,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.SemiFinished.Remove(semiFinished);
                 await _context.SaveChangesAsync();
-            }
 
+            }
 
             return View("SemiFinishedDeleted");
         }

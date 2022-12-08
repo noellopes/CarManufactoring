@@ -32,5 +32,11 @@ namespace CarManufactoring.Models
         [StringLength(30)]
         [Required]
         public string SemiFinishedState { get; set; }
+
+        // relationship between SemiFinished and CARS
+        public ICollection<Car> Cars { get; set; }
+
+        // relationship between SemiFinished and INSPECTION (WAITING CREATION)
+
     }
 }

@@ -26,5 +26,7 @@ namespace CarManufactoring.Models {
         [Required]
         public bool Available { get; set; }
 
+        
+
     }
 }

@@ -22,8 +22,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Machines> Machines { get; set; }
 
-        public DbSet<CarManufactoring.Models.TurnoColaboradores> TurnoColaboradores { get; set; }
-
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
@@ -49,6 +47,32 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
+
+
+
+
+
+        public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
+
+
+
+
+
+        public DbSet<CarManufactoring.Models.WorkMachineMaintenance> WorkMachineMaintenance { get; set; }
+
+
+
+
+
+        public DbSet<CarManufactoring.Models.MaintenanceTask> MaintenanceTask { get; set; }
+
+
+        public DbSet<CarManufactoring.Models.Material> Material { get; set; }
+
+        public DbSet<CarManufactoring.Models.Stock> Stock { get; set; }
+        public DbSet<CarManufactoring.Models.Shift> Shift { get; set; }
+
+        public DbSet<CarManufactoring.Models.InspectionAndTest> inspectionAndTestings { get; set; }
 
     }
 }

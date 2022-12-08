@@ -10,5 +10,8 @@ namespace CarManufactoring.Models
         [StringLength(100, MinimumLength = 3)]
         [Required]
         public string? Name { get; set; }
+        public ICollection<SectionManager>? Manager { get; set; }
+        public ICollection<Machines>? Machines { get; set; }
+
     }
 }

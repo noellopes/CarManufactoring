@@ -12,5 +12,7 @@ namespace CarManufactoring.Models
         [Display(Name = "Task")]
         [StringLength(120)]
         public string? TaskDef { get; set; }
+
+        public ICollection<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
     }
 }

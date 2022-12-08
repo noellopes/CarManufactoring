@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: Machines
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Machines.ToListAsync());
+            var carManufactoringContext = _context.Machines.Include(m => m.MachineState).Include(m => m.Section);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Machines/Details/5
@@ -34,6 +35,8 @@ namespace CarManufactoring.Controllers
             }
 
             var machines = await _context.Machines
+                .Include(m => m.MachineState)
+                .Include(m => m.Section)
                 .FirstOrDefaultAsync(m => m.MachinesId == id);
             if (machines == null)
             {
@@ -46,7 +49,8 @@ namespace CarManufactoring.Controllers
         // GET: Machines/Create
         public IActionResult Create()
         {
-            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
+            ViewData["MachineStateId"] = new SelectList(_context.MachineState, "MachineStateId", "StateMachine");
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name");
             return View();
         }
 
@@ -55,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId")] Machines machines)
+        public async Task<IActionResult> Create([Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId,SectionId")] Machines machines)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +67,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
+            ViewData["MachineStateId"] = new SelectList(_context.MachineState, "MachineStateId", "StateMachine", machines.MachineStateId);
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", machines.SectionId);
             return View(machines);
         }
 
@@ -80,7 +85,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
+            ViewData["MachineStateId"] = new SelectList(_context.MachineState, "MachineStateId", "StateMachine", machines.MachineStateId);
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", machines.SectionId);
             return View(machines);
         }
 
@@ -89,7 +95,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId")] Machines machines)
+        public async Task<IActionResult> Edit(int id, [Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId,SectionId")] Machines machines)
         {
             if (id != machines.MachinesId)
             {
@@ -116,7 +122,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MachineStateId"] = new SelectList(_context.Set<MachineState>(), "MachineStateId", "StateMachine");
+            ViewData["MachineStateId"] = new SelectList(_context.MachineState, "MachineStateId", "StateMachine", machines.MachineStateId);
+            ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", machines.SectionId);
             return View(machines);
         }
 
@@ -129,6 +136,8 @@ namespace CarManufactoring.Controllers
             }
 
             var machines = await _context.Machines
+                .Include(m => m.MachineState)
+                .Include(m => m.Section)
                 .FirstOrDefaultAsync(m => m.MachinesId == id);
             if (machines == null)
             {
