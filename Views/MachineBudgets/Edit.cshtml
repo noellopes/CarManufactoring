@@ -1,0 +1,44 @@
+﻿@model CarManufactoring.Models.MachineBudget
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>MachineBudget</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MachineBudgetID" />
+            <div class="form-group">
+                <label asp-for="dataSolicitada" class="control-label"></label>
+                <input asp-for="dataSolicitada" class="form-control" />
+                <span asp-validation-for="dataSolicitada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dataEntrega" class="control-label"></label>
+                <input asp-for="dataEntrega" class="form-control" />
+                <span asp-validation-for="dataEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Valor" class="control-label"></label>
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
