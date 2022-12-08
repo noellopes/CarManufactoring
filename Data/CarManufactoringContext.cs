@@ -14,8 +14,6 @@ namespace CarManufactoring.Data
         {
         }
 
-        public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
-
         public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineState> MachineState { get; set; }
@@ -25,8 +23,6 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
-
-        public DbSet<CarManufactoring.Models.Assigment> Assigment { get; set; }
 
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 
@@ -38,36 +34,19 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Section> Section { get; set; }
 
 
-
-
-
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
-
-
-
-
         public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
-
-
-
-
 
         public DbSet<CarManufactoring.Models.WorkMachineMaintenance> WorkMachineMaintenance { get; set; }
 
-
-
-
-
         public DbSet<CarManufactoring.Models.MaintenanceTask> MaintenanceTask { get; set; }
-
 
         public DbSet<CarManufactoring.Models.Material> Material { get; set; }
 
         public DbSet<CarManufactoring.Models.Stock> Stock { get; set; }
-        public DbSet<CarManufactoring.Models.Shift> Shift { get; set; }
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> inspectionAndTestings { get; set; }
 
