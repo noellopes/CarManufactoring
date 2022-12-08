@@ -1,14 +1,11 @@
 ﻿@model IEnumerable<CarManufactoring.Models.CarParts>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Car Parts";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -34,30 +31,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (CarParts cp in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.PartType)
+                @cp.PartType
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reference)
+                @cp.Reference
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                @cp.Name
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PointOfPurchase)
+                @cp.PointOfPurchase
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SafetyStock)
+                @cp.SafetyStock
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LevelService)
+                @cp.LevelService
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@cp.ProductId" class="btn btn-success">Request</a>
+                <a asp-action="Details" asp-route-id="@cp.ProductId" class="btn btn-warning">Storage</a>
+                <a asp-action="Create" asp-route-id="@cp.ProductId" class="btn btn-info">Buy</a>
             </td>
         </tr>
 }
