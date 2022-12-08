@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221208191912_StockProductV2")]
+    partial class StockProductV2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -118,6 +120,21 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
+                    b.Property<string>("CarBrand")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("CarModel")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("CarType")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<decimal>("LevelService")
                         .HasColumnType("decimal(18,2)");
 
@@ -126,25 +143,55 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(120)
                         .HasColumnType("nvarchar(120)");
 
-                    b.Property<string>("PartType")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)");
-
-                    b.Property<double>("PointOfPurchase")
-                        .HasColumnType("float");
+                    b.Property<int>("PointOfPurchase")
+                        .HasColumnType("int");
 
                     b.Property<string>("Reference")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
-                    b.Property<double>("SafetyStock")
-                        .HasColumnType("float");
+                    b.Property<int>("SafetyStock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StockState")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId");
 
                     b.ToTable("CarParts");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Client", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClientId"), 1L, 1);
+
+                    b.Property<string>("ClientContact")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<DateTime>("ClientDataNasc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ClientName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("ClientSex")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.HasKey("ClientId");
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
@@ -181,30 +228,26 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Collaborator");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.Customer", b =>
+            modelBuilder.Entity("CarManufactoring.Models.Estimate", b =>
                 {
-                    b.Property<int>("CustomerId")
+                    b.Property<int>("EstimateID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EstimateID"), 1L, 1);
 
-                    b.Property<string>("CustomerContact")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
 
-                    b.Property<DateTime>("CustomerFoundDate")
+                    b.Property<DateTime>("dataEntrega")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CustomerName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                    b.Property<DateTime>("dataSolicitada")
+                        .HasColumnType("datetime2");
 
-                    b.HasKey("CustomerId");
+                    b.HasKey("EstimateID");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Estimate");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Extra", b =>
@@ -252,28 +295,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("InspectionId");
 
                     b.ToTable("inspectionAndTestings");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
-                {
-                    b.Property<int>("MachineBudgetID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineBudgetID"), 1L, 1);
-
-                    b.Property<double>("Valor")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("dataEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("dataSolicitada")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MachineBudgetID");
-
-                    b.ToTable("MachineBudget");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
@@ -392,9 +413,8 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OrderState")
                         .IsRequired()
@@ -554,44 +574,6 @@ namespace CarManufactoring.Migrations
                     b.HasIndex("MaterialId");
 
                     b.ToTable("Stock");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.Supplier", b =>
-                {
-                    b.Property<int>("SupplierId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"), 1L, 1);
-
-                    b.Property<string>("SupplierAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("SupplierContact")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("SupplierEmail")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("SupplierName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("SupplierZipCode")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
-                    b.HasKey("SupplierId");
-
-                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkMachineMaintenance", b =>
