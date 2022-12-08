@@ -13,19 +13,9 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CarType" class="control-label"></label>
-                <input asp-for="CarType" class="form-control" />
-                <span asp-validation-for="CarType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CarModel" class="control-label"></label>
-                <input asp-for="CarModel" class="form-control" />
-                <span asp-validation-for="CarModel" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CarBrand" class="control-label"></label>
-                <input asp-for="CarBrand" class="form-control" />
-                <span asp-validation-for="CarBrand" class="text-danger"></span>
+                <label asp-for="PartType" class="control-label"></label>
+                <input asp-for="PartType" class="form-control" />
+                <span asp-validation-for="PartType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Reference" class="control-label"></label>
@@ -51,11 +41,6 @@
                 <label asp-for="LevelService" class="control-label"></label>
                 <input asp-for="LevelService" class="form-control" />
                 <span asp-validation-for="LevelService" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StockState" class="control-label"></label>
-                <input asp-for="StockState" class="form-control" />
-                <span asp-validation-for="StockState" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

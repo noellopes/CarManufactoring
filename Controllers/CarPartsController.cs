@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels.Group2;
 
 namespace CarManufactoring.Controllers
 {
@@ -22,7 +23,10 @@ namespace CarManufactoring.Controllers
         // GET: CarParts
         public async Task<IActionResult> Index()
         {
-              return View(await _context.CarParts.ToListAsync());
+            var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
+                
+
+            return View(CarParts);
         }
 
         // GET: CarParts/Details/5
@@ -54,7 +58,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarType,CarModel,CarBrand,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService,StockState")] CarParts carParts)
+        public async Task<IActionResult> Create([Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +90,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarType,CarModel,CarBrand,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService,StockState")] CarParts carParts)
+        public async Task<IActionResult> Edit(int id, [Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
         {
             if (id != carParts.ProductId)
             {
