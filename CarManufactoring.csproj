@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.11" />
@@ -25,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
     <Folder Include="wwwroot\documents\Group08\FabioViegas\" />
     <Folder Include="wwwroot\documents\Group08\GroupDocumentation\" />
     <Folder Include="wwwroot\documents\Group08\PropauloFerreira\" />

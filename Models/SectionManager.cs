@@ -22,10 +22,13 @@ namespace CarManufactoring.Models
         [Required]
         [EmailAddress]
         [StringLength(256)]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public bool Section { get; set; }
+     
+        public int SectionId { get; set; }
+        public Section? Section { get; set; }
+
+       public ICollection<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
     }
 }
