@@ -14,6 +14,51 @@ namespace CarManufactoring.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            base.OnModelCreating(modelBuilder);
+
+
+            modelBuilder.Entity<CollaboratorTask>().HasKey(ct => new { ct.ShiftId, ct.TaskId, ct.CollaboratorId });
+            modelBuilder.Entity<CollaboratorShift>().HasKey(cs => new { cs.ShiftId, cs.CollaboratorId });
+
+            modelBuilder.Entity<CollaboratorShift>()
+                .HasOne(cs => cs.Shift)
+                .WithMany(s => s.Collaborators)
+                .HasForeignKey(cs => cs.ShiftId)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            modelBuilder.Entity<CollaboratorShift>()
+                .HasOne(ct => ct.Collaborator)
+                .WithMany(s => s.Shifts)
+                .HasForeignKey(cs => cs.CollaboratorId)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            modelBuilder.Entity<CollaboratorTask>()
+                .HasOne(ct => ct.Task)
+                .WithMany(t => t.CollaboratorShifts)
+                .HasForeignKey(ct => ct.TaskId)
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            modelBuilder.Entity<CollaboratorTask>()
+                .HasOne(ct => ct.CollaboratorShifts)
+                .WithMany(cs => cs.Tasks)
+                .HasForeignKey(ct => new { ct.ShiftId, ct.CollaboratorId })
+                .OnDelete(DeleteBehavior.ClientNoAction);
+
+            //gives error whith ondelete restriction
+            //https://stackoverflow.com/questions/17127351/introducing-foreign-key-constraint-may-cause-cycles-or-multiple-cascade-paths
+            //https://stackoverflow.com/questions/5436731/composite-key-as-foreign-key
+        }
+
+        public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.Shift> Shift { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.CollaboratorTask> CollaboratorTask { get; set; } = default!;
         public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineState> MachineState { get; set; }

@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Migrations\" />
     <Folder Include="wwwroot\documents\Group08\FabioViegas\" />
     <Folder Include="wwwroot\documents\Group08\GroupDocumentation\" />
     <Folder Include="wwwroot\documents\Group08\PropauloFerreira\" />
