@@ -34,7 +34,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.WorkStates> WorkStates { get; set; }
 
-        public DbSet<CarManufactoring.Models.Order> Order { get; set; }
 
         public DbSet<CarManufactoring.Models.Section> Section { get; set; }
 
@@ -73,6 +72,8 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.InspectionAndTest> inspectionAndTestings { get; set; }
 
         public DbSet<CarManufactoring.Models.Customer> Customer { get; set; }
+
+        public DbSet<CarManufactoring.Models.Order> Order { get; set; }
 
     }
 }
