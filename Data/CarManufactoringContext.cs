@@ -45,6 +45,13 @@ namespace CarManufactoring.Data
                 .HasForeignKey(ct => ct.CollaboratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<CollaboratorTask>()
+                .HasOne(ct => ct.Shift)
+                .WithMany(t => t.tasks)
+                .HasForeignKey(ct => ct.ShiftId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             /*
              * modelBuilder.Entity<CollaboratorTask>()
                             .HasOne(ct => ct.Task)

@@ -20,6 +20,8 @@ namespace CarManufactoring.Models
         public DateTime EndDate { get; set; }
 
         public ICollection<CollaboratorShift>? Collaborators { get; set; }
+        public ICollection<CollaboratorTask>? tasks { get; set; }
+
 
         [StringLength(100, MinimumLength = 10)]
         [Required]
