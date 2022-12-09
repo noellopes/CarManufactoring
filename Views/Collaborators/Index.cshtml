@@ -6,6 +6,7 @@
 
 <h1>Index</h1>
 
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -52,7 +53,7 @@
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Gender)
+                @Html.DisplayFor(modelItem => item.Gender.GenderDefinition)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OnDuty)
@@ -69,3 +70,4 @@
 }
     </tbody>
 </table>
+

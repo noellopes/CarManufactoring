@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: Collaborators
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Collaborator.ToListAsync());
+            var carManufactoringContext = _context.Collaborator.Include(c => c.Gender);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Collaborators/Details/5
@@ -34,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var collaborator = await _context.Collaborator
+                .Include(c => c.Gender)
                 .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaborator == null)
             {
@@ -46,6 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: Collaborators/Create
         public IActionResult Create()
         {
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CollaboratorId,Name,BirthDate,Phone,Email,Gender,OnDuty,Status")] Collaborator collaborator)
+        public async Task<IActionResult> Create([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
         }
 
@@ -78,6 +82,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
         }
 
@@ -86,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CollaboratorId,Name,BirthDate,Phone,Email,Gender,OnDuty,Status")] Collaborator collaborator)
+        public async Task<IActionResult> Edit(int id, [Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
             if (id != collaborator.CollaboratorId)
             {
@@ -113,6 +118,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
         }
 
@@ -125,6 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var collaborator = await _context.Collaborator
+                .Include(c => c.Gender)
                 .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaborator == null)
             {
