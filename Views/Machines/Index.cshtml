@@ -19,6 +19,9 @@
                 @Html.DisplayNameFor(model => model.MachineModel)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Available)
             </th>
             <th>
@@ -42,6 +45,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.MachineModel)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Available)
             </td>

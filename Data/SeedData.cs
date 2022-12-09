@@ -80,7 +80,18 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+        // seed da tabela Gender
+        private static void PopulateGender(CarManufactoringContext db)
+        {
+            if (db.Gender.Any()) return;
 
+            db.Gender.AddRange(
+                new Gender {GenderDefinition = "Male" },
+                new Gender { GenderDefinition = "Female" }
+               );
+
+            db.SaveChanges() ;
+        }
 
         private static void PopulateInspectionTesting(CarManufactoringContext db)
         {
