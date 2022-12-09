@@ -11,6 +11,7 @@ namespace CarManufactoring.Data
             //PopulateSection(db);
             //PopulateMachineState(db);
             //PopulateMachines(db);
+            PopulateInspectionTesting(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -76,6 +77,23 @@ namespace CarManufactoring.Data
                 new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/10/2020"), MachineStateId = 1, SectionId = 2 }
 
                 );
+
+            db.SaveChanges();
+        }
+
+
+        private static void PopulateInspectionTesting(CarManufactoringContext db)
+        {
+            if (db.inspectionAndTestings.Any()) return;
+
+
+            db.inspectionAndTestings.AddRange(
+
+                new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues." },
+                new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." },
+                new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested." }
+
+            );
 
             db.SaveChanges();
         }
