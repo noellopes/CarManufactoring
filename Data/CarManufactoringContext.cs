@@ -71,5 +71,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.TaskType> TaskType { get; set; }
 
+        public DbSet<CarManufactoring.Models.Production> Production { get; set; }
     }
 }
