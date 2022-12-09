@@ -6,13 +6,13 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            PopulateSemiFinisheds(db);
-            PopulateSection(db);
-            PopulateMachineState(db);
-            PopulateMachines(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateGender(db);
+            //PopulateSemiFinisheds(db);
+            //PopulateSection(db);
+            //PopulateMachineState(db);
+            //PopulateMachines(db);
+            //PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+            //PopulateGender(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
