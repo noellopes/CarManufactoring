@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using Task = CarManufactoring.Models.Task;
 
 namespace CarManufactoring.Controllers
 {
