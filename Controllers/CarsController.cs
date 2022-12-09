@@ -48,8 +48,9 @@ namespace CarManufactoring.Controllers
         // GET: Cars/Create
         public IActionResult Create()
         {
+            Car obj = new Car();
             ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName");
-            return View();
+            return View(obj);
         }
 
         // POST: Cars/Create
