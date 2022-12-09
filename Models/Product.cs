@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CarManufactoring.Data;
+using CarManufactoring.ViewModels;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarManufactoring.Models {
     public abstract class Product {
@@ -24,8 +27,16 @@ namespace CarManufactoring.Models {
         [Range(0,1)]
         public decimal LevelService { get; set; }
 
-        public string StockState { get; } //Changed to method to not be inside the database
+        public string StockState { get; } //Wait for stockStorage to be done
 
-        //Methods (will be added later)
+        public CarParts SearchProd(int ProductId, CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch) {
+
+            var carPart = context.CarParts.Where(cp => cp.Name == NameSearch || cp.PartType == TypeSearch || cp.reference ==referenceSearch);
+
+            return carPart;
+
+        }
+
+        //Filipe will do the buyProdfunction
     }
 }
