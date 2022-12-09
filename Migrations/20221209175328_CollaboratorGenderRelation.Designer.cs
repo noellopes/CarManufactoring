@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221209175328_CollaboratorGenderRelation")]
+    partial class CollaboratorGenderRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -755,7 +757,7 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Gender", "Gender")
-                        .WithMany("Collaborators")
+                        .WithMany()
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -800,7 +802,7 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Gender", "Gender")
-                        .WithMany("SectionManagers")
+                        .WithMany()
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -843,13 +845,6 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
                 {
                     b.Navigation("CarConfigs");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.Gender", b =>
-                {
-                    b.Navigation("Collaborators");
-
-                    b.Navigation("SectionManagers");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>

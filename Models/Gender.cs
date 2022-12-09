@@ -10,5 +10,7 @@ namespace CarManufactoring.Models
         [StringLength(30,MinimumLength =8)]
         [Display(Name ="Gender")]
         public string GenderDefinition { get; set; }
+        public ICollection<Collaborator> Collaborators { get; set;}
+        public ICollection<SectionManager> SectionManagers { get; set;}
     }
 }

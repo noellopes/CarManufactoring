@@ -26,7 +26,10 @@ namespace CarManufactoring.Models
         public string Email { get; set; }
 
         [Required]
-        public string Gender { get; set; }
+        [Display(Name = "Gender")]
+        public int GenderId { get; set; }
+        public Gender Gender { get; set; }
+
 
         public Task? Task { get; set; }
 
