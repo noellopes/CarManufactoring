@@ -8,6 +8,7 @@ namespace CarManufactoring.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            /*
             migrationBuilder.AddColumn<string>(
                 name: "SupplierAddress",
                 table: "Supplier",
@@ -23,6 +24,7 @@ namespace CarManufactoring.Migrations
                 maxLength: 8,
                 nullable: false,
                 defaultValue: "");
+            */
 
             migrationBuilder.AlterColumn<double>(
                 name: "Quantity",
@@ -32,12 +34,14 @@ namespace CarManufactoring.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)");
 
+            /*
             migrationBuilder.AddColumn<int>(
                 name: "CollaboratorId",
                 table: "Stock",
                 type: "int",
                 nullable: false,
                 defaultValue: 0);
+            */
 
             migrationBuilder.AddColumn<int>(
                 name: "MaterialId",
@@ -50,11 +54,12 @@ namespace CarManufactoring.Migrations
                 table: "Car",
                 type: "int",
                 nullable: true);
-
+            /*
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_CollaboratorId",
                 table: "Stock",
                 column: "CollaboratorId");
+            */
 
             migrationBuilder.CreateIndex(
                 name: "IX_Car_MaterialId",
@@ -80,13 +85,14 @@ namespace CarManufactoring.Migrations
                 principalTable: "SemiFinished",
                 principalColumn: "SemiFinishedId");
 
+            /*
             migrationBuilder.AddForeignKey(
                 name: "FK_Stock_Collaborator_CollaboratorId",
                 table: "Stock",
                 column: "CollaboratorId",
                 principalTable: "Collaborator",
                 principalColumn: "CollaboratorId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.Cascade);*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
