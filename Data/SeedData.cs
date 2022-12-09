@@ -6,14 +6,15 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            PopulateSemiFinisheds(db);
-            PopulateSection(db);
-            PopulateMachineState(db);
-            PopulateMachines(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateGender(db);
-            PopulateCars(db);
+           PopulateSemiFinisheds(db);
+           PopulateSection(db);
+           PopulateMachineState(db);
+            // PopulateMachines(db);
+           PopulateBrands(db);
+           PopulateInspectionTesting(db);
+           PopulateGender(db);
+           PopulateCars(db);
+           PopulateCarConfigs(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -142,6 +143,22 @@ namespace CarManufactoring.Data
                 );
 
             db.SaveChanges() ;
+        }
+
+        private static void PopulateCarConfigs(CarManufactoringContext db)
+        {
+            if(db.CarConfig.Any()) return;
+
+            db.CarConfig.AddRange(
+                new CarConfig { AddedPrice = 5000, ConfigName = "Performance Line", CarId = 1, NumExtras = 5 },
+                new CarConfig {  AddedPrice = 7000, ConfigName = "M Line", CarId = 2, NumExtras = 7 },
+                new CarConfig {  AddedPrice = 10000, ConfigName = "Brabus ", CarId = 3, NumExtras = 8 },
+                new CarConfig { AddedPrice = 7000, ConfigName = "S Line", CarId = 4, NumExtras = 6 },
+                new CarConfig { AddedPrice = 5000, ConfigName = "R Line", CarId = 5, NumExtras = 4 },
+                new CarConfig { AddedPrice = 5000, ConfigName = "ST Line", CarId = 6, NumExtras = 5 }
+                );
+
+            db.SaveChanges();
         }
 
         
