@@ -12,6 +12,7 @@ namespace CarManufactoring.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
         [Required]
         [Display(Name ="Gender")]
