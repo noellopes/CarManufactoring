@@ -10,85 +10,85 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class MaintenanceTasksController : Controller
+    public class TaskTypesController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public MaintenanceTasksController(CarManufactoringContext context)
+        public TaskTypesController(CarManufactoringContext context)
         {
             _context = context;
         }
 
-        // GET: MaintenanceTasks
+        // GET: TaskTypes
         public async Task<IActionResult> Index()
         {
-              return View(await _context.MaintenanceTask.ToListAsync());
+              return View(await _context.TaskType.ToListAsync());
         }
 
-        // GET: MaintenanceTasks/Details/5
+        // GET: TaskTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.MaintenanceTask == null)
+            if (id == null || _context.TaskType == null)
             {
                 return NotFound();
             }
 
-            var maintenanceTask = await _context.MaintenanceTask
-                .FirstOrDefaultAsync(m => m.MaintenanceTaskId == id);
-            if (maintenanceTask == null)
+            var taskType = await _context.TaskType
+                .FirstOrDefaultAsync(m => m.TaskTypeId == id);
+            if (taskType == null)
             {
                 return NotFound();
             }
 
-            return View(maintenanceTask);
+            return View(taskType);
         }
 
-        // GET: MaintenanceTasks/Create
+        // GET: TaskTypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MaintenanceTasks/Create
+        // POST: TaskTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaintenanceTaskId,TaskDef")] MaintenanceTask maintenanceTask)
+        public async Task<IActionResult> Create([Bind("TaskTypeId,TaskName")] TaskType taskType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(maintenanceTask);
+                _context.Add(taskType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(maintenanceTask);
+            return View(taskType);
         }
 
-        // GET: MaintenanceTasks/Edit/5
+        // GET: TaskTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.MaintenanceTask == null)
+            if (id == null || _context.TaskType == null)
             {
                 return NotFound();
             }
 
-            var maintenanceTask = await _context.MaintenanceTask.FindAsync(id);
-            if (maintenanceTask == null)
+            var taskType = await _context.TaskType.FindAsync(id);
+            if (taskType == null)
             {
                 return NotFound();
             }
-            return View(maintenanceTask);
+            return View(taskType);
         }
 
-        // POST: MaintenanceTasks/Edit/5
+        // POST: TaskTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaintenanceTaskId,TaskDef")] MaintenanceTask maintenanceTask)
+        public async Task<IActionResult> Edit(int id, [Bind("TaskTypeId,TaskName")] TaskType taskType)
         {
-            if (id != maintenanceTask.MaintenanceTaskId)
+            if (id != taskType.TaskTypeId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    _context.Update(maintenanceTask);
+                    _context.Update(taskType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MaintenanceTaskExists(maintenanceTask.MaintenanceTaskId))
+                    if (!TaskTypeExists(taskType.TaskTypeId))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(maintenanceTask);
+            return View(taskType);
         }
 
-        // GET: MaintenanceTasks/Delete/5
+        // GET: TaskTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.MaintenanceTask == null)
+            if (id == null || _context.TaskType == null)
             {
                 return NotFound();
             }
 
-            var maintenanceTask = await _context.MaintenanceTask
-                .FirstOrDefaultAsync(m => m.MaintenanceTaskId == id);
-            if (maintenanceTask == null)
+            var taskType = await _context.TaskType
+                .FirstOrDefaultAsync(m => m.TaskTypeId == id);
+            if (taskType == null)
             {
                 return NotFound();
             }
 
-            return View(maintenanceTask);
+            return View(taskType);
         }
 
-        // POST: MaintenanceTasks/Delete/5
+        // POST: TaskTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MaintenanceTask == null)
+            if (_context.TaskType == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.MaintenanceTask'  is null.");
+                return Problem("Entity set 'CarManufactoringContext.TaskType'  is null.");
             }
-            var maintenanceTask = await _context.MaintenanceTask.FindAsync(id);
-            if (maintenanceTask != null)
+            var taskType = await _context.TaskType.FindAsync(id);
+            if (taskType != null)
             {
-                _context.MaintenanceTask.Remove(maintenanceTask);
+                _context.TaskType.Remove(taskType);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MaintenanceTaskExists(int id)
+        private bool TaskTypeExists(int id)
         {
-          return _context.MaintenanceTask.Any(e => e.MaintenanceTaskId == id);
+          return _context.TaskType.Any(e => e.TaskTypeId == id);
         }
     }
 }

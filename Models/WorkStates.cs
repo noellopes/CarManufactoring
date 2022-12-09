@@ -11,6 +11,6 @@ namespace CarManufactoring.Models
         [Display(Name = "Machine State")]
         public string? StateWork { get; set; }
 
-        public ICollection<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
+      
     }
 }
