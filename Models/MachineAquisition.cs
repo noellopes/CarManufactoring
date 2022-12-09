@@ -7,7 +7,7 @@ namespace CarManufactoring.Models
 {
     public class MachineAquisition
     {
-        public int MachineAcquisitionID { get; set; }
+        public int MachineAquisitionID { get; set; }
 
         [Required]
         [Display(Name = "Name")]
