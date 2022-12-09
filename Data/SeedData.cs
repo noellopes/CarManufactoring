@@ -1,5 +1,4 @@
 ﻿using CarManufactoring.Models;
-using Microsoft.AspNetCore.Http.Connections;
 
 namespace CarManufactoring.Data
 {
@@ -7,10 +6,11 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            //PopulateSemiFinisheds(db);
-            //PopulateSection(db);
-            //PopulateMachineState(db);
-            //PopulateMachines(db);
+            PopulateSemiFinisheds(db);
+            PopulateSection(db);
+            PopulateMachineState(db);
+            PopulateMachines(db);
+            PopulateBrands(db);
             PopulateInspectionTesting(db);
         }
 
@@ -98,5 +98,23 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        //SeedData for Brand Class
+        private static void PopulateBrands(CarManufactoringContext db)
+        {
+            if(db.Brand.Any()) return;
+
+            db.Brand.AddRange(
+                new Brand { BrandName= "Tesla"},
+                new Brand { BrandName = "BMW" },
+                new Brand { BrandName = "Mercedez" },
+                new Brand { BrandName = "Audi" },
+                new Brand { BrandName = "Volkswagen" },
+                new Brand { BrandName = "Ford"}
+                );
+
+            db.SaveChanges();
+        }
+
+        
     }
 }
