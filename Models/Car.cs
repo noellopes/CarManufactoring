@@ -8,8 +8,8 @@ namespace CarManufactoring.Models
        
         [Required]
         [Display(Name= "Name")]
-        [StringLength(100, MinimumLength = 2)]
-        public string CarName { get; set; }
+        public int BrandId { get; set; }
+        public Brand? Brand { get; set; }
         
         [Required]
         [Display(Name ="Model")]

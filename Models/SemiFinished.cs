@@ -39,6 +39,6 @@ namespace CarManufactoring.Models
         // relationship between SemiFinished and INSPECTION (WAITING CREATION)
         
         // Relation between the table MaterialUsado and SemiFinished
-        public ICollection<Car> MaterialUsado { get; set; }
+        public ICollection<MaterialUsado> MaterialUsado { get; set; }
     }
 }
