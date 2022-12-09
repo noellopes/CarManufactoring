@@ -19,7 +19,7 @@ namespace CarManufactoring.Migrations
                 oldType: "int",
                 oldNullable: true);
 
-            migrationBuilder.AddColumn<int>(
+            /*migrationBuilder.AddColumn<int>(
                 name: "StockId",
                 table: "Stock",
                 type: "int",
@@ -59,7 +59,7 @@ namespace CarManufactoring.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Shift", x => x.ShiftId);
-                });
+                });*/
 
             migrationBuilder.CreateTable(
                 name: "Supplier",
@@ -76,10 +76,10 @@ namespace CarManufactoring.Migrations
                     table.PrimaryKey("PK_Supplier", x => x.SupplierId);
                 });
 
-            migrationBuilder.CreateIndex(
+            /*migrationBuilder.CreateIndex(
                 name: "IX_Stock_MaterialId",
                 table: "Stock",
-                column: "MaterialId");
+                column: "MaterialId");*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
