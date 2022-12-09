@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221208210642_CustomersMig")]
+    partial class CustomersMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -392,9 +394,8 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OrderState")
                         .IsRequired()
@@ -533,9 +534,6 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"), 1L, 1);
 
-                    b.Property<int>("CollaboratorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -544,12 +542,11 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
-                    b.Property<double>("Quantity")
-                        .HasColumnType("float");
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StockId");
-
-                    b.HasIndex("CollaboratorId");
 
                     b.HasIndex("MaterialId");
 
@@ -563,11 +560,6 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SupplierId"), 1L, 1);
-
-                    b.Property<string>("SupplierAddress")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("SupplierContact")
                         .IsRequired()
@@ -583,11 +575,6 @@ namespace CarManufactoring.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("SupplierZipCode")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
 
                     b.HasKey("SupplierId");
 
@@ -712,19 +699,11 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Stock", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
-                        .WithMany()
-                        .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("CarManufactoring.Models.Material", "Material")
                         .WithMany()
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Collaborator");
 
                     b.Navigation("Material");
                 });
