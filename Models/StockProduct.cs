@@ -6,12 +6,12 @@
 
         public Stock Stock { get; set; }
 
-        public int CollaboratorId { get; set; }
+        public int ProductId { get; set; }
 
-        public Collaborator Collaborator { get; set; }
+        public Product Product { get; set; }
 
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
 
-        public int StockMax { get; set; }
+        public double StockMax { get; set; }
     }
 }
