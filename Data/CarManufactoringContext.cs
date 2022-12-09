@@ -14,6 +14,15 @@ namespace CarManufactoring.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            base.OnModelCreating(modelBuilder);
+
+            // to be added == ShiftCollaborator
+        }
+
+        public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
 
         public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
@@ -25,8 +34,6 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
-
-        public DbSet<CarManufactoring.Models.Task> Assigment { get; set; }
 
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 
@@ -70,6 +77,8 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Order> Order { get; set; }
 
         public DbSet<CarManufactoring.Models.TaskType> TaskType { get; set; }
+
+        public DbSet<CarManufactoring.Models.Brand> Brand { get; set; }
 
     }
 }
