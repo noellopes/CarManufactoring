@@ -7,7 +7,7 @@ namespace CarManufactoring.Models
         public int CarId { get; set; }
        
         [Required]
-        [Display(Name= "Name")]
+        [Display(Name= "Brand")]
         public int BrandId { get; set; }
         public Brand? Brand { get; set; }
         
