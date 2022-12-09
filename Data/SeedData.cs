@@ -6,13 +6,14 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            //PopulateSemiFinisheds(db);
-            //PopulateSection(db);
-            //PopulateMachineState(db);
-            //PopulateMachines(db);
-            //PopulateBrands(db);
-            //PopulateInspectionTesting(db);
-            //PopulateGender(db);
+            PopulateSemiFinisheds(db);
+            PopulateSection(db);
+            PopulateMachineState(db);
+            PopulateMachines(db);
+            PopulateBrands(db);
+            PopulateInspectionTesting(db);
+            PopulateGender(db);
+            PopulateCars(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -125,6 +126,22 @@ namespace CarManufactoring.Data
                 );
 
             db.SaveChanges();
+        }
+
+        private static void PopulateCars(CarManufactoringContext db)
+        {
+            if(db.Car.Any()) return;
+
+            db.Car.AddRange(
+                new Car { CarModel = "Model S", BasePrice = 10000, BrandId = 1, LaunchYear = 2022 },
+                new Car { CarModel = "320d" , BasePrice = 15000, BrandId = 2, LaunchYear = 2022}, 
+                new Car { CarModel = "G-Wagon", BasePrice = 150000, BrandId = 3, LaunchYear = 2020 },
+                new Car { CarModel = "A3", BasePrice = 20000, BrandId = 4, LaunchYear = 2019},
+                new Car { CarModel = "Polo", BasePrice = 18000, BrandId = 5, LaunchYear = 2018},
+                new Car { CarModel = "Focus", BasePrice = 14000, BrandId = 6, LaunchYear = 2022}
+                );
+
+            db.SaveChanges() ;
         }
 
         
