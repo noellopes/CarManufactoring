@@ -26,7 +26,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
 
-        public DbSet<CarManufactoring.Models.Assigment> Assigment { get; set; }
+        public DbSet<CarManufactoring.Models.Task> Assigment { get; set; }
 
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 
@@ -70,8 +70,6 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Order> Order { get; set; }
 
         public DbSet<CarManufactoring.Models.TaskType> TaskType { get; set; }
-
-        public DbSet<CarManufactoring.Models.Brand> Brand { get; set; }
 
     }
 }
