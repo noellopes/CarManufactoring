@@ -55,13 +55,7 @@ namespace CarManufactoring.Data
 
 
 
-        public DbSet<CarManufactoring.Models.WorkMachineMaintenance> WorkMachineMaintenance { get; set; }
-
-
-
-
-
-        public DbSet<CarManufactoring.Models.MaintenanceTask> MaintenanceTask { get; set; }
+    
 
 
         public DbSet<CarManufactoring.Models.Material> Material { get; set; }
@@ -74,6 +68,8 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Customer> Customer { get; set; }
 
         public DbSet<CarManufactoring.Models.Order> Order { get; set; }
+
+        public DbSet<CarManufactoring.Models.TaskType> TaskType { get; set; }
 
     }
 }

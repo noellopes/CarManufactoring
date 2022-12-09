@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221209115646_TaskType")]
+    partial class TaskType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,18 +74,10 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("LaunchYear")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SemiFinishedId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SemiFinishedId1")
-                        .HasColumnType("int");
-
                     b.HasKey("CarId");
-
-                    b.HasIndex("MaterialId");
 
                     b.HasIndex("SemiFinishedId");
 
@@ -339,11 +333,7 @@ namespace CarManufactoring.Migrations
                     b.HasKey("MachineStateId");
 
                     b.ToTable("MachineState");
-
                 });
-
-           
-
 
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
                 {
@@ -603,11 +593,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("TaskTypeId");
 
-
                     b.ToTable("TaskType");
-
-
-
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkStates", b =>
@@ -630,17 +616,9 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Material", null)
-                        .WithMany("MaterialUsado")
-                        .HasForeignKey("MaterialId");
-
                     b.HasOne("CarManufactoring.Models.SemiFinished", null)
                         .WithMany("Cars")
                         .HasForeignKey("SemiFinishedId");
-
-                    b.HasOne("CarManufactoring.Models.SemiFinished", null)
-                        .WithMany("MaterialUsado")
-                        .HasForeignKey("SemiFinishedId1");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.CarConfig", b =>
@@ -687,41 +665,8 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Stock", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
-
                         .WithMany()
                         .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Collaborator");
-
-                    b.Navigation("Material");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.WorkMachineMaintenance", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.Machines", "Machines")
-                        .WithMany("WorkMachineMaintenances")
-                        .HasForeignKey("MachinesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.MaintenanceTask", "MaintenanceTask")
-                        .WithMany("WorkMachineMaintenances")
-                        .HasForeignKey("MaintenanceTaskId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.SectionManager", "SectionManager")
-                        .WithMany("WorkMachineMaintenances")
-                        .HasForeignKey("SectionManagerId")
-
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -746,14 +691,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Machines");
                 });
 
-
-
-            modelBuilder.Entity("CarManufactoring.Models.Material", b =>
-                {
-                    b.Navigation("MaterialUsado");
-                });
-
-
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>
                 {
                     b.Navigation("Machines");
@@ -764,8 +701,6 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.SemiFinished", b =>
                 {
                     b.Navigation("Cars");
-
-                    b.Navigation("MaterialUsado");
                 });
 #pragma warning restore 612, 618
         }
