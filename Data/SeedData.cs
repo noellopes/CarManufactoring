@@ -39,7 +39,7 @@ namespace CarManufactoring.Data
 
                 new MachineState { StateMachine = "Operacional" },
                 new MachineState { StateMachine = "Avariada" },
-                new MachineState { StateMachine = "Em utilização" }
+                new MachineState { StateMachine = "Em manutenção" }
 
                 );
 
@@ -84,10 +84,10 @@ namespace CarManufactoring.Data
 
         private static void PopulateInspectionTesting(CarManufactoringContext db)
         {
-            if (db.inspectionAndTestings.Any()) return;
+            if (db.InspectionAndTest.Any()) return;
 
 
-            db.inspectionAndTestings.AddRange(
+            db.InspectionAndTest.AddRange(
 
                 new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues." },
                 new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." },
