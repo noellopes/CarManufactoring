@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221209111431_StockProductV3")]
+    partial class StockProductV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,18 +74,10 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("LaunchYear")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaterialId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("SemiFinishedId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SemiFinishedId1")
-                        .HasColumnType("int");
-
                     b.HasKey("CarId");
-
-                    b.HasIndex("MaterialId");
 
                     b.HasIndex("SemiFinishedId");
 
@@ -672,17 +666,9 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Material", null)
-                        .WithMany("MaterialUsado")
-                        .HasForeignKey("MaterialId");
-
                     b.HasOne("CarManufactoring.Models.SemiFinished", null)
                         .WithMany("Cars")
                         .HasForeignKey("SemiFinishedId");
-
-                    b.HasOne("CarManufactoring.Models.SemiFinished", null)
-                        .WithMany("MaterialUsado")
-                        .HasForeignKey("SemiFinishedId1");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.CarConfig", b =>
@@ -800,11 +786,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("WorkMachineMaintenances");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.Material", b =>
-                {
-                    b.Navigation("MaterialUsado");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>
                 {
                     b.Navigation("Machines");
@@ -820,8 +801,6 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.SemiFinished", b =>
                 {
                     b.Navigation("Cars");
-
-                    b.Navigation("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkStates", b =>
