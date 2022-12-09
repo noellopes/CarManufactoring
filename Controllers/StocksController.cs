@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: Stocks
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.Stock.Include(s => s.Material);
+            var carManufactoringContext = _context.Stock.Include(s => s.Collaborator).Include(s => s.Material);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -35,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var stock = await _context.Stock
+                .Include(s => s.Collaborator)
                 .Include(s => s.Material)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
@@ -48,6 +49,7 @@ namespace CarManufactoring.Controllers
         // GET: Stocks/Create
         public IActionResult Create()
         {
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description");
             return View();
         }
@@ -57,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,Quantity,Location,MaterialId")] Stock stock)
+        public async Task<IActionResult> Create([Bind("StockId,Quantity,Location,CollaboratorId,MaterialId")] Stock stock)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +67,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
             return View(stock);
         }
@@ -82,6 +85,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
             return View(stock);
         }
@@ -91,7 +95,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,Quantity,Location,MaterialId")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,Quantity,Location,CollaboratorId,MaterialId")] Stock stock)
         {
             if (id != stock.StockId)
             {
@@ -118,6 +122,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
             return View(stock);
         }
@@ -131,6 +136,7 @@ namespace CarManufactoring.Controllers
             }
 
             var stock = await _context.Stock
+                .Include(s => s.Collaborator)
                 .Include(s => s.Material)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)

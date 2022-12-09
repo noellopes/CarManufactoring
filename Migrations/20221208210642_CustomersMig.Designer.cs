@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221208210642_CustomersMig")]
+    partial class CustomersMig
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("AssigmentId");
 
-                    b.ToTable("Assigment", (string)null);
+                    b.ToTable("Assigment");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
@@ -79,7 +81,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("SemiFinishedId");
 
-                    b.ToTable("Car", (string)null);
+                    b.ToTable("Car");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.CarConfig", b =>
@@ -107,7 +109,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarConfig", (string)null);
+                    b.ToTable("CarConfig");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.CarParts", b =>
@@ -144,7 +146,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("CarParts", (string)null);
+                    b.ToTable("CarParts");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
@@ -178,7 +180,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("CollaboratorId");
 
-                    b.ToTable("Collaborator", (string)null);
+                    b.ToTable("Collaborator");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Customer", b =>
@@ -204,7 +206,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("Customer", (string)null);
+                    b.ToTable("Customer");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Extra", b =>
@@ -225,7 +227,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("ExtraID");
 
-                    b.ToTable("Extra", (string)null);
+                    b.ToTable("Extra");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.InspectionAndTest", b =>
@@ -251,7 +253,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("InspectionId");
 
-                    b.ToTable("inspectionAndTestings", (string)null);
+                    b.ToTable("inspectionAndTestings");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
@@ -273,7 +275,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("MachineBudgetID");
 
-                    b.ToTable("MachineBudget", (string)null);
+                    b.ToTable("MachineBudget");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
@@ -312,7 +314,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("Machines", (string)null);
+                    b.ToTable("Machines");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>
@@ -330,7 +332,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("MachineStateId");
 
-                    b.ToTable("MachineState", (string)null);
+                    b.ToTable("MachineState");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MaintenanceTask", b =>
@@ -348,7 +350,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("MaintenanceTaskId");
 
-                    b.ToTable("MaintenanceTask", (string)null);
+                    b.ToTable("MaintenanceTask");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
@@ -381,7 +383,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("MaterialId");
 
-                    b.ToTable("Material", (string)null);
+                    b.ToTable("Material");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Order", b =>
@@ -392,9 +394,8 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"), 1L, 1);
 
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("OrderDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("OrderState")
                         .IsRequired()
@@ -406,7 +407,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>
@@ -424,7 +425,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("SectionId");
 
-                    b.ToTable("Section", (string)null);
+                    b.ToTable("Section");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
@@ -460,7 +461,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("SectionManager", (string)null);
+                    b.ToTable("SectionManager");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.SemiFinished", b =>
@@ -503,7 +504,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("SemiFinishedId");
 
-                    b.ToTable("SemiFinished", (string)null);
+                    b.ToTable("SemiFinished");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
@@ -522,7 +523,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("ShiftId");
 
-                    b.ToTable("Shift", (string)null);
+                    b.ToTable("Shift");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Stock", b =>
@@ -549,7 +550,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("MaterialId");
 
-                    b.ToTable("Stock", (string)null);
+                    b.ToTable("Stock");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Supplier", b =>
@@ -577,7 +578,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("SupplierId");
 
-                    b.ToTable("Supplier", (string)null);
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkMachineMaintenance", b =>
@@ -627,7 +628,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("WorkStatesId");
 
-                    b.ToTable("WorkMachineMaintenance", (string)null);
+                    b.ToTable("WorkMachineMaintenance");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkStates", b =>
@@ -645,7 +646,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("WorkStatesId");
 
-                    b.ToTable("WorkStates", (string)null);
+                    b.ToTable("WorkStates");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
