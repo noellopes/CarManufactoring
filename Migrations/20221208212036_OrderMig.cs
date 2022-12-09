@@ -9,7 +9,7 @@ namespace CarManufactoring.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+           /* migrationBuilder.CreateTable(
                 name: "Order",
                 columns: table => new
                 {
@@ -22,7 +22,7 @@ namespace CarManufactoring.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Order", x => x.OrderId);
-                });
+                });*/
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
