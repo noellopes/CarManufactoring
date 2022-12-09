@@ -12,6 +12,7 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
+            PopulateGender(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
