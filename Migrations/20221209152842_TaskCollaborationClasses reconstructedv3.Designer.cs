@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221209152842_TaskCollaborationClasses reconstructedv3")]
+    partial class TaskCollaborationClassesreconstructedv3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -429,28 +431,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("OrderId");
 
                     b.ToTable("Order");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.Production", b =>
-                {
-                    b.Property<int>("ProductionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductionId"), 1L, 1);
-
-                    b.Property<string>("DeliveryDate")
-                        .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
-
-                    b.Property<string>("OrderDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ProductionId");
-
-                    b.ToTable("Production");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>
