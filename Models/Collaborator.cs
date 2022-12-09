@@ -1,12 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CarManufactoring.Models {
-    public class Collaborator {
+namespace CarManufactoring.Models
+{
+    public class Collaborator
+    {
 
+        [Key]
         public int CollaboratorId { get; set; }
 
-
-        [StringLength(100,MinimumLength = 10 ) ]
+        [StringLength(100, MinimumLength = 10)]
         [Required]
         public string Name { get; set; }
 
@@ -24,9 +26,16 @@ namespace CarManufactoring.Models {
         public string Email { get; set; }
 
         [Required]
-        public bool Available { get; set; }
+        public string Gender { get; set; }
 
-        
+        public Task? Task { get; set; }
 
+        //public ICollection<CollaboratorShift>? Shifts { get; set; }
+        //To be added by Ana 
+
+        [Required]
+        public bool OnDuty { get; set; }
+
+        public string? Status { get; set; }
     }
 }
