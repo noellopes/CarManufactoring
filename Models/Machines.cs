@@ -18,6 +18,8 @@ namespace CarManufactoring.Models
         [Display(Name ="Model")]
         public string? MachineModel { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         public bool Available { get; set; }
        
