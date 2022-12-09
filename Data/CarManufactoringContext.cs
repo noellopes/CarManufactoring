@@ -73,5 +73,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Brand> Brand { get; set; }
 
+        public DbSet<CarManufactoring.Models.Production> Production { get; set; }
     }
 }
