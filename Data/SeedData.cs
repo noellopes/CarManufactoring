@@ -15,6 +15,8 @@ namespace CarManufactoring.Data
            PopulateGender(db);
            PopulateCars(db);
            PopulateCarConfigs(db);
+           PopulateShiftType(db);
+           PopulateShift(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -159,6 +161,34 @@ namespace CarManufactoring.Data
                 new CarConfig { AddedPrice = 5000, ConfigName = "R Line", CarId = 5, NumExtras = 4 },
                 new CarConfig { AddedPrice = 5000, ConfigName = "ST Line", CarId = 6, NumExtras = 5 }
                 );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateShiftType(CarManufactoringContext db)
+        {
+            if(db.ShiftType.Any()) return;
+
+            db.ShiftType.AddRange(
+                new ShiftType { Description="Paint Cars from production line 1", ShiftTime = 8},
+                new ShiftType { Description = "Weld car body", ShiftTime = 8 },
+                new ShiftType { Description = "Install engine ", ShiftTime = 6 },
+                new ShiftType { Description = "Test safety", ShiftTime = 8 },
+                new ShiftType { Description = "Check brakes", ShiftTime = 6 }
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateShift(CarManufactoringContext db)
+        {
+            if(db.Shift.Any()) return;
+
+            db.Shift.AddRange(
+                new Shift { StartDate = new DateTime(2021, 12, 02, 08, 30, 00) , EndDate = new DateTime(2021, 12, 02, 16, 30, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2021, 1, 04, 14, 00, 00), EndDate = new DateTime(2021, 1, 05, 00, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2022, 4, 25, 00, 00, 00), EndDate = new DateTime(2022, 4, 25, 06, 00, 00), ShiftTypeId = 4 }
+            );
 
             db.SaveChanges();
         }

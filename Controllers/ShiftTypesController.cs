@@ -10,90 +10,85 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class ShiftsController : Controller
+    public class ShiftTypesController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public ShiftsController(CarManufactoringContext context)
+        public ShiftTypesController(CarManufactoringContext context)
         {
             _context = context;
         }
 
-        // GET: Shifts
+        // GET: ShiftTypes
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.Shift.Include(s => s.ShiftType);
-            return View(await carManufactoringContext.ToListAsync());
+              return View(await _context.ShiftType.ToListAsync());
         }
 
-        // GET: Shifts/Details/5
+        // GET: ShiftTypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Shift == null)
+            if (id == null || _context.ShiftType == null)
             {
                 return NotFound();
             }
 
-            var shift = await _context.Shift
-                .Include(s => s.ShiftType)
-                .FirstOrDefaultAsync(m => m.ShiftId == id);
-            if (shift == null)
+            var shiftType = await _context.ShiftType
+                .FirstOrDefaultAsync(m => m.ShiftTypeId == id);
+            if (shiftType == null)
             {
                 return NotFound();
             }
 
-            return View(shift);
+            return View(shiftType);
         }
 
-        // GET: Shifts/Create
+        // GET: ShiftTypes/Create
         public IActionResult Create()
         {
-            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description");
             return View();
         }
 
-        // POST: Shifts/Create
+        // POST: ShiftTypes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
+        public async Task<IActionResult> Create([Bind("ShiftTypeId,ShiftTime,Description")] ShiftType shiftType)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(shift);
+                _context.Add(shiftType);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
-            return View(shift);
+            return View(shiftType);
         }
 
-        // GET: Shifts/Edit/5
+        // GET: ShiftTypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Shift == null)
+            if (id == null || _context.ShiftType == null)
             {
                 return NotFound();
             }
 
-            var shift = await _context.Shift.FindAsync(id);
-            if (shift == null)
+            var shiftType = await _context.ShiftType.FindAsync(id);
+            if (shiftType == null)
             {
                 return NotFound();
             }
-            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
-            return View(shift);
+            return View(shiftType);
         }
 
-        // POST: Shifts/Edit/5
+        // POST: ShiftTypes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
+        public async Task<IActionResult> Edit(int id, [Bind("ShiftTypeId,ShiftTime,Description")] ShiftType shiftType)
         {
-            if (id != shift.ShiftId)
+            if (id != shiftType.ShiftTypeId)
             {
                 return NotFound();
             }
@@ -102,12 +97,12 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    _context.Update(shift);
+                    _context.Update(shiftType);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ShiftExists(shift.ShiftId))
+                    if (!ShiftTypeExists(shiftType.ShiftTypeId))
                     {
                         return NotFound();
                     }
@@ -118,51 +113,49 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
-            return View(shift);
+            return View(shiftType);
         }
 
-        // GET: Shifts/Delete/5
+        // GET: ShiftTypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Shift == null)
+            if (id == null || _context.ShiftType == null)
             {
                 return NotFound();
             }
 
-            var shift = await _context.Shift
-                .Include(s => s.ShiftType)
-                .FirstOrDefaultAsync(m => m.ShiftId == id);
-            if (shift == null)
+            var shiftType = await _context.ShiftType
+                .FirstOrDefaultAsync(m => m.ShiftTypeId == id);
+            if (shiftType == null)
             {
                 return NotFound();
             }
 
-            return View(shift);
+            return View(shiftType);
         }
 
-        // POST: Shifts/Delete/5
+        // POST: ShiftTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Shift == null)
+            if (_context.ShiftType == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.Shift'  is null.");
+                return Problem("Entity set 'CarManufactoringContext.ShiftType'  is null.");
             }
-            var shift = await _context.Shift.FindAsync(id);
-            if (shift != null)
+            var shiftType = await _context.ShiftType.FindAsync(id);
+            if (shiftType != null)
             {
-                _context.Shift.Remove(shift);
+                _context.ShiftType.Remove(shiftType);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ShiftExists(int id)
+        private bool ShiftTypeExists(int id)
         {
-          return _context.Shift.Any(e => e.ShiftId == id);
+          return _context.ShiftType.Any(e => e.ShiftTypeId == id);
         }
     }
 }
