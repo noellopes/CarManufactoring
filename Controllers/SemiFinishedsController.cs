@@ -9,6 +9,7 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CarManufactoring.Controllers
 {
@@ -25,15 +26,17 @@ namespace CarManufactoring.Controllers
         public async Task<IActionResult> Index(int page = 1)
         {
             // order by  reference
-            var semiFinished = _context.SemiFinished.OrderBy(b => b.Reference);
+            var semiFinisheds = _context.SemiFinished.OrderBy(b => b.Reference);
 
-            var pagingInfo = new PagingInfoViewModel(await semiFinished.CountAsync(), page);
+
+            var pagingInfo = new PagingInfoViewModel(await semiFinisheds.CountAsync(), page);
+
 
             var model = new ListViewModel<SemiFinished>
             {
-                List = await semiFinished
-                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
-                    .Take(pagingInfo.PageSize).ToListAsync(),
+                List = await semiFinisheds
+                .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                .Take(pagingInfo.PageSize).ToListAsync(),
                 PagingInfo = pagingInfo
             };
 
