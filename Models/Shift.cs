@@ -13,5 +13,10 @@ namespace CarManufactoring.Models
         [Required]
         public DateTime EndDate { get; set; }
 
+        [Required]
+        public int ShiftTypeId { get; set; }
+
+        public ShiftType? ShiftType { get; set; }
+
     }
 }
