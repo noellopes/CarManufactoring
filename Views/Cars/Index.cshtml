@@ -34,13 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Brand.BrandName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CarModel)
+                    @Html.DisplayFor(modelItem => item.CarModel)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LaunchYear)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.BasePrice)
+                    @Html.DisplayFor(modelItem => item.BasePrice)€
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
