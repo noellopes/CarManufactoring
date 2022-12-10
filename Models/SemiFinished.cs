@@ -34,11 +34,11 @@ namespace CarManufactoring.Models
         public string SemiFinishedState { get; set; }
 
         // relationship between SemiFinished and CARS
-        public ICollection<Car> Cars { get; set; }
+       // public ICollection<Car> Cars { get; set; }
 
         // relationship between SemiFinished and INSPECTION (WAITING CREATION)
         
         // Relation between the table MaterialUsado and SemiFinished
-        public ICollection<MaterialUsado> MaterialUsado { get; set; }
+        //public ICollection<MaterialUsado> MaterialUsado { get; set; }
     }
 }
