@@ -8,7 +8,11 @@
 <style>
     .Scroll{
         overflow-y:scroll;
-        height: 100px; 
+        height: 100px;
+        width : 100%;
+    }
+    .tablee{
+        width: 65%;
     }
 </style>
 
@@ -17,23 +21,39 @@
 <h1><img align="right"  class="rounded-circle" src="/img/students/1700331.jpg" >@ViewData["Title"]</h1>
 <h2>Group 3</h2>
 <h3>Number: 1700331</h3>
+<a class="btn btn-secondary " asp-controller="Groups" asp-action="Details" asp-route-number="3">Group Info</a>
 
 
 <hr>
 <h4>What I'm going to do:</h4>
-<ul>
-<li>Seed Data and interfaces related to Car, CarConfig and Brand </li>
-<li> (In Group) Update group files and group page </li>
-</ul>
-
+<table class="table tablee" >
+    <tr>
+        <th>Task</th>
+        <th>Priority</th>
+    </tr>
+    <tr>
+        <td>Interfaces related to Car, CarConfig and Brand Classes</td>
+        <td class="text-danger">High</td>
+    </tr>
+    <tr>
+        <td>(In Group) Update group documentation and page</td>
+        <td class="text-warning">Low</td>
+    </tr>
+    <tr>
+        <td>Review personal documentation and page</td>
+        <td class="text-warning">Low</td>
+    </tr>
+</table>
+<hr />
 
 <h4> What I'm doing:</h4>
 <ul>
-    <li>Update personal files and personal page</li>
 </ul>
-
+<hr />
 <h4>What I've done so far: </h4>
 <ul class="Scroll">
+    <li>09/12 : SeedData for Car, CarConfig and Brand Classes done </li>
+    <li>09/12 : Updated personal files and personal page</li>
     <li>09/12 : When creating car , the year launch is predefined as the system's year</li>
     <li>09/12 : Relations between those classes done </li>
     <li>09/12 : Brand , Car and CarConfig CRUD working perfectly </li>
@@ -75,5 +95,3 @@
 </div>
 
 <hr />
-
-    <a class="btn btn-secondary" asp-controller="Groups" asp-action="Details" asp-route-number="3">Group Info</a>

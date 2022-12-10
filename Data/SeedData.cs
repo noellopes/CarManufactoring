@@ -129,6 +129,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        // SeedData for Car Class 
         private static void PopulateCars(CarManufactoringContext db)
         {
             if(db.Car.Any()) return;
@@ -145,6 +146,7 @@ namespace CarManufactoring.Data
             db.SaveChanges() ;
         }
 
+        // SeedData for CarConfig Class 
         private static void PopulateCarConfigs(CarManufactoringContext db)
         {
             if(db.CarConfig.Any()) return;
