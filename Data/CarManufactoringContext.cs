@@ -48,6 +48,8 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
+        public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
+
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }
 

@@ -7,8 +7,21 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<h3>Group 4</h3>
-<p>Student Number: 1012639</p>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img src="~/img/students/1012639.jpg" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">Details of students</h5>
+                <p class="card-text">Group 4</p>
+                <p class="card-text"><small class="text-muted">Student Number: 1012639</small></p>
+            </div>
+        </div>
+    </div>
+</div>
 
 <ul class="list-group list-group-numbered">
 
@@ -16,8 +29,8 @@
         <div class="ms-2 me-auto">
             <div class="fw-bold">What I´m doing</div>
             <ul>
-                <li> Update Diagrams <li/>               
-
+                <li> Update Diagrams <li/>
+                <li> Create View <li/>
             </ul>
 
 
@@ -33,5 +46,8 @@
             </ul>
         </div>
 
-
 </ul>
+
+<div class="ms-3">
+    <a asp-controller="Groups" asp-action="Details" asp-route-number="4" class="btn btn-info">Groupe Information</a>
+</div>
