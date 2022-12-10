@@ -6,19 +6,32 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-           PopulateSemiFinisheds(db);
+            PopulateGender(db);
+            PopulateSemiFinisheds(db);
            PopulateSection(db);
+            PopulateSectionManager(db);
            PopulateMachineState(db);
             // PopulateMachines(db);
            PopulateBrands(db);
            PopulateInspectionTesting(db);
-           PopulateGender(db);
+           
            PopulateCars(db);
            PopulateCarConfigs(db);
            PopulateShiftType(db);
            PopulateShift(db);
         }
+        // seed da tabela Gender
+        private static void PopulateGender(CarManufactoringContext db)
+        {
+            if (db.Gender.Any()) return;
 
+            db.Gender.AddRange(
+                new Gender { GenderDefinition = "Male" },
+                new Gender { GenderDefinition = "Female" }
+               );
+
+            db.SaveChanges();
+        }
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
         {
             if (db.SemiFinished.Any()) return;
@@ -51,21 +64,34 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        // Seed da tabela Machine
+        // Seed da tabela Section
         private static void PopulateSection(CarManufactoringContext db)
         {
             if (db.Section.Any()) return;
 
             db.Section.AddRange(
 
-                new Section {Name = "Secção 1"},
+                new Section { Name = "Secção 1"},
                 new Section { Name = "Secção 2" },
                 new Section { Name = "Secção 3" },
-                new Section { Name = "Secção 4" }
-
+                new Section { Name = "Secção 4" },
+                new Section { Name = "Secção 5" }
                 );
 
             db.SaveChanges();
+        }
+
+        //Seed da tabela SectionManager
+
+        private static void PopulateSectionManager(CarManufactoringContext db)
+        {
+            if(db.SectionManager.Any()) return;
+            db.SectionManager.AddRange(
+                new SectionManager { Name = "Paulo Proença",BirthDate = DateTime.Parse("18 / 12 / 1985"), GenderId = 1,Phone ="961234567",Email = "pauloproenca@gmail.com",SectionId=2 }
+                );
+
+            db.SaveChanges();
+
         }
 
         // Seed da tabela Machine
@@ -85,18 +111,7 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-        // seed da tabela Gender
-        private static void PopulateGender(CarManufactoringContext db)
-        {
-            if (db.Gender.Any()) return;
 
-            db.Gender.AddRange(
-                new Gender {GenderDefinition = "Male" },
-                new Gender { GenderDefinition = "Female" }
-               );
-
-            db.SaveChanges() ;
-        }
 
         private static void PopulateInspectionTesting(CarManufactoringContext db)
         {
