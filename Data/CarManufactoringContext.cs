@@ -78,5 +78,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.ModelParts> ModelParts { get; set; }
 
         public DbSet<CarManufactoring.Models.ShiftType> ShiftType { get; set; }
+
+        public DbSet<CarManufactoring.Models.CarModels> CarModels { get; set; }
     }
 }
