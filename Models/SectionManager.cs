@@ -17,7 +17,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name ="Gender")]
         public int GenderId { get; set; }
-        public Gender? Gender { get; set; }
+        public Gender? Genders { get; set; }
        
         [Required]
         [StringLength(20)]
@@ -32,7 +32,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name ="Section")]
         public int SectionId { get; set; }
-        public Section? Section { get; set; }
+        public Section? Sections { get; set; }
 
       
     }

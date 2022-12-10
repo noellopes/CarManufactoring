@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: Collaborators
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.Collaborator.Include(c => c.Gender);
+            var carManufactoringContext = _context.Collaborator.Include(c => c.Genders);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var collaborator = await _context.Collaborator
-                .Include(c => c.Gender)
+                .Include(c => c.Genders)
                 .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaborator == null)
             {
@@ -131,7 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var collaborator = await _context.Collaborator
-                .Include(c => c.Gender)
+                .Include(c => c.Genders)
                 .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaborator == null)
             {

@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: SectionManagers
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.SectionManager.Include(s => s.Section);
+            var carManufactoringContext = _context.SectionManager.Include(s => s.Genders).Include(s => s.Sections);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -35,7 +35,8 @@ namespace CarManufactoring.Controllers
             }
 
             var sectionManager = await _context.SectionManager
-                .Include(s => s.Section)
+                .Include(s => s.Genders)
+                .Include(s => s.Sections)
                 .FirstOrDefaultAsync(m => m.SectionManagerId == id);
             if (sectionManager == null)
             {
@@ -48,6 +49,7 @@ namespace CarManufactoring.Controllers
         // GET: SectionManagers/Create
         public IActionResult Create()
         {
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
             ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name");
             return View();
         }
@@ -57,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SectionManagerId,Name,BirthDate,Phone,Email,SectionId")] SectionManager sectionManager)
+        public async Task<IActionResult> Create([Bind("SectionManagerId,Name,BirthDate,GenderId,Phone,Email,SectionId")] SectionManager sectionManager)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +67,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", sectionManager.GenderId);
             ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
             return View(sectionManager);
         }
@@ -82,6 +85,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", sectionManager.GenderId);
             ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
             return View(sectionManager);
         }
@@ -91,7 +95,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SectionManagerId,Name,BirthDate,Phone,Email,SectionId")] SectionManager sectionManager)
+        public async Task<IActionResult> Edit(int id, [Bind("SectionManagerId,Name,BirthDate,GenderId,Phone,Email,SectionId")] SectionManager sectionManager)
         {
             if (id != sectionManager.SectionManagerId)
             {
@@ -118,6 +122,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", sectionManager.GenderId);
             ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
             return View(sectionManager);
         }
@@ -131,7 +136,8 @@ namespace CarManufactoring.Controllers
             }
 
             var sectionManager = await _context.SectionManager
-                .Include(s => s.Section)
+                .Include(s => s.Genders)
+                .Include(s => s.Sections)
                 .FirstOrDefaultAsync(m => m.SectionManagerId == id);
             if (sectionManager == null)
             {

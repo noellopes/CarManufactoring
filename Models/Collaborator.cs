@@ -28,7 +28,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Gender")]
         public int GenderId { get; set; }
-        public Gender Gender { get; set; }
+        public Gender Genders { get; set; }
 
 
         public Task? Task { get; set; }
