@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: Cars
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Car.ToListAsync());
+            var carManufactoringContext = _context.Car.Include(c => c.Brand);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Cars/Details/5
@@ -34,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var car = await _context.Car
+                .Include(c => c.Brand)
                 .FirstOrDefaultAsync(m => m.CarId == id);
             if (car == null)
             {
@@ -47,6 +49,7 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             Car obj = new Car();
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName");
             return View(obj);
         }
 
@@ -55,7 +58,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,CarName,CarModel,LaunchYear,BasePrice")] Car car)
+        public async Task<IActionResult> Create([Bind("CarId,BrandId,CarModel,LaunchYear,BasePrice")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -63,6 +66,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", car.BrandId);
             return View(car);
         }
 
@@ -79,6 +83,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", car.BrandId);
             return View(car);
         }
 
@@ -87,7 +92,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,CarName,CarModel,LaunchYear,BasePrice")] Car car)
+        public async Task<IActionResult> Edit(int id, [Bind("CarId,BrandId,CarModel,LaunchYear,BasePrice")] Car car)
         {
             if (id != car.CarId)
             {
@@ -114,6 +119,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", car.BrandId);
             return View(car);
         }
 
@@ -126,6 +132,7 @@ namespace CarManufactoring.Controllers
             }
 
             var car = await _context.Car
+                .Include(c => c.Brand)
                 .FirstOrDefaultAsync(m => m.CarId == id);
             if (car == null)
             {

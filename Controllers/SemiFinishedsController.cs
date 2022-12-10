@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +22,22 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
-              return View(await _context.SemiFinished.ToListAsync());
+            // order by  reference
+            var semiFinished = _context.SemiFinished.OrderBy(b => b.Reference);
+
+            var pagingInfo = new PagingInfoViewModel(await semiFinished.CountAsync(), page);
+
+            var model = new ListViewModel<SemiFinished>
+            {
+                List = await semiFinished
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                PagingInfo = pagingInfo
+            };
+
+            return View(model);
         }
 
         // GET: SemiFinisheds/Details/5

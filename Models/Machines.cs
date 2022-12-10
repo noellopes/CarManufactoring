@@ -18,6 +18,8 @@ namespace CarManufactoring.Models
         [Display(Name ="Model")]
         public string? MachineModel { get; set; }
 
+        public string Description { get; set; }
+
         [Required]
         public bool Available { get; set; }
        
@@ -29,10 +31,10 @@ namespace CarManufactoring.Models
         [Display(Name ="Machine State")]    
         public int MachineStateId { get; set; }
         public MachineState? MachineState { get; set; }
-
+        [Display(Name = "Section")]
         public int SectionId { get; set; }
         public Section? Section { get; set; }
 
-        public IEnumerable<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
+       
     }
 }

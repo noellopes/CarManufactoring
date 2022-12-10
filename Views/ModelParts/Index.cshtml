@@ -1,0 +1,62 @@
+﻿@model IEnumerable<CarManufactoring.Models.ModelParts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.PecaId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModeloId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QtdPecas)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PecaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ModeloId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QtdPecas)
+                </td>
+                <td>
+                    <div class="dropdown">
+                        <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                            Ações
+                        </a>
+
+                        <ul>
+                            <li>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            </li>
+                            <li>
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            </li>
+                            <li>
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

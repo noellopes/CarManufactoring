@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
-using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,10 +20,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts
-        public async Task<IActionResult> Index(DateTime StartDate = default)
+        public async Task<IActionResult> Index()
         {
-            var shift = _context.Shift.OrderBy(b => b.StartDate);
-              return View(shift);
+            var carManufactoringContext = _context.Shift.Include(s => s.ShiftType);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Shifts/Details/5
@@ -36,12 +35,12 @@ namespace CarManufactoring.Controllers
             }
 
             var shift = await _context.Shift
+                .Include(s => s.ShiftType)
                 .FirstOrDefaultAsync(m => m.ShiftId == id);
             if (shift == null)
             {
                 return NotFound();
             }
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(shift);
         }
@@ -49,6 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: Shifts/Create
         public IActionResult Create()
         {
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description");
             return View();
         }
 
@@ -57,17 +57,15 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShiftId,StartDate,EndDate")] Shift shift)
+        public async Task<IActionResult> Create([Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(shift);
                 await _context.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Assigment created successfully.";
-
-                return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+                return RedirectToAction(nameof(Index));
             }
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
         }
 
@@ -84,6 +82,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
         }
 
@@ -92,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShiftId,StartDate,EndDate")] Shift shift)
+        public async Task<IActionResult> Edit(int id, [Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
             if (id != shift.ShiftId)
             {
@@ -105,9 +104,6 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(shift);
                     await _context.SaveChangesAsync();
-                    TempData["SuccessMessage"] = "Assigment created successfully.";
-
-                    return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -122,6 +118,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
         }
 
@@ -134,6 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var shift = await _context.Shift
+                .Include(s => s.ShiftType)
                 .FirstOrDefaultAsync(m => m.ShiftId == id);
             if (shift == null)
             {
@@ -156,10 +154,10 @@ namespace CarManufactoring.Controllers
             if (shift != null)
             {
                 _context.Shift.Remove(shift);
-                await _context.SaveChangesAsync();
             }
-
-            return View("ShiftDeleted");
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool ShiftExists(int id)

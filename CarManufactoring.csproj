@@ -37,6 +37,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Production\Create.cshtml" />
+    <None Include="Views\Production\Delete.cshtml" />
+    <None Include="Views\Production\Details.cshtml" />
+    <None Include="Views\Production\Edit.cshtml" />
+    <None Include="Views\Production\Index.cshtml" />
     <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\Aplicações Semelhantes\GuilhermeAlves_1701480_ES2.docx" />
     <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaCasoUsoProjeto\DiagramaCasoUsosProjeto.drawio" />
     <None Include="wwwroot\documents\Group3\GuilhermeAlves\Projeto_ES2\DiagramaCasoUsoProjeto\DiagramaER.pdf" />

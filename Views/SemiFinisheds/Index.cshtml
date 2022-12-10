@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarManufactoring.Models.SemiFinished>
+﻿@model SemiFinishedIndexViewModel
 
 @{
     ViewData["Title"] = "Semi Finisheds List";
@@ -13,28 +13,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Family)
+                @Html.DisplayNameFor(model => new SemiFinished().Family)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reference)
+                @Html.DisplayNameFor(model => new SemiFinished().Reference)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EAN)
+                @Html.DisplayNameFor(model => new SemiFinished().EAN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Manufacter)
+                @Html.DisplayNameFor(model => new SemiFinished().Manufacter)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => new SemiFinished().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SemiFinishedState)
+                @Html.DisplayNameFor(model => new SemiFinished().SemiFinishedState)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.SemiFinishedList.List)
         {
             <tr>
                 <td>
@@ -64,3 +64,28 @@
         }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.SemiFinishedList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+
+        @for (int p = Model.SemiFinishedList.PagingInfo.InitialPageToShow; p <= Model.SemiFinishedList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.SemiFinishedList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.SemiFinishedList.PagingInfo.CurrentPage == Model.SemiFinishedList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.SemiFinishedList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
+

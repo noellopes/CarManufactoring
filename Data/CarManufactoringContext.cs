@@ -14,6 +14,15 @@ namespace CarManufactoring.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            base.OnModelCreating(modelBuilder);
+
+            // to be added == ShiftCollaborator
+        }
+
+        public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
 
         public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
@@ -26,8 +35,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.SemiFinished> SemiFinished { get; set; }
 
-        public DbSet<CarManufactoring.Models.Assigment> Assigment { get; set; }
-
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 
         public DbSet<CarManufactoring.Models.SectionManager> SectionManager { get; set; }
@@ -37,32 +44,17 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Section> Section { get; set; }
 
-
-
-
-
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
+        public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
 
 
+        public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }
 
 
         public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
-
-
-
-
-
-        public DbSet<CarManufactoring.Models.WorkMachineMaintenance> WorkMachineMaintenance { get; set; }
-
-
-
-
-
-        public DbSet<CarManufactoring.Models.MaintenanceTask> MaintenanceTask { get; set; }
-
 
         public DbSet<CarManufactoring.Models.Material> Material { get; set; }
 
@@ -75,5 +67,18 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Order> Order { get; set; }
 
+        public DbSet<CarManufactoring.Models.TaskType> TaskType { get; set; }
+
+        public DbSet<CarManufactoring.Models.Brand> Brand { get; set; }
+
+        public DbSet<CarManufactoring.Models.Production> Production { get; set; }
+
+        public DbSet<CarManufactoring.Models.Gender> Gender { get; set; }
+
+        public DbSet<CarManufactoring.Models.ModelParts> ModelParts { get; set; }
+
+        public DbSet<CarManufactoring.Models.ShiftType> ShiftType { get; set; }
+
+        public DbSet<CarManufactoring.Models.CarModels> CarModels { get; set; }
     }
 }
