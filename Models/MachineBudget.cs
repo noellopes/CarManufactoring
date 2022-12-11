@@ -10,6 +10,8 @@ namespace CarManufactoring.Models
     public class MachineBudget
     {
         public int MachineBudgetID { get; set; }
+        public Supplier Supplier_FK { get; set; }
+        public MachineAquisition Aquisition_FK { get; set; }
 
         [Required]
         [Display(Name = "Data de Solicitamento")]
