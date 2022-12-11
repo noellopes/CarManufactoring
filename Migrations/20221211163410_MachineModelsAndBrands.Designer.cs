@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221211163410_MachineModelsAndBrands")]
+    partial class MachineModelsAndBrands
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,43 +40,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("BrandId");
 
                     b.ToTable("Brand");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.Breakdown", b =>
-                {
-                    b.Property<int>("BreakdownId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BreakdownId"), 1L, 1);
-
-                    b.Property<DateTime>("BreakdownDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("BreakdownName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("BreakdownNumber")
-                        .HasMaxLength(99)
-                        .HasColumnType("int");
-
-                    b.Property<string>("MachineReplacement")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<int>("MachineStop")
-                        .HasMaxLength(99)
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReparationDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("BreakdownId");
-
-                    b.ToTable("Breakdown");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>
