@@ -14,7 +14,8 @@ namespace CarManufactoring.Data
            // PopulateMachines(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
-
+            PopulateMachineBrand(db);
+            PopulateMachineModel(db);
             PopulateCars(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
@@ -83,11 +84,43 @@ namespace CarManufactoring.Data
 
         //Seed da tabela SectionManager
 
+ 
         private static void PopulateSectionManager(CarManufactoringContext db)
         {
-            if(db.SectionManager.Any()) return;
+            if (db.SectionManager.Any()) return;
             db.SectionManager.AddRange(
-                new SectionManager { Name = "Paulo Proença",BirthDate = DateTime.Parse("18 / 12 / 1985"), GenderId = 1,Phone ="961234567",Email = "pauloproenca@gmail.com",SectionId=2 }
+                new SectionManager { Name = "Paulo Proença", BirthDate = DateTime.Parse("18 / 12 / 1985"), GenderId = 1, Phone = "961234567", Email = "pauloproenca@gmail.com", SectionId = 2 },
+                new SectionManager { Name = "Tomás Esteves", BirthDate = DateTime.Parse("05 / 08 / 1988"), GenderId = 1, Phone = "967654321", Email = "tomásesteves@gmail.com", SectionId = 1 },
+                new SectionManager { Name = "Ana Vidal", BirthDate = DateTime.Parse("17 / 05 / 2001"), GenderId = 2, Phone = "96666777", Email = "tomásesteves@gmail.com", SectionId = 3 }
+
+                );
+
+            db.SaveChanges();
+
+        }
+
+        //Seed da tabela MachineBrand
+        public static void PopulateMachineBrand(CarManufactoringContext db)
+        {
+            if (db.MachineBrand.Any()) return;
+            db.MachineBrand.AddRange(
+                new MachineBrand { MachineBrandName = "Kuka" },
+                new MachineBrand { MachineBrandName = "Universal Robots" },
+                new MachineBrand { MachineBrandName = "Omron Automation Americas" }
+                );
+
+            db.SaveChanges();
+        }
+        //Seed da tabela MachineModel
+        public static void PopulateMachineModel(CarManufactoringContext db)
+        {
+            if (db.MachineModel.Any()) return;
+
+            db.MachineModel.AddRange(
+                new MachineModel { MachineModelName = "Kr Iontec", MachineBrandId = 1 },
+                new MachineModel { MachineModelName = "UR10e", MachineBrandId = 3 },
+                new MachineModel { MachineModelName = "Kr Cybertech", MachineBrandId = 1 },
+                new MachineModel { MachineModelName = "HD-1500", MachineBrandId = 2 }
                 );
 
             db.SaveChanges();
