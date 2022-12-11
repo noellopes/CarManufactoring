@@ -337,37 +337,7 @@ namespace CarManufactoring.Migrations
                     b.ToTable("MachineAquisition");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
-                {
-                    b.Property<int>("MachineBudgetID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineBudgetID"), 1L, 1);
-
-                    b.Property<int>("Aquisition_FKMachineAquisitionID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Supplier_FKSupplierId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Valor")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("dataEntrega")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("dataSolicitada")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MachineBudgetID");
-
-                    b.HasIndex("Aquisition_FKMachineAquisitionID");
-
-                    b.HasIndex("Supplier_FKSupplierId");
-
-                    b.ToTable("MachineBudget");
-                });
+            
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
