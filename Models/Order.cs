@@ -19,5 +19,10 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "State Date")]
         public DateTime StateDate { get; set; }
+
+        [Required]
+        [Display(Name = "Customer")]
+        public int CustomerId { get; set; }
+        public Customer? Customer { get; set; }
     }
 }
