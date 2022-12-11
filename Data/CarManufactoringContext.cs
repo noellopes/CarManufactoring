@@ -101,8 +101,14 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.CustomerContact> CustomerContact { get; set; }
 
+
         public DbSet<CarManufactoring.Models.MachineBrand> MachineBrand { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineModel> MachineModel { get; set; }
+
+
+
+        public DbSet<CarManufactoring.Models.Breakdown> Breakdown { get; set; }
+
     }
 }

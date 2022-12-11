@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221211161318_Breakdown")]
+    partial class Breakdown
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -401,24 +403,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("MachineAquisition");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MachineBrand", b =>
-                {
-                    b.Property<int>("MachineBrandId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineBrandId"), 1L, 1);
-
-                    b.Property<string>("MachineBrandName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("MachineBrandId");
-
-                    b.ToTable("MachineBrand");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
                 {
                     b.Property<int>("MachineBudgetID")
@@ -439,30 +423,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("MachineBudgetID");
 
                     b.ToTable("MachineBudget");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.MachineModel", b =>
-                {
-                    b.Property<int>("MachineModelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineModelId"), 1L, 1);
-
-                    b.Property<int>("MachineBrandId")
-                        .HasMaxLength(50)
-                        .HasColumnType("int");
-
-                    b.Property<string>("MachineModelName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("MachineModelId");
-
-                    b.HasIndex("MachineBrandId");
-
-                    b.ToTable("MachineModel");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
@@ -996,17 +956,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MachineModel", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.MachineBrand", "MachineBrandNames")
-                        .WithMany("MachineModels")
-                        .HasForeignKey("MachineBrandId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("MachineBrandNames");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>
                 {
                     b.HasOne("CarManufactoring.Models.MachineState", "MachineState")
@@ -1120,11 +1069,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Collaborators");
 
                     b.Navigation("SectionManagers");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.MachineBrand", b =>
-                {
-                    b.Navigation("MachineModels");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>

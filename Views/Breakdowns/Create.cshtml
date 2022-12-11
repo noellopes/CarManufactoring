@@ -1,0 +1,58 @@
+﻿@model CarManufactoring.Models.Breakdown
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Breakdown</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BreakdownName" class="control-label"></label>
+                <input asp-for="BreakdownName" class="form-control" />
+                <span asp-validation-for="BreakdownName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BreakdownDate" class="control-label"></label>
+                <input asp-for="BreakdownDate" class="form-control" />
+                <span asp-validation-for="BreakdownDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BreakdownNumber" class="control-label"></label>
+                <input asp-for="BreakdownNumber" class="form-control" />
+                <span asp-validation-for="BreakdownNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReparationDate" class="control-label"></label>
+                <input asp-for="ReparationDate" class="form-control" />
+                <span asp-validation-for="ReparationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineStop" class="control-label"></label>
+                <input asp-for="MachineStop" class="form-control" />
+                <span asp-validation-for="MachineStop" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineReplacement" class="control-label"></label>
+                <input asp-for="MachineReplacement" class="form-control" />
+                <span asp-validation-for="MachineReplacement" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
