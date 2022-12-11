@@ -11,7 +11,7 @@ namespace CarManufactoring.Data
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-            PopulateMachines(db);
+           // PopulateMachines(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
 

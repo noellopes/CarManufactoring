@@ -98,5 +98,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.CarModels> CarModels { get; set; }
 
         public DbSet<CarManufactoring.Models.SemiFinishedCar> SemiFinishedCar { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.CustomerContact> CustomerContact { get; set; }
     }
 }
