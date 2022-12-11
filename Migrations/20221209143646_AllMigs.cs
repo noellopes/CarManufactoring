@@ -117,21 +117,6 @@ namespace CarManufactoring.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "MachineBudget",
-                columns: table => new
-                {
-                    MachineBudgetID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    dataSolicitada = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    dataEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Valor = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MachineBudget", x => x.MachineBudgetID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "MachineState",
                 columns: table => new
                 {
@@ -492,9 +477,6 @@ namespace CarManufactoring.Migrations
 
             migrationBuilder.DropTable(
                 name: "inspectionAndTestings");
-
-            migrationBuilder.DropTable(
-                name: "MachineBudget");
 
             migrationBuilder.DropTable(
                 name: "Machines");

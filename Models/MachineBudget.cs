@@ -22,5 +22,13 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Valor")]
         public double Valor { get; set; }
+
+        [Display(Name = "Supplier")]
+        public int SupplierId { get; set; }
+        public Supplier? Supplier { get; set; }
+
+        [Display(Name = "Machine")]
+        public int AquisitionId { get; set; }
+        public MachineAquisition? Aquisition { get; set; }
     }
 }

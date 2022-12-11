@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: MachineBudgets
         public async Task<IActionResult> Index()
         {
-              return View(await _context.MachineBudget.ToListAsync());
+            var carManufactoringContext = _context.MachineBudget.Include(m => m.Aquisition).Include(m => m.Supplier);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: MachineBudgets/Details/5
@@ -34,6 +35,8 @@ namespace CarManufactoring.Controllers
             }
 
             var machineBudget = await _context.MachineBudget
+                .Include(m => m.Aquisition)
+                .Include(m => m.Supplier)
                 .FirstOrDefaultAsync(m => m.MachineBudgetID == id);
             if (machineBudget == null)
             {
@@ -46,6 +49,8 @@ namespace CarManufactoring.Controllers
         // GET: MachineBudgets/Create
         public IActionResult Create()
         {
+            ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName");
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor")] MachineBudget machineBudget)
+        public async Task<IActionResult> Create([Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,SupplierId,AquisitionId")] MachineBudget machineBudget)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -78,6 +85,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -86,7 +95,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor")] MachineBudget machineBudget)
+        public async Task<IActionResult> Edit(int id, [Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,SupplierId,AquisitionId")] MachineBudget machineBudget)
         {
             if (id != machineBudget.MachineBudgetID)
             {
@@ -113,6 +122,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -125,6 +136,8 @@ namespace CarManufactoring.Controllers
             }
 
             var machineBudget = await _context.MachineBudget
+                .Include(m => m.Aquisition)
+                .Include(m => m.Supplier)
                 .FirstOrDefaultAsync(m => m.MachineBudgetID == id);
             if (machineBudget == null)
             {
