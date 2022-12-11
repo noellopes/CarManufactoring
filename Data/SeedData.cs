@@ -20,6 +20,9 @@ namespace CarManufactoring.Data
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            PopulateOrder(db);
         }
         // seed da tabela Gender
         private static void PopulateGender(CarManufactoringContext db)
@@ -241,6 +244,47 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        
+        private static void PopulateCustomers(CarManufactoringContext db)
+        {
+            if (db.Customer.Any()) return;
+
+            db.Customer.AddRange(
+                new Customer { CustomerName = "Apple", CustomerFoundDate = new DateTime(2022, 12, 02, 10, 30, 50) },
+                new Customer { CustomerName = "Microsoft", CustomerFoundDate = new DateTime(2022, 12, 01, 15, 50, 10) },
+                new Customer { CustomerName = "Amazon", CustomerFoundDate = new DateTime(2022, 11, 30, 11, 45, 27) }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateCustomerContacts(CarManufactoringContext db)
+        {
+            if (db.CustomerContact.Any()) return;
+
+            db.CustomerContact.AddRange(
+                new CustomerContact { CustomerName = "Guilherme Alves", CustomerRole = "Diretor", CustomerPhone = "+351987563215", CustomerEmail = "gui@gmail.com", CustomerId = 1 },
+                new CustomerContact { CustomerName = "Luis Barros", CustomerRole = "Chefe", CustomerPhone = "+351988533215", CustomerEmail = "gui@gmail.com", CustomerId = 2 },
+                new CustomerContact { CustomerName = "Rodrigo Lourenço", CustomerRole = "Tesoureiro", CustomerPhone = "+351987569053", CustomerEmail = "gui@gmail.com", CustomerId = 3 }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateOrder(CarManufactoringContext db)
+        {
+            if (db.Order.Any()) return;
+
+            db.Order.AddRange(
+                new Order { OrderDate = "12/10/2022", OrderState = "Pendente", StateDate = new DateTime(2022, 12, 02, 10, 30, 50), CustomerId = 1 },
+                new Order { OrderDate = "10/05/2022", OrderState = "Em produçao", StateDate = new DateTime(2022, 12, 01, 15, 50, 10), CustomerId = 2 },
+                new Order { OrderDate = "01/04/2022", OrderState = "Finalizada", StateDate = new DateTime(2022, 11, 30, 11, 45, 27), CustomerId = 3 }
+
+                );
+
+            db.SaveChanges();
+        }
+
     }
 }
