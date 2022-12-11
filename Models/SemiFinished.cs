@@ -41,7 +41,7 @@ namespace CarManufactoring.Models
         // Relation between the table MaterialUsado and SemiFinished
         //public ICollection<MaterialUsado> MaterialUsado { get; set; }
 
-        public ICollection<SemiFinishedCar>
+        public ICollection<SemiFinishedCar>?
             Cars { get; set; }
 
     }
