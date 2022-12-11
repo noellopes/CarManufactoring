@@ -23,21 +23,36 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string state = null, string manufacter = null, string ean = null, string reference = null, string family = null,  int page = 1)
         {
             // order by  reference
-            var semiFinisheds = _context.SemiFinished.OrderBy(b => b.Reference);
-
+            var semiFinisheds = _context.SemiFinished
+                .Where(b => reference == null || b.Reference.Contains(reference))
+                .Where(b => family == null || b.Family.Contains(family))
+                .Where(b => ean == null || b.EAN.Contains(ean))
+                .Where(b => manufacter == null || b.Manufacter.Contains(manufacter))
+                .Where(b => state == null || b.SemiFinishedState.Contains(state))
+                .OrderBy(b => b.Reference);
 
             var pagingInfo = new PagingInfoViewModel(await semiFinisheds.CountAsync(), page);
 
 
-            var model = new ListViewModel<SemiFinished>
+            var model = new SemiFinishedIndexViewModel
             {
-                List = await semiFinisheds
+                SemiFinishedList = new ListViewModel<SemiFinished>
+                {
+                    List = await semiFinisheds
                 .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
                 .Take(pagingInfo.PageSize).ToListAsync(),
-                PagingInfo = pagingInfo
+                    PagingInfo = pagingInfo
+                },
+
+                FamilySearched = family,
+                ReferenceSearched = reference,
+                EANSearched = ean,
+                ManufacterSearched = manufacter,
+                SemiFinishedStateSearched = state
+
             };
 
             return View(model);
