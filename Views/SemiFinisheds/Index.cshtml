@@ -6,9 +6,42 @@
 
 <h1>@ViewBag.Title</h1>
 
-<p>
+
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="family" class="form-label">Family</label>
+                <input name="family" class="form-control" type="search" value="@Model.FamilySearched" />
+            </div>
+            <div class="mb-3">
+                <label for="reference" class="form-label">Reference</label>
+                <input name="reference" class="form-control" type="search" value="@Model.ReferenceSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="ean" class="form-label">EAN</label>
+                <input name="ean" class="form-control" type="search" value="@Model.EANSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="manufacter" class="form-label">Manufacter</label>
+                <input name="manufacter" class="form-control" type="search" value="@Model.ManufacterSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="state" class="form-label">State</label>
+                <input name="state" class="form-control" type="search" value="@Model.SemiFinishedStateSearched" />
+            </div>
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
+
+<div class="mt-3">
     <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -68,7 +101,7 @@
 <nav aria-label="Page navigation">
     <ul class="pagination">
         <li class="page-item @(Model.SemiFinishedList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
         </li>
 
         @for (int p = Model.SemiFinishedList.PagingInfo.InitialPageToShow; p <= Model.SemiFinishedList.PagingInfo.FinalPageToShow; p++)
@@ -76,8 +109,7 @@
             if (p == Model.SemiFinishedList.PagingInfo.CurrentPage)
             {
                 <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
-            }
-            else
+            } else
             {
                 <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
             }
@@ -86,6 +118,6 @@
         <li class="page-item @(Model.SemiFinishedList.PagingInfo.CurrentPage == Model.SemiFinishedList.PagingInfo.TotalPages ? "disabled" : "")">
             <a class="page-link" asp-action="Index" asp-route-page="@Model.SemiFinishedList.PagingInfo.TotalPages">Last</a>
         </li>
+            
     </ul>
 </nav>
-

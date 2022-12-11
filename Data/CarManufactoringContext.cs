@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace CarManufactoring.Data
 {
@@ -18,6 +19,21 @@ namespace CarManufactoring.Data
         {
 
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<SemiFinishedCar>().HasKey(bc => new { bc.SemiFinishedId, bc.CarId });
+            
+            modelBuilder.Entity<SemiFinishedCar>()
+                .HasOne(x => x.SemiFinished)
+                .WithMany(s => s.Cars)
+                .HasForeignKey(x => x.SemiFinishedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SemiFinishedCar>()
+                .HasOne(x => x.Car)
+                .WithMany(c => c.SemiFinisheds)
+                .HasForeignKey(x => x.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             // to be added == ShiftCollaborator
         }
@@ -80,5 +96,19 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.ShiftType> ShiftType { get; set; }
 
         public DbSet<CarManufactoring.Models.CarModels> CarModels { get; set; }
+
+        public DbSet<CarManufactoring.Models.SemiFinishedCar> SemiFinishedCar { get; set; } = default!;
+
+        public DbSet<CarManufactoring.Models.CustomerContact> CustomerContact { get; set; }
+
+
+        public DbSet<CarManufactoring.Models.MachineBrand> MachineBrand { get; set; }
+
+        public DbSet<CarManufactoring.Models.MachineModel> MachineModel { get; set; }
+
+
+
+        public DbSet<CarManufactoring.Models.Breakdown> Breakdown { get; set; }
+
     }
 }

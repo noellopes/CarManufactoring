@@ -9,17 +9,15 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Name")]
-        [StringLength(100, MinimumLength = 10)]
+        [StringLength(100, MinimumLength = 2)]
         public string CustomerName { get; set; }
 
         [Required]
         [Display(Name = "Foundation Date")]
         public DateTime CustomerFoundDate { get; set; }
 
-        [Required]
-        [Display(Name = "Phone Number")]
-        [StringLength(13)]
-        [Phone]
-        public string CustomerContact { get; set; }
+        public ICollection<CustomerContact>? CustomerContacts { get; set; }
+
+        public ICollection<Order>? Orders { get; set; }
     }
 }

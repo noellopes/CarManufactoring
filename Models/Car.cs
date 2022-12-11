@@ -26,5 +26,9 @@ namespace CarManufactoring.Models
         public double BasePrice { get; set; }
         
         public ICollection<CarConfig>? CarConfigs { get; set; }
+
+        //SemiFinisheds - Fábio Abreu
+        public ICollection<SemiFinishedCar>? SemiFinisheds { get; set; }
+
     }
 }

@@ -8,17 +8,21 @@ namespace CarManufactoring.Data
         {
             PopulateGender(db);
             PopulateSemiFinisheds(db);
-           PopulateSection(db);
+            PopulateSection(db);
             PopulateSectionManager(db);
-           PopulateMachineState(db);
-            // PopulateMachines(db);
-           PopulateBrands(db);
-           PopulateInspectionTesting(db);
-           
-           PopulateCars(db);
-           PopulateCarConfigs(db);
-           PopulateShiftType(db);
-           PopulateShift(db);
+            PopulateMachineState(db);
+           // PopulateMachines(db);
+            PopulateBrands(db);
+            PopulateInspectionTesting(db);
+            PopulateMachineBrand(db);
+            PopulateMachineModel(db);
+            PopulateCars(db);
+            PopulateCarConfigs(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            PopulateOrder(db);
         }
         // seed da tabela Gender
         private static void PopulateGender(CarManufactoringContext db)
@@ -83,11 +87,43 @@ namespace CarManufactoring.Data
 
         //Seed da tabela SectionManager
 
+ 
         private static void PopulateSectionManager(CarManufactoringContext db)
         {
-            if(db.SectionManager.Any()) return;
+            if (db.SectionManager.Any()) return;
             db.SectionManager.AddRange(
-                new SectionManager { Name = "Paulo Proença",BirthDate = DateTime.Parse("18 / 12 / 1985"), GenderId = 1,Phone ="961234567",Email = "pauloproenca@gmail.com",SectionId=2 }
+                new SectionManager { Name = "Paulo Proença", BirthDate = DateTime.Parse("18 / 12 / 1985"), GenderId = 1, Phone = "961234567", Email = "pauloproenca@gmail.com", SectionId = 2 },
+                new SectionManager { Name = "Tomás Esteves", BirthDate = DateTime.Parse("05 / 08 / 1988"), GenderId = 1, Phone = "967654321", Email = "tomásesteves@gmail.com", SectionId = 1 },
+                new SectionManager { Name = "Ana Vidal", BirthDate = DateTime.Parse("17 / 05 / 2001"), GenderId = 2, Phone = "96666777", Email = "tomásesteves@gmail.com", SectionId = 3 }
+
+                );
+
+            db.SaveChanges();
+
+        }
+
+        //Seed da tabela MachineBrand
+        public static void PopulateMachineBrand(CarManufactoringContext db)
+        {
+            if (db.MachineBrand.Any()) return;
+            db.MachineBrand.AddRange(
+                new MachineBrand { MachineBrandName = "Kuka" },
+                new MachineBrand { MachineBrandName = "Universal Robots" },
+                new MachineBrand { MachineBrandName = "Omron Automation Americas" }
+                );
+
+            db.SaveChanges();
+        }
+        //Seed da tabela MachineModel
+        public static void PopulateMachineModel(CarManufactoringContext db)
+        {
+            if (db.MachineModel.Any()) return;
+
+            db.MachineModel.AddRange(
+                new MachineModel { MachineModelName = "Kr Iontec", MachineBrandId = 1 },
+                new MachineModel { MachineModelName = "UR10e", MachineBrandId = 3 },
+                new MachineModel { MachineModelName = "Kr Cybertech", MachineBrandId = 1 },
+                new MachineModel { MachineModelName = "HD-1500", MachineBrandId = 2 }
                 );
 
             db.SaveChanges();
@@ -208,6 +244,47 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        
+        private static void PopulateCustomers(CarManufactoringContext db)
+        {
+            if (db.Customer.Any()) return;
+
+            db.Customer.AddRange(
+                new Customer { CustomerName = "Apple", CustomerFoundDate = new DateTime(2022, 12, 02, 10, 30, 50) },
+                new Customer { CustomerName = "Microsoft", CustomerFoundDate = new DateTime(2022, 12, 01, 15, 50, 10) },
+                new Customer { CustomerName = "Amazon", CustomerFoundDate = new DateTime(2022, 11, 30, 11, 45, 27) }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateCustomerContacts(CarManufactoringContext db)
+        {
+            if (db.CustomerContact.Any()) return;
+
+            db.CustomerContact.AddRange(
+                new CustomerContact { CustomerName = "Guilherme Alves", CustomerRole = "Diretor", CustomerPhone = "+351987563215", CustomerEmail = "gui@gmail.com", CustomerId = 1 },
+                new CustomerContact { CustomerName = "Luis Barros", CustomerRole = "Chefe", CustomerPhone = "+351988533215", CustomerEmail = "gui@gmail.com", CustomerId = 2 },
+                new CustomerContact { CustomerName = "Rodrigo Lourenço", CustomerRole = "Tesoureiro", CustomerPhone = "+351987569053", CustomerEmail = "gui@gmail.com", CustomerId = 3 }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateOrder(CarManufactoringContext db)
+        {
+            if (db.Order.Any()) return;
+
+            db.Order.AddRange(
+                new Order { OrderDate = "12/10/2022", OrderState = "Pendente", StateDate = new DateTime(2022, 12, 02, 10, 30, 50), CustomerId = 1 },
+                new Order { OrderDate = "10/05/2022", OrderState = "Em produçao", StateDate = new DateTime(2022, 12, 01, 15, 50, 10), CustomerId = 2 },
+                new Order { OrderDate = "01/04/2022", OrderState = "Finalizada", StateDate = new DateTime(2022, 11, 30, 11, 45, 27), CustomerId = 3 }
+
+                );
+
+            db.SaveChanges();
+        }
+
     }
 }

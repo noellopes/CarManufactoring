@@ -26,49 +26,13 @@
     </div>
 }
 
-<div>
-    <h4>SemiFinished</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Family)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Family)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Reference)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Reference)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EAN)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EAN)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Manufacter)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Manufacter)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SemiFinishedState)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SemiFinishedState)
-        </dd>
-    </dl>
-</div>
+<hr />
+@{
+    await Html.RenderPartialAsync("SemiFinishedDetails", Model);
+}
+
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.SemiFinishedId" class="btn btn-warning">Edit</a> |
-    <a asp-action="Details" asp-route-id="@Model.SemiFinishedId" class="btn btn-secondary">Cancel</a>
+    <a asp-action="Delete" asp-route-id="@Model?.SemiFinishedId" class="btn btn-danger">Delete</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
