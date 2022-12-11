@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Order.ToListAsync());
+            var carManufactoringContext = _context.Order.Include(o => o.Customer);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -34,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Customer)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
@@ -46,6 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,OrderState,StateDate")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,OrderState,StateDate,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
             return View(order);
         }
 
@@ -78,6 +82,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
             return View(order);
         }
 
@@ -86,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,OrderState,StateDate")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,OrderState,StateDate,CustomerId")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -113,6 +118,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
             return View(order);
         }
 
@@ -125,6 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var order = await _context.Order
+                .Include(o => o.Customer)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {

@@ -27,5 +27,11 @@ namespace CarManufactoring.Models
         [Display(Name = "Email")]
         [EmailAddress]
         public string CustomerEmail { get; set; }
+
+        [Required]
+        [Display(Name = "Customer")]
+        public int CustomerId { get; set; }
+        public Customer? Customer { get; set; }
     }
+
 }
