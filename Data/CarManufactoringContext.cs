@@ -21,6 +21,20 @@ namespace CarManufactoring.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<SemiFinishedCar>().HasKey(bc => new { bc.SemiFinishedId, bc.CarId });
+            
+            modelBuilder.Entity<SemiFinishedCar>()
+                .HasOne(x => x.SemiFinished)
+                .WithMany(s => s.Cars)
+                .HasForeignKey(x => x.SemiFinishedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SemiFinishedCar>()
+                .HasOne(x => x.Car)
+                .WithMany(c => c.SemiFinisheds)
+                .HasForeignKey(x => x.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             // to be added == ShiftCollaborator
         }
 
