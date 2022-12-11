@@ -6,19 +6,19 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            PopulateGender(db);
-            PopulateSemiFinisheds(db);
-           PopulateSection(db);
-            PopulateSectionManager(db);
-           PopulateMachineState(db);
+            // PopulateGender(db);
+            // PopulateSemiFinisheds(db);
+            // PopulateSection(db);
+            // PopulateSectionManager(db);
+            // PopulateMachineState(db);
             // PopulateMachines(db);
-           PopulateBrands(db);
-           PopulateInspectionTesting(db);
-           
-           PopulateCars(db);
-           PopulateCarConfigs(db);
-           PopulateShiftType(db);
-           PopulateShift(db);
+            //PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+
+            // PopulateCars(db);
+            // PopulateCarConfigs(db);
+            // PopulateShiftType(db);
+            // PopulateShift(db);
         }
         // seed da tabela Gender
         private static void PopulateGender(CarManufactoringContext db)

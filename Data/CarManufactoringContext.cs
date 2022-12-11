@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace CarManufactoring.Data
 {
@@ -19,6 +20,7 @@ namespace CarManufactoring.Data
 
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<SemiFinishedCar>().HasKey(bc => new { bc.SemiFinishedId, bc.CarId });
             // to be added == ShiftCollaborator
         }
 
@@ -80,5 +82,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.ShiftType> ShiftType { get; set; }
 
         public DbSet<CarManufactoring.Models.CarModels> CarModels { get; set; }
+
+        public DbSet<CarManufactoring.Models.SemiFinishedCar> SemiFinishedCar { get; set; } = default!;
     }
 }
