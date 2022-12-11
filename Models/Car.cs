@@ -28,7 +28,7 @@ namespace CarManufactoring.Models
         public ICollection<CarConfig>? CarConfigs { get; set; }
 
         //SemiFinisheds - Fábio Abreu
-        public ICollection<SemiFinishedCar> SemiFinisheds { get; set; }
+        public ICollection<SemiFinishedCar>? SemiFinisheds { get; set; }
 
     }
 }
