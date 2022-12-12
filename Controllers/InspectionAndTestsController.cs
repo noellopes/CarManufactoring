@@ -22,18 +22,18 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests
         public async Task<IActionResult> Index()
         {
-              return View(await _context.inspectionAndTestings.ToListAsync());
+              return View(await _context.InspectionAndTest.ToListAsync());
         }
 
         // GET: InspectionAndTests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.inspectionAndTestings == null)
+            if (id == null || _context.InspectionAndTest == null)
             {
                 return NotFound();
             }
 
-            var inspectionAndTest = await _context.inspectionAndTestings
+            var inspectionAndTest = await _context.InspectionAndTest
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
@@ -68,12 +68,12 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.inspectionAndTestings == null)
+            if (id == null || _context.InspectionAndTest == null)
             {
                 return NotFound();
             }
 
-            var inspectionAndTest = await _context.inspectionAndTestings.FindAsync(id);
+            var inspectionAndTest = await _context.InspectionAndTest.FindAsync(id);
             if (inspectionAndTest == null)
             {
                 return NotFound();
@@ -119,12 +119,12 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.inspectionAndTestings == null)
+            if (id == null || _context.InspectionAndTest == null)
             {
                 return NotFound();
             }
 
-            var inspectionAndTest = await _context.inspectionAndTestings
+            var inspectionAndTest = await _context.InspectionAndTest
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
@@ -139,14 +139,14 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.inspectionAndTestings == null)
+            if (_context.InspectionAndTest == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.inspectionAndTestings'  is null.");
             }
-            var inspectionAndTest = await _context.inspectionAndTestings.FindAsync(id);
+            var inspectionAndTest = await _context.InspectionAndTest.FindAsync(id);
             if (inspectionAndTest != null)
             {
-                _context.inspectionAndTestings.Remove(inspectionAndTest);
+                _context.InspectionAndTest.Remove(inspectionAndTest);
             }
             
             await _context.SaveChangesAsync();
@@ -155,7 +155,7 @@ namespace CarManufactoring.Controllers
 
         private bool InspectionAndTestExists(int id)
         {
-          return _context.inspectionAndTestings.Any(e => e.InspectionId == id);
+          return _context.InspectionAndTest.Any(e => e.InspectionId == id);
         }
     }
 }
