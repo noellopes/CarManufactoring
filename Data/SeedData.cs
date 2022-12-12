@@ -133,15 +133,9 @@ namespace CarManufactoring.Data
         // Seed da tabela Machine
         private static void PopulateMachines(CarManufactoringContext db)
         {
-            if (db.Machines.Any()) return;
+            if (db.Machine.Any()) return;
 
-            db.Machines.AddRange(
-
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("30/08/2018"), MachineStateId = 1, SectionId = 1 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/05/2019"), MachineStateId = 1, SectionId = 1 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("23/02/2019"), MachineStateId = 1, SectionId = 2 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("03/05/2020"), MachineStateId = 1, SectionId = 3 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/10/2020"), MachineStateId = 1, SectionId = 2 }
+            db.Machine.AddRange(
 
                 );
 
