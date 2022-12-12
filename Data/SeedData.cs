@@ -6,24 +6,24 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            //PopulateGender(db);
-            //PopulateSemiFinisheds(db);
+            PopulateGender(db);
+            PopulateSemiFinisheds(db);
             PopulateMaterials(db);
-            //PopulateSection(db);
-            //PopulateSectionManager(db);
-            //PopulateMachineState(db);
-            //PopulateBrands(db);
-            //PopulateInspectionTesting(db);
-            //PopulateMachineBrand(db);
-            //PopulateMachineModel(db);
-            //PopulateMachines(db);
-            //PopulateCars(db);
-            //PopulateCarConfigs(db);
-            //PopulateShiftType(db);
-            //PopulateShift(db);
-            //PopulateCustomers(db);
-            //PopulateCustomerContacts(db);
-            //PopulateOrder(db);
+            PopulateSection(db);
+            PopulateSectionManager(db);
+            PopulateMachineState(db);
+            PopulateBrands(db);
+            PopulateInspectionTesting(db);
+            PopulateMachineBrand(db);
+            PopulateMachineModel(db);
+            PopulateMachines(db);
+            PopulateCars(db);
+            PopulateCarConfigs(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            PopulateOrder(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
