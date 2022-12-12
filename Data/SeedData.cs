@@ -6,23 +6,37 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            PopulateGender(db);
-            PopulateSemiFinisheds(db);
-            PopulateSection(db);
-            PopulateSectionManager(db);
-            PopulateMachineState(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateMachineBrand(db);
-            PopulateMachineModel(db);
-            PopulateMachines(db);
-            PopulateCars(db);
-            PopulateCarConfigs(db);
-            PopulateShiftType(db);
-            PopulateShift(db);
-            PopulateCustomers(db);
-            PopulateCustomerContacts(db);
-            PopulateOrder(db);
+            //PopulateGender(db);
+            //PopulateSemiFinisheds(db);
+            PopulateMaterials(db);
+            //PopulateSection(db);
+            //PopulateSectionManager(db);
+            //PopulateMachineState(db);
+            //PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+            //PopulateMachineBrand(db);
+            //PopulateMachineModel(db);
+            //PopulateMachines(db);
+            //PopulateCars(db);
+            //PopulateCarConfigs(db);
+            //PopulateShiftType(db);
+            //PopulateShift(db);
+            //PopulateCustomers(db);
+            //PopulateCustomerContacts(db);
+            //PopulateOrder(db);
+        }
+        // SeedData for Material Class
+        private static void PopulateMaterials(CarManufactoringContext db)
+        {
+            if (db.Material.Any()) return;
+
+            db.Material.AddRange(
+                new Material { Nome = "piece1", Description = "piece 1 has dimensions x,y,z and is composed of only 1 material", Type = "iron", State = "done" },
+                new Material { Nome = "piece2", Description = "piece 2 has dimensions x,y,z and is composed of only 2 material", Type = "wood, iron", State = "doing" },
+                new Material { Nome = "piece3", Description = "piece 2 has dimensions x,y,z and is composed of only 3 material", Type = "wood, iron, gold", State = "to do" }
+               );
+
+            db.SaveChanges();
         }
         // seed da tabela Gender
         private static void PopulateGender(CarManufactoringContext db)
