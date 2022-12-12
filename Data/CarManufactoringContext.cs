@@ -107,5 +107,9 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Breakdown> Breakdown { get; set; }
 
+
+
+        public DbSet<CarManufactoring.Models.MachineMaintenance> MachineMaintenance { get; set; }
+
     }
 }
