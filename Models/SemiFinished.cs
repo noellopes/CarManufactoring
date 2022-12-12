@@ -14,11 +14,6 @@ namespace CarManufactoring.Models
         [Required]
         public string Reference { get; set; }
 
-        [StringLength(13, MinimumLength = 13)]
-        [Required]
-        public string EAN { get; set; }
-
-
         [StringLength(30, MinimumLength = 3)]
         [Required]
         public string Manufacter { get; set; }
@@ -39,7 +34,7 @@ namespace CarManufactoring.Models
         // relationship between SemiFinished and INSPECTION (WAITING CREATION)
         
         // Relation between the table MaterialUsado and SemiFinished
-        public ICollection<MaterialUsado> MaterialUsado { get; set; }
+        public ICollection<MaterialUsado>? MaterialUsado { get; set; }
 
         public ICollection<SemiFinishedCar>?
             Cars { get; set; }

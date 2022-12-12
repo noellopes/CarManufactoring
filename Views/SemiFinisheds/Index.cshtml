@@ -21,10 +21,6 @@
                 <input name="reference" class="form-control" type="search" value="@Model.ReferenceSearched" />
             </div>
             <div class="mb-3">
-                <label for="ean" class="form-label">EAN</label>
-                <input name="ean" class="form-control" type="search" value="@Model.EANSearched" />
-            </div>
-            <div class="mb-3">
                 <label for="manufacter" class="form-label">Manufacter</label>
                 <input name="manufacter" class="form-control" type="search" value="@Model.ManufacterSearched" />
             </div>
@@ -51,9 +47,7 @@
             <th>
                 @Html.DisplayNameFor(model => new SemiFinished().Reference)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => new SemiFinished().EAN)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => new SemiFinished().Manufacter)
             </th>
@@ -76,9 +70,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Reference)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EAN)
-                </td>
+               
                 <td>
                     @Html.DisplayFor(modelItem => item.Manufacter)
                 </td>
