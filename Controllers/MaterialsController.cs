@@ -22,18 +22,25 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Materials
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(string nome = null, string type = null, int page = 1)
         {
-            var material = _context.Material.OrderBy(b => b.Nome);
+            var material = _context.Material.Where(b => nome == null || b.Nome.Contains(nome))
+                .Where(b => type == null || b.Type.Contains(type))
+                .OrderBy(b => b.Nome);
 
             var pagingInfo = new PagingInfoViewModel(await material.CountAsync(), page);
 
-            var model = new ListViewModel<Material>
+            var model = new MaterialIndexViewModel
             {
-                List = await material
-                .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
-                .Take(pagingInfo.PageSize).ToListAsync(),
+                MaterialList = new ListViewModel<Material>
+                {   
+                    List = await material
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
                 PagingInfo = pagingInfo
+                },
+                NomeSearched = nome,
+                TypeSearched = type
             };
 
             return View(model);

@@ -1,0 +1,39 @@
+﻿@model IEnumerable<CarManufactoring.Models.MachineMaintenance>
+
+@{
+    ViewData["Title"] = "Gestão de Máquina na Linha de Produção";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div>
+    <a asp-action="Create">Create New</a>
+</div>
+<hr />
+<h2>
+    Manutenções em aberto
+</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeginDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Effective_End_Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Expected_End_Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
