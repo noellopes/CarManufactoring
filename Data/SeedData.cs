@@ -11,11 +11,11 @@ namespace CarManufactoring.Data
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-           // PopulateMachines(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
+            PopulateMachines(db);
             PopulateCars(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
@@ -136,6 +136,14 @@ namespace CarManufactoring.Data
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, SectionId = 2},
+                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, SectionId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, SectionId = 2 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, SectionId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, SectionId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, SectionId = 5 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, SectionId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, SectionId = 4 }
 
                 );
 
