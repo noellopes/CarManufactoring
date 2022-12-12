@@ -22,6 +22,9 @@ namespace CarManufactoring.Controllers
         // GET: MachineMaintenances
         public async Task<IActionResult> Index()
         {
+            var machines =  _context.MachineMaintenance;
+
+            var machinesOnMaintenance = machines.Include
               return View(await _context.MachineMaintenance.ToListAsync());
         }
 
@@ -41,6 +44,13 @@ namespace CarManufactoring.Controllers
             }
 
             return View(machineMaintenance);
+        }
+
+        
+        public IActionResult CollaboratorGetMaintenance(int? id)
+        {
+            
+            return View();
         }
 
         // GET: MachineMaintenances/Create

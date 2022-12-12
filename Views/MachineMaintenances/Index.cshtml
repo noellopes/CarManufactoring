@@ -1,22 +1,25 @@
 ﻿@model IEnumerable<CarManufactoring.Models.MachineMaintenance>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Gestão de Máquina na Linha de Produção";
 }
 
-<h1>Index</h1>
-
-<p>
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div>
     <a asp-action="Create">Create New</a>
-</p>
+</div>
+<hr />
+<h2>
+    Manutenções em aberto
+</h2>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Deleted)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BeginDate)
@@ -31,29 +34,6 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deleted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BeginDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Effective_End_Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Expected_End_Date)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MachineMaintenanceId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MachineMaintenanceId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MachineMaintenanceId">Delete</a>
-            </td>
-        </tr>
-}
+
     </tbody>
 </table>
