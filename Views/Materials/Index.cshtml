@@ -1,4 +1,4 @@
-﻿@model ListViewModel<Material>
+﻿@model MaterialIndexViewModel
 
 @{
     ViewData["Title"] = "Materials list";
@@ -6,9 +6,26 @@
 
 <h1>@ViewBag.Title</h1>
 
-<p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input name="nome" class="form-control" type="search" value="@Model.NomeSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <input name="type" class="form-control" type="search" value="@Model.TypeSearched" />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
+<div class="mt-3">
     <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+</div>
 <table class="table">
     <thead>
         <tr>
@@ -28,7 +45,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.List) {
+        @foreach (var item in Model.MaterialList.List) {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nome)
@@ -54,12 +71,12 @@
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <li class="page-item @(Model.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+        <li class="page-item @(Model.MaterialList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
             <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
         </li>
-        @for (int p = Model.PagingInfo.InitialPageToShow; p <= Model.PagingInfo.FinalPageToShow; p++)
+        @for (int p = Model.MaterialList.PagingInfo.InitialPageToShow; p <= Model.MaterialList.PagingInfo.FinalPageToShow; p++)
         {
-            if (p == Model.PagingInfo.CurrentPage)
+            if (p == Model.MaterialList.PagingInfo.CurrentPage)
             {
                         <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
             }
@@ -68,8 +85,8 @@
                 <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
             }
         }
-        <li class="page-item @(Model.PagingInfo.CurrentPage == Model.PagingInfo.TotalPages ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@Model.PagingInfo.TotalPages">Last</a>
+        <li class="page-item @(Model.MaterialList.PagingInfo.CurrentPage == Model.MaterialList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.MaterialList.PagingInfo.TotalPages">Last</a>
         </li>
     </ul>
 </nav>
