@@ -24,7 +24,7 @@ namespace CarManufactoring.Controllers
         {
             var machines =  _context.MachineMaintenance;
 
-            var machinesOnMaintenance = machines.Include
+            
               return View(await _context.MachineMaintenance.ToListAsync());
         }
 

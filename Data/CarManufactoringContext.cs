@@ -66,7 +66,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }
 
-
+        public DbSet<CarManufactoring.Models.MachineMaintenance> MachineMaintenace { get; set; }
         public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
 
         public DbSet<CarManufactoring.Models.Material> Material { get; set; }
