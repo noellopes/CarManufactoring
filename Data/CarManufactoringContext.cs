@@ -45,7 +45,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineState> MachineState { get; set; }
 
-        public DbSet<CarManufactoring.Models.Machines> Machines { get; set; }
+        public DbSet<CarManufactoring.Models.Machine> Machine { get; set; }
 
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
@@ -54,9 +54,6 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.CarConfig> CarConfig { get; set; }
 
         public DbSet<CarManufactoring.Models.SectionManager> SectionManager { get; set; }
-
-        public DbSet<CarManufactoring.Models.WorkStates> WorkStates { get; set; }
-
 
         public DbSet<CarManufactoring.Models.Section> Section { get; set; }
 
