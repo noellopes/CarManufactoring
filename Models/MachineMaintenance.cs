@@ -12,13 +12,18 @@ namespace CarManufactoring.Models
         public string? Description { get; set; }
 
         public bool Deleted { get; set; } = false;
+       
+        public DateTime BeginDate { get; set; } = DateTime.Now.Date;
 
-        public DateOnly BeginDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
-
-        public DateOnly? Effective_End_Date { get; set; }
+        public DateTime? Effective_End_Date { get; set; }
 
         [Required]
-        public DateOnly Expected_End_Date { get; set; }
+        public DateTime Expected_End_Date { get; set; }
+
+        [Display(Name = "Task Type")]
+        public int TaskTypeId { get; set; }
+        public TaskType? TaskType { get; set; }
+
 
     }
 }
