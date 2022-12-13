@@ -29,10 +29,10 @@ namespace CarManufactoring.Models {
 
         public string StockState { get; } //Wait for stockStorage to be done
 
-        public CarParts SearchProd(int ProductId, CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch) {
+        public static IOrderedQueryable<CarParts> SearchProd( CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch) {
 
-            CarParts carPart = (CarParts) context.CarParts
-                .Where(cp => cp.Name == NameSearch || cp.PartType == TypeSearch || cp.Reference ==referenceSearch)
+            var carPart = context.CarParts
+                .Where(cp => NameSearch == null || TypeSearch == null || referenceSearch == null || cp.Name == NameSearch || cp.PartType == TypeSearch || cp.Reference == referenceSearch)
                 .OrderBy(cp => cp.Name);
 
             return carPart;

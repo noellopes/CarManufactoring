@@ -1,4 +1,5 @@
-﻿@model IEnumerable<CarManufactoring.Models.CarParts>
+﻿@using CarManufactoring.ViewModels.Group2
+@model CarPartsIndexViewModel
 
 @{
     ViewData["Title"] = "Car Parts";
@@ -10,28 +11,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PartType)
+                @Html.DisplayNameFor(model => new CarParts().PartType)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reference)
+                @Html.DisplayNameFor(model => new CarParts().Reference)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => new CarParts().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PointOfPurchase)
+                @Html.DisplayNameFor(model => new CarParts().PointOfPurchase)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SafetyStock)
+                @Html.DisplayNameFor(model => new CarParts().SafetyStock)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LevelService)
+                @Html.DisplayNameFor(model => new CarParts().LevelService)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (CarParts cp in Model) {
+@foreach (CarParts cp in Model.CarPartsList.List) {
         <tr>
             <td>
                 @cp.PartType

@@ -21,12 +21,23 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null)
         {
-            var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
-                
+            //var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
+            var CarParts = Product.SearchProd(_context, name, partType, reference);
 
-            return View(CarParts);
+            var model = new CarPartsIndexViewModel {
+
+                CarPartsList = new ViewModels.ListViewModel<CarParts> {
+
+                    List = await CarParts.ToListAsync()
+                },
+                NameSearch = name,
+                ReferenceSearch = reference,
+                TypeSearch = partType
+            };
+
+            return View(model);
         }
 
         // GET: CarParts/Details/5
