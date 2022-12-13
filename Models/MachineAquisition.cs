@@ -19,7 +19,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Quantity of Parts")]
-        public Double QuantityOfParts { get; set; }
+        public int QuantityOfParts { get; set; }
 
         [Required]
         [Display(Name = "Produced Parts")]
