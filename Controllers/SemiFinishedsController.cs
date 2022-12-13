@@ -23,13 +23,13 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds
-        public async Task<IActionResult> Index(string state = null, string manufacter = null, string ean = null, string reference = null, string family = null,  int page = 1)
+        public async Task<IActionResult> Index(string state = null, string manufacter = null, string reference = null, string family = null,  int page = 1)
         {
             // order by  reference
             var semiFinisheds = _context.SemiFinished
                 .Where(b => reference == null || b.Reference.Contains(reference))
                 .Where(b => family == null || b.Family.Contains(family))
-                .Where(b => ean == null || b.EAN.Contains(ean))
+                
                 .Where(b => manufacter == null || b.Manufacter.Contains(manufacter))
                 .Where(b => state == null || b.SemiFinishedState.Contains(state))
                 .OrderBy(b => b.Reference);
@@ -49,7 +49,6 @@ namespace CarManufactoring.Controllers
 
                 FamilySearched = family,
                 ReferenceSearched = reference,
-                EANSearched = ean,
                 ManufacterSearched = manufacter,
                 SemiFinishedStateSearched = state
 
@@ -89,7 +88,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SemiFinishedId,Family,Reference,EAN,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
+        public async Task<IActionResult> Create([Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +122,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SemiFinishedId,Family,Reference,EAN,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
+        public async Task<IActionResult> Edit(int id, [Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (id != semiFinished.SemiFinishedId)
             {

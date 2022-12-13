@@ -5,6 +5,7 @@ namespace CarManufactoring.Models
 {
     public class Supplier
     {
+        [Key]
         public int SupplierId { get; set; }
 
         [Required(ErrorMessage = "Please enter the Name")]

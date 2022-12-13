@@ -9,23 +9,12 @@ namespace CarManufactoring.Models
         public int MachineId { get; set; }
 
         [Required]
-        [StringLength(60, MinimumLength = 3)]
-        [Display(Name = "Brand")]
-        public string? MachineBrand { get; set; }
+        [Display(Name = "Date Acquired")]
+        public DateTime DateAcquired { get; set; }
 
-        [Required]
-        [StringLength(60, MinimumLength = 3)]
-        [Display(Name ="Model")]
-        public string? MachineModel { get; set; }
-
-        public string? Description { get; set; }
-
-        [Required]
-        public bool Available { get; set; }
-       
-        [Required]
-        [Display(Name = "Aquisition Date")]
-        public DateTime AquisitionDate { get; set; }
+        [Display(Name = "Machine Model")]
+        public int MachineModelId { get; set; }
+        public MachineModel? MachineModel { get; set; }
 
         [Required]
         [Display(Name ="Machine State")]    

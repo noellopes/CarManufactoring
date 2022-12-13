@@ -8,6 +8,7 @@ namespace CarManufactoring.ViewModels.Group3
     {
         public readonly static List<Documents> G3Documents = new List<Documents>()
         {
+            new Documents { Name = "Still in Work Final Report", DocPath = "/documents/Group3/GroupDocumentation/RelatorioFinal_ES2.pdf"},
             new Documents {Name = "States Diagram", DocPath = "/documents/Group3/GroupDocumentation/StateDiagram.png" },
             new Documents {Name = "Classes Diagram", DocPath = "/documents/Group3/GroupDocumentation/ClassesDiagram.png"},
             new Documents {Name = "Use Case Diagram", DocPath= "/documents/Group3/GroupDocumentation/UseCaseDiagram.png"},

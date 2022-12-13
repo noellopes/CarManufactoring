@@ -22,22 +22,22 @@ namespace CarManufactoring.Controllers
         // GET: Machines
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.Machines.Include(m => m.MachineState).Include(m => m.Section);
+            var carManufactoringContext = _context.Machine.Include(m => m.MachineState).Include(m => m.Section);
             return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Machines/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Machines == null)
+            if (id == null || _context.Machine == null)
             {
                 return NotFound();
             }
 
-            var machines = await _context.Machines
+            var machines = await _context.Machine
                 .Include(m => m.MachineState)
                 .Include(m => m.Section)
-                .FirstOrDefaultAsync(m => m.MachinesId == id);
+                .FirstOrDefaultAsync(m => m.MachineId == id);
             if (machines == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId,SectionId")] Machines machines)
+        public async Task<IActionResult> Create([Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId,SectionId")] Machine machines)
         {
             if (ModelState.IsValid)
             {
@@ -75,12 +75,12 @@ namespace CarManufactoring.Controllers
         // GET: Machines/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Machines == null)
+            if (id == null || _context.Machine == null)
             {
                 return NotFound();
             }
 
-            var machines = await _context.Machines.FindAsync(id);
+            var machines = await _context.Machine.FindAsync(id);
             if (machines == null)
             {
                 return NotFound();
@@ -95,9 +95,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId,SectionId")] Machines machines)
+        public async Task<IActionResult> Edit(int id, [Bind("MachinesId,MachineBrand,MachineModel,Available,AquisitionDate,MachineStateId,SectionId")] Machine machines)
         {
-            if (id != machines.MachinesId)
+            if (id != machines.MachineId)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace CarManufactoring.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MachinesExists(machines.MachinesId))
+                    if (!MachinesExists(machines.MachineId))
                     {
                         return NotFound();
                     }
@@ -130,15 +130,15 @@ namespace CarManufactoring.Controllers
         // GET: Machines/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Machines == null)
+            if (id == null || _context.Machine == null)
             {
                 return NotFound();
             }
 
-            var machines = await _context.Machines
+            var machines = await _context.Machine
                 .Include(m => m.MachineState)
                 .Include(m => m.Section)
-                .FirstOrDefaultAsync(m => m.MachinesId == id);
+                .FirstOrDefaultAsync(m => m.MachineId == id);
             if (machines == null)
             {
                 return NotFound();
@@ -152,14 +152,14 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Machines == null)
+            if (_context.Machine == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.Machines'  is null.");
             }
-            var machines = await _context.Machines.FindAsync(id);
+            var machines = await _context.Machine.FindAsync(id);
             if (machines != null)
             {
-                _context.Machines.Remove(machines);
+                _context.Machine.Remove(machines);
             }
             
             await _context.SaveChangesAsync();
@@ -168,7 +168,7 @@ namespace CarManufactoring.Controllers
 
         private bool MachinesExists(int id)
         {
-          return _context.Machines.Any(e => e.MachinesId == id);
+          return _context.Machine.Any(e => e.MachineId == id);
         }
     }
 }

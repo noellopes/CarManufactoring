@@ -11,7 +11,7 @@ namespace CarManufactoring.Models
         [Required]
         public string? Name { get; set; }
         public ICollection<SectionManager>? Manager { get; set; }
-        public ICollection<Machines>? Machines { get; set; }
+        public ICollection<Machine>? Machines { get; set; }
 
     }
 }

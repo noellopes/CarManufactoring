@@ -6,16 +6,18 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
+
             PopulateGender(db);
             PopulateSemiFinisheds(db);
+            PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-           // PopulateMachines(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
+            PopulateMachines(db);
             PopulateCars(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
@@ -23,6 +25,21 @@ namespace CarManufactoring.Data
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             PopulateOrder(db);
+            PopulateSupplier(db);
+
+        }
+        // SeedData for Material Class
+        private static void PopulateMaterials(CarManufactoringContext db)
+        {
+            if (db.Material.Any()) return;
+
+            db.Material.AddRange(
+                new Material { Nome = "piece1", Description = "piece 1 has dimensions x,y,z and is composed of only 1 material", Type = "iron", State = "done" },
+                new Material { Nome = "piece2", Description = "piece 2 has dimensions x,y,z and is composed of only 2 material", Type = "wood, iron", State = "doing" },
+                new Material { Nome = "piece3", Description = "piece 2 has dimensions x,y,z and is composed of only 3 material", Type = "wood, iron, gold", State = "to do" }
+               );
+
+            db.SaveChanges();
         }
         // seed da tabela Gender
         private static void PopulateGender(CarManufactoringContext db)
@@ -42,10 +59,10 @@ namespace CarManufactoring.Data
 
             db.SemiFinished.AddRange(
 
-                new SemiFinished { Family = "Filtro de óleo", Reference = "ADV182113", EAN = "5050063105056", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
-                new SemiFinished { Family = "Jogo de filtros de ar", Reference = "ADBP220039", EAN = "5057746232696", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
-                new SemiFinished { Family = "Filtro de combustível", Reference = "KL571", EAN = "4009026601778", Manufacter = "MAHLE", Description = "Filtro dos tubos", SemiFinishedState = "Under Development" },
-                new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", EAN = "4047026300192", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
+                new SemiFinished { Family = "Filtro de óleo", Reference = "ADV182113", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
+                new SemiFinished { Family = "Jogo de filtros de ar", Reference = "ADBP220039", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
+                new SemiFinished { Family = "Filtro de combustível", Reference = "KL571", Manufacter = "MAHLE", Description = "Filtro dos tubos", SemiFinishedState = "Under Development" },
+                new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
 
                 );
 
@@ -133,15 +150,17 @@ namespace CarManufactoring.Data
         // Seed da tabela Machine
         private static void PopulateMachines(CarManufactoringContext db)
         {
-            if (db.Machines.Any()) return;
+            if (db.Machine.Any()) return;
 
-            db.Machines.AddRange(
-
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("30/08/2018"), MachineStateId = 1, SectionId = 1 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/05/2019"), MachineStateId = 1, SectionId = 1 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("23/02/2019"), MachineStateId = 1, SectionId = 2 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("03/05/2020"), MachineStateId = 1, SectionId = 3 },
-                new Machines { MachineBrand = "KUKA", MachineModel = "cell4", Available = true, AquisitionDate = DateTime.Parse("12/10/2020"), MachineStateId = 1, SectionId = 2 }
+            db.Machine.AddRange(
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, SectionId = 2},
+                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, SectionId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, SectionId = 2 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, SectionId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, SectionId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, SectionId = 5 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, SectionId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, SectionId = 4 }
 
                 );
 
@@ -285,6 +304,22 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+
+        private static void PopulateSupplier(CarManufactoringContext db)
+        {
+            if (db.Supplier.Any()) return;
+
+            db.Supplier.AddRange(
+                new Supplier {SupplierName = "CarParts", SupplierEmail = "CarParts@outlook.com", SupplierContact = "932 712 231", SupplierZipCode = "28600", SupplierAddress = "P.º del Alparrache,  Navalcarnero, Madrid, Espanha" },
+                new Supplier {SupplierName = "MegaCar", SupplierEmail = "MegaCar@gmail.com", SupplierContact = "962 512 231", SupplierZipCode = "3100", SupplierAddress = "24 Bd de Courtais,  Montluçon, França" },
+                new Supplier {SupplierName = "BestDrive", SupplierEmail = "BestDrive@hotmail.com", SupplierContact = "912 112 231", SupplierZipCode = "183", SupplierAddress = "Piazzale Appio, 5, Roma RM, Itália" },
+                new Supplier {SupplierName = "NewCar", SupplierEmail = "NewCar@hotmail.com", SupplierContact = "942 332 231", SupplierZipCode = "71000", SupplierAddress = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" }
+                
+                );
+
+            db.SaveChanges();
+        }
+
 
     }
 }
