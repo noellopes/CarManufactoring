@@ -31,7 +31,9 @@ namespace CarManufactoring.Models {
 
         public CarParts SearchProd(int ProductId, CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch) {
 
-            var carPart = context.CarParts.Where(cp => cp.Name == NameSearch || cp.PartType == TypeSearch || cp.reference ==referenceSearch).OrderBy(cp => cp.Name);
+            CarParts carPart = (CarParts) context.CarParts
+                .Where(cp => cp.Name == NameSearch || cp.PartType == TypeSearch || cp.Reference ==referenceSearch)
+                .OrderBy(cp => cp.Name);
 
             return carPart;
 
