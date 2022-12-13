@@ -7,13 +7,13 @@ namespace CarManufactoring.Models
     {
         [Key]
         public int SupplierId { get; set; }
-
-        [Required]
+        
+        [Required(ErrorMessage = "Please enter the Name")]
         [Display(Name = "Name")]
         [StringLength(100, MinimumLength = 2)]
         public string SupplierName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the Email")]
         [EmailAddress]
         [StringLength(256)]
         public string SupplierEmail { get; set; }
