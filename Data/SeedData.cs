@@ -38,9 +38,9 @@ namespace CarManufactoring.Data
             if (db.Material.Any()) return;
 
             db.Material.AddRange(
-                new Material { MaterialId = 1, Nome = "piece1", Description = "piece 1 has dimensions x,y,z and is composed of only 1 material", Type = "iron", State = "done" },
-                new Material { MaterialId = 2, Nome = "piece2", Description = "piece 2 has dimensions x,y,z and is composed of only 2 material", Type = "wood, iron", State = "doing" },
-                new Material { MaterialId = 3, Nome = "piece3", Description = "piece 2 has dimensions x,y,z and is composed of only 3 material", Type = "wood, iron, gold", State = "to do" }
+                new Material { Nome = "piece1", Description = "piece 1 has dimensions x,y,z and is composed of only 1 material", Type = "iron", State = "done" },
+                new Material { Nome = "piece2", Description = "piece 2 has dimensions x,y,z and is composed of only 2 material", Type = "wood, iron", State = "doing" },
+                new Material { Nome = "piece3", Description = "piece 2 has dimensions x,y,z and is composed of only 3 material", Type = "wood, iron, gold", State = "to do" }
                );
 
             db.SaveChanges();
