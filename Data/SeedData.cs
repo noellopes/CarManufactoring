@@ -13,11 +13,13 @@ namespace CarManufactoring.Data
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
+            PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateMachines(db);
+            PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
@@ -85,6 +87,18 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+
+        private static void PopulateTaskType(CarManufactoringContext db)
+        {
+            if (db.TaskType.Any()) return;
+
+            db.TaskType.AddRange(
+                new TaskType { TaskName = "Avaria" },
+                new TaskType { TaskName = "Manutenção" }   
+               );
+
+            db.SaveChanges();
+        }
         // Seed da tabela Section
         private static void PopulateSection(CarManufactoringContext db)
         {
@@ -167,7 +181,21 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        private static void PopulateMachineMaintenance(CarManufactoringContext db)
+        {
+            if (db.MachineMaintenance.Any()) return;
 
+            db.MachineMaintenance.AddRange(
+                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro", Expected_End_Date = DateTime.Parse("15/03/2022"), Effective_End_Date = DateTime.Parse("15/02/2022"), TaskTypeId = 1 , PriorityId = 1, MachineId = 2},
+                 new MachineMaintenance { Description = "Manutenção periódica de Março", Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 1 },
+                 new MachineMaintenance { Description = "Avaria braço robótico máquina", Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 1 },
+                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", Expected_End_Date = DateTime.Parse("16/12/2022"), TaskTypeId = 1 }
+
+
+                );
+
+            db.SaveChanges();
+        }
         private static void PopulateInspectionTesting(CarManufactoringContext db)
         {
             if (db.InspectionAndTest.Any()) return;

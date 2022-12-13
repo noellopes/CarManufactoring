@@ -20,9 +20,20 @@ namespace CarManufactoring.Models
         [Required]
         public DateTime Expected_End_Date { get; set; }
 
+        [Required]
         [Display(Name = "Task Type")]
         public int TaskTypeId { get; set; }
         public TaskType? TaskType { get; set; }
+
+        [Required]
+        [Display(Name = "Priority")]
+        public int PriorityId { get; set; }
+        public Priority? Priority { get; set; }
+
+        [Required]
+        [Display(Name = "Machine")]
+        public int MachineId { get; set; }
+        public Machine? Machine { get; set; }
 
 
     }

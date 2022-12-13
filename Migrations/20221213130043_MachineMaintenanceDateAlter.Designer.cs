@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221213121920_MachineMaintenanceDateAlter")]
+    [Migration("20221213130043_MachineMaintenanceDateAlter")]
     partial class MachineMaintenanceDateAlter
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -499,10 +499,20 @@ namespace CarManufactoring.Migrations
                     b.Property<DateTime>("Expected_End_Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("MachineId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PriorityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("TaskTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("MachineMaintenanceId");
+
+                    b.HasIndex("MachineId");
+
+                    b.HasIndex("PriorityId");
 
                     b.HasIndex("TaskTypeId");
 
@@ -667,6 +677,24 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Order");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.Priority", b =>
+                {
+                    b.Property<int>("PriorityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PriorityId"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("PriorityId");
+
+                    b.ToTable("Priority");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Production", b =>
                 {
                     b.Property<int>("ProductionId")
@@ -736,12 +764,17 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int?>("PriorityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SectionId")
                         .HasColumnType("int");
 
                     b.HasKey("SectionManagerId");
 
                     b.HasIndex("GenderId");
+
+                    b.HasIndex("PriorityId");
 
                     b.HasIndex("SectionId");
 
@@ -1043,11 +1076,27 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.MachineMaintenance", b =>
                 {
+                    b.HasOne("CarManufactoring.Models.Machine", "Machine")
+                        .WithMany()
+                        .HasForeignKey("MachineId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.Priority", "Priority")
+                        .WithMany()
+                        .HasForeignKey("PriorityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CarManufactoring.Models.TaskType", "TaskType")
                         .WithMany()
                         .HasForeignKey("TaskTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Machine");
+
+                    b.Navigation("Priority");
 
                     b.Navigation("TaskType");
                 });
@@ -1090,6 +1139,10 @@ namespace CarManufactoring.Migrations
                         .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.Priority", null)
+                        .WithMany("MachineMaintenance")
+                        .HasForeignKey("PriorityId");
 
                     b.HasOne("CarManufactoring.Models.Section", "Sections")
                         .WithMany("Manager")
@@ -1190,6 +1243,11 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
                 {
                     b.Navigation("MaterialUsado");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.Priority", b =>
+                {
+                    b.Navigation("MachineMaintenance");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>

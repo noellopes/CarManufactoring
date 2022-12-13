@@ -56,6 +56,7 @@ namespace CarManufactoring.Controllers
         // GET: MachineMaintenances/Create
         public IActionResult Create()
         {
+            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             return View();
         }
 
@@ -64,7 +65,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineMaintenanceId,Description,Deleted,BeginDate,Effective_End_Date,Expected_End_Date")] MachineMaintenance machineMaintenance)
+        public async Task<IActionResult> Create([Bind("MachineMaintenanceId,Description,Deleted,BeginDate,Effective_End_Date,Expected_End_Date,TaskTypeId")] MachineMaintenance machineMaintenance)
         {
             if (ModelState.IsValid)
             {
@@ -72,6 +73,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             return View(machineMaintenance);
         }
 
