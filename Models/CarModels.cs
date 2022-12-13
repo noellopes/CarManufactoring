@@ -6,7 +6,7 @@ namespace CarManufactoring.Models
     {
 
         [Key]
-        public int CarModel_Id { get; set; }
+        public int CarModelId { get; set; }
 
         [Required]
         [StringLength(60, MinimumLength = 3)]
