@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels.Group1;
 
 namespace CarManufactoring.Controllers
 {
@@ -22,10 +23,29 @@ namespace CarManufactoring.Controllers
         // GET: MachineMaintenances
         public async Task<IActionResult> Index()
         {
-            var machines =  _context.MachineMaintenance;
+            var all = await _context.MachineMaintenance
+            .Include(m => m.Priority)
+            .Include(m => m.Machine)
+            .Include(m => m.TaskType)
+            .Include(m => m.Machine.MachineModel)
+            .Include(m => m.Machine.MachineModel.MachineBrandNames)
+            .ToListAsync();
 
-            
-              return View(await _context.MachineMaintenance.ToListAsync());
+            var onProgress = await _context.MachineMaintenance
+            .Include(m => m.Priority)
+            .Include(m => m.Machine)
+            .Include(m => m.TaskType)
+            .Include(m => m.Machine.MachineModel)
+            .Include(m => m.Machine.MachineModel.MachineBrandNames)
+            .Where(m => !m.Effective_End_Date.HasValue).ToListAsync();
+
+            var model = new MachineMaintenaceIndexViewModel
+            {
+                All = all,
+                OnProgress = onProgress
+            };
+
+            return View(model);
         }
 
         // GET: MachineMaintenances/Details/5
@@ -56,6 +76,7 @@ namespace CarManufactoring.Controllers
         // GET: MachineMaintenances/Create
         public IActionResult Create()
         {
+            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             return View();
         }
 
@@ -64,7 +85,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineMaintenanceId,Description,Deleted,BeginDate,Effective_End_Date,Expected_End_Date")] MachineMaintenance machineMaintenance)
+        public async Task<IActionResult> Create([Bind("MachineMaintenanceId,Description,Deleted,BeginDate,Effective_End_Date,Expected_End_Date,TaskTypeId")] MachineMaintenance machineMaintenance)
         {
             if (ModelState.IsValid)
             {
@@ -72,6 +93,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             return View(machineMaintenance);
         }
 
