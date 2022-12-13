@@ -65,7 +65,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(stock);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ViewBag.SuccessMessage = "Stock created successfully";
+                stock.Material = _context.Material.Find(stock.MaterialId);
+
+                return View("Details", stock);
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
