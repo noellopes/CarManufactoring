@@ -4,18 +4,17 @@ namespace CarManufactoring.Models
 {
     public class ModelParts
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [Display(Name = "ID peca")]
         [Range(0, int.MaxValue, ErrorMessage = "O id da peca deve ser válido")]
-        public int PecaId { get; set; }
+        public int ProductId { get; set; }
+        public CarParts? CarParts { get; set; }
 
         [Required]
         [Display(Name = "ID modelo")]
         [Range(0, int.MaxValue, ErrorMessage = "O id do modelo deve ser válido")]
-        public int ModeloId { get; set; }
+        public int CarModelId { get; set; }
+        public CarModels? CarModels { get; set; }
 
         [Required]
         [Display(Name = "Quantidade da peca")]
