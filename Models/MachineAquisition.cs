@@ -19,7 +19,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Quantity of Parts")]
-        public DateTime QuantityOfParts { get; set; }
+        public int QuantityOfParts { get; set; }
 
         [Required]
         [Display(Name = "Produced Parts")]
@@ -31,7 +31,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Operation")]
-        public double Operation { get; set; }
+        public string Operation { get; set; }
 
     }
 }

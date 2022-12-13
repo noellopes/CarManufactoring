@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221211155250_MachineAquisition")]
-    partial class MachineAquisition
+    [Migration("20221211180412_AddMachineBudget")]
+    partial class AddMachineBudget
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -347,6 +347,12 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineBudgetID"), 1L, 1);
 
+                    b.Property<int>("AquisitionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SupplierId")
+                        .HasColumnType("int");
+
                     b.Property<double>("Valor")
                         .HasColumnType("float");
 
@@ -357,6 +363,10 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("MachineBudgetID");
+
+                    b.HasIndex("AquisitionId");
+
+                    b.HasIndex("SupplierId");
 
                     b.ToTable("MachineBudget");
                 });
@@ -876,6 +886,25 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Genders");
 
                     b.Navigation("Task");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.MachineAquisition", "Aquisition")
+                        .WithMany()
+                        .HasForeignKey("AquisitionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CarManufactoring.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Aquisition");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machines", b =>

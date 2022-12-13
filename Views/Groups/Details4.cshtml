@@ -4,17 +4,22 @@
     ViewData["Title"] = "Group 4";
 }
 
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="col-12">
-            <h1>
-                @ViewBag.Title 
-            </h1>
-            <h5> Gestão de máquinas/recursos para a produção</h5>
-            <hr />
+<style>
+    img {
+        padding-left: 10px;
+    }
+</style>
+
+<h1>
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1012639"><img align="right" class="img" src="~/img/students/1012639.jpg" width="7%" ></a>
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1012659"> <img align="right" class="img" src="~/img/students/1012659.jpg" width="7%"></a>
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1707787"><img align="right" class="img" src="~/img/students/1707787.jpg" width="10.2%"></a>@ViewData["Title"] | Gestão de máquinas/recursos para a produção
+</h1>
+<br />
+<hr />
             
-        </div>
-    </div>
+
+    
     <div class="row">
         <div class="col-12">
             <table class="table table-hover">
@@ -48,7 +53,7 @@
         </div>
     </div>
 
-</div>
+</>
 
 <script>
 

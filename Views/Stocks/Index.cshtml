@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<CarManufactoring.Models.Stock>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "List of Stock";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -37,10 +37,10 @@
                 @Html.DisplayFor(modelItem => item.Location)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Collaborator.Email)
+                @Html.DisplayFor(modelItem => item.Collaborator.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Material.Description)
+                @Html.DisplayFor(modelItem => item.Material.Nome)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StockId">Edit</a> |

@@ -7,21 +7,22 @@ namespace CarManufactoring.Models
     {
         [Key]
         public int SupplierId { get; set; }
-
-        [Required]
+        
+        [Required(ErrorMessage = "Please enter the Name")]
         [Display(Name = "Name")]
         [StringLength(100, MinimumLength = 2)]
         public string SupplierName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the Email")]
         [EmailAddress]
         [StringLength(256)]
         public string SupplierEmail { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Please enter the contact")]
         [Display(Name = "Phone Number")]
-        [StringLength(20)]
+        [StringLength(9, MinimumLength = 9, ErrorMessage = "The contact must have 9 characters")]
+        [RegularExpression(@"(9\d{8})", ErrorMessage = "invalid number.")]
         [Phone]
         public string SupplierContact { get; set; }
 
