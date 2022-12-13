@@ -16,6 +16,7 @@ namespace CarManufactoring.Data
             PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
+            PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateMachines(db);
@@ -65,6 +66,21 @@ namespace CarManufactoring.Data
                 new SemiFinished { Family = "Jogo de filtros de ar", Reference = "ADBP220039", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
                 new SemiFinished { Family = "Filtro de combustível", Reference = "KL571", Manufacter = "MAHLE", Description = "Filtro dos tubos", SemiFinishedState = "Under Development" },
                 new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulatePriority(CarManufactoringContext db)
+        {
+            if (db.Priority.Any()) return;
+
+            db.Priority.AddRange(
+
+                new Priority { Name="Baixa" },
+                new Priority { Name = "Média" },
+                new Priority { Name = "Alta" }
 
                 );
 
@@ -186,11 +202,10 @@ namespace CarManufactoring.Data
             if (db.MachineMaintenance.Any()) return;
 
             db.MachineMaintenance.AddRange(
-                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro", Expected_End_Date = DateTime.Parse("15/03/2022"), Effective_End_Date = DateTime.Parse("15/02/2022"), TaskTypeId = 1 , PriorityId = 1, MachineId = 2},
-                 new MachineMaintenance { Description = "Manutenção periódica de Março", Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 1 },
-                 new MachineMaintenance { Description = "Avaria braço robótico máquina", Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 1 },
-                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", Expected_End_Date = DateTime.Parse("16/12/2022"), TaskTypeId = 1 }
-
+                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro", Expected_End_Date = DateTime.Parse("15/03/2022"), Effective_End_Date = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
+                 new MachineMaintenance { Description = "Manutenção periódica de Março", Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
+                 new MachineMaintenance { Description = "Avaria braço robótico máquina", Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
+                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", Expected_End_Date = DateTime.Parse("16/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
 
                 );
 

@@ -43,6 +43,8 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.CarParts> CarParts { get; set; }
 
+        public DbSet<CarManufactoring.Models.Priority> Priority { get; set; }
+
         public DbSet<CarManufactoring.Models.MachineState> MachineState { get; set; }
 
         public DbSet<CarManufactoring.Models.Machine> Machine { get; set; }
