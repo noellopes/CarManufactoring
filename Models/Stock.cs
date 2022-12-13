@@ -7,7 +7,7 @@ namespace CarManufactoring.Models
         public int StockId { get; set; }
 
         [Required]
-        [Display(Name = "Stock of material")]
+        [Display(Name = "Stock quantity")]
         //Quantidade tem de ser um valor double para calculo deste campo Ass:Grupo2
         public double Quantity { get; set; }
 
