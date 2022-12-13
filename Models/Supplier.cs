@@ -7,7 +7,7 @@ namespace CarManufactoring.Models
     {
         [Key]
         public int SupplierId { get; set; }
-
+        
         [Required(ErrorMessage = "Please enter the Name")]
         [Display(Name = "Name")]
         [StringLength(100, MinimumLength = 2)]
