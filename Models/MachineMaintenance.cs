@@ -13,12 +13,12 @@ namespace CarManufactoring.Models
 
         public bool Deleted { get; set; } = false;
 
-        public DateTime BeginDate { get; set; } = DateTime.Now;
+        public DateOnly BeginDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
-        public DateTime? Effective_End_Date { get; set; }
+        public DateOnly? Effective_End_Date { get; set; }
 
         [Required]
-        public DateTime Expected_End_Date { get; set; }
+        public DateOnly Expected_End_Date { get; set; }
 
     }
 }

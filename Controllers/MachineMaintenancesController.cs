@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: MachineMaintenances
         public async Task<IActionResult> Index()
         {
-            var machines =  _context.MachineMaintenance;
+              var machines =  _context.MachineMaintenance;
 
             
               return View(await _context.MachineMaintenance.ToListAsync());
