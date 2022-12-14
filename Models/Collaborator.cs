@@ -13,7 +13,8 @@ namespace CarManufactoring.Models
         public string Name { get; set; }
 
         [Required]
-        public DateOnly BirthDate { get; set; }
+        //public DateOnly BirthDate { get; set; } to be changed
+        public DateTime BirthDate { get; set; }
 
         [Required]
         [StringLength(20)]
