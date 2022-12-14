@@ -38,6 +38,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="StockId" />
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a asp-action="Details" asp-route-id="@Model.StockId" class="btn btn-secondary">Cancel</a>
+        <a asp-action="Index" asp-route-id="@Model.StockId" class="btn btn-secondary">Cancel</a>
     </form>
 </div>

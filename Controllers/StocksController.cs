@@ -164,10 +164,10 @@ namespace CarManufactoring.Controllers
             if (stock != null)
             {
                 _context.Stock.Remove(stock);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("StockDeleted");
         }
 
         private bool StockExists(int id)
