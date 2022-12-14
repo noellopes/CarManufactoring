@@ -1,5 +1,4 @@
-﻿using static Humanizer.In;
-using System.Text;
+﻿using System.Text;
 using System;
 
 namespace CarManufactoring.ViewModels {

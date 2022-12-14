@@ -34,7 +34,7 @@ namespace CarManufactoring.Controllers
             }
 
             var carModels = await _context.CarModels
-                .FirstOrDefaultAsync(m => m.CarModel_Id == id);
+                .FirstOrDefaultAsync(m => m.CarModelId == id);
             if (carModels == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarModel_Id,CarName,ConfigName")] CarModels carModels)
+        public async Task<IActionResult> Create([Bind("CarModelId,CarName,ConfigName")] CarModels carModels)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarModel_Id,CarName,ConfigName")] CarModels carModels)
+        public async Task<IActionResult> Edit(int id, [Bind("CarModelId,CarName,ConfigName")] CarModels carModels)
         {
-            if (id != carModels.CarModel_Id)
+            if (id != carModels.CarModelId)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace CarManufactoring.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CarModelsExists(carModels.CarModel_Id))
+                    if (!CarModelsExists(carModels.CarModelId))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace CarManufactoring.Controllers
             }
 
             var carModels = await _context.CarModels
-                .FirstOrDefaultAsync(m => m.CarModel_Id == id);
+                .FirstOrDefaultAsync(m => m.CarModelId == id);
             if (carModels == null)
             {
                 return NotFound();
@@ -155,7 +155,7 @@ namespace CarManufactoring.Controllers
 
         private bool CarModelsExists(int id)
         {
-          return _context.CarModels.Any(e => e.CarModel_Id == id);
+          return _context.CarModels.Any(e => e.CarModelId == id);
         }
     }
 }
