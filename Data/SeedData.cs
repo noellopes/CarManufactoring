@@ -1,5 +1,7 @@
 ﻿using CarManufactoring.Models;
 using Microsoft.AspNetCore.Http.Connections;
+using System.Diagnostics.Eventing.Reader;
+using System.Xml.Linq;
 
 namespace CarManufactoring.Data
 {
@@ -11,6 +13,7 @@ namespace CarManufactoring.Data
             //PopulateSection(db);
             //PopulateMachineState(db);
             //PopulateMachines(db);
+            PopulateCarParts(db);
         }
 
         private static void PopulateSemiFinisheds(CarManufactoringContext db)
@@ -77,6 +80,21 @@ namespace CarManufactoring.Data
 
                 );
 
+            db.SaveChanges();
+        }
+
+        //seed CarParts
+        private static void PopulateCarParts(CarManufactoringContext db) {
+
+            if(db.CarParts.Any()) return;
+
+            db.CarParts.AddRange(
+
+                new CarParts { Name = "NGK LPG Laser Line 1496 Vela de ignição", PartType = "Ignition", Reference = "5788 / LFR6C-11", PointOfPurchase = 1000, SafetyStock = 400, LevelService = 0.2M },
+                new CarParts { Name = "Junta, parafusos da tampa da das válvulas ELRING", PartType = "motor compartment", Reference = "560.490 ", PointOfPurchase = 1800, SafetyStock = 600, LevelService = 0.3M}
+
+
+            );
             db.SaveChanges();
         }
 
