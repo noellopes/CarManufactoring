@@ -59,12 +59,10 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
-            if (ModelState.IsValid)
-            {
+
                 _context.Add(collaborator);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
         }
@@ -98,8 +96,6 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(collaborator);
@@ -117,7 +113,7 @@ namespace CarManufactoring.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
+ 
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
         }
