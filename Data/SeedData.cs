@@ -400,7 +400,9 @@ namespace CarManufactoring.Data
         {
             if (db.Collaborator.Any()) return;
             db.Collaborator.AddRange(
-                new Collaborator { Name = "test", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "test@email.pt", GenderId = 1 }
+                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "Worker1@cars.pt", GenderId = 1, OnDuty = true },
+                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1995"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 2, OnDuty = true },
+                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
                 );
             db.SaveChanges();
         }
