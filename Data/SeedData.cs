@@ -33,7 +33,7 @@ namespace CarManufactoring.Data
             //PopulateSupplier(db);
            //PopulateStocks(db);
             PopulateExtras(db);
-            PopulateCollaborators(db);
+           // PopulateCollaborators(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -392,11 +392,11 @@ namespace CarManufactoring.Data
                 new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, CollaboratorId = 1 },
                 new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, CollaboratorId = 1 },
                 new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, CollaboratorId = 1 }
-                ) ;
+                );
 
             db.SaveChanges();
         }
-        private static void PopulateCollaborators(CarManufactoringContext db)
+      /*  private static void PopulateCollaborators(CarManufactoringContext db)
         {
             if (db.Collaborator.Any()) return;
             db.Collaborator.AddRange(
@@ -405,7 +405,9 @@ namespace CarManufactoring.Data
                 new Collaborator { Name = "Worker3", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
                 );
             db.SaveChanges();
-        }
+        }*/
+
+
         private static void PopulateMaterialUsado(CarManufactoringContext db)
         {
             if (db.MaterialUsado.Any()) return;
