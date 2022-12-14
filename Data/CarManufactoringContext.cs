@@ -113,5 +113,9 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineMaintenance> MachineMaintenance { get; set; }
 
+
+
+        public DbSet<CarManufactoring.Models.MaterialUsado> MaterialUsado { get; set; }
+
     }
 }
