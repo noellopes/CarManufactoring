@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221214121413_InspectionAndTests")]
-    partial class InspectionAndTests
+    [Migration("20221214154923_AllMigrations")]
+    partial class AllMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

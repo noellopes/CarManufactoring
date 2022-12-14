@@ -14,7 +14,7 @@ namespace CarManufactoring.Data
             PopulateMachineState(db);
             PopulateTaskType(db);
             PopulateBrands(db);
-            PopulateInspectionTesting(db);
+            //PopulateInspectionTesting(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
