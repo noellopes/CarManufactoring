@@ -24,5 +24,7 @@ namespace CarManufactoring.Models
         [Display(Name ="Car")]
         public int CarId { get; set; }
         public Car? Car { get; set; }
-    }
+
+        public ICollection<ConfigList>? ConfigLists { get; set; }
+        }
 }

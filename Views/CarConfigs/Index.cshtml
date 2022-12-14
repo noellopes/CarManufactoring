@@ -21,6 +21,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.AddedPrice)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Car)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -34,7 +37,10 @@
                 @Html.DisplayFor(modelItem => item.NumExtras)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.AddedPrice)€
+                @Html.DisplayFor(modelItem => item.AddedPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.CarModel)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CarConfigId">Edit</a> |
