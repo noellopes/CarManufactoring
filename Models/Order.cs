@@ -5,12 +5,11 @@ namespace CarManufactoring.Models
 {
     public class Order
     {
-
         public int OrderId { get; set; }
 
         [Required]
         [Display(Name = "Order Date")]
-        public DateTime OrderDate { get; set; } 
+        public String OrderDate { get; set; }
 
         [Required]
         [Display(Name = "Order State")]
@@ -21,6 +20,9 @@ namespace CarManufactoring.Models
         [Display(Name = "State Date")]
         public DateTime StateDate { get; set; }
 
-
+        [Required]
+        [Display(Name = "Customer")]
+        public int CustomerId { get; set; }
+        public Customer? Customer { get; set; }
     }
 }

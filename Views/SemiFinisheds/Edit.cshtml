@@ -23,11 +23,7 @@
                 <input asp-for="Reference" class="form-control" />
                 <span asp-validation-for="Reference" class="form-text text-danger"></span>
             </div>
-            <div class="mb-2">
-                <label asp-for="EAN" class="form-label"></label>
-                <input asp-for="EAN" class="form-control" />
-                <span asp-validation-for="EAN" class="form-text text-danger"></span>
-            </div>
+           
             <div class="mb-2">
                 <label asp-for="Manufacter" class="form-label"></label>
                 <input asp-for="Manufacter" class="form-control" />
@@ -47,7 +43,7 @@
                 <span asp-validation-for="SemiFinishedState" class="form-text text-danger"></span>
             </div>
             <div class="mb-2">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
                 <a asp-action="Index" class="btn btn-secondary">Cancel</a>
             </div>
         </form>

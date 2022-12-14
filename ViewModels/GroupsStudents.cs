@@ -1,5 +1,4 @@
-﻿using static Humanizer.In;
-using System.Text;
+﻿using System.Text;
 using System;
 
 namespace CarManufactoring.ViewModels {
@@ -42,7 +41,7 @@ namespace CarManufactoring.ViewModels {
             new Group{Number=5, Work="Planear produção com base nas encomendas"},
             new Group{Number=6, Work="Gestão de Turnos da Produção"},
             new Group{Number=7, Work="Gestão de produtos semi-acabados"},
-            new Group{Number=8, Work="Encomenda dos Clientes"},
+            new Group{Number=8, Work="Reparação da Maquina"},
             new Group{Number=9, Work="Inspeção e testes de semi-acabados"},
             new Group{Number=10,Work="scheduling people for the production line of a car factory"},
         };

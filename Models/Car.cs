@@ -7,9 +7,9 @@ namespace CarManufactoring.Models
         public int CarId { get; set; }
        
         [Required]
-        [Display(Name= "Name")]
-        [StringLength(100, MinimumLength = 2)]
-        public string CarName { get; set; }
+        [Display(Name= "Brand")]
+        public int BrandId { get; set; }
+        public Brand? Brand { get; set; }
         
         [Required]
         [Display(Name ="Model")]
@@ -26,5 +26,9 @@ namespace CarManufactoring.Models
         public double BasePrice { get; set; }
         
         public ICollection<CarConfig>? CarConfigs { get; set; }
+
+        //SemiFinisheds - Fábio Abreu
+        public ICollection<SemiFinishedCar>? SemiFinisheds { get; set; }
+
     }
 }

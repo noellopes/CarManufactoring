@@ -12,8 +12,13 @@ namespace CarManufactoring.Models
         public string Name { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
-
+        [Required]
+        [Display(Name ="Gender")]
+        public int GenderId { get; set; }
+        public Gender? Genders { get; set; }
+       
         [Required]
         [StringLength(20)]
         [Phone]
@@ -25,10 +30,10 @@ namespace CarManufactoring.Models
         public string? Email { get; set; }
 
         [Required]
-     
+        [Display(Name ="Section")]
         public int SectionId { get; set; }
-        public Section? Section { get; set; }
+        public Section? Sections { get; set; }
 
-       public ICollection<WorkMachineMaintenance>? WorkMachineMaintenances { get; set; }
+      
     }
 }

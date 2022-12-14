@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CarManufactoring.Models.MaterialUsado>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaterialId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaterialNome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SemiFinishedNome)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaterialNome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SemiFinishedNome)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaterialUsadoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MaterialUsadoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MaterialUsadoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

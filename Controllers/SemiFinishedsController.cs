@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using static System.Reflection.Metadata.BlobBuilder;
+using System.Security.Cryptography.X509Certificates;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +23,38 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string state = null, string manufacter = null, string reference = null, string family = null,  int page = 1)
         {
-              return View(await _context.SemiFinished.ToListAsync());
+            // order by  reference
+            var semiFinisheds = _context.SemiFinished
+                .Where(b => reference == null || b.Reference.Contains(reference))
+                .Where(b => family == null || b.Family.Contains(family))
+                
+                .Where(b => manufacter == null || b.Manufacter.Contains(manufacter))
+                .Where(b => state == null || b.SemiFinishedState.Contains(state))
+                .OrderBy(b => b.Reference);
+
+            var pagingInfo = new PagingInfoViewModel(await semiFinisheds.CountAsync(), page);
+
+
+            var model = new SemiFinishedIndexViewModel
+            {
+                SemiFinishedList = new ListViewModel<SemiFinished>
+                {
+                    List = await semiFinisheds
+                .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+
+                FamilySearched = family,
+                ReferenceSearched = reference,
+                ManufacterSearched = manufacter,
+                SemiFinishedStateSearched = state
+
+            };
+
+            return View(model);
         }
 
         // GET: SemiFinisheds/Details/5
@@ -56,7 +88,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SemiFinishedId,Family,Reference,EAN,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
+        public async Task<IActionResult> Create([Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +122,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SemiFinishedId,Family,Reference,EAN,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
+        public async Task<IActionResult> Edit(int id, [Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (id != semiFinished.SemiFinishedId)
             {

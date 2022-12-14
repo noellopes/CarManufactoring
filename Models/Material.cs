@@ -22,5 +22,6 @@ namespace CarManufactoring.Models
         [Required]
         public string Type { get; set; }
 
+        public ICollection<MaterialUsado>? MaterialUsado { get; set; }
     }
 }

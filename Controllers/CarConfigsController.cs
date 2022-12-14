@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: CarConfigs
         public async Task<IActionResult> Index()
         {
-              return View(await _context.CarConfig.ToListAsync());
+            var carManufactoringContext = _context.CarConfig.Include(c => c.Car);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: CarConfigs/Details/5
@@ -34,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var carConfig = await _context.CarConfig
+                .Include(c => c.Car)
                 .FirstOrDefaultAsync(m => m.CarConfigId == id);
             if (carConfig == null)
             {
@@ -46,7 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: CarConfigs/Create
         public IActionResult Create()
         {
-            ViewData["CarId"] = new SelectList(_context.Set<Car>(), "CarId", "CarModel");
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel");
             return View();
         }
 
@@ -63,7 +65,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarId"] = new SelectList(_context.Set<Car>(), "CarId", "CarModel");
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", carConfig.CarId);
             return View(carConfig);
         }
 
@@ -80,7 +82,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CarId"] = new SelectList(_context.Set<Car>(), "CarId", "CarModel");
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", carConfig.CarId);
             return View(carConfig);
         }
 
@@ -89,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarConfigId,ConfigName,NumExtras,AddedPrice, CarId")] CarConfig carConfig)
+        public async Task<IActionResult> Edit(int id, [Bind("CarConfigId,ConfigName,NumExtras,AddedPrice,CarId")] CarConfig carConfig)
         {
             if (id != carConfig.CarConfigId)
             {
@@ -116,7 +118,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarId"] = new SelectList(_context.Set<Car>(), "CarId", "CarModel");
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", carConfig.CarId);
             return View(carConfig);
         }
 
@@ -129,6 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var carConfig = await _context.CarConfig
+                .Include(c => c.Car)
                 .FirstOrDefaultAsync(m => m.CarConfigId == id);
             if (carConfig == null)
             {

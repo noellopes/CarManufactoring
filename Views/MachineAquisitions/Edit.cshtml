@@ -1,0 +1,59 @@
+﻿@model CarManufactoring.Models.MachineAquisition
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>MachineAquisition</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MachineAquisitionID" />
+            <div class="form-group">
+                <label asp-for="MachineAquisitionName" class="control-label"></label>
+                <input asp-for="MachineAquisitionName" class="form-control" />
+                <span asp-validation-for="MachineAquisitionName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantityOfParts" class="control-label"></label>
+                <input asp-for="QuantityOfParts" class="form-control" />
+                <span asp-validation-for="QuantityOfParts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProducedParts" class="control-label"></label>
+                <input asp-for="ProducedParts" class="form-control" />
+                <span asp-validation-for="ProducedParts" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MaintenancePrice" class="control-label"></label>
+                <input asp-for="MaintenancePrice" class="form-control" />
+                <span asp-validation-for="MaintenancePrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Operation" class="control-label"></label>
+                <input asp-for="Operation" class="form-control" />
+                <span asp-validation-for="Operation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

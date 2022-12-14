@@ -22,18 +22,20 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests
         public async Task<IActionResult> Index()
         {
-              return View(await _context.inspectionAndTestings.ToListAsync());
+            var carManufactoringContext = _context.InspectionAndTest.Include(i => i.Collaborator);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: InspectionAndTests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.inspectionAndTestings == null)
+            if (id == null || _context.InspectionAndTest == null)
             {
                 return NotFound();
             }
 
-            var inspectionAndTest = await _context.inspectionAndTestings
+            var inspectionAndTest = await _context.InspectionAndTest
+                .Include(i => i.Collaborator)
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
@@ -46,6 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests/Create
         public IActionResult Create()
         {
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InspectionId,Date,State,Description")] InspectionAndTest inspectionAndTest)
+        public async Task<IActionResult> Create([Bind("InspectionId,Date,State,Description,CollaboratorId")] InspectionAndTest inspectionAndTest)
         {
             if (ModelState.IsValid)
             {
@@ -62,22 +65,24 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
             return View(inspectionAndTest);
         }
 
         // GET: InspectionAndTests/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.inspectionAndTestings == null)
+            if (id == null || _context.InspectionAndTest == null)
             {
                 return NotFound();
             }
 
-            var inspectionAndTest = await _context.inspectionAndTestings.FindAsync(id);
+            var inspectionAndTest = await _context.InspectionAndTest.FindAsync(id);
             if (inspectionAndTest == null)
             {
                 return NotFound();
             }
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
             return View(inspectionAndTest);
         }
 
@@ -86,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InspectionId,Date,State,Description")] InspectionAndTest inspectionAndTest)
+        public async Task<IActionResult> Edit(int id, [Bind("InspectionId,Date,State,Description,CollaboratorId")] InspectionAndTest inspectionAndTest)
         {
             if (id != inspectionAndTest.InspectionId)
             {
@@ -113,18 +118,20 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
             return View(inspectionAndTest);
         }
 
         // GET: InspectionAndTests/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.inspectionAndTestings == null)
+            if (id == null || _context.InspectionAndTest == null)
             {
                 return NotFound();
             }
 
-            var inspectionAndTest = await _context.inspectionAndTestings
+            var inspectionAndTest = await _context.InspectionAndTest
+                .Include(i => i.Collaborator)
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
@@ -139,14 +146,14 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.inspectionAndTestings == null)
+            if (_context.InspectionAndTest == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.inspectionAndTestings'  is null.");
+                return Problem("Entity set 'CarManufactoringContext.InspectionAndTest'  is null.");
             }
-            var inspectionAndTest = await _context.inspectionAndTestings.FindAsync(id);
+            var inspectionAndTest = await _context.InspectionAndTest.FindAsync(id);
             if (inspectionAndTest != null)
             {
-                _context.inspectionAndTestings.Remove(inspectionAndTest);
+                _context.InspectionAndTest.Remove(inspectionAndTest);
             }
             
             await _context.SaveChangesAsync();
@@ -155,7 +162,7 @@ namespace CarManufactoring.Controllers
 
         private bool InspectionAndTestExists(int id)
         {
-          return _context.inspectionAndTestings.Any(e => e.InspectionId == id);
+          return _context.InspectionAndTest.Any(e => e.InspectionId == id);
         }
     }
 }
