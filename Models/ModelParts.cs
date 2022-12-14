@@ -4,6 +4,8 @@ namespace CarManufactoring.Models
 {
     public class ModelParts
     {
+        public int ModelPartsId {  get; set; }
+
         [Required]
         [Display(Name = "ID peca")]
         [Range(0, int.MaxValue, ErrorMessage = "O id da peca deve ser válido")]
