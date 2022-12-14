@@ -1,10 +1,10 @@
 ﻿@model CarManufactoring.Models.Stock
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Stocks Details";
 }
 
-<h1>Details</h1>
+<h1>@ViewBag.Title</h1>
 
 @if (ViewBag.SuccessMessage != null) {
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
@@ -26,7 +26,7 @@
 }
 
 <div>
-    <h4>Stock</h4>
+    
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -56,6 +56,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.StockId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.StockId" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
