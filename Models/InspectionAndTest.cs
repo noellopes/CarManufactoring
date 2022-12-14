@@ -22,6 +22,13 @@ namespace CarManufactoring.Models
             public string Description { get; set; }
 
 
-        
+            public int CollaboratorId { get; set; }
+
+            public Collaborator? Collaborator { get; set; }
+
+            public ICollection<SemiFinished> Reference { get; set; }
+
+
+
     }
 }

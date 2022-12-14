@@ -3,7 +3,7 @@
 namespace CarManufactoring.Models
 {
     public class ModelParts
-    {
+    {        
         public int ModelPartsId {  get; set; }
 
         [Required]
