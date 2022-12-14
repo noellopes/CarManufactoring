@@ -30,6 +30,8 @@ namespace CarManufactoring.Data
             PopulateMaterialUsado(db);
             //PopulateSupplier(db);
             //PopulateStocks(db);
+            PopulateExtras(db);
+
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -417,6 +419,23 @@ namespace CarManufactoring.Data
                     SemiFinishedNome = "Antenna"
                 }
                 );
+
+            db.SaveChanges();
+        }
+
+        public static void PopulateExtras (CarManufactoringContext db)
+        {
+            if (db.Extra.Any()) return;
+
+            db.Extra.AddRange(
+
+            new Extra { DescExtra = "Jantes", Price = 5000 },
+            new Extra { DescExtra = "Manetes Carbono", Price = 4000 },
+            new Extra { DescExtra = "Bancos em pele", Price = 7000 },
+            new Extra { DescExtra = "Aleron", Price = 3000 },
+            new Extra { DescExtra = "Sensores de estacionamento", Price = 5000 }
+
+            );
 
             db.SaveChanges();
         }
