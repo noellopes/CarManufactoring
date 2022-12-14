@@ -7,13 +7,13 @@ namespace CarManufactoring.Models
 
         [Key]
         public int CollaboratorId { get; set; }
-
-        [StringLength(100, MinimumLength = 10)]
+        //to do : validation messages - mustafa
+        [StringLength(100, MinimumLength = 3)]
         [Required]
         public string Name { get; set; }
 
         [Required]
-        public DateTime BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
 
         [Required]
         [StringLength(20)]
@@ -29,7 +29,7 @@ namespace CarManufactoring.Models
         [Display(Name = "Gender")]
         public int GenderId { get; set; }
         public Gender Genders { get; set; }
-
+        //to be replaced with enum since the genders are limited
 
         public Task? Task { get; set; }
 
