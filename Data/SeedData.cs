@@ -6,31 +6,30 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-
-            //PopulateGender(db);
-            ////PopulateSemiFinisheds(db);
-            //PopulateMaterials(db);
-            //PopulateSection(db);
-            //PopulateSectionManager(db);
-            //PopulateMachineState(db);
-            //PopulateTaskType(db);
-            //PopulateBrands(db);
-            ////PopulateInspectionTesting(db);
-            ////PopulatePriority(db);
-            //PopulateMachineBrand(db);
-            //PopulateMachineModel(db);
-            //PopulateMachines(db);
-            //PopulateMachineMaintenance(db);
-            //PopulateCars(db);
-            //PopulateCarConfigs(db);
-            //PopulateShiftType(db);
-            //PopulateShift(db);
-            //PopulateCustomers(db);
-            //PopulateCustomerContacts(db);
-            //PopulateOrder(db);
+            PopulateGender(db);
+            PopulateSemiFinisheds(db);
+            PopulateMaterials(db);
+            PopulateSection(db);
+            PopulateSectionManager(db);
+            PopulateMachineState(db);
+            PopulateTaskType(db);
+            PopulateBrands(db);
+            PopulateInspectionTesting(db);
+            PopulatePriority(db);
+            PopulateMachineBrand(db);
+            PopulateMachineModel(db);
+            PopulateMachines(db);
+            PopulateMachineMaintenance(db);
+            PopulateCars(db);
+            PopulateCarConfigs(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            PopulateOrder(db);
+            PopulateMaterialUsado(db);
             //PopulateSupplier(db);
             //PopulateStocks(db);
-
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -373,6 +372,51 @@ namespace CarManufactoring.Data
                 new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2 },
                 new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3 }
                 ) ;
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateMaterialUsado(CarManufactoringContext db)
+        {
+            if (db.MaterialUsado.Any()) return;
+
+            db.MaterialUsado.AddRange(
+                new MaterialUsado
+                {
+                    MaterialId = 1,
+                    SemiFinishedId = 1,
+                    MaterialNome = "Iron",
+                    SemiFinishedNome = "Portinha Passageiro"
+                }, 
+                new MaterialUsado
+                { 
+                    MaterialId = 2, 
+                    SemiFinishedId = 1, 
+                    MaterialNome = "Aluminium",
+                    SemiFinishedNome = "Portinha Passageiro" 
+                }, 
+                new MaterialUsado
+                {
+                    MaterialId = 3,
+                    SemiFinishedId = 1,
+                    MaterialNome = "PLA 2.85",
+                    SemiFinishedNome = "Portinha Passageiro"
+                }, 
+                new MaterialUsado
+                {
+                    MaterialId = 2,
+                    SemiFinishedId = 2,
+                    MaterialNome = "Aluminium",
+                    SemiFinishedNome = "Antenna"
+                },
+                new MaterialUsado
+                {
+                    MaterialId = 3,
+                    SemiFinishedId = 2,
+                    MaterialNome = "PLA 2.85",
+                    SemiFinishedNome = "Antenna"
+                }
+                );
 
             db.SaveChanges();
         }
