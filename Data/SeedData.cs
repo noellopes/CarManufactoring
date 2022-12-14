@@ -29,9 +29,9 @@ namespace CarManufactoring.Data
             PopulateOrder(db);
             PopulateMaterialUsado(db);
             //PopulateSupplier(db);
-            //PopulateStocks(db);
+            PopulateStocks(db);
             PopulateExtras(db);
-
+            PopulateCollaborators(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -370,14 +370,21 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3 }
+                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, CollaboratorId = 1 },
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, CollaboratorId = 1 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, CollaboratorId = 1 }
                 ) ;
 
             db.SaveChanges();
         }
-
+        private static void PopulateCollaborators(CarManufactoringContext db)
+        {
+            if (db.Collaborator.Any()) return;
+            db.Collaborator.AddRange(
+                new Collaborator { Name = "test", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "test@email.pt", GenderId = 1 }
+                );
+            db.SaveChanges();
+        }
         private static void PopulateMaterialUsado(CarManufactoringContext db)
         {
             if (db.MaterialUsado.Any()) return;
