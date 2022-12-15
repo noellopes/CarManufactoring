@@ -28,6 +28,7 @@ namespace CarManufactoring.Controllers
             .Include(m => m.Machine)
             .Include(m => m.TaskType)
             .Include(m => m.Machine.MachineModel)
+            .Where(m => m.Deleted == false)
             .Include(m => m.Machine.MachineModel.MachineBrandNames)
             .ToListAsync();
 
@@ -37,7 +38,10 @@ namespace CarManufactoring.Controllers
             .Include(m => m.TaskType)
             .Include(m => m.Machine.MachineModel)
             .Include(m => m.Machine.MachineModel.MachineBrandNames)
-            .Where(m => !m.Effective_End_Date.HasValue).ToListAsync();
+            .Where(m => !m.EffectiveEndDate.HasValue)
+            .Where(m => m.Deleted == false)
+            .ToListAsync();
+            
 
             var model = new MachineMaintenaceIndexViewModel
             {

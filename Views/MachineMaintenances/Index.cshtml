@@ -32,7 +32,7 @@
                             @Html.DisplayNameFor(model => model.OnProgress.First().BeginDate)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.OnProgress.First().Expected_End_Date)
+                            @Html.DisplayNameFor(model => model.OnProgress.First().ExpectedEndDate)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.OnProgress.First().TaskTypeId)
@@ -53,7 +53,7 @@
                             <th>@machineMaintenace.MachineMaintenanceId</th>
                             <th>@machineMaintenace.Description</th>
                             <th>@machineMaintenace.BeginDate.ToShortDateString()</th>
-                            <th>@machineMaintenace.Expected_End_Date.ToShortDateString()</th>
+                            <th>@machineMaintenace.ExpectedEndDate.ToShortDateString()</th>
                             <th>@machineMaintenace.TaskType.TaskName</th>
                             <th>@machineMaintenace.Priority.Name</th>
                             <th>@machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName </th>
@@ -94,10 +94,10 @@
                             @Html.DisplayNameFor(model => model.All.First().BeginDate)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.All.First().Expected_End_Date)
+                            @Html.DisplayNameFor(model => model.All.First().ExpectedEndDate)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.All.First().Effective_End_Date)
+                            @Html.DisplayNameFor(model => model.All.First().EffectiveEndDate)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.All.First().TaskTypeId)
@@ -118,8 +118,8 @@
                             <th>@machineMaintenace.MachineMaintenanceId</th>
                             <th>@machineMaintenace.Description</th>
                             <th>@machineMaintenace.BeginDate.ToShortDateString()</th>
-                            <th>@machineMaintenace.Expected_End_Date.ToShortDateString()</th>
-                            <th>@machineMaintenace.Effective_End_Date?.Date.ToShortDateString()</th>
+                            <th>@machineMaintenace.ExpectedEndDate.ToShortDateString()</th>
+                            <th>@machineMaintenace.EffectiveEndDate?.Date.ToShortDateString()</th>
                             <th>@machineMaintenace.TaskType.TaskName</th>
                             <th>@machineMaintenace.Priority.Name</th>
                             <th>@machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName </th>
