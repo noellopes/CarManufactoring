@@ -16,6 +16,11 @@ namespace CarManufactoring.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
+        [Required]
+        public DateTime StartTime { get; set; }
+
+        [Required]
+        public DateTime EndTime { get; set; }
         public ICollection<Shift>? Shifts { get; set; }
 
     }
