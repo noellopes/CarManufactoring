@@ -160,7 +160,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(car);
         }
 
@@ -179,6 +180,7 @@ namespace CarManufactoring.Controllers
                 //TODO: Car was not found page 
             }
             _context.Car.Remove(car);
+            TempData["SuccessMessage"] = "Car removed successfully.";
             await _context.SaveChangesAsync();
             return View("CarDeleted");
         }
