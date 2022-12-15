@@ -19,9 +19,9 @@ namespace CarManufactoring.Models
         public string SupplierEmail { get; set; }
 
 
-        [Required(ErrorMessage = "Please enter the contact")]
+        [Required]
         [Display(Name = "Phone Number")]
-        [StringLength(9, MinimumLength = 9, ErrorMessage = "The contact must have 9 characters")]
+        [StringLength(20)]
         [Phone]
         public string SupplierContact { get; set; }
 
