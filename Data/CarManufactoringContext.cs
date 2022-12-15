@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
 using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarManufactoring.Data
 {
@@ -13,6 +14,25 @@ namespace CarManufactoring.Data
         public CarManufactoringContext (DbContextOptions<CarManufactoringContext> options)
             : base(options)
         {
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");    
+
+            base.ConfigureConventions(builder);
+
+        }
+        public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+        {
+            public DateOnlyConverter()
+                : base(dateOnly =>
+                        dateOnly.ToDateTime(TimeOnly.MinValue),
+                    dateTime => DateOnly.FromDateTime(dateTime))
+            { }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
