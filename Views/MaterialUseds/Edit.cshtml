@@ -1,4 +1,4 @@
-﻿@model CarManufactoring.Models.MaterialUsado
+﻿@model CarManufactoring.Models.MaterialUsed
 
 @{
     ViewData["Title"] = "Edit";
@@ -6,22 +6,17 @@
 
 <h1>Edit</h1>
 
-<h4>MaterialUsado</h4>
+<h4>MaterialUsed</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MaterialUsadoId" />
+            <input type="hidden" asp-for="MaterialUsedId" />
             <div class="form-group">
                 <label asp-for="MaterialId" class="control-label"></label>
-                <input asp-for="MaterialId" class="form-control" />
+                <select asp-for="MaterialId" class="form-control" asp-items="ViewBag.MaterialId"></select>
                 <span asp-validation-for="MaterialId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MaterialNome" class="control-label"></label>
-                <input asp-for="MaterialNome" class="form-control" />
-                <span asp-validation-for="MaterialNome" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SemiFinishedId" class="control-label"></label>
@@ -29,9 +24,9 @@
                 <span asp-validation-for="SemiFinishedId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SemiFinishedNome" class="control-label"></label>
-                <input asp-for="SemiFinishedNome" class="form-control" />
-                <span asp-validation-for="SemiFinishedNome" class="text-danger"></span>
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -41,7 +36,7 @@
 </div>
 
 <div>
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

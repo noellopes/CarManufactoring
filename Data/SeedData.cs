@@ -30,7 +30,7 @@ namespace CarManufactoring.Data
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             PopulateOrder(db);
-            PopulateMaterialUsado(db);
+            PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
@@ -412,48 +412,17 @@ namespace CarManufactoring.Data
         }
 
 
-
-        private static void PopulateMaterialUsado(CarManufactoringContext db)
+        private static void PopulateMaterialUsed(CarManufactoringContext db)
         {
-            if (db.MaterialUsado.Any()) return;
+            if (db.MaterialUsed.Any()) return;
 
-            db.MaterialUsado.AddRange(
-                new MaterialUsado
-                {
-                    MaterialId = 1,
-                    SemiFinishedId = 1,
-                    MaterialNome = "Iron",
-                    SemiFinishedNome = "Portinha Passageiro"
-                }, 
-                new MaterialUsado
-                { 
-                    MaterialId = 2, 
-                    SemiFinishedId = 1, 
-                    MaterialNome = "Aluminium",
-                    SemiFinishedNome = "Portinha Passageiro" 
-                }, 
-                new MaterialUsado
-                {
-                    MaterialId = 3,
-                    SemiFinishedId = 1,
-                    MaterialNome = "PLA 2.85",
-                    SemiFinishedNome = "Portinha Passageiro"
-                }, 
-                new MaterialUsado
-                {
-                    MaterialId = 2,
-                    SemiFinishedId = 2,
-                    MaterialNome = "Aluminium",
-                    SemiFinishedNome = "Antenna"
-                },
-                new MaterialUsado
-                {
-                    MaterialId = 3,
-                    SemiFinishedId = 2,
-                    MaterialNome = "PLA 2.85",
-                    SemiFinishedNome = "Antenna"
-                }
-                );
+            db.MaterialUsed.AddRange(
+                new MaterialUsed { MaterialId = 1, SemiFinishedId = 1, Quantity = 10 },
+                new MaterialUsed { MaterialId = 2, SemiFinishedId = 1, Quantity = 10 },
+                new MaterialUsed { MaterialId = 3, SemiFinishedId = 1, Quantity = 10 },
+                new MaterialUsed { MaterialId = 2, SemiFinishedId = 2, Quantity = 10 },
+                new MaterialUsed { MaterialId = 3, SemiFinishedId = 2, Quantity = 10 }
+            );
 
             db.SaveChanges();
         }

@@ -151,7 +151,7 @@ namespace CarManufactoring.Data
 
 
 
-        public DbSet<CarManufactoring.Models.MaterialUsado> MaterialUsado { get; set; }
+        public DbSet<CarManufactoring.Models.MaterialUsed> MaterialUsed { get; set; }
 
 
 
