@@ -418,10 +418,10 @@ namespace CarManufactoring.Data
 
             db.MaterialUsed.AddRange(
                 new MaterialUsed { MaterialId = 1, SemiFinishedId = 1, Quantity = 10 },
-                new MaterialUsed { MaterialId = 2, SemiFinishedId = 1, Quantity = 10 },
-                new MaterialUsed { MaterialId = 3, SemiFinishedId = 1, Quantity = 10 },
-                new MaterialUsed { MaterialId = 2, SemiFinishedId = 2, Quantity = 10 },
-                new MaterialUsed { MaterialId = 3, SemiFinishedId = 2, Quantity = 10 }
+                new MaterialUsed { MaterialId = 2, SemiFinishedId = 1, Quantity = 23 },
+                new MaterialUsed { MaterialId = 3, SemiFinishedId = 1, Quantity = 2 },
+                new MaterialUsed { MaterialId = 2, SemiFinishedId = 2, Quantity = 8 },
+                new MaterialUsed { MaterialId = 3, SemiFinishedId = 2, Quantity = 14 }
             );
 
             db.SaveChanges();
