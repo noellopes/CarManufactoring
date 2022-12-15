@@ -40,7 +40,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {
-                return NotFound();
+                return View("StockNotFound");
             }
 
             return View(stock);
