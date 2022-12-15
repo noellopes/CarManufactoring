@@ -30,5 +30,9 @@ namespace CarManufactoring.Models
         //SemiFinisheds - Fábio Abreu
         public ICollection<SemiFinishedCar>? SemiFinisheds { get; set; }
 
+        [Display(Name = "Time of production")]
+        [Range(0, int.MaxValue, ErrorMessage = "Time of production must be greater than zero")]
+        public int TimeProduction { get; set; }
+
     }
 }
