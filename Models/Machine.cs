@@ -10,6 +10,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Date Acquired")]
+        [DataType(DataType.Date)]
         public DateTime DateAcquired { get; set; }
 
         [Display(Name = "Machine Model")]

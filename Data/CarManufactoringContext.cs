@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
 using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarManufactoring.Data
 {
@@ -13,6 +14,25 @@ namespace CarManufactoring.Data
         public CarManufactoringContext (DbContextOptions<CarManufactoringContext> options)
             : base(options)
         {
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");    
+
+            base.ConfigureConventions(builder);
+
+        }
+        public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+        {
+            public DateOnlyConverter()
+                : base(dateOnly =>
+                        dateOnly.ToDateTime(TimeOnly.MinValue),
+                    dateTime => DateOnly.FromDateTime(dateTime))
+            { }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -34,9 +54,25 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<MaintenanceCollaborator>().HasKey(bc => new { bc.CollaboratorId, bc.MachineMaintenanceId });
+
+            modelBuilder.Entity<MaintenanceCollaborator>()
+                .HasOne(x => x.MaintenanceMachine)
+                .WithMany(s => s.MaintenanceCollection)
+                .HasForeignKey(x => x.MachineMaintenanceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<MaintenanceCollaborator>()
+                .HasOne(x => x.Collaborators)
+                .WithMany(c => c.MaintenanceCollaborators)
+                .HasForeignKey(x => x.CollaboratorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             // to be added == ShiftCollaborator
         }
+
+        public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
 
         public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;

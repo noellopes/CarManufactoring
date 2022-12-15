@@ -9,11 +9,10 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Order Date")]
-        public String OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         [Required]
         [Display(Name = "Delivery Date")]
-        [StringLength(25)]
-        public string DeliveryDate { get; set; }
+        public DateTime DeliveryDate { get; set; }
     }
 }
