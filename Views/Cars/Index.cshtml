@@ -32,7 +32,10 @@
             <label for="price" class="form-label">Price</label>
             <input name="price" class="form-control" type="search" value="@Model.PriceSearched" />
             </div>
-
+            <div class="mb-3">
+            <label for="TimeProduction" class="form-label">Time of Production</label>
+            <input name="TimeProduction" class="form-control" type="search" value="@Model.TimeProductionSearched" />
+            </div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
         </form>
@@ -56,6 +59,9 @@
             <th>
                 @Html.DisplayNameFor(model => new Car().BasePrice)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => new Car().TimeProduction)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -75,6 +81,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.BasePrice)€
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeProduction) days
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.CarId" class="btn btn-warning">Edit</a> 
