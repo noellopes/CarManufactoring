@@ -7,6 +7,7 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
+
             PopulateCarParts(db);
             PopulateGender(db);
             PopulateSemiFinisheds(db);
@@ -31,9 +32,10 @@ namespace CarManufactoring.Data
             PopulateOrder(db);
             PopulateMaterialUsado(db);
             //PopulateSupplier(db);
-           //PopulateStocks(db);
+            PopulateStocks(db);
             PopulateExtras(db);
-             //PopulateCollaborators(db);
+            PopulateCollaborators(db);
+
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -362,9 +364,12 @@ namespace CarManufactoring.Data
 
             db.CarParts.AddRange(
 
-                new CarParts { Name = "NGK LPG Laser Line 1496 Vela de ignição", PartType = "Ignition", Reference = "5788 / LFR6C-11", PointOfPurchase = 1000, SafetyStock = 400, LevelService = 0.2M },
-                new CarParts { Name = "Junta, parafusos da tampa da das válvulas ELRING", PartType = "motor compartment", Reference = "560.490 ", PointOfPurchase = 1800, SafetyStock = 600, LevelService = 0.3M}
-
+                new CarParts { Name = "NGK LPG Laser Line 1496 Vela de ignição", PartType = "Ignition", Reference = "5788/LFR6C-11", PointOfPurchase = 1000, SafetyStock = 400, LevelService = 0.2M },
+                new CarParts { Name = "Junta, parafusos da tampa da das válvulas ELRING", PartType = "Motor Compartment", Reference = "560.490", PointOfPurchase = 1800, SafetyStock = 600, LevelService = 0.3M},
+                new CarParts { Name = "Correia dentada GATES", PartType ="Timing Belt", Reference= "5586XS", PointOfPurchase = 1000, SafetyStock = 540, LevelService = 0.4M},
+                new CarParts { Name = "Jogo de pastilhas para travão de disco VALEO", PartType = "Breaks", Reference = "598891", PointOfPurchase = 900, SafetyStock = 360, LevelService = 0.27M },
+                new CarParts { Name = "Rótula da barra de direcção FAG", PartType = "Suspension and Direction", Reference = "840113410", PointOfPurchase = 1500, SafetyStock = 920, LevelService = 0.45M },
+                new CarParts { Name = "Kit de embraiagem LuK", PartType = "Clutch Transmission", Reference = "627158009", PointOfPurchase = 1100, SafetyStock = 840, LevelService = 0.32M }
 
             );
             db.SaveChanges();
@@ -385,7 +390,16 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-
+        private static void PopulateCollaborators(CarManufactoringContext db)
+        {
+            if (db.Collaborator.Any()) return;
+            db.Collaborator.AddRange(
+                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "Worker1@cars.pt", GenderId = 1, OnDuty = true },
+                new Collaborator { Name = "Worker2", BirthDate = DateTime.Parse("12 / 12 / 1995"), Phone = "919293949", Email = "Worker2@cars.pt", GenderId = 2, OnDuty = true },
+                new Collaborator { Name = "Worker3", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
+                );
+            db.SaveChanges();
+        }
         private static void PopulateStocks(CarManufactoringContext db)
         {
             if (db.Stock.Any()) return;
@@ -398,18 +412,7 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-      /*  private static void PopulateCollaborators(CarManufactoringContext db)
-        {
-            if (db.Collaborator.Any()) return;
-            db.Collaborator.AddRange(
-                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "Worker1@cars.pt", GenderId = 1, OnDuty = true },
-                new Collaborator { Name = "Worker2", BirthDate = DateTime.Parse("12 / 12 / 1995"), Phone = "919293949", Email = "Worker2@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Worker3", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
-                );
-            db.SaveChanges();
-        }*/
-
-
+        
         private static void PopulateMaterialUsado(CarManufactoringContext db)
         {
             if (db.MaterialUsado.Any()) return;

@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221215094538_InspectionAndTestsSemiFinishedId")]
+    partial class InspectionAndTestsSemiFinishedId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -590,10 +592,10 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime?>("EffectiveEndDate")
+                    b.Property<DateTime?>("Effective_End_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExpectedEndDate")
+                    b.Property<DateTime>("Expected_End_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MachineId")
@@ -625,6 +627,7 @@ namespace CarManufactoring.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineModelId"), 1L, 1);
 
                     b.Property<int>("MachineBrandId")
+                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("MachineModelName")
@@ -811,11 +814,14 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductionId"), 1L, 1);
 
-                    b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DeliveryDate")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("OrderDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductionId");
 
