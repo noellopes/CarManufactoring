@@ -177,10 +177,11 @@ namespace CarManufactoring.Controllers
             if (shift != null)
             {
                 _context.Shift.Remove(shift);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+
+            return View("ShiftDeleted");
         }
 
         private bool ShiftExists(int id)
