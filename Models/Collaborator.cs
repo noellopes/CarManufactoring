@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarManufactoring.Models
 {
@@ -15,8 +17,11 @@ namespace CarManufactoring.Models
 
 
         [Required(ErrorMessage = "Please Enter Collaborator's Birth Date!")]
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
         public DateTime BirthDate { get; set; }
-        //public DateOnly BirthDate { get; set; }
+        //public DateOnly? BirthDate { get; set; }
+
 
 
         [Required(ErrorMessage = "Collaborator's Phone Number is Required!")]
