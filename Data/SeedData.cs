@@ -7,33 +7,33 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
-            PopulateCarParts(db);
-            PopulateGender(db);
-            PopulateSemiFinisheds(db);
-            PopulateMaterials(db);
-            PopulateSection(db);
-            PopulateSectionManager(db);
-            PopulateMachineState(db);
-            PopulateTaskType(db);
-            PopulateBrands(db);
-            //PopulateInspectionTesting(db);
-            PopulatePriority(db);
-            PopulateMachineBrand(db);
-            PopulateMachineModel(db);
-            PopulateMachines(db);
-            PopulateMachineMaintenance(db);
-            PopulateCars(db);
-            //PopulateCarConfigs(db);
-            PopulateShiftType(db);
-            PopulateShift(db);
-            PopulateCustomers(db);
-            PopulateCustomerContacts(db);
-            PopulateOrder(db);
-            PopulateMaterialUsado(db);
-            //PopulateSupplier(db);
-           //PopulateStocks(db);
-            PopulateExtras(db);
-             //PopulateCollaborators(db);
+           // PopulateCarParts(db);
+           // PopulateGender(db);
+           // PopulateSemiFinisheds(db);
+           // PopulateMaterials(db);
+           // PopulateSection(db);
+           // PopulateSectionManager(db);
+           // PopulateMachineState(db);
+           // PopulateTaskType(db);
+           //PopulateBrands(db);
+           // //PopulateInspectionTesting(db);
+           // PopulatePriority(db);
+           // PopulateMachineBrand(db);
+           // PopulateMachineModel(db);
+           // PopulateMachines(db);
+           // PopulateMachineMaintenance(db);
+           PopulateCars(db);
+           // //PopulateCarConfigs(db);
+           // PopulateShiftType(db);
+           // PopulateShift(db);
+           // PopulateCustomers(db);
+           // PopulateCustomerContacts(db);
+           // PopulateOrder(db);
+           // PopulateMaterialUsado(db);
+           // //PopulateSupplier(db);
+           ////PopulateStocks(db);
+           // PopulateExtras(db);
+           //  //PopulateCollaborators(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -254,12 +254,12 @@ namespace CarManufactoring.Data
             if(db.Car.Any()) return;
 
             db.Car.AddRange(
-                new Car { CarModel = "Model S", BasePrice = 10000, BrandId = 1, LaunchYear = 2022 },
-                new Car { CarModel = "320d" , BasePrice = 15000, BrandId = 2, LaunchYear = 2022}, 
-                new Car { CarModel = "G-Wagon", BasePrice = 150000, BrandId = 3, LaunchYear = 2020 },
-                new Car { CarModel = "A3", BasePrice = 20000, BrandId = 4, LaunchYear = 2019},
-                new Car { CarModel = "Polo", BasePrice = 18000, BrandId = 5, LaunchYear = 2018},
-                new Car { CarModel = "Focus", BasePrice = 14000, BrandId = 6, LaunchYear = 2022}
+                new Car { CarModel = "Model S", BasePrice = 10000, BrandId = 1, LaunchYear = 2022, TimeProduction= 2},
+                new Car { CarModel = "320d" , BasePrice = 15000, BrandId = 2, LaunchYear = 2022, TimeProduction = 2 }, 
+                new Car { CarModel = "G-Wagon", BasePrice = 150000, BrandId = 3, LaunchYear = 2020, TimeProduction = 3 },
+                new Car { CarModel = "A3", BasePrice = 20000, BrandId = 4, LaunchYear = 2019, TimeProduction = 2 },
+                new Car { CarModel = "Polo", BasePrice = 18000, BrandId = 5, LaunchYear = 2018, TimeProduction = 1 },
+                new Car { CarModel = "Focus", BasePrice = 14000, BrandId = 6, LaunchYear = 2022, TimeProduction = 1 }
                 );
 
             db.SaveChanges() ;
@@ -472,5 +472,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+
+     
     }
 }
