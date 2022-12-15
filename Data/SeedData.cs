@@ -31,7 +31,7 @@ namespace CarManufactoring.Data
             PopulateCustomerContacts(db);
             PopulateOrder(db);
             PopulateMaterialUsado(db);
-            //PopulateSupplier(db);
+            PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
             
