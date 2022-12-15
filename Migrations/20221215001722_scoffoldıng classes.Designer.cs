@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221215001722_scoffoldıng classes")]
+    partial class scoffoldıngclasses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -270,35 +272,6 @@ namespace CarManufactoring.Migrations
                     b.HasIndex("TaskId");
 
                     b.ToTable("Collaborator");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.CollaboratorShifts", b =>
-                {
-                    b.Property<int>("CollaboratorShiftId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CollaboratorShiftId"), 1L, 1);
-
-                    b.Property<int>("CollaboratorId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EffectiveEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("EffectiveStartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CollaboratorShiftId");
-
-                    b.HasIndex("CollaboratorId");
-
-                    b.HasIndex("ShiftId");
-
-                    b.ToTable("CollaboratorShifts");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ConfigList", b =>
@@ -1163,25 +1136,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Task");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.CollaboratorShifts", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
-                        .WithMany("Shifts")
-                        .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.Shift", "Shift")
-                        .WithMany("Collaborator")
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Collaborator");
-
-                    b.Navigation("Shift");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.ConfigList", b =>
                 {
                     b.HasOne("CarManufactoring.Models.CarConfig", "CarConfig")
@@ -1444,11 +1398,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("ConfigLists");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
-                {
-                    b.Navigation("Shifts");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Customer", b =>
                 {
                     b.Navigation("CustomerContacts");
@@ -1505,11 +1454,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Cars");
 
                     b.Navigation("MaterialUsado");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
-                {
-                    b.Navigation("Collaborator");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>
