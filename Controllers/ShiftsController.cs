@@ -124,6 +124,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(shift);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Shift edited successfully.";
+                    return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
