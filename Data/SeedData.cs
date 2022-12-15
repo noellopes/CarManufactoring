@@ -32,9 +32,10 @@ namespace CarManufactoring.Data
             PopulateOrder(db);
             PopulateMaterialUsado(db);
             //PopulateSupplier(db);
+            PopulateCollaborators(db);
             PopulateStocks(db);
             PopulateExtras(db);
-            PopulateCollaborators(db);
+            
 
         }
         // SeedData for Material Class
