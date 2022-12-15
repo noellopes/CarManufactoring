@@ -287,11 +287,10 @@ namespace CarManufactoring.Data
             if(db.ShiftType.Any()) return;
 
             db.ShiftType.AddRange(
-                new ShiftType { Description="Paint Cars from production line 1", ShiftTime = 8},
-                new ShiftType { Description = "Weld car body", ShiftTime = 8 },
-                new ShiftType { Description = "Install engine ", ShiftTime = 6 },
-                new ShiftType { Description = "Test safety", ShiftTime = 8 },
-                new ShiftType { Description = "Check brakes", ShiftTime = 6 }
+                new ShiftType { Description="Morninng Shift", ShiftTime = 6},
+                new ShiftType { Description = "Afternoon Shift", ShiftTime = 6 },
+                new ShiftType { Description = "Night Shift", ShiftTime = 6 },
+                new ShiftType { Description = "Mixed Shift", ShiftTime = 8 }
                 );
 
             db.SaveChanges();
@@ -302,9 +301,12 @@ namespace CarManufactoring.Data
             if(db.Shift.Any()) return;
 
             db.Shift.AddRange(
-                new Shift { StartDate = new DateTime(2021, 12, 02, 08, 30, 00) , EndDate = new DateTime(2021, 12, 02, 16, 30, 00), ShiftTypeId = 2 },
-                new Shift { StartDate = new DateTime(2021, 1, 04, 14, 00, 00), EndDate = new DateTime(2021, 1, 05, 00, 00, 00), ShiftTypeId = 3 },
-                new Shift { StartDate = new DateTime(2022, 4, 25, 00, 00, 00), EndDate = new DateTime(2022, 4, 25, 06, 00, 00), ShiftTypeId = 4 }
+                new Shift { StartDate = new DateTime(2021, 12, 02, 08, 00, 00) , EndDate = new DateTime(2021, 12, 02, 14, 00, 00), ShiftTypeId = 1 },
+                new Shift { StartDate = new DateTime(2021, 1, 04, 16, 00, 00), EndDate = new DateTime(2021, 1, 04, 22, 00, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2022, 4, 25, 16, 00, 00), EndDate = new DateTime(2022, 4, 25, 22, 00, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2022, 4, 13, 00, 00, 00), EndDate = new DateTime(2022, 4, 13, 06, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2020, 7, 09, 00, 00, 00), EndDate = new DateTime(2020, 4, 09, 08, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2020, 10, 21, 08, 00, 00), EndDate = new DateTime(2020, 10, 21, 16, 00, 00), ShiftTypeId = 4}
             );
 
             db.SaveChanges();
