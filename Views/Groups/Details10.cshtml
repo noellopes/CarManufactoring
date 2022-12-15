@@ -1,52 +1,77 @@
-﻿@using CarManufactoring.ViewModels.Group1;
-@using CarManufactoring.ViewModels.Group3;
-@model IEnumerable<Documents>
-
-@{
-    ViewData["Title"] = "Group 3";
+﻿@{
+    ViewData["Title"] = "Group 10 ";
 }
+<h1>@ViewBag.Title</h1>
 
-<style>
-    img{
-        padding-left: 10px;
-    }
-</style>
+<h3>Title</h3>
+<h4>Scheduling of People For the Production Line of a Car Factory</h4>
+<br />
+<div>
+    <div>
+        <h3>Use Case</h3>
+        <img src="~/documents/Grup10/GrupDocuments/UseCaseOrtak.png" class="figure-img img-fluid rounded" />
+    </div>
+    <br />
+    <div>
+        <h3>Class Diagram:</h3>
+        <img src="~/documents/Grup10/GrupDocuments/class.jpg" class="figure-img img-fluid rounded" />
+    </div>
+    <br />
+    <div>
+        <h3>State Diagram(Osman Can Ofraz)</h3>
+        <a><img src="~/documents/Grup10/OsmanCanOfraz/durum diagramı.PNG" class="figure-img img-fluid rounded" /></a>
+    </div>
+    <br />
+    <div>
+        <h3>Sequence Diagram(Osman Can Ofraz)</h3>
+        <a><img src="~/documents/Grup10/OsmanCanOfraz/sıra diagramı.PNG" class="figure-img img-fluid rounded" /></a>
+    </div>
+     <br />
+    <div>
+        <h3>Use Case(Osman Can Ofraz)</h3>
+        <a><img src="~/documents/Grup10/OsmanCanOfraz/usecase.png"figure-img img-fluid rounded" /></a>
+    </div>
+      <br />
+    <div>
+        <h3>Scheuduling Work Table(Osman Can Ofraz)</h3>
+        <a><img src="~/documents/Grup10/OsmanCanOfraz/Scheuduling work table.PNG"figure-img img-fluid rounded" /></a>
+    </div>
+       <br />
+    <div>
+        <h3>User Story(Osman Can Ofraz)</h3>
+        <a><img src="~/documents/Grup10/OsmanCanOfraz/table.PNG"figure-img img-fluid rounded" /></a>
+    </div>
+        <br />
+    <div>
+        <h3>Class Table(Osman Can Ofraz)</h3>
+        <a><img src="~/documents/Grup10/OsmanCanOfraz/tabledevam.PNG"figure-img img-fluid rounded" /></a>
+    </div>
+   <br />
+    <div>
+        <h3>Test(Mahmut Aran):</h3>
+        <a><img src="~/documents/Grup10/MahmutAran/MahmutTest.PNG" class="figure-img img-fluid rounded" /></a>
+    </div>
+   <br />
+    <div>
+        <h3>Use Story(Mahmut Aran)</h3>
+        <a><img src="~/documents/Grup10/MahmutAran/MahmutUserStory.PNG" class="figure-img img-fluid rounded" /></a>
+    </div>
+   <br />
+    <div>
+        <h3>Sequence Diagram(Mahmut Aran)</h3>
+        <a><img src="~/documents/Grup10/MahmutAran/SequenceMahmut.png" class="figure-img img-fluid rounded" /></a>
+    </div>
+   <br />
+    <div>
+        <h3>Use Case(Mahmut Aran)</h3>
+        <a><img src="~/documents/Grup10/MahmutAran/UseCaseMahmut1.PNG" class="figure-img img-fluid rounded" /></a>
+    </div>
+   <br />
+    <div>
+        <h3>Use Case(Mahmut Aran)</h3>
+        <a><img src="~/documents/Grup10/MahmutAran/UseCaseMahmut.png" class="figure-img img-fluid rounded" /></a>
+    </div>
 
 
-<h1>
-    <a asp-controller="Students" asp-action="Details" asp-route-number="1707785"><img align="right" class="img" src="~/img/students/1700331.jpg" width="10%" height="10%"></a>
-    <a asp-controller="Students" asp-action="Details" asp-route-number="1707785"> <img align="right" class="img" src="~/img/students/1701480.jpg" width="10%" height="10%" ></a>
-</h1>
-<h2> Osman Can Ofraz,Mahmut Aran</h2>
-<p>(Click photo for personal details and documentation)</p>
 
-<hr>
-
-<div class="row">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Format</th>
-                <th scope="col">Document</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Documents d in Model)
-            {
-                <tr>
-                    <td scope="col">
-                        <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
-                    </td>
-                    <td scope="col">@d.Name</td>
-                    <td>
-                        <a href="@d.DocPath" target="_blank">
-                            <img class="img-fluid" src="/documents/grupo1/img/download.png">
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
 </div>
-
