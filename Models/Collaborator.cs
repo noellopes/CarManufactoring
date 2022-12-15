@@ -42,5 +42,7 @@ namespace CarManufactoring.Models
         public bool OnDuty { get; set; }
 
         public string? Status { get; set; }
+
+        public ICollection<MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
     }
 }

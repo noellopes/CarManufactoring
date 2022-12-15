@@ -15,14 +15,18 @@ namespace CarManufactoring.Models
         public bool Deleted { get; set; } = false;
 
         [Display(Name = "Data de Início")]
+        [DataType(DataType.Date)]
         public DateTime BeginDate { get; set; } = DateTime.Now.Date;
-
+        
+        [DataType(DataType.Date)]
         [Display(Name = "Data de Término")]
-        public DateTime? Effective_End_Date { get; set; }
+        public DateTime? EffectiveEndDate { get; set; }
 
         [Display(Name = "Data Prevista")]
         [Required]
-        public DateTime Expected_End_Date { get; set; }
+        [DataType(DataType.Date)]
+
+        public DateTime ExpectedEndDate { get; set; }
 
         [Required]
         [Display(Name = "Task Type")]
@@ -39,6 +43,7 @@ namespace CarManufactoring.Models
         public int MachineId { get; set; }
         public Machine? Machine { get; set; }
 
+        public ICollection <MaintenanceCollaborator> MaintenanceCollection { get; set; }
 
     }
 }

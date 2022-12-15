@@ -7,6 +7,7 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
+            PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateGender(db);
             PopulateSemiFinisheds(db);
@@ -16,7 +17,7 @@ namespace CarManufactoring.Data
             PopulateMachineState(db);
             PopulateTaskType(db);
             PopulateBrands(db);
-            //PopulateInspectionTesting(db);
+            PopulateInspectionTesting(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
@@ -31,9 +32,11 @@ namespace CarManufactoring.Data
             PopulateOrder(db);
             PopulateMaterialUsado(db);
             //PopulateSupplier(db);
-           //PopulateStocks(db);
+            PopulateCollaborators(db);
+            PopulateStocks(db);
             PopulateExtras(db);
-             //PopulateCollaborators(db);
+            
+
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -206,10 +209,10 @@ namespace CarManufactoring.Data
             if (db.MachineMaintenance.Any()) return;
 
             db.MachineMaintenance.AddRange(
-                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),Expected_End_Date = DateTime.Parse("15/02/2022"), Effective_End_Date = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
-                 new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), Expected_End_Date = DateTime.Parse("12/03/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
-                 new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),Expected_End_Date = DateTime.Parse("12/07/2022"), Effective_End_Date = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
-                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", Expected_End_Date = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
+                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
+                 new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
+                 new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
+                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
 
                 );
 
@@ -222,9 +225,9 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues." },
-                new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." },
-                new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested." }
+                new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1, SemiFinishedId = 1 },
+                new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2, SemiFinishedId = 2 },
+                new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3, SemiFinishedId = 3 }
 
             );
 
@@ -362,9 +365,12 @@ namespace CarManufactoring.Data
 
             db.CarParts.AddRange(
 
-                new CarParts { Name = "NGK LPG Laser Line 1496 Vela de ignição", PartType = "Ignition", Reference = "5788 / LFR6C-11", PointOfPurchase = 1000, SafetyStock = 400, LevelService = 0.2M },
-                new CarParts { Name = "Junta, parafusos da tampa da das válvulas ELRING", PartType = "motor compartment", Reference = "560.490 ", PointOfPurchase = 1800, SafetyStock = 600, LevelService = 0.3M}
-
+                new CarParts { Name = "NGK LPG Laser Line 1496 Vela de ignição", PartType = "Ignition", Reference = "5788/LFR6C-11", PointOfPurchase = 1000, SafetyStock = 400, LevelService = 0.2M },
+                new CarParts { Name = "Junta, parafusos da tampa da das válvulas ELRING", PartType = "Motor Compartment", Reference = "560.490", PointOfPurchase = 1800, SafetyStock = 600, LevelService = 0.3M},
+                new CarParts { Name = "Correia dentada GATES", PartType ="Timing Belt", Reference= "5586XS", PointOfPurchase = 1000, SafetyStock = 540, LevelService = 0.4M},
+                new CarParts { Name = "Jogo de pastilhas para travão de disco VALEO", PartType = "Breaks", Reference = "598891", PointOfPurchase = 900, SafetyStock = 360, LevelService = 0.27M },
+                new CarParts { Name = "Rótula da barra de direcção FAG", PartType = "Suspension and Direction", Reference = "840113410", PointOfPurchase = 1500, SafetyStock = 920, LevelService = 0.45M },
+                new CarParts { Name = "Kit de embraiagem LuK", PartType = "Clutch Transmission", Reference = "627158009", PointOfPurchase = 1100, SafetyStock = 840, LevelService = 0.32M }
 
             );
             db.SaveChanges();
@@ -385,7 +391,16 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-
+        private static void PopulateCollaborators(CarManufactoringContext db)
+        {
+            if (db.Collaborator.Any()) return;
+            db.Collaborator.AddRange(
+                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "Worker1@cars.pt", GenderId = 1, OnDuty = true },
+                new Collaborator { Name = "Worker2", BirthDate = DateTime.Parse("12 / 12 / 1995"), Phone = "919293949", Email = "Worker2@cars.pt", GenderId = 2, OnDuty = true },
+                new Collaborator { Name = "Worker3", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
+                );
+            db.SaveChanges();
+        }
         private static void PopulateStocks(CarManufactoringContext db)
         {
             if (db.Stock.Any()) return;
@@ -398,6 +413,7 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+
         private static void PopulateCollaborators(CarManufactoringContext db)
         {
             if (db.Collaborator.Any()) return;
@@ -408,6 +424,7 @@ namespace CarManufactoring.Data
                 );
             db.SaveChanges();
         }
+
 
 
         private static void PopulateMaterialUsado(CarManufactoringContext db)

@@ -11,11 +11,10 @@ namespace CarManufactoring.Models
         [StringLength(50, MinimumLength = 3)]
         [Display(Name = "Model")]
         public string MachineModelName { get; set; }
-        [Required]
-        [StringLength(50, MinimumLength = 3)]
-        [Display(Name = "Brand")]
 
+        [Required]
+        [Display(Name = "Brand")]
         public int MachineBrandId { get; set; }
-        public MachineBrand MachineBrandNames { get; set; }
+        public MachineBrand? MachineBrandNames { get; set; }
     }
 }

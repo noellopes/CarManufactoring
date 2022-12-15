@@ -7,11 +7,9 @@ namespace CarManufactoring.Models
         [Key]
         public int CollaboratorShiftId { get; set; }
 
-        [Required]
-        public DateTime EffectiveStartDate { get; set; }
+        public DateTime? EffectiveStartDate { get; set; }
 
-        [Required]
-        public DateTime EffectiveEndDate { get; set; }
+        public DateTime? EffectiveEndDate { get; set; }
 
         //relação many to many
         public int ShiftId { get; set; }
