@@ -14,6 +14,6 @@ namespace CarManufactoring.ViewModels
 
         public int? LaunchYearSearched { get; set; }
 
-
+        public int? TimeProductionSearched { get; set; }
     }
 }
