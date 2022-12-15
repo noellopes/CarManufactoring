@@ -413,17 +413,6 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        private static void PopulateCollaborators(CarManufactoringContext db)
-        {
-            if (db.Collaborator.Any()) return;
-            db.Collaborator.AddRange(
-                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "Worker1@cars.pt", GenderId = 1, OnDuty = true },
-                new Collaborator { Name = "Worker2", BirthDate = DateTime.Parse("12 / 12 / 1995"), Phone = "919293949", Email = "Worker2@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Worker3", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
-                );
-            db.SaveChanges();
-        }
-
 
 
         private static void PopulateMaterialUsado(CarManufactoringContext db)
