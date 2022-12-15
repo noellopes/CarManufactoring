@@ -22,7 +22,6 @@ namespace CarManufactoring.Models
         [Required(ErrorMessage = "Please enter the contact")]
         [Display(Name = "Phone Number")]
         [StringLength(9, MinimumLength = 9, ErrorMessage = "The contact must have 9 characters")]
-        [RegularExpression(@"(9\d{8})", ErrorMessage = "invalid number.")]
         [Phone]
         public string SupplierContact { get; set; }
 
