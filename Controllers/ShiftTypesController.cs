@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShiftTypeId,ShiftTime,Description")] ShiftType shiftType)
+        public async Task<IActionResult> Create([Bind("ShiftTypeId,ShiftTime,Description,StartTime,EndTime")] ShiftType shiftType)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShiftTypeId,ShiftTime,Description")] ShiftType shiftType)
+        public async Task<IActionResult> Edit(int id, [Bind("ShiftTypeId,ShiftTime,Description,StartTime,EndTime")] ShiftType shiftType)
         {
             if (id != shiftType.ShiftTypeId)
             {
