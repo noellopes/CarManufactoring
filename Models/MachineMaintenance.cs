@@ -39,6 +39,7 @@ namespace CarManufactoring.Models
         public int MachineId { get; set; }
         public Machine? Machine { get; set; }
 
+        public ICollection <MaintenanceCollaborator> MaintenanceCollection { get; set; }
 
     }
 }

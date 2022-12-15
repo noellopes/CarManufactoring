@@ -34,9 +34,25 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<MaintenanceCollaborator>().HasKey(bc => new { bc.CollaboratorId, bc.MachineMaintenanceId });
+
+            modelBuilder.Entity<MaintenanceCollaborator>()
+                .HasOne(x => x.MaintenanceMachine)
+                .WithMany(s => s.MaintenanceCollection)
+                .HasForeignKey(x => x.MachineMaintenanceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<MaintenanceCollaborator>()
+                .HasOne(x => x.Collaborators)
+                .WithMany(c => c.MaintenanceCollaborators)
+                .HasForeignKey(x => x.CollaboratorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
             // to be added == ShiftCollaborator
         }
+
+        public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
 
         public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
