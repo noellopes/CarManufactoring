@@ -10,85 +10,85 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class MaterialUsadoesController : Controller
+    public class MaterialUsedsController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public MaterialUsadoesController(CarManufactoringContext context)
+        public MaterialUsedsController(CarManufactoringContext context)
         {
             _context = context;
         }
 
-        // GET: MaterialUsadoes
+        // GET: MaterialUseds
         public async Task<IActionResult> Index()
         {
-              return View(await _context.MaterialUsado.ToListAsync());
+              return View(await _context.MaterialUsed.ToListAsync());
         }
 
-        // GET: MaterialUsadoes/Details/5
+        // GET: MaterialUseds/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.MaterialUsado == null)
+            if (id == null || _context.MaterialUsed == null)
             {
                 return NotFound();
             }
 
-            var materialUsado = await _context.MaterialUsado
-                .FirstOrDefaultAsync(m => m.MaterialUsadoId == id);
-            if (materialUsado == null)
+            var materialUsed = await _context.MaterialUsed
+                .FirstOrDefaultAsync(m => m.MaterialUsedId == id);
+            if (materialUsed == null)
             {
                 return NotFound();
             }
 
-            return View(materialUsado);
+            return View(materialUsed);
         }
 
-        // GET: MaterialUsadoes/Create
+        // GET: MaterialUseds/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MaterialUsadoes/Create
+        // POST: MaterialUseds/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaterialUsadoId,MaterialId,MaterialNome,SemiFinishedId,SemiFinishedNome")] MaterialUsado materialUsado)
+        public async Task<IActionResult> Create([Bind("MaterialUsedId,MaterialId,SemiFinishedId,Quantity")] MaterialUsed materialUsed)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(materialUsado);
+                _context.Add(materialUsed);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(materialUsado);
+            return View(materialUsed);
         }
 
-        // GET: MaterialUsadoes/Edit/5
+        // GET: MaterialUseds/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.MaterialUsado == null)
+            if (id == null || _context.MaterialUsed == null)
             {
                 return NotFound();
             }
 
-            var materialUsado = await _context.MaterialUsado.FindAsync(id);
-            if (materialUsado == null)
+            var materialUsed = await _context.MaterialUsed.FindAsync(id);
+            if (materialUsed == null)
             {
                 return NotFound();
             }
-            return View(materialUsado);
+            return View(materialUsed);
         }
 
-        // POST: MaterialUsadoes/Edit/5
+        // POST: MaterialUseds/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaterialUsadoId,MaterialId,MaterialNome,SemiFinishedId,SemiFinishedNome")] MaterialUsado materialUsado)
+        public async Task<IActionResult> Edit(int id, [Bind("MaterialUsedId,MaterialId,SemiFinishedId,Quantity")] MaterialUsed materialUsed)
         {
-            if (id != materialUsado.MaterialUsadoId)
+            if (id != materialUsed.MaterialUsedId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    _context.Update(materialUsado);
+                    _context.Update(materialUsed);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MaterialUsadoExists(materialUsado.MaterialUsadoId))
+                    if (!MaterialUsedExists(materialUsed.MaterialUsedId))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(materialUsado);
+            return View(materialUsed);
         }
 
-        // GET: MaterialUsadoes/Delete/5
+        // GET: MaterialUseds/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.MaterialUsado == null)
+            if (id == null || _context.MaterialUsed == null)
             {
                 return NotFound();
             }
 
-            var materialUsado = await _context.MaterialUsado
-                .FirstOrDefaultAsync(m => m.MaterialUsadoId == id);
-            if (materialUsado == null)
+            var materialUsed = await _context.MaterialUsed
+                .FirstOrDefaultAsync(m => m.MaterialUsedId == id);
+            if (materialUsed == null)
             {
                 return NotFound();
             }
 
-            return View(materialUsado);
+            return View(materialUsed);
         }
 
-        // POST: MaterialUsadoes/Delete/5
+        // POST: MaterialUseds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MaterialUsado == null)
+            if (_context.MaterialUsed == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.MaterialUsado'  is null.");
+                return Problem("Entity set 'CarManufactoringContext.MaterialUsed'  is null.");
             }
-            var materialUsado = await _context.MaterialUsado.FindAsync(id);
-            if (materialUsado != null)
+            var materialUsed = await _context.MaterialUsed.FindAsync(id);
+            if (materialUsed != null)
             {
-                _context.MaterialUsado.Remove(materialUsado);
+                _context.MaterialUsed.Remove(materialUsed);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MaterialUsadoExists(int id)
+        private bool MaterialUsedExists(int id)
         {
-          return _context.MaterialUsado.Any(e => e.MaterialUsadoId == id);
+          return _context.MaterialUsed.Any(e => e.MaterialUsedId == id);
         }
     }
 }
