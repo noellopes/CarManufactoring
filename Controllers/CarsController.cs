@@ -176,11 +176,11 @@ namespace CarManufactoring.Controllers
             var car = await _context.Car.FindAsync(id);
             if (car != null)
             {
-                _context.Car.Remove(car);
+                
             }
-            
+            _context.Car.Remove(car);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("CarDeleted");
         }
 
         private bool CarExists(int id)
