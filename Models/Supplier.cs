@@ -29,7 +29,7 @@ namespace CarManufactoring.Models
         //FilipeSantos-1702072
         [Required]
         [Display(Name = "ZIP Code")]
-        [StringLength(8)]
+        [StringLength(20)]
         public string SupplierZipCode { get; set; }
 
         [Required]
