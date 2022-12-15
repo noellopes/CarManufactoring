@@ -61,7 +61,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(car);
         }
 
@@ -84,7 +84,9 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(car);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Car created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = car.CarId });
             }
             ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", car.BrandId);
             return View(car);
