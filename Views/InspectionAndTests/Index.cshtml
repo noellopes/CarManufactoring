@@ -25,7 +25,7 @@
                 @Html.DisplayNameFor(model => model.Collaborator)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Reference)
+                @Html.DisplayNameFor(model => model.SemiFinished)
             </th>
             <th></th>
         </tr>
@@ -46,7 +46,7 @@
                 @Html.DisplayFor(modelItem => item.Collaborator.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Reference.Description)
+                @Html.DisplayFor(modelItem => item.SemiFinished.Description)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.InspectionId">Edit</a> |
