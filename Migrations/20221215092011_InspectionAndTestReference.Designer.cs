@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221215092011_InspectionAndTestReference")]
+    partial class InspectionAndTestReference
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -440,7 +442,7 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("SemiFinishedId")
+                    b.Property<int>("ReferenceId")
                         .HasColumnType("int");
 
                     b.Property<string>("State")
@@ -452,7 +454,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasIndex("CollaboratorId");
 
-                    b.HasIndex("SemiFinishedId");
+                    b.HasIndex("ReferenceId");
 
                     b.ToTable("InspectionAndTest");
                 });
@@ -1226,15 +1228,15 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarManufactoring.Models.SemiFinished", "SemiFinished")
+                    b.HasOne("CarManufactoring.Models.SemiFinished", "Reference")
                         .WithMany()
-                        .HasForeignKey("SemiFinishedId")
+                        .HasForeignKey("ReferenceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Collaborator");
 
-                    b.Navigation("SemiFinished");
+                    b.Navigation("Reference");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machine", b =>

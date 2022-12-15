@@ -7,6 +7,7 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
+
             PopulateCarParts(db);
             PopulateGender(db);
             PopulateSemiFinisheds(db);
@@ -34,6 +35,7 @@ namespace CarManufactoring.Data
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateCollaborators(db);
+
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
