@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221215202548_semiFinishToCar")]
+    partial class semiFinishToCar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -710,30 +712,37 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Material");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MaterialUsed", b =>
+            modelBuilder.Entity("CarManufactoring.Models.MaterialUsado", b =>
                 {
-                    b.Property<int>("MaterialUsedId")
+                    b.Property<int>("MaterialUsadoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialUsedId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialUsadoId"), 1L, 1);
 
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("MaterialNome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("SemiFinishedId")
                         .HasColumnType("int");
 
-                    b.HasKey("MaterialUsedId");
+                    b.Property<string>("SemiFinishedNome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("MaterialUsadoId");
 
                     b.HasIndex("MaterialId");
 
                     b.HasIndex("SemiFinishedId");
 
-                    b.ToTable("MaterialUsed");
+                    b.ToTable("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ModelParts", b =>
@@ -1364,16 +1373,16 @@ namespace CarManufactoring.Migrations
                     b.Navigation("MaintenanceMachine");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MaterialUsed", b =>
+            modelBuilder.Entity("CarManufactoring.Models.MaterialUsado", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Material", null)
-                        .WithMany("MaterialUsed")
+                        .WithMany("MaterialUsado")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CarManufactoring.Models.SemiFinished", null)
-                        .WithMany("MaterialUsed")
+                        .WithMany("MaterialUsado")
                         .HasForeignKey("SemiFinishedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1537,7 +1546,7 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
                 {
-                    b.Navigation("MaterialUsed");
+                    b.Navigation("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Priority", b =>
@@ -1556,7 +1565,7 @@ namespace CarManufactoring.Migrations
                 {
                     b.Navigation("Cars");
 
-                    b.Navigation("MaterialUsed");
+                    b.Navigation("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
