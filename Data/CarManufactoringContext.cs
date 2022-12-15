@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
 using static System.Reflection.Metadata.BlobBuilder;
+using OpenXmlPowerTools;
 
 namespace CarManufactoring.Data
 {
@@ -36,6 +37,11 @@ namespace CarManufactoring.Data
 
 
             // to be added == ShiftCollaborator
+
+            modelBuilder.Entity<MachineAquisition>()
+                .HasOne(x => x.MachineBudget)
+                .WithOne(c => c.Aquisition)
+                .HasForeignKey<MachineAquisition>(x => x.MachineBudgetId);
         }
 
         public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
@@ -62,6 +68,8 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
+
+        
 
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }
