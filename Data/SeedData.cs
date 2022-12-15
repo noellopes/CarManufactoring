@@ -287,10 +287,10 @@ namespace CarManufactoring.Data
             if(db.ShiftType.Any()) return;
 
             db.ShiftType.AddRange(
-                new ShiftType { Description="Morninng Shift", ShiftTime = 6},
-                new ShiftType { Description = "Afternoon Shift", ShiftTime = 6 },
-                new ShiftType { Description = "Night Shift", ShiftTime = 6 },
-                new ShiftType { Description = "Mixed Shift", ShiftTime = 8 }
+                new ShiftType { Description="Morninng Shift", ShiftTime = 6, StartTime = new DateTime(2022, 11, 17, 08, 00, 00) , EndTime = new DateTime(2022, 11, 17, 14, 00, 00) },
+                new ShiftType { Description = "Afternoon Shift", ShiftTime = 6, StartTime = new DateTime(2022, 11, 17, 16, 00, 00), EndTime = new DateTime(2022, 11, 17, 22, 00, 00) },
+                new ShiftType { Description = "Night Shift", ShiftTime = 6, StartTime = new DateTime(2022, 11, 18, 00, 00, 00), EndTime = new DateTime(2022, 11, 18, 06, 00, 00) },
+                new ShiftType { Description = "Mixed Shift", ShiftTime = 8, StartTime = new DateTime(2022, 11, 17, 08, 00, 00), EndTime = new DateTime(2022, 11, 17, 16, 00, 00) }
                 );
 
             db.SaveChanges();
