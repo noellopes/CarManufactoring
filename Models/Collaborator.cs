@@ -51,6 +51,6 @@ namespace CarManufactoring.Models
 
         public string? Status { get; set; }
 
-        public ICollection<MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
+        public ICollection<MaintenanceCollaborator>? MaintenanceCollaborators { get; set; }
     }
 }
