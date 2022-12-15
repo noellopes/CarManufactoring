@@ -174,13 +174,13 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.Car'  is null.");
             }
             var car = await _context.Car.FindAsync(id);
-            if (car != null)
+            if (car == null)
             {
-                _context.Car.Remove(car);
+                //TODO: Car was not found page 
             }
-            
+            _context.Car.Remove(car);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("CarDeleted");
         }
 
         private bool CarExists(int id)
