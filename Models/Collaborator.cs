@@ -35,8 +35,8 @@ namespace CarManufactoring.Models
 
         public Task? Task { get; set; }
 
-        //public ICollection<CollaboratorShift>? Shifts { get; set; }
-        //To be added by Ana 
+        public ICollection<CollaboratorShifts>? Shifts { get; set; }
+        
 
         [Required]
         public bool OnDuty { get; set; }

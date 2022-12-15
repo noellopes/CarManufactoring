@@ -21,5 +21,7 @@ namespace CarManufactoring.Models
         [Display(Name = "Shift Type")]
         public ShiftType? ShiftType { get; set; }
 
+        public ICollection<CollaboratorShifts> Collaborator { get; set; }
+
     }
 }
