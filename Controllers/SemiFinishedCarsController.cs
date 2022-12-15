@@ -49,9 +49,8 @@ namespace CarManufactoring.Controllers
         // GET: SemiFinishedCars/Create
         public IActionResult Create()
         {
-            ViewData["Name"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Family");
-            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel");
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description");
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId");
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId");
             return View();
         }
 
@@ -60,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SemiFinishedCarId,Name,Reference,Brand,Model,Year,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
+        public async Task<IActionResult> Create([Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (ModelState.IsValid)
             {
@@ -68,9 +67,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["Name"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Family", semiFinishedCar.Name);
-            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", semiFinishedCar.CarId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description", semiFinishedCar.SemiFinishedId);
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId", semiFinishedCar.SemiFinishedId);
             return View(semiFinishedCar);
         }
 
@@ -87,8 +85,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", semiFinishedCar.CarId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description", semiFinishedCar.SemiFinishedId);
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId", semiFinishedCar.SemiFinishedId);
             return View(semiFinishedCar);
         }
 
@@ -97,7 +95,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int? id, [Bind("SemiFinishedCarId,Name,Reference,Brand,Model,Year,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
+        public async Task<IActionResult> Edit(int? id, [Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (id != semiFinishedCar.SemiFinishedId)
             {
@@ -124,8 +122,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", semiFinishedCar.CarId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description", semiFinishedCar.SemiFinishedId);
+            ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId", semiFinishedCar.SemiFinishedId);
             return View(semiFinishedCar);
         }
 

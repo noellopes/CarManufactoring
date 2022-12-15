@@ -13,22 +13,27 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SemiFinishedCarId)
+                Relation Id
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Semi-Finished Id
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Reference)
+                Semi-Finished Reference
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Brand)
+                Car Brand Id
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Model)
+                Car Model
             </th>
+
             <th>
-                @Html.DisplayNameFor(model => model.Year)
+                Year
             </th>
             <th></th>
         </tr>
@@ -40,19 +45,19 @@
                 @Html.DisplayFor(modelItem => item.SemiFinishedCarId)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.SemiFinished.Family)
+                @Html.DisplayFor(modelItem => item.SemiFinished.SemiFinishedId)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.SemiFinished.Reference)
+                @Html.DisplayFor(modelItem => item.SemiFinished.Reference)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Car.BrandId)
+                @Html.DisplayFor(modelItem => item.Car.CarId)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Car.Model)
+                @Html.DisplayFor(modelItem => item.Car.CarModel)
             </td>
             <td>
-                    @Html.DisplayFor(modelItem => item.Car.LaunchYear)
+                @Html.DisplayFor(modelItem => item.Car.LaunchYear)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
