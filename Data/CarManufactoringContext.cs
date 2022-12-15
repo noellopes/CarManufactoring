@@ -119,10 +119,14 @@ namespace CarManufactoring.Data
 
 
 
+        public DbSet<CarManufactoring.Models.CollaboratorShifts> CollaboratorShifts { get; set; }
+
+
+        
         public DbSet<CarManufactoring.Models.WorkingHours> WorkingHours { get; set; }
 
-
-
+        
+        
         public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
 
     }

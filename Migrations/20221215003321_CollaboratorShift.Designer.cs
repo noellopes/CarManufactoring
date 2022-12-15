@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221215003321_CollaboratorShift")]
+    partial class CollaboratorShift
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,37 +23,6 @@ namespace CarManufactoring.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CarManufactoring.Models.AttendedHours", b =>
-                {
-                    b.Property<int>("AttendedHoursId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendedHoursId"), 1L, 1);
-
-                    b.Property<DateTime>("CheckedIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CheckedOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAttended")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("WorkedHour")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("workingStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AttendedHoursId");
-
-                    b.ToTable("AttendedHours");
-                });
 
             modelBuilder.Entity("CarManufactoring.Models.Brand", b =>
                 {
@@ -1100,28 +1071,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("TaskTypeId");
 
                     b.ToTable("TaskType");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.WorkingHours", b =>
-                {
-                    b.Property<int>("WorkingHoursId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkingHoursId"), 1L, 1);
-
-                    b.Property<DateTime>("CheckIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CheckOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("WorkerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("WorkingHoursId");
-
-                    b.ToTable("WorkingHours");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Car", b =>

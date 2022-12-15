@@ -1,0 +1,42 @@
+﻿@model CarManufactoring.Models.CollaboratorShifts
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CollaboratorShifts</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EffectiveStartDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EffectiveStartDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EffectiveEndDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EffectiveEndDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Shift)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Shift.ShiftId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Collaborator)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Collaborator.Email)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.CollaboratorShiftId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

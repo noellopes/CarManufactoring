@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CarManufactoring.Models.CollaboratorShifts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EffectiveEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Shift)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Collaborator)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveStartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EffectiveEndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Shift.ShiftId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Collaborator.Email)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CollaboratorShiftId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CollaboratorShiftId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CollaboratorShiftId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
