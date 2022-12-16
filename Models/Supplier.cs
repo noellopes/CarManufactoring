@@ -24,7 +24,7 @@ namespace CarManufactoring.Models
         [StringLength(20)]
         [Phone]
         public string SupplierContact { get; set; }
-
+          
 
         
         [Required]
