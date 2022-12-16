@@ -4,12 +4,11 @@ using System.Xml.Linq;
 
 namespace CarManufactoring.Models
 {
-    public class SupplierProduct
+    public class SupplierPartsProduct
     {
-
+        //FilipeSantos-1702072
         public int SupplierPartsId { get; set; }
-        public Supplier SupplierParts { get; set;}
-
+        public SupplierParts SupplierParts {get; set;}
         public int ProductId { get; set; }
         public Product Product {get; set;}
 
@@ -30,6 +29,6 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Disponibilidade")]
         public bool Disponibilidade { get; set; }
-
+        //Acabou
     }
 }

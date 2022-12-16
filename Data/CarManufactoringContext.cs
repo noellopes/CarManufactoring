@@ -142,7 +142,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
-        public DbSet<CarManufactoring.Models.SupplierParts> Supplier { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
 
@@ -212,11 +211,15 @@ namespace CarManufactoring.Data
 
         
         
+
+        public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
+
         public DbSet<CarManufactoring.Models.Function> Function { get; set; }
 
         
         
         public DbSet<CarManufactoring.Models.LocalizationCode> LocalizationCode { get; set; }
+ 
 
     }
 }
