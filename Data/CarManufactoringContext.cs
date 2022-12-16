@@ -11,7 +11,7 @@ namespace CarManufactoring.Data
 {
     public class CarManufactoringContext : DbContext
     {
-        public CarManufactoringContext (DbContextOptions<CarManufactoringContext> options)
+        public CarManufactoringContext(DbContextOptions<CarManufactoringContext> options)
             : base(options)
         {
         }
@@ -21,7 +21,7 @@ namespace CarManufactoring.Data
 
             builder.Properties<DateOnly>()
                 .HaveConversion<DateOnlyConverter>()
-                .HaveColumnType("date");    
+                .HaveColumnType("date");
 
             base.ConfigureConventions(builder);
 
@@ -41,7 +41,7 @@ namespace CarManufactoring.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<SemiFinishedCar>().HasKey(bc => new { bc.SemiFinishedId, bc.CarId });
-            
+
             modelBuilder.Entity<SemiFinishedCar>()
                 .HasOne(x => x.SemiFinished)
                 .WithMany(s => s.Cars)
@@ -83,9 +83,24 @@ namespace CarManufactoring.Data
                 .WithMany(c => c.CarParts)
                 .HasForeignKey(x => x.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
-        }
+            
+            modelBuilder.Entity<SalesLine>().HasKey(bc => new { bc.OrderId, bc.CarConfigId });
 
-        public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
+            modelBuilder.Entity<SalesLine>()
+                .HasOne(x => x.Order)
+                .WithMany(s => s.CarConfig)
+                .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesLine>()
+                        .HasOne(x => x.CarConfig)
+                        .WithMany(c => c.Order)
+                        .HasForeignKey(x => x.CarConfigId)
+                        .OnDelete(DeleteBehavior.Restrict);
+        }
+       
+
+    public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
 
         public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
