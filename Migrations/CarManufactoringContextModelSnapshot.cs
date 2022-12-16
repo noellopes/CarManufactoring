@@ -838,9 +838,6 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("SalesLineId")
-                        .HasColumnType("int");
-
                     b.HasKey("OrderId", "CarConfigId");
 
                     b.HasIndex("CarConfigId");

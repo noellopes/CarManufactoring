@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221216113759_SalesLine")]
+    [Migration("20221216121702_SalesLine")]
     partial class SalesLine
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -838,9 +838,6 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("float");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SalesLineId")
                         .HasColumnType("int");
 
                     b.HasKey("OrderId", "CarConfigId");
