@@ -10,7 +10,7 @@ namespace CarManufactoring.Models
         [Display(Name ="Machine State")]
         public string? StateMachine { get; set; }
 
-        public ICollection<Machines>? Machines { get; set; }
+        public ICollection<Machine>? Machines { get; set; }
 
     }
 }

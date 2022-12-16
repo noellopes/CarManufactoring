@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
 using static System.Reflection.Metadata.BlobBuilder;
+using OpenXmlPowerTools;
 
 namespace CarManufactoring.Data
 {
@@ -36,6 +37,11 @@ namespace CarManufactoring.Data
 
 
             // to be added == ShiftCollaborator
+
+            modelBuilder.Entity<MachineAquisition>()
+                .HasOne(x => x.MachineBudget)
+                .WithOne(c => c.Aquisition)
+                .HasForeignKey<MachineAquisition>(x => x.MachineBudgetId);
         }
 
         public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
@@ -45,7 +51,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineState> MachineState { get; set; }
 
-        public DbSet<CarManufactoring.Models.Machines> Machines { get; set; }
+        public DbSet<CarManufactoring.Models.Machine> Machine { get; set; }
 
         public DbSet<CarManufactoring.Models.Car> Car { get; set; }
 
@@ -55,9 +61,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.SectionManager> SectionManager { get; set; }
 
-        public DbSet<CarManufactoring.Models.WorkStates> WorkStates { get; set; }
-
-
         public DbSet<CarManufactoring.Models.Section> Section { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
@@ -66,10 +69,12 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
 
+        
+
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }
 
-
+        public DbSet<CarManufactoring.Models.MachineMaintenance> MachineMaintenace { get; set; }
         public DbSet<CarManufactoring.Models.Extra> Extra { get; set; }
 
         public DbSet<CarManufactoring.Models.Material> Material { get; set; }
@@ -77,7 +82,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Stock> Stock { get; set; }
         public DbSet<CarManufactoring.Models.Shift> Shift { get; set; }
 
-        public DbSet<CarManufactoring.Models.InspectionAndTest> inspectionAndTestings { get; set; }
+      
 
         public DbSet<CarManufactoring.Models.Customer> Customer { get; set; }
 
@@ -109,6 +114,10 @@ namespace CarManufactoring.Data
 
 
         public DbSet<CarManufactoring.Models.Breakdown> Breakdown { get; set; }
+
+
+
+        public DbSet<CarManufactoring.Models.MachineMaintenance> MachineMaintenance { get; set; }
 
     }
 }

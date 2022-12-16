@@ -17,10 +17,10 @@ namespace CarManufactoring.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MachineAquisitionName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    QuantityOfParts = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    QuantityOfParts = table.Column<int>(type: "int", nullable: false),
                     ProducedParts = table.Column<double>(type: "float", nullable: false),
                     MaintenancePrice = table.Column<double>(type: "float", nullable: false),
-                    Operation = table.Column<double>(type: "float", nullable: false)
+                    Operation = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
