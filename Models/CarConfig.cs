@@ -26,6 +26,7 @@ namespace CarManufactoring.Models
         public Car? Car { get; set; }
 
         public ICollection<ConfigList>? ConfigLists { get; set; }
-        
+        public ICollection<SalesLine>? Order { get; set; }
+
     }
 }
