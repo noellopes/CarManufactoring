@@ -44,7 +44,7 @@ namespace CarManufactoring.Models
 
         public Task? Task { get; set; }
 
-        public ICollection<CollaboratorShifts>? Shifts { get; set; }
+        public ICollection<CollaboratorShifts>? CollaboraterShift { get; set; }
 
         [Required]
         public bool OnDuty { get; set; }
