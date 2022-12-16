@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221215102437_correctFields")]
+    partial class correctFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,9 +132,6 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("LaunchYear")
                         .HasColumnType("int");
 
-                    b.Property<int>("TimeProduction")
-                        .HasColumnType("int");
-
                     b.HasKey("CarId");
 
                     b.HasIndex("BrandId");
@@ -237,7 +236,7 @@ namespace CarManufactoring.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CollaboratorId"), 1L, 1);
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("Date");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -443,9 +442,6 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("SemiFinishedId")
-                        .HasColumnType("int");
-
                     b.Property<string>("State")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -454,8 +450,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("InspectionId");
 
                     b.HasIndex("CollaboratorId");
-
-                    b.HasIndex("SemiFinishedId");
 
                     b.ToTable("InspectionAndTest");
                 });
@@ -593,10 +587,10 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
-                    b.Property<DateTime?>("EffectiveEndDate")
+                    b.Property<DateTime?>("Effective_End_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ExpectedEndDate")
+                    b.Property<DateTime>("Expected_End_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("MachineId")
@@ -628,6 +622,7 @@ namespace CarManufactoring.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineModelId"), 1L, 1);
 
                     b.Property<int>("MachineBrandId")
+                        .HasMaxLength(50)
                         .HasColumnType("int");
 
                     b.Property<string>("MachineModelName")
@@ -660,30 +655,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("MachineState");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MaintenanceCollaborator", b =>
-                {
-                    b.Property<int>("CollaboratorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MachineMaintenanceId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("BeginDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("EffectiveEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("CollaboratorId", "MachineMaintenanceId");
-
-                    b.HasIndex("MachineMaintenanceId");
-
-                    b.ToTable("MaintenanceCollaborators");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
                 {
                     b.Property<int>("MaterialId")
@@ -693,12 +664,19 @@ namespace CarManufactoring.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialId"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("Type")
                         .IsRequired()
@@ -710,46 +688,67 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Material");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MaterialUsed", b =>
+            modelBuilder.Entity("CarManufactoring.Models.MaterialUsado", b =>
                 {
-                    b.Property<int>("MaterialUsedId")
+                    b.Property<int>("MaterialUsadoId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialUsedId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialUsadoId"), 1L, 1);
 
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<string>("MaterialNome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("SemiFinishedId")
                         .HasColumnType("int");
 
-                    b.HasKey("MaterialUsedId");
+                    b.Property<string>("SemiFinishedNome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("MaterialUsadoId");
 
                     b.HasIndex("MaterialId");
 
                     b.HasIndex("SemiFinishedId");
 
-                    b.ToTable("MaterialUsed");
+                    b.ToTable("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ModelParts", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("ModelPartsId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("CarId")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ModelPartsId"), 1L, 1);
+
+                    b.Property<int>("CarModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CarModelsCarModelId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CarPartsProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("QtdPecas")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "CarId");
+                    b.HasKey("ModelPartsId");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("CarModelsCarModelId");
+
+                    b.HasIndex("CarPartsProductId");
 
                     b.ToTable("ModelParts");
                 });
@@ -810,11 +809,14 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductionId"), 1L, 1);
 
-                    b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("DeliveryDate")
+                        .IsRequired()
+                        .HasMaxLength(25)
+                        .HasColumnType("nvarchar(25)");
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("OrderDate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductionId");
 
@@ -903,6 +905,9 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int?>("InspectionAndTestInspectionId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Manufacter")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -920,15 +925,17 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("SemiFinishedId");
 
+                    b.HasIndex("InspectionAndTestInspectionId");
+
                     b.ToTable("SemiFinished");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.SemiFinishedCar", b =>
                 {
-                    b.Property<int?>("SemiFinishedId")
+                    b.Property<int>("SemiFinishedId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CarId")
+                    b.Property<int>("CarId")
                         .HasColumnType("int");
 
                     b.Property<int>("SemiFinishedCarId")
@@ -984,15 +991,10 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("ShiftTime")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ShiftTypeSearchShiftTypeId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("ShiftTypeId");
-
-                    b.HasIndex("ShiftTypeSearchShiftTypeId");
 
                     b.ToTable("ShiftType");
                 });
@@ -1043,8 +1045,8 @@ namespace CarManufactoring.Migrations
 
                     b.Property<string>("SupplierContact")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<string>("SupplierEmail")
                         .IsRequired()
@@ -1226,15 +1228,7 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarManufactoring.Models.SemiFinished", "SemiFinished")
-                        .WithMany()
-                        .HasForeignKey("SemiFinishedId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Collaborator");
-
-                    b.Navigation("SemiFinished");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machine", b =>
@@ -1321,35 +1315,16 @@ namespace CarManufactoring.Migrations
                     b.Navigation("MachineBrandNames");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.MaintenanceCollaborator", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborators")
-                        .WithMany("MaintenanceCollaborators")
-                        .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.MachineMaintenance", "MaintenanceMachine")
-                        .WithMany("MaintenanceCollection")
-                        .HasForeignKey("MachineMaintenanceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Collaborators");
-
-                    b.Navigation("MaintenanceMachine");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.MaterialUsed", b =>
+            modelBuilder.Entity("CarManufactoring.Models.MaterialUsado", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Material", null)
-                        .WithMany("MaterialUsed")
+                        .WithMany("MaterialUsado")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CarManufactoring.Models.SemiFinished", null)
-                        .WithMany("MaterialUsed")
+                        .WithMany("MaterialUsado")
                         .HasForeignKey("SemiFinishedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1357,19 +1332,15 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.ModelParts", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Car", "Car")
-                        .WithMany("CarParts")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.HasOne("CarManufactoring.Models.CarModels", "CarModels")
+                        .WithMany()
+                        .HasForeignKey("CarModelsCarModelId");
 
                     b.HasOne("CarManufactoring.Models.CarParts", "CarParts")
-                        .WithMany("Car")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CarPartsProductId");
 
-                    b.Navigation("Car");
+                    b.Navigation("CarModels");
 
                     b.Navigation("CarParts");
                 });
@@ -1408,6 +1379,13 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Sections");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.SemiFinished", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.InspectionAndTest", null)
+                        .WithMany("Reference")
+                        .HasForeignKey("InspectionAndTestInspectionId");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.SemiFinishedCar", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Car", "Car")
@@ -1438,15 +1416,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("ShiftType");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.ShiftType", "ShiftTypeSearch")
-                        .WithMany()
-                        .HasForeignKey("ShiftTypeSearchShiftTypeId");
-
-                    b.Navigation("ShiftTypeSearch");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Stock", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
@@ -1475,8 +1444,6 @@ namespace CarManufactoring.Migrations
                 {
                     b.Navigation("CarConfigs");
 
-                    b.Navigation("CarParts");
-
                     b.Navigation("SemiFinisheds");
                 });
 
@@ -1485,15 +1452,8 @@ namespace CarManufactoring.Migrations
                     b.Navigation("ConfigLists");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.CarParts", b =>
-                {
-                    b.Navigation("Car");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
-                    b.Navigation("MaintenanceCollaborators");
-
                     b.Navigation("Shifts");
                 });
 
@@ -1516,14 +1476,14 @@ namespace CarManufactoring.Migrations
                     b.Navigation("SectionManagers");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.InspectionAndTest", b =>
+                {
+                    b.Navigation("Reference");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.MachineBrand", b =>
                 {
                     b.Navigation("MachineModels");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.MachineMaintenance", b =>
-                {
-                    b.Navigation("MaintenanceCollection");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineState", b =>
@@ -1533,7 +1493,7 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
                 {
-                    b.Navigation("MaterialUsed");
+                    b.Navigation("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Priority", b =>
@@ -1552,7 +1512,7 @@ namespace CarManufactoring.Migrations
                 {
                     b.Navigation("Cars");
 
-                    b.Navigation("MaterialUsed");
+                    b.Navigation("MaterialUsado");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
