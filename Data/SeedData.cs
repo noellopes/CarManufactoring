@@ -11,6 +11,7 @@ namespace CarManufactoring.Data
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
+            PopulateSemiFinishedCars(db);
             PopulateMaterials(db); 
             PopulateSection(db);
             PopulateSectionManager(db);
@@ -73,6 +74,20 @@ namespace CarManufactoring.Data
                 new SemiFinished { Family = "Jogo de filtros de ar", Reference = "ADBP220039", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
                 new SemiFinished { Family = "Filtro de combustível", Reference = "KL571", Manufacter = "MAHLE", Description = "Filtro dos tubos", SemiFinishedState = "Under Development" },
                 new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateSemiFinishedCars(CarManufactoringContext db)
+        {
+            if (db.SemiFinishedCar.Any()) return;
+
+            db.SemiFinishedCar.AddRange(
+
+                new SemiFinishedCar { SemiFinishedId=1, CarId=2},
+                new SemiFinishedCar { SemiFinishedId = 2, CarId = 3}
 
                 );
 
