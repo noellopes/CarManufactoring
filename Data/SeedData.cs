@@ -315,7 +315,7 @@ namespace CarManufactoring.Data
                 new Supplier {SupplierName = "BestDrive", SupplierEmail = "BestDrive@hotmail.com", SupplierContact = "912 112 231", SupplierZipCode = "183", SupplierAddress = "Piazzale Appio, 5, Roma RM, Itália" },
                 new Supplier {SupplierName = "NewCar", SupplierEmail = "NewCar@hotmail.com", SupplierContact = "942 332 231", SupplierZipCode = "71000", SupplierAddress = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" },
                 new Supplier {SupplierName = "BOCH", SupplierEmail = "BoschCarService@outlook.com", SupplierContact = "271 213 862", SupplierZipCode = "6300-877", SupplierAddress = "Quinta da Torre,Guarda" },
-                new Supplier {SupplierName = "COFiCAB", SupplierEmail = "Coficab@gmail.com", SupplierContact = "+351 271 205 090", SupplierZipCode = "6300-230", SupplierAddress = "Lote 46 EN 18.1 Km 2,5 Vale de Estrela, Guarda Portugal" },
+                new Supplier {SupplierName = "COFICAB", SupplierEmail = "Coficab@gmail.com", SupplierContact = "+351 271 205 090", SupplierZipCode = "6300-230", SupplierAddress = "Lote 46 EN 18.1 Km 2,5 Vale de Estrela, Guarda Portugal" },
                 new Supplier {SupplierName = "SODECIA", SupplierEmail = "SODECIA@hotmail.com", SupplierContact = "+351 271 222 470", SupplierZipCode = "6300-625", SupplierAddress = "Parque Industrial da Guarda, GUARDA" }
 
                 );
