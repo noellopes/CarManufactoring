@@ -4,8 +4,6 @@ namespace CarManufactoring.Models
 {
     public class SalesLine
     {
-        [Key]
-        public int SalesLineId { get; set; }
         public int OrderId { get; set; }
         public Order? Order{ get; set; }
 
