@@ -22,7 +22,7 @@ namespace CarManufactoring.Data
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateMachines(db);
-            PopulateMachineMaintenance(db);
+            //PopulateMachineMaintenance(db);
             PopulateCars(db);
             //PopulateCarConfigs(db);
             PopulateShiftType(db);

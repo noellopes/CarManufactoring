@@ -219,6 +219,10 @@ namespace CarManufactoring.Data
         
         
         public DbSet<CarManufactoring.Models.LocalizationCode> LocalizationCode { get; set; }
+
+        
+        
+        public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
  
 
     }

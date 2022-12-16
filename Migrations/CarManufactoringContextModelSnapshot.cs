@@ -277,13 +277,13 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.CollaboratorShifts", b =>
                 {
-                    b.Property<int>("CollaboratorShiftId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("CollaboratorId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CollaboratorShiftId"), 1L, 1);
+                    b.Property<int>("ShiftId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("CollaboratorId")
+                    b.Property<int>("CollaboratorShiftId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("EffectiveEndDate")
@@ -292,12 +292,7 @@ namespace CarManufactoring.Migrations
                     b.Property<DateTime?>("EffectiveStartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ShiftId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CollaboratorShiftId");
-
-                    b.HasIndex("CollaboratorId");
+                    b.HasKey("CollaboratorId", "ShiftId");
 
                     b.HasIndex("ShiftId");
 
@@ -862,6 +857,30 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Production");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.SalesLine", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CarConfigId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId", "CarConfigId");
+
+                    b.HasIndex("CarConfigId");
+
+                    b.ToTable("SalesLine");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>
                 {
                     b.Property<int>("SectionId")
@@ -1069,7 +1088,7 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Stock");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.SupplierParts", b =>
+            modelBuilder.Entity("CarManufactoring.Models.Supplier", b =>
                 {
                     b.Property<int>("SupplierId")
                         .ValueGeneratedOnAdd()
@@ -1251,15 +1270,15 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.CollaboratorShifts", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
-                        .WithMany("Shifts")
+                        .WithMany("CollaboraterShift")
                         .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CarManufactoring.Models.Shift", "Shift")
-                        .WithMany("Collaborator")
+                        .WithMany("ShiftCollaborator")
                         .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Collaborator");
@@ -1351,7 +1370,7 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarManufactoring.Models.SupplierParts", "Supplier")
+                    b.HasOne("CarManufactoring.Models.Supplier", "Supplier")
                         .WithMany()
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1592,9 +1611,9 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
-                    b.Navigation("MaintenanceCollaborators");
+                    b.Navigation("CollaboraterShift");
 
-                    b.Navigation("Shifts");
+                    b.Navigation("MaintenanceCollaborators");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Customer", b =>
@@ -1662,7 +1681,7 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
                 {
-                    b.Navigation("Collaborator");
+                    b.Navigation("ShiftCollaborator");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>
