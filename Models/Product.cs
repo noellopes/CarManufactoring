@@ -1,5 +1,7 @@
 ﻿using CarManufactoring.Data;
 using CarManufactoring.ViewModels;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.ComponentModel.DataAnnotations;
 
@@ -29,13 +31,17 @@ namespace CarManufactoring.Models {
 
         public string StockState { get; } //Wait for stockStorage to be done
 
-        public static IOrderedQueryable<CarParts> SearchProd(CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch) {
+        public static IOrderedQueryable<CarParts> SearchProd(CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch, string BrandSearch) {
+
+
+            var car = context.Car.Include(c => c.CarParts).ToList().ToString();
 
             var carPart = context.CarParts
-                .Where(cp => NameSearch == null || cp.Name.Contains(NameSearch))
-                .Where(cp => TypeSearch == null || cp.PartType.Contains(TypeSearch))
-                .Where(cp => referenceSearch == null || cp.Reference.Contains(referenceSearch))
-                .OrderBy(cp => cp.Name);
+                    .Where(cp =>  BrandSearch == null || cp.Car.All(c => c.Car.Brand.BrandName.Contains(BrandSearch)))
+                    .Where(cp => NameSearch == null || cp.Name.Contains(NameSearch))
+                    .Where(cp => TypeSearch == null || cp.PartType.Contains(TypeSearch))
+                    .Where(cp => referenceSearch == null || cp.Reference.Contains(referenceSearch))
+                    .OrderBy(cp => cp.Name);
 
             return carPart;
 

@@ -32,6 +32,10 @@
                                 <label for="partType" class="form-label">Part Type</label>
                                 <input name="partType" class="form-control" type="search" value="@Model.TypeSearch" />
                             </div>
+                            <div class="mb-3">
+                                <label for="brand" class="form-label">Brand</label>
+                                <input name="brand" class="form-control" type="search" value="@Model.BrandSearch" />
+                            </div>
                             <input type="submit" value="Search" class="btn btn-primary" />
                             <a asp-action="Index" class="btn btn-secondary">Clear Search</a>
                         </form>

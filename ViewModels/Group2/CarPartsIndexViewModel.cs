@@ -8,6 +8,7 @@ namespace CarManufactoring.ViewModels.Group2 {
         public string? NameSearch { get; set; }
         public string? ReferenceSearch { get; set; }
         public string? TypeSearch { get; set; }
+        public string? BrandSearch { get; set; }
 
     }
 }

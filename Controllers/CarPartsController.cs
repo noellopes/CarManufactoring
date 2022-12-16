@@ -22,10 +22,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts
-        public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, int page = 1) {
+        public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, string brand = null, int page = 1) {
             //var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
            
-            var CarParts = Product.SearchProd(_context, name, partType, reference);
+            var CarParts = Product.SearchProd(_context, name, partType, reference, brand);
 
             var pagingInfo = new PagingInfoViewModel(await CarParts.CountAsync(), page);
 
@@ -41,7 +41,8 @@ namespace CarManufactoring.Controllers
                 },
                 NameSearch = name,
                 ReferenceSearch = reference,
-                TypeSearch = partType
+                TypeSearch = partType,
+                BrandSearch = brand
             };
 
             return View(model);

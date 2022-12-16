@@ -83,6 +83,7 @@ namespace CarManufactoring.Data
                 .WithMany(c => c.CarParts)
                 .HasForeignKey(x => x.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
 
         public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
