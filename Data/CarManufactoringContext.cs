@@ -110,7 +110,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
-        public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
+        public DbSet<CarManufactoring.Models.SupplierParts> Supplier { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
 

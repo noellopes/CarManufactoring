@@ -1,0 +1,77 @@
+﻿@model IEnumerable<CarManufactoring.Models.SupplierParts>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+
+<link rel="stylesheet" href="~/css/SupplierLogo.css">
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierContact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SupplierAddress)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @{
+                    Random random = new Random();
+                    int num = random.Next(1, 5);
+                    ViewData["rand"] = num;
+                }
+                <td>
+                    <div class="logo-holder logo-@(ViewData["rand"])">
+                        <h3>@Html.DisplayFor(modelItem => item.SupplierName)</h3>
+                        <p>The Best</p>
+                    </div>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierContact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SupplierAddress)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.SupplierId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.SupplierId" class="btn btn-primary">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.SupplierId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

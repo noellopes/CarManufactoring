@@ -3,11 +3,11 @@ using System.Xml.Linq;
 
 namespace CarManufactoring.Models
 {
-    public class Supplier
+    public class SupplierParts
     {
         [Key]
         public int SupplierId { get; set; }
-        
+
         [Required(ErrorMessage = "Please enter the Name")]
         [Display(Name = "Name")]
         [StringLength(100, MinimumLength = 2)]
@@ -25,7 +25,6 @@ namespace CarManufactoring.Models
         public string SupplierContact { get; set; }
 
 
-        //FilipeSantos-1702072
         [Required]
         [Display(Name = "ZIP Code")]
         [StringLength(8)]
@@ -35,6 +34,5 @@ namespace CarManufactoring.Models
         [Display(Name = "Address")]
         [StringLength(100, MinimumLength = 2)]
         public string SupplierAddress { get; set; }
-        //Acabou
     }
 }

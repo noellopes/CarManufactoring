@@ -15,7 +15,7 @@ namespace CarManufactoring.Data
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-            PopulateTaskType(db);
+            //PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulatePriority(db);
@@ -379,10 +379,10 @@ namespace CarManufactoring.Data
             if (db.Supplier.Any()) return;
 
             db.Supplier.AddRange(
-                new Supplier {SupplierName = "CarParts", SupplierEmail = "CarParts@outlook.com", SupplierContact = "932 712 231", SupplierZipCode = "28600", SupplierAddress = "P.º del Alparrache,  Navalcarnero, Madrid, Espanha" },
-                new Supplier {SupplierName = "MegaCar", SupplierEmail = "MegaCar@gmail.com", SupplierContact = "962 512 231", SupplierZipCode = "3100", SupplierAddress = "24 Bd de Courtais,  Montluçon, França" },
-                new Supplier {SupplierName = "BestDrive", SupplierEmail = "BestDrive@hotmail.com", SupplierContact = "912 112 231", SupplierZipCode = "183", SupplierAddress = "Piazzale Appio, 5, Roma RM, Itália" },
-                new Supplier {SupplierName = "NewCar", SupplierEmail = "NewCar@hotmail.com", SupplierContact = "942 332 231", SupplierZipCode = "71000", SupplierAddress = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" }
+                new SupplierParts {SupplierName = "CarParts", SupplierEmail = "CarParts@outlook.com", SupplierContact = "932 712 231", SupplierZipCode = "28600", SupplierAddress = "P.º del Alparrache,  Navalcarnero, Madrid, Espanha" },
+                new SupplierParts {SupplierName = "MegaCar", SupplierEmail = "MegaCar@gmail.com", SupplierContact = "962 512 231", SupplierZipCode = "3100", SupplierAddress = "24 Bd de Courtais,  Montluçon, França" },
+                new SupplierParts {SupplierName = "BestDrive", SupplierEmail = "BestDrive@hotmail.com", SupplierContact = "912 112 231", SupplierZipCode = "183", SupplierAddress = "Piazzale Appio, 5, Roma RM, Itália" },
+                new SupplierParts {SupplierName = "NewCar", SupplierEmail = "NewCar@hotmail.com", SupplierContact = "942 332 231", SupplierZipCode = "71000", SupplierAddress = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" }
                 
                 );
 
