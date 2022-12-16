@@ -821,30 +821,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Production");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.SalesLine", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CarConfigId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "CarConfigId");
-
-                    b.HasIndex("CarConfigId");
-
-                    b.ToTable("SalesLine");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Section", b =>
                 {
                     b.Property<int>("SectionId")
