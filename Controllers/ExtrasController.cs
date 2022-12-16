@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Drawing.Drawing2D;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +23,28 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Extras
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string descExtra = null, double price = 0, int page = 1)
         {
-              return View(await _context.Extra.ToListAsync());
+            var extras = _context.Extra
+              .Where(m => descExtra == null || m.DescExtra.Contains(descExtra))
+              .Where(m => price == 0 || m.Price.Equals(price))
+              .OrderBy(m => m.Price);
+            var pagingInfo = new PagingInfoViewModel(await extras.CountAsync(), page);
+
+            var model = new ExtraIndexViewModel
+            {
+                ExtraList = new ListViewModel<Extra>
+                {
+                    List = await extras
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                DescExtraSearched = descExtra,
+                PriceSearched = price,
+             
+            };
+            return View(model);
         }
 
         // GET: Extras/Details/5

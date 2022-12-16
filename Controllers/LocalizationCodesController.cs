@@ -10,85 +10,85 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class MaterialUsadoesController : Controller
+    public class LocalizationCodesController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public MaterialUsadoesController(CarManufactoringContext context)
+        public LocalizationCodesController(CarManufactoringContext context)
         {
             _context = context;
         }
 
-        // GET: MaterialUsadoes
+        // GET: LocalizationCodes
         public async Task<IActionResult> Index()
         {
-              return View(await _context.MaterialUsado.ToListAsync());
+              return View(await _context.LocalizationCode.ToListAsync());
         }
 
-        // GET: MaterialUsadoes/Details/5
+        // GET: LocalizationCodes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.MaterialUsado == null)
+            if (id == null || _context.LocalizationCode == null)
             {
                 return NotFound();
             }
 
-            var materialUsado = await _context.MaterialUsado
-                .FirstOrDefaultAsync(m => m.MaterialUsadoId == id);
-            if (materialUsado == null)
+            var localizationCode = await _context.LocalizationCode
+                .FirstOrDefaultAsync(m => m.LocalizationCodeId == id);
+            if (localizationCode == null)
             {
                 return NotFound();
             }
 
-            return View(materialUsado);
+            return View(localizationCode);
         }
 
-        // GET: MaterialUsadoes/Create
+        // GET: LocalizationCodes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MaterialUsadoes/Create
+        // POST: LocalizationCodes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaterialUsadoId,MaterialId,MaterialNome,SemiFinishedId,SemiFinishedNome")] MaterialUsado materialUsado)
+        public async Task<IActionResult> Create([Bind("LocalizationCodeId,Column,Line")] LocalizationCode localizationCode)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(materialUsado);
+                _context.Add(localizationCode);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(materialUsado);
+            return View(localizationCode);
         }
 
-        // GET: MaterialUsadoes/Edit/5
+        // GET: LocalizationCodes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.MaterialUsado == null)
+            if (id == null || _context.LocalizationCode == null)
             {
                 return NotFound();
             }
 
-            var materialUsado = await _context.MaterialUsado.FindAsync(id);
-            if (materialUsado == null)
+            var localizationCode = await _context.LocalizationCode.FindAsync(id);
+            if (localizationCode == null)
             {
                 return NotFound();
             }
-            return View(materialUsado);
+            return View(localizationCode);
         }
 
-        // POST: MaterialUsadoes/Edit/5
+        // POST: LocalizationCodes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaterialUsadoId,MaterialId,MaterialNome,SemiFinishedId,SemiFinishedNome")] MaterialUsado materialUsado)
+        public async Task<IActionResult> Edit(int id, [Bind("LocalizationCodeId,Column,Line")] LocalizationCode localizationCode)
         {
-            if (id != materialUsado.MaterialUsadoId)
+            if (id != localizationCode.LocalizationCodeId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    _context.Update(materialUsado);
+                    _context.Update(localizationCode);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MaterialUsadoExists(materialUsado.MaterialUsadoId))
+                    if (!LocalizationCodeExists(localizationCode.LocalizationCodeId))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(materialUsado);
+            return View(localizationCode);
         }
 
-        // GET: MaterialUsadoes/Delete/5
+        // GET: LocalizationCodes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.MaterialUsado == null)
+            if (id == null || _context.LocalizationCode == null)
             {
                 return NotFound();
             }
 
-            var materialUsado = await _context.MaterialUsado
-                .FirstOrDefaultAsync(m => m.MaterialUsadoId == id);
-            if (materialUsado == null)
+            var localizationCode = await _context.LocalizationCode
+                .FirstOrDefaultAsync(m => m.LocalizationCodeId == id);
+            if (localizationCode == null)
             {
                 return NotFound();
             }
 
-            return View(materialUsado);
+            return View(localizationCode);
         }
 
-        // POST: MaterialUsadoes/Delete/5
+        // POST: LocalizationCodes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.MaterialUsado == null)
+            if (_context.LocalizationCode == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.MaterialUsado'  is null.");
+                return Problem("Entity set 'CarManufactoringContext.LocalizationCode'  is null.");
             }
-            var materialUsado = await _context.MaterialUsado.FindAsync(id);
-            if (materialUsado != null)
+            var localizationCode = await _context.LocalizationCode.FindAsync(id);
+            if (localizationCode != null)
             {
-                _context.MaterialUsado.Remove(materialUsado);
+                _context.LocalizationCode.Remove(localizationCode);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool MaterialUsadoExists(int id)
+        private bool LocalizationCodeExists(int id)
         {
-          return _context.MaterialUsado.Any(e => e.MaterialUsadoId == id);
+          return _context.LocalizationCode.Any(e => e.LocalizationCodeId == id);
         }
     }
 }

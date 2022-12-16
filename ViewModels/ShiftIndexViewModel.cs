@@ -5,6 +5,7 @@ namespace CarManufactoring.ViewModels
     {
         public ListViewModel<Shift> ShiftList { get; set; }
 
+        
         public string? ShiftTypeSearched { get; set; } 
     }
 }

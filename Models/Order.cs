@@ -24,5 +24,7 @@ namespace CarManufactoring.Models
         [Display(Name = "Customer")]
         public int CustomerId { get; set; }
         public Customer? Customer { get; set; }
+
+        public ICollection<SalesLine>? CarConfig { get; set; }
     }
 }

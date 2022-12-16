@@ -11,7 +11,7 @@ namespace CarManufactoring.Data
 {
     public class CarManufactoringContext : DbContext
     {
-        public CarManufactoringContext (DbContextOptions<CarManufactoringContext> options)
+        public CarManufactoringContext(DbContextOptions<CarManufactoringContext> options)
             : base(options)
         {
         }
@@ -21,7 +21,7 @@ namespace CarManufactoring.Data
 
             builder.Properties<DateOnly>()
                 .HaveConversion<DateOnlyConverter>()
-                .HaveColumnType("date");    
+                .HaveColumnType("date");
 
             base.ConfigureConventions(builder);
 
@@ -41,7 +41,7 @@ namespace CarManufactoring.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<SemiFinishedCar>().HasKey(bc => new { bc.SemiFinishedId, bc.CarId });
-            
+
             modelBuilder.Entity<SemiFinishedCar>()
                 .HasOne(x => x.SemiFinished)
                 .WithMany(s => s.Cars)
@@ -68,11 +68,56 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CollaboratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             // to be added == ShiftCollaborator
-        }
 
-        public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
+            modelBuilder.Entity<CollaboratorShifts>().HasKey(bc => new { bc.CollaboratorId, bc.ShiftId });
+
+            modelBuilder.Entity<CollaboratorShifts>()
+                .HasOne(x => x.Collaborator)
+                .WithMany(c => c.CollaboraterShift)
+                .HasForeignKey(x => x.CollaboratorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CollaboratorShifts>()
+                .HasOne(x => x.Shift)
+                .WithMany(c => c.ShiftCollaborator)
+                .HasForeignKey(x => x.ShiftId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+                    
+
+
+            modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.ProductId, bc.CarId });
+
+            modelBuilder.Entity<ModelParts>()
+                .HasOne(x => x.CarParts)
+                .WithMany(c => c.Car)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ModelParts>()
+                .HasOne(x => x.Car)
+                .WithMany(c => c.CarParts)
+                .HasForeignKey(x => x.CarId)
+                .OnDelete(DeleteBehavior.Restrict);
+            
+            modelBuilder.Entity<SalesLine>().HasKey(bc => new { bc.OrderId, bc.CarConfigId });
+
+            modelBuilder.Entity<SalesLine>()
+                .HasOne(x => x.Order)
+                .WithMany(s => s.CarConfig)
+                .HasForeignKey(x => x.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SalesLine>()
+                        .HasOne(x => x.CarConfig)
+                        .WithMany(c => c.Order)
+                        .HasForeignKey(x => x.CarConfigId)
+                        .OnDelete(DeleteBehavior.Restrict);
+        }
+       
+
+    public DbSet<CarManufactoring.Models.MaintenanceCollaborator> MaintenanceCollaborators { get; set; }
 
         public DbSet<CarManufactoring.Models.Task> Task { get; set; } = default!;
         public DbSet<CarManufactoring.Models.Collaborator> Collaborator { get; set; } = default!;
@@ -97,7 +142,6 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
-        public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
 
@@ -151,7 +195,7 @@ namespace CarManufactoring.Data
 
 
 
-        public DbSet<CarManufactoring.Models.MaterialUsado> MaterialUsado { get; set; }
+        public DbSet<CarManufactoring.Models.MaterialUsed> MaterialUsed { get; set; }
 
 
 
@@ -167,7 +211,15 @@ namespace CarManufactoring.Data
 
         
         
+
         public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
+
+        public DbSet<CarManufactoring.Models.Function> Function { get; set; }
+
+        
+        
+        public DbSet<CarManufactoring.Models.LocalizationCode> LocalizationCode { get; set; }
+ 
 
     }
 }

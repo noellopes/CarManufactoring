@@ -15,7 +15,7 @@ namespace CarManufactoring.Data
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-            PopulateTaskType(db);
+            //PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulatePriority(db);
@@ -30,12 +30,10 @@ namespace CarManufactoring.Data
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             PopulateOrder(db);
-            PopulateMaterialUsado(db);
+            PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
-            
-
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -43,10 +41,13 @@ namespace CarManufactoring.Data
             if (db.Material.Any()) return;
 
             db.Material.AddRange(
-                new Material { Nome = "piece1", Description = "piece 1 has dimensions x,y,z and is composed of only 1 material", Type = "iron"},
-                new Material { Nome = "piece2", Description = "piece 2 has dimensions x,y,z and is composed of only 2 material", Type = "wood"},
-                new Material { Nome = "piece3", Description = "piece 2 has dimensions x,y,z and is composed of only 3 material", Type = "wood, iron, gold"}
-               );
+                new Material { Nome = "infused iron", Description = "infused iron has dimensions x,y,z and this color is gray", Type = "iron" },
+                new Material { Nome = "shiny Wood", Description = "shiny Wood has dimensions x,y,z and this color is black", Type = "wood" },
+                new Material { Nome = "wood piano", Description = "wood piano has dimensions x,y,z and this color is brown", Type = "wood" },
+                new Material { Nome = "nappa leather", Description = "nappa leather has dimensions x,y,z and this color is white", Type = "leather" },
+                new Material { Nome = "tempered glass", Description = "tempered glass has dimensions x,y,z", Type = "glass" },
+                new Material { Nome = "frosted glass", Description = "frosted glass has dimensions x,y,z", Type = "glass" }
+                );
 
             db.SaveChanges();
         }
@@ -256,12 +257,12 @@ namespace CarManufactoring.Data
             if(db.Car.Any()) return;
 
             db.Car.AddRange(
-                new Car { CarModel = "Model S", BasePrice = 10000, BrandId = 1, LaunchYear = 2022 },
-                new Car { CarModel = "320d" , BasePrice = 15000, BrandId = 2, LaunchYear = 2022}, 
-                new Car { CarModel = "G-Wagon", BasePrice = 150000, BrandId = 3, LaunchYear = 2020 },
-                new Car { CarModel = "A3", BasePrice = 20000, BrandId = 4, LaunchYear = 2019},
-                new Car { CarModel = "Polo", BasePrice = 18000, BrandId = 5, LaunchYear = 2018},
-                new Car { CarModel = "Focus", BasePrice = 14000, BrandId = 6, LaunchYear = 2022}
+                new Car { CarModel = "Model S", BasePrice = 10000, BrandId = 1, LaunchYear = 2022, TimeProduction= 2},
+                new Car { CarModel = "320d" , BasePrice = 15000, BrandId = 2, LaunchYear = 2022, TimeProduction = 2 }, 
+                new Car { CarModel = "G-Wagon", BasePrice = 150000, BrandId = 3, LaunchYear = 2020, TimeProduction = 3 },
+                new Car { CarModel = "A3", BasePrice = 20000, BrandId = 4, LaunchYear = 2019, TimeProduction = 2 },
+                new Car { CarModel = "Polo", BasePrice = 18000, BrandId = 5, LaunchYear = 2018, TimeProduction = 1 },
+                new Car { CarModel = "Focus", BasePrice = 14000, BrandId = 6, LaunchYear = 2022, TimeProduction = 1 }
                 );
 
             db.SaveChanges() ;
@@ -380,12 +381,13 @@ namespace CarManufactoring.Data
         {
             if (db.SupplierParts.Any()) return;
 
+
             db.SupplierParts.AddRange(
                 new SupplierParts { Name = "CarParts", Email = "CarParts@outlook.com", Contact = "932 712 231", ZipCode = "28600", Address = "P.º del Alparrache,  Navalcarnero, Madrid, Espanha" },
                 new SupplierParts { Name = "MegaCar", Email = "MegaCar@gmail.com", Contact = "962 512 231", ZipCode = "3100", Address = "24 Bd de Courtais,  Montluçon, França" },
                 new SupplierParts { Name = "BestDrive", Email = "BestDrive@hotmail.com", Contact = "912 112 231", ZipCode = "183", Address = "Piazzale Appio, 5, Roma RM, Itália" },
                 new SupplierParts { Name = "NewCar", Email = "NewCar@hotmail.com", Contact = "942 332 231", ZipCode = "71000", Address = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" }
-                
+
                 );
 
             db.SaveChanges();
@@ -414,48 +416,17 @@ namespace CarManufactoring.Data
         }
 
 
-
-        private static void PopulateMaterialUsado(CarManufactoringContext db)
+        private static void PopulateMaterialUsed(CarManufactoringContext db)
         {
-            if (db.MaterialUsado.Any()) return;
+            if (db.MaterialUsed.Any()) return;
 
-            db.MaterialUsado.AddRange(
-                new MaterialUsado
-                {
-                    MaterialId = 1,
-                    SemiFinishedId = 1,
-                    MaterialNome = "Iron",
-                    SemiFinishedNome = "Portinha Passageiro"
-                }, 
-                new MaterialUsado
-                { 
-                    MaterialId = 2, 
-                    SemiFinishedId = 1, 
-                    MaterialNome = "Aluminium",
-                    SemiFinishedNome = "Portinha Passageiro" 
-                }, 
-                new MaterialUsado
-                {
-                    MaterialId = 3,
-                    SemiFinishedId = 1,
-                    MaterialNome = "PLA 2.85",
-                    SemiFinishedNome = "Portinha Passageiro"
-                }, 
-                new MaterialUsado
-                {
-                    MaterialId = 2,
-                    SemiFinishedId = 2,
-                    MaterialNome = "Aluminium",
-                    SemiFinishedNome = "Antenna"
-                },
-                new MaterialUsado
-                {
-                    MaterialId = 3,
-                    SemiFinishedId = 2,
-                    MaterialNome = "PLA 2.85",
-                    SemiFinishedNome = "Antenna"
-                }
-                );
+            db.MaterialUsed.AddRange(
+                new MaterialUsed { MaterialId = 1, SemiFinishedId = 1, Quantity = 10 },
+                new MaterialUsed { MaterialId = 2, SemiFinishedId = 1, Quantity = 23 },
+                new MaterialUsed { MaterialId = 3, SemiFinishedId = 1, Quantity = 2 },
+                new MaterialUsed { MaterialId = 2, SemiFinishedId = 2, Quantity = 8 },
+                new MaterialUsed { MaterialId = 3, SemiFinishedId = 2, Quantity = 14 }
+            );
 
             db.SaveChanges();
         }
@@ -477,5 +448,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+
+     
     }
 }

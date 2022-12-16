@@ -19,6 +19,7 @@
                 Logo
             </th>
             <th>
+
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -32,6 +33,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Address)
+
             </th>
             <th></th>
         </tr>
@@ -47,11 +49,14 @@
                 }
                 <td>
                     <div class="logo-holder logo-@(ViewData["rand"])">
+
                         <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+
                         <p>The Best</p>
                     </div>
                 </td>
                 <td>
+
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
@@ -70,8 +75,11 @@
                     <a asp-action="Edit" asp-route-id="@item.SupplierPartsId" class="btn btn-warning">Edit</a>
                     <a asp-action="Details" asp-route-id="@item.SupplierPartsId" class="btn btn-primary">Details</a>
                     <a asp-action="Delete" asp-route-id="@item.SupplierPartsId" class="btn btn-danger">Delete</a>
+
                 </td>
             </tr>
         }
     </tbody>
+
 </table>
+

@@ -23,12 +23,14 @@ namespace CarManufactoring.Controllers
         public async Task<IActionResult> Index()
         {
               return View(await _context.SupplierParts.ToListAsync());
+
         }
 
         // GET: SupplierParts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.SupplierParts == null)
+
             {
                 return NotFound();
             }
@@ -54,7 +56,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Create([Bind("SupplierPartsId,Name,Email,Contact,ZipCode,Address")] SupplierParts supplierParts)
+
         {
             if (ModelState.IsValid)
             {
@@ -69,11 +73,13 @@ namespace CarManufactoring.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SupplierParts == null)
+
             {
                 return NotFound();
             }
 
             var supplierParts = await _context.SupplierParts.FindAsync(id);
+
             if (supplierParts == null)
             {
                 return NotFound();
@@ -86,6 +92,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public async Task<IActionResult> Edit(int id, [Bind("SupplierPartsId,Name,Email,Contact,ZipCode,Address")] SupplierParts supplierParts)
         {
             if (id != supplierParts.SupplierPartsId)
@@ -102,7 +109,9 @@ namespace CarManufactoring.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
+
                     if (!SupplierPartsExists(supplierParts.SupplierPartsId))
+
                     {
                         return NotFound();
                     }
@@ -119,13 +128,17 @@ namespace CarManufactoring.Controllers
         // GET: SupplierParts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null || _context.SupplierParts == null)
+
             {
                 return NotFound();
             }
 
+
             var supplierParts = await _context.SupplierParts
                 .FirstOrDefaultAsync(m => m.SupplierPartsId == id);
+
             if (supplierParts == null)
             {
                 return NotFound();
@@ -139,6 +152,7 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
             if (_context.SupplierParts == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.SupplierParts'  is null.");
@@ -147,6 +161,7 @@ namespace CarManufactoring.Controllers
             if (supplierParts != null)
             {
                 _context.SupplierParts.Remove(supplierParts);
+
             }
             
             await _context.SaveChangesAsync();
@@ -155,7 +170,9 @@ namespace CarManufactoring.Controllers
 
         private bool SupplierPartsExists(int id)
         {
+
           return _context.SupplierParts.Any(e => e.SupplierPartsId == id);
+
         }
     }
 }

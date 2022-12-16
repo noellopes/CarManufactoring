@@ -10,85 +10,85 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class SuppliersController : Controller
+    public class FunctionsController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public SuppliersController(CarManufactoringContext context)
+        public FunctionsController(CarManufactoringContext context)
         {
             _context = context;
         }
 
-        // GET: Suppliers
+        // GET: Functions
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Supplier.ToListAsync());
+              return View(await _context.Function.ToListAsync());
         }
 
-        // GET: Suppliers/Details/5
+        // GET: Functions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Supplier == null)
+            if (id == null || _context.Function == null)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplier == null)
+            var function = await _context.Function
+                .FirstOrDefaultAsync(m => m.FunctionId == id);
+            if (function == null)
             {
                 return NotFound();
             }
 
-            return View(supplier);
+            return View(function);
         }
 
-        // GET: Suppliers/Create
+        // GET: Functions/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Suppliers/Create
+        // POST: Functions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
+        public async Task<IActionResult> Create([Bind("FunctionId,Name")] Function function)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(supplier);
+                _context.Add(function);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplier);
+            return View(function);
         }
 
-        // GET: Suppliers/Edit/5
+        // GET: Functions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Supplier == null)
+            if (id == null || _context.Function == null)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier.FindAsync(id);
-            if (supplier == null)
+            var function = await _context.Function.FindAsync(id);
+            if (function == null)
             {
                 return NotFound();
             }
-            return View(supplier);
+            return View(function);
         }
 
-        // POST: Suppliers/Edit/5
+        // POST: Functions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
+        public async Task<IActionResult> Edit(int id, [Bind("FunctionId,Name")] Function function)
         {
-            if (id != supplier.SupplierId)
+            if (id != function.FunctionId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    _context.Update(supplier);
+                    _context.Update(function);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.SupplierId))
+                    if (!FunctionExists(function.FunctionId))
                     {
                         return NotFound();
                     }
@@ -113,49 +113,49 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplier);
+            return View(function);
         }
 
-        // GET: Suppliers/Delete/5
+        // GET: Functions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Supplier == null)
+            if (id == null || _context.Function == null)
             {
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier
-                .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplier == null)
+            var function = await _context.Function
+                .FirstOrDefaultAsync(m => m.FunctionId == id);
+            if (function == null)
             {
                 return NotFound();
             }
 
-            return View(supplier);
+            return View(function);
         }
 
-        // POST: Suppliers/Delete/5
+        // POST: Functions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Supplier == null)
+            if (_context.Function == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.Supplier'  is null.");
+                return Problem("Entity set 'CarManufactoringContext.Function'  is null.");
             }
-            var supplier = await _context.Supplier.FindAsync(id);
-            if (supplier != null)
+            var function = await _context.Function.FindAsync(id);
+            if (function != null)
             {
-                _context.Supplier.Remove(supplier);
+                _context.Function.Remove(function);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SupplierExists(int id)
+        private bool FunctionExists(int id)
         {
-          return _context.Supplier.Any(e => e.SupplierId == id);
+          return _context.Function.Any(e => e.FunctionId == id);
         }
     }
 }

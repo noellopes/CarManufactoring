@@ -25,7 +25,7 @@ namespace CarManufactoring.Models
 
         [Display(Name = "Supplier")]
         public int SupplierId { get; set; }
-        public Supplier? Supplier { get; set; }
+        public SupplierParts? Supplier { get; set; }
 
         [Display(Name = "Machine")]
         public int AquisitionId { get; set; }
