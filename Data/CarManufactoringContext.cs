@@ -178,5 +178,9 @@ namespace CarManufactoring.Data
         
         public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
 
+        
+        
+        public DbSet<CarManufactoring.Models.Function> Function { get; set; }
+
     }
 }
