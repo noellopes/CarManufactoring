@@ -16,5 +16,11 @@ namespace CarManufactoring.Models
         [Display(Name = "Delivery Date")]
         [DataType(DataType.Date)]
         public DateTime DeliveryDate { get; set; }
+       
+        public int CarConfigId { get; set; }
+
+        public CarConfig? CarConfig { get; set; }
+
+        public int MaxQuantity { get; set; }
     }
 }
