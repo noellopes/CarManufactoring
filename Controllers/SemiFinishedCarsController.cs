@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: SemiFinishedCars
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.SemiFinishedCar.Include(s => s.Car).Include(s => s.SemiFinished);
+            var carManufactoringContext = _context.SemiFinishedCar.Include(s => s.Car.Brand).Include(s => s.SemiFinished);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -35,14 +35,14 @@ namespace CarManufactoring.Controllers
             }
 
             var semiFinishedCar = await _context.SemiFinishedCar
-                .Include(s => s.Car)
+                .Include(s => s.Car.Brand)
                 .Include(s => s.SemiFinished)
                 .FirstOrDefaultAsync(m => m.SemiFinishedId == id);
             if (semiFinishedCar == null)
             {
-                return NotFound();
+                return View("SemiFinishedCarNotFound");
             }
-
+            ViewBag.SuccessMessage = TempData["SemiFinishedCar_SuccessMessage"];
             return View(semiFinishedCar);
         }
 
@@ -50,7 +50,8 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId");
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId");
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Reference");
+
             return View();
         }
 
@@ -65,10 +66,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(semiFinishedCar);
                 await _context.SaveChangesAsync();
+                TempData["SemiFinishedCar_SuccessMessage"] = "Relation created successfully.";
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId", semiFinishedCar.SemiFinishedId);
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Reference", semiFinishedCar.SemiFinishedId);
             return View(semiFinishedCar);
         }
 
@@ -83,10 +85,10 @@ namespace CarManufactoring.Controllers
             var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(id);
             if (semiFinishedCar == null)
             {
-                return NotFound();
+                return NotFound("SemiFinishedCarNotFound");
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId", semiFinishedCar.SemiFinishedId);
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Reference", semiFinishedCar.SemiFinishedId);
             return View(semiFinishedCar);
         }
 
@@ -108,12 +110,13 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(semiFinishedCar);
                     await _context.SaveChangesAsync();
+                    TempData["SemiFinishedCar_SuccessMessage"] = "Relation Successfully Edited";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!SemiFinishedCarExists(semiFinishedCar.SemiFinishedId))
                     {
-                        return NotFound();
+                        return View("SemiFinishedCarNotFound");
                     }
                     else
                     {
@@ -123,7 +126,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "SemiFinishedId", semiFinishedCar.SemiFinishedId);
+            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Reference", semiFinishedCar.SemiFinishedId);
             return View(semiFinishedCar);
         }
 
@@ -136,12 +139,12 @@ namespace CarManufactoring.Controllers
             }
 
             var semiFinishedCar = await _context.SemiFinishedCar
-                .Include(s => s.Car)
+                .Include(s => s.Car.Brand)
                 .Include(s => s.SemiFinished)
                 .FirstOrDefaultAsync(m => m.SemiFinishedId == id);
             if (semiFinishedCar == null)
             {
-                return NotFound();
+                return View("SemiFinishedCarNotFound");
             }
 
             return View(semiFinishedCar);
@@ -160,10 +163,11 @@ namespace CarManufactoring.Controllers
             if (semiFinishedCar != null)
             {
                 _context.SemiFinishedCar.Remove(semiFinishedCar);
+                 await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+
+            return View("SemiFinishedCarDeleted");
         }
 
         private bool SemiFinishedCarExists(int? id)

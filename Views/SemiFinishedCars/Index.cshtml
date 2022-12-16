@@ -1,39 +1,31 @@
 ﻿@model IEnumerable<CarManufactoring.Models.SemiFinishedCar>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Relation between Semi Finisheds and Cars";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                Relation Id
+                S.F. Family
             </th>
-
             <th>
-                Semi-Finished Id
+                S.F. Reference 
             </th>
-
             <th>
-                Semi-Finished Reference
+                C. Brand
             </th>
-
             <th>
-                Car Brand Id
+                C. Model
             </th>
-
             <th>
-                Car Model
-            </th>
-
-            <th>
-                Year
+                C. LaunchYear
             </th>
             <th></th>
         </tr>
@@ -42,16 +34,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.SemiFinishedCarId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SemiFinished.SemiFinishedId)
+                @Html.DisplayFor(modelItem => item.SemiFinished.Family)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SemiFinished.Reference)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Car.CarId)
+                @Html.DisplayFor(modelItem => item.Car.Brand.BrandName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Car.CarModel)
@@ -60,9 +49,9 @@
                 @Html.DisplayFor(modelItem => item.Car.LaunchYear)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="Edit" asp-route-id="@item.SemiFinishedCarId" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SemiFinishedCarId" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SemiFinishedCarId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

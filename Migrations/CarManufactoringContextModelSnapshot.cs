@@ -945,22 +945,7 @@ namespace CarManufactoring.Migrations
                     b.Property<int?>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Brand")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Model")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Name")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Reference")
-                        .HasColumnType("int");
-
                     b.Property<int>("SemiFinishedCarId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("SemiFinishedId", "CarId");
