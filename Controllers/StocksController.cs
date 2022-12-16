@@ -49,8 +49,8 @@ namespace CarManufactoring.Controllers
         // GET: Stocks/Create
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome");
             return View();
         }
 
@@ -71,8 +71,8 @@ namespace CarManufactoring.Controllers
 
                 return View("Details", stock);
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
             return View(stock);
         }
 
@@ -89,8 +89,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
             return View(stock);
         }
 
@@ -126,8 +126,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
             return View(stock);
         }
 
