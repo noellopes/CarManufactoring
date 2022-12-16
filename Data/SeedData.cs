@@ -218,6 +218,20 @@ namespace CarManufactoring.Data
             db.SaveChanges() ;
         }
 
+
+        //Seed da tabela MachineAquisition
+        public static void PopulateMachineAquisition(CarManufactoringContext db)
+        {
+            if (db.MachineAquisition.Any()) return;
+            db.MachineAquisition.AddRange(
+                new MachineAquisition { MachineAquisitionName = "ARC Mate", Price = 55000, QuantityOfParts = 10, ProducedParts = 8, MaintenancePrice = 15, Operation = "avanços de produtividade e tempos de integração rápidos" },
+                new MachineAquisition { MachineAquisitionName = "ARC Mate 120", Price = 60000, QuantityOfParts = 10, ProducedParts = 10, MaintenancePrice = 20, Operation = "É um robô versátil que pode soldar peças grandes graças ao seu alcance horizontal"},
+                new MachineAquisition { MachineAquisitionName = "ARC ", Price = 50000, QuantityOfParts = 10, ProducedParts = 5, MaintenancePrice = 10000, Operation = "excelente desempenho em tarefas estreitas. Os custos operacionais são reduzidos e a instalação é fácil." }
+                );
+
+            db.SaveChanges();
+        }
+
         // SeedData for CarConfig Class 
         private static void PopulateCarConfigs(CarManufactoringContext db)
         {
