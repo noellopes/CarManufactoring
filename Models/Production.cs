@@ -9,10 +9,12 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Order Date")]
+        [DataType(DataType.Date)]
         public DateTime OrderDate { get; set; }
 
         [Required]
         [Display(Name = "Delivery Date")]
+        [DataType(DataType.Date)]
         public DateTime DeliveryDate { get; set; }
     }
 }
