@@ -101,19 +101,6 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CarId)
                 .OnDelete(DeleteBehavior.Restrict);
             
-            modelBuilder.Entity<SalesLine>().HasKey(bc => new { bc.OrderId, bc.CarConfigId });
-
-            modelBuilder.Entity<SalesLine>()
-                .HasOne(x => x.Order)
-                .WithMany(s => s.CarConfig)
-                .HasForeignKey(x => x.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<SalesLine>()
-                        .HasOne(x => x.CarConfig)
-                        .WithMany(c => c.Order)
-                        .HasForeignKey(x => x.CarConfigId)
-                        .OnDelete(DeleteBehavior.Restrict);
         }
        
 
