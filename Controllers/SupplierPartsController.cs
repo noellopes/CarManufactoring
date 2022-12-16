@@ -10,22 +10,22 @@ using CarManufactoring.Models;
 
 namespace CarManufactoring.Controllers
 {
-    public class SuppliersController : Controller
+    public class SupplierPartsController : Controller
     {
         private readonly CarManufactoringContext _context;
 
-        public SuppliersController(CarManufactoringContext context)
+        public SupplierPartsController(CarManufactoringContext context)
         {
             _context = context;
         }
 
-        // GET: Suppliers
+        // GET: SupplierParts
         public async Task<IActionResult> Index()
         {
               return View(await _context.Supplier.ToListAsync());
         }
 
-        // GET: Suppliers/Details/5
+        // GET: SupplierParts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -33,39 +33,39 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier
+            var supplierParts = await _context.Supplier
                 .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplier == null)
+            if (supplierParts == null)
             {
                 return NotFound();
             }
 
-            return View(supplier);
+            return View(supplierParts);
         }
 
-        // GET: Suppliers/Create
+        // GET: SupplierParts/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Suppliers/Create
+        // POST: SupplierParts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
+        public async Task<IActionResult> Create([Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] SupplierParts supplierParts)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(supplier);
+                _context.Add(supplierParts);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplier);
+            return View(supplierParts);
         }
 
-        // GET: Suppliers/Edit/5
+        // GET: SupplierParts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -73,22 +73,22 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier.FindAsync(id);
-            if (supplier == null)
+            var supplierParts = await _context.Supplier.FindAsync(id);
+            if (supplierParts == null)
             {
                 return NotFound();
             }
-            return View(supplier);
+            return View(supplierParts);
         }
 
-        // POST: Suppliers/Edit/5
+        // POST: SupplierParts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
+        public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] SupplierParts supplierParts)
         {
-            if (id != supplier.SupplierId)
+            if (id != supplierParts.SupplierId)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    _context.Update(supplier);
+                    _context.Update(supplierParts);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SupplierExists(supplier.SupplierId))
+                    if (!SupplierPartsExists(supplierParts.SupplierId))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(supplier);
+            return View(supplierParts);
         }
 
-        // GET: Suppliers/Delete/5
+        // GET: SupplierParts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -124,17 +124,17 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier
+            var supplierParts = await _context.Supplier
                 .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplier == null)
+            if (supplierParts == null)
             {
                 return NotFound();
             }
 
-            return View(supplier);
+            return View(supplierParts);
         }
 
-        // POST: Suppliers/Delete/5
+        // POST: SupplierParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -143,17 +143,17 @@ namespace CarManufactoring.Controllers
             {
                 return Problem("Entity set 'CarManufactoringContext.Supplier'  is null.");
             }
-            var supplier = await _context.Supplier.FindAsync(id);
-            if (supplier != null)
+            var supplierParts = await _context.Supplier.FindAsync(id);
+            if (supplierParts != null)
             {
-                _context.Supplier.Remove(supplier);
+                _context.Supplier.Remove(supplierParts);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SupplierExists(int id)
+        private bool SupplierPartsExists(int id)
         {
           return _context.Supplier.Any(e => e.SupplierId == id);
         }

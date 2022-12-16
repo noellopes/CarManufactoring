@@ -8,7 +8,7 @@ namespace CarManufactoring.Models
     {
         //FilipeSantos-1702072
         public int SupplierId { get; set; }
-        public Supplier Supplier {get; set;}
+        public SupplierParts Supplier {get; set;}
         public int ProductId { get; set; }
         public Product Product {get; set;}
 
