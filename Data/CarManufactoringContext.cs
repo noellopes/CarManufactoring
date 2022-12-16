@@ -70,6 +70,23 @@ namespace CarManufactoring.Data
 
             // to be added == ShiftCollaborator
 
+            modelBuilder.Entity<CollaboratorShifts>().HasKey(bc => new { bc.CollaboratorId, bc.ShiftId });
+
+            modelBuilder.Entity<CollaboratorShifts>()
+                .HasOne(x => x.Collaborator)
+                .WithMany(c => c.CollaboraterShift)
+                .HasForeignKey(x => x.CollaboratorId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CollaboratorShifts>()
+                .HasOne(x => x.Shift)
+                .WithMany(c => c.ShiftCollaborator)
+                .HasForeignKey(x => x.ShiftId)
+                .OnDelete(DeleteBehavior.Restrict);
+                
+                    
+
+
             modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.ProductId, bc.CarId });
 
             modelBuilder.Entity<ModelParts>()
