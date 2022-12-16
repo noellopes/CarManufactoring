@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,27 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators
-        public async Task<IActionResult> Index()
+
+        public async Task<IActionResult> Index(string Name = null, int page = 0)
         {
-            var carManufactoringContext = _context.Collaborator.Include(c => c.Genders);
-            return View(await carManufactoringContext.ToListAsync());
+            var collaborators = _context.Collaborator
+                .Include(c => c.Genders)
+                .Where(m => Name == null || m.Name.Contains(Name))
+                .OrderBy(m => m.Name);
+            var pagingInfo = new PagingInfoViewModel(await collaborators.CountAsync(), page);
+
+            var model = new CollaboratorIndexViewModel
+            {
+                collaboratorList = new ListViewModel<Collaborator>
+                {
+                    List = await collaborators
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                NameSearched = Name,
+            };
+            return View(model);
         }
 
         // GET: Collaborators/Details/5
