@@ -1483,24 +1483,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.SalesLine", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.CarConfig", "CarConfig")
-                        .WithMany("Order")
-                        .HasForeignKey("CarConfigId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.Order", "Order")
-                        .WithMany("CarConfig")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CarConfig");
-
-                    b.Navigation("Order");
-                });
 
             modelBuilder.Entity("CarManufactoring.Models.SectionManager", b =>
                 {
