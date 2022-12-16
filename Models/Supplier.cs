@@ -26,7 +26,7 @@ namespace CarManufactoring.Models
         public string SupplierContact { get; set; }
 
 
-        //FilipeSantos-1702072
+        
         [Required]
         [Display(Name = "ZIP Code")]
         [StringLength(20)]
@@ -35,7 +35,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Address")]
         [StringLength(100, MinimumLength = 2)]
-        public string SupplierAddress { get; set; }
-        //Acabou
+        public string SupplierAddress { get; set; }    
+        
     }
 }
