@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221216114830_Functions")]
+    partial class Functions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -476,29 +478,6 @@ namespace CarManufactoring.Migrations
                     b.HasIndex("SemiFinishedId");
 
                     b.ToTable("InspectionAndTest");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.LocalizationCode", b =>
-                {
-                    b.Property<int>("LocalizationCodeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalizationCodeId"), 1L, 1);
-
-                    b.Property<string>("Column")
-                        .IsRequired()
-                        .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)");
-
-                    b.Property<string>("Line")
-                        .IsRequired()
-                        .HasMaxLength(1)
-                        .HasColumnType("nvarchar(1)");
-
-                    b.HasKey("LocalizationCodeId");
-
-                    b.ToTable("LocalizationCode");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Machine", b =>
