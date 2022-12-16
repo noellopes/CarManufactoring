@@ -50,7 +50,7 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName");
-            //ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress");
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            //ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            //ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -123,7 +123,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            //ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
