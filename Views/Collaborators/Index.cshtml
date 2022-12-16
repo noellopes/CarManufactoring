@@ -1,71 +1,109 @@
-﻿@model IEnumerable<CarManufactoring.Models.Collaborator>
+﻿@model CollaboratorIndexViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Collaborators";
 }
 
-<h1>Index</h1>
+<h2>@ViewBag.title</h2>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<p><a asp-action="Create">Create New</a></p>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Collaborator Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="Name" class="form-label" Type"></label>
+                <input name="Name" class="form-control" type="search" value="@Model.NameSearched" placeholder="Collaborators Name"/>
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => new Collaborator().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BirthDate)
+                @Html.DisplayNameFor(model => new Collaborator().BirthDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                @Html.DisplayNameFor(model => new Collaborator().Phone)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => new Collaborator().Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genders)
+                @Html.DisplayNameFor(model => new Collaborator().Genders)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.OnDuty)
+                @Html.DisplayNameFor(model => new Collaborator().OnDuty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => new Collaborator().Status)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BirthDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Genders.GenderDefinition)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnDuty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.CollaboratorId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CollaboratorId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CollaboratorId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.collaboratorList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genders.GenderDefinition)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OnDuty)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CollaboratorId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CollaboratorId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.CollaboratorId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.collaboratorList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+
+        @for (int p = Model.collaboratorList.PagingInfo.InitialPageToShow; p <= Model.collaboratorList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.collaboratorList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.collaboratorList.PagingInfo.CurrentPage == Model.collaboratorList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.collaboratorList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
