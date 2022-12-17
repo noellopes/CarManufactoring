@@ -24,8 +24,12 @@
             <div class="accordion-body">
                 <form asp-action="Index" method="get">
                     <div class="mb-3">
-                        <label for="configname" class="form-label">Config Name</label>
+                        <label for="configname" class="form-label">Configuration Name</label>
                         <input name="configname" class="form-control" type="search" value="@Model.ConfigNameSearched" />
+                    </div>   
+                    <div class="mb-3">
+                        <label for="brand" class="form-label">Brand</label>
+                        <input name="brand" class="form-control" type="search" value="@Model.BrandSearched" />
                     </div>
                     <div class="mb-3">
                         <label for="car" class="form-label">Car Model</label>
@@ -39,6 +43,7 @@
                         <label for="addedprice" class="form-label">Added Price</label>
                         <input name="addedprice" class="form-control" type="search" value="@Model.AddedPriceSearched" />
                     </div>
+                   
                     <input type="submit" value="Search" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
                 </form>
@@ -53,6 +58,9 @@
                 @Html.DisplayNameFor(model => new CarConfig().ConfigName)
             </th>
             <th>
+                @Html.DisplayNameFor(model => new CarConfig().Car.Brand.BrandName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => new CarConfig().Car.CarModel)
             </th>
             <th>
@@ -61,6 +69,7 @@
             <th>
                 @Html.DisplayNameFor(model => new CarConfig().AddedPrice)
             </th>
+
             <th></th>
         </tr>
     </thead>
@@ -69,7 +78,10 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ConfigName)
-            </td>          
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.Brand.BrandName)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Car.CarModel)
             </td>

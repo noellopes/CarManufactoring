@@ -13,5 +13,7 @@ namespace CarManufactoring.ViewModels
         public int? NumExtrasSearched { get; set; } 
 
         public string? CarSearched { get; set; } 
+
+        public string? BrandSearched { get; set; }  
     }
 }
