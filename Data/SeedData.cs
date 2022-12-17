@@ -11,7 +11,7 @@ namespace CarManufactoring.Data
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            PopulateSemiFinishedCars(db);
+            //PopulateSemiFinishedCars(db);
             PopulateMaterials(db); 
             PopulateSection(db);
             PopulateSectionManager(db);
