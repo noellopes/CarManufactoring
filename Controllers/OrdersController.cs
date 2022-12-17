@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,33 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(DateTime OrderDate = default , string OrderState = null, DateTime StateDate = default , string Customer = null,  int page = 1)
         {
-            var carManufactoringContext = _context.Order.Include(o => o.Customer);
-            return View(await carManufactoringContext.ToListAsync());
+
+            var orders = _context.Order.Include(c => c.Customer)
+                .Where(c => OrderDate == default || c.OrderDate.Equals(OrderDate))
+                .Where(c => OrderState == null || c.OrderState.Contains(OrderState))
+                .Where(c => StateDate == default || c.StateDate.Equals(StateDate))
+                .Where(c => Customer == null || c.Customer.CustomerName.Contains(Customer))
+                .OrderBy(c => c.OrderDate);
+            var pagingInfo = new PagingInfoViewModel(await orders.CountAsync(), page);
+
+            var model = new OrderIndexViewModel
+            {
+                OrderList = new ListViewModel<Order>
+                {
+                    List = await orders
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                OrderDateSearched = OrderDate,
+                OrderStateSearched = OrderState,
+                StateDateSearched = StateDate,
+                CustomerSearched = Customer,
+                
+            };
+            return View(model);
         }
 
         // GET: Orders/Details/5
