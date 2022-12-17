@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,33 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarConfigs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string configName = null, int numExtras = 0, double addedPrice = 0, string car = null, int page = 1)
         {
-            var carManufactoringContext = _context.CarConfig.Include(c => c.Car);
-            return View(await carManufactoringContext.ToListAsync());
+            var carconfigs = _context.CarConfig.Include(c => c.Car)
+                 .Where(c => configName == null || c.ConfigName.Contains(configName))
+                 .Where(c => numExtras == 0 || c.NumExtras.Equals(numExtras))
+                 .Where(c => addedPrice == 0 || c.AddedPrice.Equals(addedPrice))
+                 .Where(c => car == null || c.Car.CarModel.Contains(car))
+                 .OrderBy(c => c.AddedPrice);
+
+            var pagingInfo = new PagingInfoViewModel(await carconfigs.CountAsync(), page);
+
+            var model = new CarConfigIndexViewModel
+            {
+                CarConfigsList = new ListViewModel<CarConfig>
+                {
+                    List = await carconfigs
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                ConfigNameSearched = configName,
+                NumExtrasSearched = numExtras,
+                AddedPriceSearched = addedPrice,
+                CarSearched = car,
+            };
+
+                 return View(model);
         }
 
         // GET: CarConfigs/Details/5
