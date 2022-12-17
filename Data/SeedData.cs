@@ -35,6 +35,7 @@ namespace CarManufactoring.Data
             PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
+            PopulateOrderState(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -463,7 +464,20 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        private static void PopulateOrderState(CarManufactoringContext db)
+        {
+            if (db.OrderState.Any()) return;
 
-     
+            db.OrderState.AddRange(
+                new OrderState { OrderStateName = "Pendente" },
+                new OrderState { OrderStateName = "Em Produçao" },
+                new OrderState { OrderStateName = "Finalizado" }
+                );
+
+            db.SaveChanges();
+        }
+
+
+
     }
 }
