@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using System.Runtime.ConstrainedExecution;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,12 +22,12 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Orders
-        public async Task<IActionResult> Index(DateTime OrderDate = default , string OrderState = null, DateTime StateDate = default , string Customer = null,  int page = 1)
+        public async Task<IActionResult> Index(DateTime OrderDate = default, string OrderState = null, DateTime StateDate = default, string Customer = null, int page = 1)
         {
 
-            var orders = _context.Order.Include(c => c.Customer)
+            var orders = _context.Order.Include(c => c.Customer).Include(c => c.OrderState)
                 .Where(c => OrderDate == default || c.OrderDate.Equals(OrderDate))
-                .Where(c => OrderState == null || c.OrderState.Contains(OrderState))
+                .Where(c => OrderState == null || c.OrderState.OrderStateName.Contains(OrderState))
                 .Where(c => StateDate == default || c.StateDate.Equals(StateDate))
                 .Where(c => Customer == null || c.Customer.CustomerName.Contains(Customer))
                 .OrderBy(c => c.OrderDate);
@@ -45,10 +46,11 @@ namespace CarManufactoring.Controllers
                 OrderStateSearched = OrderState,
                 StateDateSearched = StateDate,
                 CustomerSearched = Customer,
-                
+
             };
             return View(model);
         }
+
 
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -60,12 +62,13 @@ namespace CarManufactoring.Controllers
 
             var order = await _context.Order
                 .Include(o => o.Customer)
+                .Include(o => o.OrderState)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(order);
         }
 
@@ -74,6 +77,7 @@ namespace CarManufactoring.Controllers
         {
             Order obj = new();
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName");
+            ViewData["OrderStateId"] = new SelectList(_context.OrderState, "OrderStateId", "OrderStateName");
             return View(obj);
         }
 
@@ -82,15 +86,18 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,OrderState,StateDate,CustomerId")] Order order)
+        public async Task<IActionResult> Create([Bind("OrderId,OrderDate,OrderStateId,StateDate,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(order);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Order created successfully.";
+                return RedirectToAction(nameof(Details), new { id = order.OrderId });
+
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
+            ViewData["OrderStateId"] = new SelectList(_context.OrderState, "OrderStateId", "OrderStateName", order.OrderStateId);
             return View(order);
         }
 
@@ -108,6 +115,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
+            ViewData["OrderStateId"] = new SelectList(_context.OrderState, "OrderStateId", "OrderStateName", order.OrderStateId);
             return View(order);
         }
 
@@ -116,7 +124,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,OrderState,StateDate,CustomerId")] Order order)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,OrderStateId,StateDate,CustomerId")] Order order)
         {
             if (id != order.OrderId)
             {
@@ -144,6 +152,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
+            ViewData["OrderStateId"] = new SelectList(_context.OrderState, "OrderStateId", "OrderStateName", order.OrderStateId);
             return View(order);
         }
 
@@ -157,12 +166,14 @@ namespace CarManufactoring.Controllers
 
             var order = await _context.Order
                 .Include(o => o.Customer)
+                .Include(o => o.OrderState)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(order);
         }
 
@@ -180,9 +191,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.Order.Remove(order);
             }
-            
+
+            _context.Order.Remove(order);
+            TempData["SuccessMessage"] = "Order removed successfully.";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("OrderDeleted");
         }
 
         private bool OrderExists(int id)

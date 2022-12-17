@@ -225,10 +225,10 @@ namespace CarManufactoring.Data
             if (db.MachineMaintenance.Any()) return;
 
             db.MachineMaintenance.AddRange(
-                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
-                 new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
-                 new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
-                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
+                // new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
+                // new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
+                // new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
+                // new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
 
                 );
 
@@ -241,9 +241,9 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1, SemiFinishedId = 1 },
-                new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2, SemiFinishedId = 2 },
-                new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3, SemiFinishedId = 3 }
+               // new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1, SemiFinishedId = 1 },
+               // new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2, SemiFinishedId = 2 },
+               // new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3, SemiFinishedId = 3 }
 
             );
 
@@ -364,9 +364,9 @@ namespace CarManufactoring.Data
             if (db.Order.Any()) return;
 
             db.Order.AddRange(
-                new Order { OrderDate = new DateTime(2022, 12, 02, 10, 30, 50), OrderState = "Pendente", StateDate = new DateTime(2022, 12, 02, 10, 30, 50), CustomerId = 1 },
-                new Order { OrderDate = new DateTime(2020, 12, 02, 08, 30, 10), OrderState = "Em produçao", StateDate = new DateTime(2022, 12, 01, 15, 50, 10), CustomerId = 2 },
-                new Order { OrderDate = new DateTime(2019, 12, 03, 10, 30, 50), OrderState = "Finalizada", StateDate = new DateTime(2022, 11, 30, 11, 45, 27), CustomerId = 3 }
+                new Order { OrderDate = new DateTime(2022, 12, 02, 10, 30, 50), OrderStateId = 1, StateDate = new DateTime(2022, 12, 02, 10, 30, 50), CustomerId = 1 },
+                new Order { OrderDate = new DateTime(2020, 12, 02, 08, 30, 10), OrderStateId = 2, StateDate = new DateTime(2022, 12, 01, 15, 50, 10), CustomerId = 2 },
+                new Order { OrderDate = new DateTime(2019, 12, 03, 10, 30, 50), OrderStateId = 3, StateDate = new DateTime(2022, 11, 30, 11, 45, 27), CustomerId = 3 }
 
                 );
 

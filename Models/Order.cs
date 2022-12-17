@@ -13,8 +13,8 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Order State")]
-        [StringLength(25)]
-        public string OrderState { get; set; }
+        public int OrderStateId { get; set; }
+        public OrderState? OrderState { get; set; }
 
         [Required]
         [Display(Name = "State Date")]
