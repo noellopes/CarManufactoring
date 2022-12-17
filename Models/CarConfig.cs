@@ -7,7 +7,7 @@ namespace CarManufactoring.Models
         public int CarConfigId { get; set; }
 
         [Required]
-        [Display(Name ="Name")]
+        [Display(Name ="Configuration Name")]
         public string ConfigName { get; set; }
 
         [Required]
