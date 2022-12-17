@@ -224,6 +224,10 @@ namespace CarManufactoring.Data
         
         
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
+
+        
+        
+        public DbSet<CarManufactoring.Models.OrderState> OrderState { get; set; }
  
 
     }
