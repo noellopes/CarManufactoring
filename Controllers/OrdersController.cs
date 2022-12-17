@@ -48,8 +48,9 @@ namespace CarManufactoring.Controllers
         // GET: Orders/Create
         public IActionResult Create()
         {
+            Order obj = new();
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName");
-            return View();
+            return View(obj);
         }
 
         // POST: Orders/Create

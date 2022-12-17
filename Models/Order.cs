@@ -9,7 +9,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Order Date")]
-        public String OrderDate { get; set; }
+        public DateTime OrderDate { get; set; } = System.DateTime.Now;
 
         [Required]
         [Display(Name = "Order State")]
