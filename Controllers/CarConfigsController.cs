@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
@@ -21,13 +17,14 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarConfigs
-        public async Task<IActionResult> Index(string configName = null, int numExtras = 0, double addedPrice = 0, string car = null, string brand = null,  int page = 1)
+        public async Task<IActionResult> Index(string configName = null, int numExtras = 0, double addedPrice = 0, double finalPrice = 0,string car = null, string brand = null,  int page = 1)
         {
             var carconfigs = _context.CarConfig.Include(c => c.Car).Include(c => c.Car.Brand)
                  .Where(c => configName == null || c.ConfigName.Contains(configName))
                  .Where(c => numExtras == 0 || c.NumExtras.Equals(numExtras))
                  .Where(c => addedPrice == 0 || c.AddedPrice.Equals(addedPrice))
                  .Where(c => car == null || c.Car.CarModel.Contains(car))
+                 .Where(c => finalPrice == 0 || c.FinalPrice.Equals(finalPrice))
                  .Where(c => brand == null || c.Car.Brand.BrandName.Contains(brand))
                  .OrderBy(c => c.AddedPrice);
 
@@ -45,6 +42,7 @@ namespace CarManufactoring.Controllers
                 ConfigNameSearched = configName,
                 NumExtrasSearched = numExtras,
                 AddedPriceSearched = addedPrice,
+                FinalPriceSearched = finalPrice,
                 BrandSearched = brand,
                 CarSearched = car,
             };
@@ -83,7 +81,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarConfigId,ConfigName,NumExtras,AddedPrice,CarId")] CarConfig carConfig)
+        public async Task<IActionResult> Create([Bind("CarConfigId,ConfigName,NumExtras,AddedPrice,FinalPrice,CarId")] CarConfig carConfig)
         {
             if (ModelState.IsValid)
             {
@@ -117,7 +115,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarConfigId,ConfigName,NumExtras,AddedPrice,CarId,BrandId")] CarConfig carConfig)
+        public async Task<IActionResult> Edit(int id, [Bind("CarConfigId,ConfigName,NumExtras,AddedPrice,FinalPrice,CarId")] CarConfig carConfig)
         {
             if (id != carConfig.CarConfigId)
             {

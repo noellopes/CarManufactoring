@@ -15,5 +15,7 @@ namespace CarManufactoring.ViewModels
         public string? CarSearched { get; set; } 
 
         public string? BrandSearched { get; set; }  
+
+        public double? FinalPriceSearched { get; set; }
     }
 }

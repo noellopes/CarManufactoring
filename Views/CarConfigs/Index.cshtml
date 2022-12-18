@@ -43,7 +43,10 @@
                         <label for="addedprice" class="form-label">Added Price</label>
                         <input name="addedprice" class="form-control" type="search" value="@Model.AddedPriceSearched" />
                     </div>
-                   
+                    <div class="mb-3">
+                        <label for="finalprice" class="form-label">Final Price</label>
+                        <input name="finalprice" class="form-control" type="search" value="@Model.FinalPriceSearched" />
+                    </div>
                     <input type="submit" value="Search" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
                 </form>
@@ -67,7 +70,13 @@
                 @Html.DisplayNameFor(model => new CarConfig().NumExtras)
             </th>
             <th>
+                @Html.DisplayNameFor(model => new CarConfig().Car.BasePrice)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => new CarConfig().AddedPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new CarConfig().FinalPrice)
             </th>
             <th></th>
         </tr>
@@ -88,7 +97,13 @@
                 @Html.DisplayFor(modelItem => item.NumExtras)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Car.BasePrice)€
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.AddedPrice)€
+            </td>
+             <td>
+                @Html.DisplayFor(modelItem => item.FinalPrice)€
             </td>
             <td>
               <a asp-action="Edit" asp-route-id="@item.CarConfigId" class="btn btn-warning">Edit</a> 
