@@ -67,6 +67,9 @@
                 @Html.DisplayNameFor(model => new CarConfig().NumExtras)
             </th>
             <th>
+                @Html.DisplayNameFor(model => new CarConfig().Car.BasePrice)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => new CarConfig().AddedPrice)
             </th>
             <th></th>
@@ -86,6 +89,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumExtras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Car.BasePrice)€
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AddedPrice)€
