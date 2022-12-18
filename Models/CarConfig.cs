@@ -21,7 +21,7 @@ namespace CarManufactoring.Models
         public double AddedPrice { get; set; }
 
         [Required]
-        [Display(Name = "Final price")]
+        [Display(Name = "Final Price")]
         [Range(0, int.MaxValue, ErrorMessage = "Value must be greater than zero")]
         public double FinalPrice { get; set; }
 
