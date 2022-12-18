@@ -18,7 +18,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "State Date")]
-        public DateTime StateDate { get; set; }
+        public DateTime StateDate { get; set; } = System.DateTime.Now;
 
         [Required]
         [Display(Name = "Customer")]
