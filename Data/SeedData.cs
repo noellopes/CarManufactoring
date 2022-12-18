@@ -30,7 +30,7 @@ namespace CarManufactoring.Data
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            PopulateOrder(db);
+            //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
@@ -290,12 +290,12 @@ namespace CarManufactoring.Data
             if(db.CarConfig.Any()) return;
 
             db.CarConfig.AddRange(
-                new CarConfig { AddedPrice = 5000, ConfigName = "Performance Line", CarId = 1, NumExtras = 5 },
-                new CarConfig {  AddedPrice = 7000, ConfigName = "M Line", CarId = 2, NumExtras = 7 },
-                new CarConfig {  AddedPrice = 10000, ConfigName = "Brabus ", CarId = 3, NumExtras = 8 },
-                new CarConfig { AddedPrice = 7000, ConfigName = "S Line", CarId = 4, NumExtras = 6 },
-                new CarConfig { AddedPrice = 5000, ConfigName = "R Line", CarId = 5, NumExtras = 4 },
-                new CarConfig { AddedPrice = 5000, ConfigName = "ST Line", CarId = 6, NumExtras = 5 }
+                new CarConfig { AddedPrice = 5000, ConfigName = "Performance Line",FinalPrice = 15000 ,CarId = 1, NumExtras = 5 },
+                new CarConfig {  AddedPrice = 7000, ConfigName = "M Line", CarId = 2,FinalPrice = 22000 ,NumExtras = 7 },
+                new CarConfig {  AddedPrice = 10000, ConfigName = "Brabus ", CarId = 3,FinalPrice = 160000,NumExtras = 8 },
+                new CarConfig { AddedPrice = 7000, ConfigName = "S Line", CarId = 4, FinalPrice = 27000  ,NumExtras = 6 },
+                new CarConfig { AddedPrice = 5000, ConfigName = "R Line", CarId = 5, FinalPrice = 23000,NumExtras = 4 },
+                new CarConfig { AddedPrice = 5000, ConfigName = "ST Line", CarId = 6, FinalPrice = 19000 ,NumExtras = 5 }
                 );
 
             db.SaveChanges();
