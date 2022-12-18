@@ -12,7 +12,7 @@ namespace CarManufactoring.ViewModels
 
         public DateTime? StateDateSearched { get; set; }
 
-        public string CustomerSearched { get; set; }
+        public string? CustomerSearched { get; set; }
 
     }
 }
