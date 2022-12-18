@@ -69,7 +69,6 @@
             <th>
                 @Html.DisplayNameFor(model => new CarConfig().AddedPrice)
             </th>
-
             <th></th>
         </tr>
     </thead>
@@ -91,7 +90,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.AddedPrice)€
             </td>
-
             <td>
               <a asp-action="Edit" asp-route-id="@item.CarConfigId" class="btn btn-warning">Edit</a> 
               <a asp-action="Details" asp-route-id="@item.CarConfigId" class="btn btn-info">Details</a> 
