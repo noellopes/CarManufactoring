@@ -157,7 +157,7 @@ namespace CarManufactoring.Controllers
             }
 
             var carConfig = await _context.CarConfig
-                .Include(c => c.Car)
+                .Include(c => c.Car).Include(c => c.Car.Brand)
                 .FirstOrDefaultAsync(m => m.CarConfigId == id);
             if (carConfig == null)
             {
