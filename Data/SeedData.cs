@@ -471,7 +471,8 @@ namespace CarManufactoring.Data
             db.OrderState.AddRange(
                 new OrderState { OrderStateName = "Pendente" },
                 new OrderState { OrderStateName = "Em Produçao" },
-                new OrderState { OrderStateName = "Finalizado" }
+                new OrderState { OrderStateName = "Finalizado" },
+                new OrderState { OrderStateName = "Cancelado" }
                 );
 
             db.SaveChanges();
