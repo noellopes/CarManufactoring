@@ -228,6 +228,10 @@ namespace CarManufactoring.Data
         
         
         public DbSet<CarManufactoring.Models.OrderState> OrderState { get; set; }
+
+        
+        
+        public DbSet<CarManufactoring.Models.SalesLine> SalesLine { get; set; }
  
 
     }
