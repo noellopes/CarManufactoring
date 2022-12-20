@@ -918,8 +918,8 @@ namespace CarManufactoring.Migrations
 
                     b.Property<string>("SupplierZipCode")
                         .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("SupplierId");
 
