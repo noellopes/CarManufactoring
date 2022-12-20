@@ -16,6 +16,7 @@ namespace CarManufactoring.ViewModels.Group3
 
         public readonly static List<Documents> LuisDocuments = new List<Documents>()
         {
+            new Documents {Name = "Traceability's matrix", DocPath="/documents/Group3/LuisBarros/MatrizRastreabilidade.pdf"},
             new Documents {Name ="Tests Table", DocPath = "/documents/Group3/LuisBarros/TabelaTestes.pdf"},
             new Documents {Name = "User Stories", DocPath= "/documents/Group3/LuisBarros/UserStories.pdf"},
             new Documents {Name = "Order Class Semantics Diagram Updated", DocPath= "/documents/Group3/LuisBarros/SemanticaClasseAtualizada.pdf"},
