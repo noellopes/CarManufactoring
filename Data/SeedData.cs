@@ -30,7 +30,7 @@ namespace CarManufactoring.Data
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            //PopulateOrder(db);
+            PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
@@ -473,6 +473,20 @@ namespace CarManufactoring.Data
                 new OrderState { OrderStateName = "Em Produçao" },
                 new OrderState { OrderStateName = "Finalizado" },
                 new OrderState { OrderStateName = "Cancelado" }
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateSalesLine(CarManufactoringContext db)
+        {
+            if (db.SalesLine.Any()) return;
+
+            db.SalesLine.AddRange(
+                new SalesLine { OrderId = 1, CarConfigId = 1, Price = 150000, Quantity = 10, DeliveryDate = DateTime.Parse("12/02/2022")},
+                new SalesLine { OrderId = 2, CarConfigId = 1, Price = 30000, Quantity = 2, DeliveryDate = DateTime.Parse("02/01/2022")},
+                new SalesLine { OrderId = 3, CarConfigId = 2, Price = 220000, Quantity = 10, DeliveryDate = DateTime.Parse("12/03/2023")},
+                new SalesLine { OrderId = 4, CarConfigId = 2, Price = 44000, Quantity = 2, DeliveryDate = DateTime.Parse("03/01/2023")}
                 );
 
             db.SaveChanges();
