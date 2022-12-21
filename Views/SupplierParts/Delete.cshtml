@@ -12,7 +12,27 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+        <dd class = "col-sm-10">
+            @{
+                if (Model.Logo == null)
+                {
+                    Random random = new Random();
+                    int num = random.Next(1, 5);
 
+                    <div class="logo-@(num)">
+                        <h3>@Html.DisplayFor(model => model.Name)</h3>
+                        <p>The Best</p>
+                    </div>
+                }
+                else
+                {
+                    <img src="@(Model.Logo)" width="150" height="150">
+                }
+            }
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
@@ -41,15 +61,18 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Address)
-
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Country)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-
         <input type="hidden" asp-for="SupplierPartsId" />
-
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> 
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </form>
 </div>

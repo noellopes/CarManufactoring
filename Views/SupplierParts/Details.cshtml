@@ -5,13 +5,34 @@
 }
 
 <h1>Details</h1>
+<link rel="stylesheet" href="~/css/SupplierLogo.css">
 
 <div>
     <h4>SupplierParts</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Logo)
+        </dt>
+        <dd class = "col-sm-10">
+            @{
+                if (Model.Logo == null)
+                {
+                    Random random = new Random();
+                    int num = random.Next(1, 5);
 
+                    <div class="logo-@(num)">
+                        <h3>@Html.DisplayFor(model => model.Name)</h3>
+                        <p>The Best</p>
+                    </div>
+                }
+                else
+                {
+                    <img src="@(Model.Logo)" width="150" height="150">
+                }
+            }
+        </dd>
+        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class = "col-sm-10">
@@ -40,13 +61,17 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Address)
-
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Country)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Country)
         </dd>
     </dl>
 </div>
 <div>
-
-    <a asp-action="Edit" asp-route-id="@Model?.SupplierPartsId">Edit</a> |
-
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Delete" asp-route-id="@Model?.SupplierPartsId" class="btn btn-danger">Delete</a>
+    <a asp-action="Edit" asp-route-id="@Model?.SupplierPartsId" class="btn btn-warning">Edit</a> 
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
