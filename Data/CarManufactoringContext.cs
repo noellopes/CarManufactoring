@@ -87,18 +87,18 @@ namespace CarManufactoring.Data
                     
 
 
-            modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.ProductId, bc.CarId });
+            modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.StockProductId, bc.CarConfigId });
 
             modelBuilder.Entity<ModelParts>()
-                .HasOne(x => x.CarParts)
-                .WithMany(c => c.Car)
-                .HasForeignKey(x => x.ProductId)
+                .HasOne(x => x.StockProduct)
+                .WithMany(c => c.CarConfig)
+                .HasForeignKey(x => x.StockProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ModelParts>()
-                .HasOne(x => x.Car)
-                .WithMany(c => c.CarParts)
-                .HasForeignKey(x => x.CarId)
+                .HasOne(x => x.CarConfig)
+                .WithMany(c => c.StockProduct)
+                .HasForeignKey(x => x.CarConfigId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SalesLine>().HasKey(bc => new { bc.OrderId, bc.CarConfigId });
