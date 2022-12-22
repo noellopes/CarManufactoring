@@ -2,7 +2,6 @@
 {
     public class StockProduct
     {
-        public int StockProductId { get; set; }
 
         public int StockId { get; set; }
 
@@ -16,7 +15,5 @@
 
         public double StockMax { get; set; }
 
-        //Ricardo Sousa ligação M:M para com a tabela CarConfig
-        public ICollection<ModelParts> CarConfig { get; set; }
     }
 }
