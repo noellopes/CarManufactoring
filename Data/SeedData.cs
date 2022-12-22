@@ -12,7 +12,7 @@ namespace CarManufactoring.Data
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
             //PopulateSemiFinishedCars(db);
-            PopulateMaterials(db); 
+            PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
