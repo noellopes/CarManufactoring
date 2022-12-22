@@ -232,6 +232,10 @@ namespace CarManufactoring.Data
         
         
         public DbSet<CarManufactoring.Models.SalesLine> SalesLine { get; set; }
+
+        
+        
+        public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
  
 
     }
