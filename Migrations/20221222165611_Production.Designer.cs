@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221222165611_Production")]
+    partial class Production
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1237,25 +1239,6 @@ namespace CarManufactoring.Migrations
                     b.HasKey("TaskTypeId");
 
                     b.ToTable("TaskType");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.TimeOfProduction", b =>
-                {
-                    b.Property<int>("TimeOfProductionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TimeOfProductionId"), 1L, 1);
-
-                    b.Property<int>("CarConfigId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Time")
-                        .HasColumnType("int");
-
-                    b.HasKey("TimeOfProductionId");
-
-                    b.ToTable("TimeOfProduction");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkingHours", b =>

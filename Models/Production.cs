@@ -8,19 +8,14 @@ namespace CarManufactoring.Models
         public int ProductionId { get; set; }
 
         [Required]
-        [Display(Name = "Order Date")]
+        [Display(Name = "Production Start Date")]
         [DataType(DataType.Date)]
-        public DateTime OrderDate { get; set; }
-
-        [Required]
-        [Display(Name = "Delivery Date")]
-        [DataType(DataType.Date)]
-        public DateTime DeliveryDate { get; set; }
+        public DateTime Date { get; set; }
        
         public int CarConfigId { get; set; }
 
         public CarConfig? CarConfig { get; set; }
 
-        public int MaxQuantity { get; set; }
+        public int Quantity { get; set; }
     }
 }
