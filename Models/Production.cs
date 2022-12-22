@@ -11,7 +11,8 @@ namespace CarManufactoring.Models
         [Display(Name = "Production Start Date")]
         [DataType(DataType.Date)]
         public DateTime Date { get; set; }
-       
+
+        [Display(Name = "Car Configuration")]
         public int CarConfigId { get; set; }
 
         public CarConfig? CarConfig { get; set; }
