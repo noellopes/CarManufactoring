@@ -7,35 +7,35 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
-            //PopulateGender(db);
-            //PopulateCollaborators(db);
-            //PopulateCarParts(db);
-            //PopulateSemiFinisheds(db);
-            ////PopulateSemiFinishedCars(db);
-            //PopulateMaterials(db); 
-            //PopulateSection(db);
-            //PopulateSectionManager(db);
-            //PopulateMachineState(db);
-            ////PopulateTaskType(db);
-            //PopulateBrands(db);
-            //PopulateInspectionTesting(db);
-            //PopulatePriority(db);
-            //PopulateMachineBrand(db);
-            //PopulateMachineModel(db);
-            //PopulateMachines(db);
-            ////PopulateMachineMaintenance(db);
-            //PopulateCars(db);
-            //PopulateCarConfigs(db);
-            //PopulateShiftType(db);
-            //PopulateShift(db);
-            //PopulateCustomers(db);
-            //PopulateCustomerContacts(db);
-            //PopulateOrder(db);
-            //PopulateMaterialUsed(db);
-            //PopulateSupplier(db);
-            //PopulateStocks(db);
-            //PopulateExtras(db);
-            //PopulateOrderState(db);
+            PopulateGender(db);
+            PopulateCollaborators(db);
+            PopulateCarParts(db);
+            PopulateSemiFinisheds(db);
+            //PopulateSemiFinishedCars(db);
+            PopulateMaterials(db);
+            PopulateSection(db);
+            PopulateSectionManager(db);
+            PopulateMachineState(db);
+            //PopulateTaskType(db);
+            PopulateBrands(db);
+            PopulateInspectionTesting(db);
+            PopulatePriority(db);
+            PopulateMachineBrand(db);
+            PopulateMachineModel(db);
+            PopulateMachines(db);
+            //PopulateMachineMaintenance(db);
+            PopulateCars(db);
+            PopulateCarConfigs(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            PopulateOrder(db);
+            PopulateMaterialUsed(db);
+            PopulateSupplier(db);
+            PopulateStocks(db);
+            PopulateExtras(db);
+            PopulateOrderState(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)

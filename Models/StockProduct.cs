@@ -17,6 +17,6 @@
         public double StockMax { get; set; }
 
         //Ricardo Sousa ligação M:M para com a tabela CarConfig
-        public ICollection<ModelParts>? CarConfig { get; set; }
+        public ICollection<ModelParts> CarConfig { get; set; }
     }
 }
