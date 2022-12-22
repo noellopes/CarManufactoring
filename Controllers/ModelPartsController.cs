@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: ModelParts
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.ModelParts.Include(m => m.CarConfig).Include(m => m.StockProduct);
+            var carManufactoringContext = _context.ModelParts.Include(m => m.CarConfig).Include(m => m.CarParts);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -36,8 +36,8 @@ namespace CarManufactoring.Controllers
 
             var modelParts = await _context.ModelParts
                 .Include(m => m.CarConfig)
-                .Include(m => m.StockProduct)
-                .FirstOrDefaultAsync(m => m.StockProductId == id);
+                .Include(m => m.CarParts)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (modelParts == null)
             {
                 return NotFound();
@@ -50,7 +50,7 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
-            ViewData["StockProductId"] = new SelectList(_context.Set<StockProduct>(), "StockProductId", "StockProductId");
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
+        public async Task<IActionResult> Create([Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", modelParts.CarConfigId);
-            ViewData["StockProductId"] = new SelectList(_context.Set<StockProduct>(), "StockProductId", "StockProductId", modelParts.StockProductId);
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name", modelParts.ProductId);
             return View(modelParts);
         }
 
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", modelParts.CarConfigId);
-            ViewData["StockProductId"] = new SelectList(_context.Set<StockProduct>(), "StockProductId", "StockProductId", modelParts.StockProductId);
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name", modelParts.ProductId);
             return View(modelParts);
         }
 
@@ -95,9 +95,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
-            if (id != modelParts.StockProductId)
+            if (id != modelParts.ProductId)
             {
                 return NotFound();
             }
@@ -111,7 +111,7 @@ namespace CarManufactoring.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModelPartsExists(modelParts.StockProductId))
+                    if (!ModelPartsExists(modelParts.ProductId))
                     {
                         return NotFound();
                     }
@@ -123,7 +123,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", modelParts.CarConfigId);
-            ViewData["StockProductId"] = new SelectList(_context.Set<StockProduct>(), "StockProductId", "StockProductId", modelParts.StockProductId);
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name", modelParts.ProductId);
             return View(modelParts);
         }
 
@@ -137,8 +137,8 @@ namespace CarManufactoring.Controllers
 
             var modelParts = await _context.ModelParts
                 .Include(m => m.CarConfig)
-                .Include(m => m.StockProduct)
-                .FirstOrDefaultAsync(m => m.StockProductId == id);
+                .Include(m => m.CarParts)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (modelParts == null)
             {
                 return NotFound();
@@ -168,7 +168,7 @@ namespace CarManufactoring.Controllers
 
         private bool ModelPartsExists(int id)
         {
-          return _context.ModelParts.Any(e => e.StockProductId == id);
+          return _context.ModelParts.Any(e => e.ProductId == id);
         }
     }
 }
