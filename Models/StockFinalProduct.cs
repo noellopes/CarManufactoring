@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Framework;
+﻿
+using System.ComponentModel.DataAnnotations;
 
 namespace CarManufactoring.Models
 {
     public class StockFinalProduct
     {
+        [Key]
 
         public int LocalizationCarId { get; set; }
         public LocalizationCar? LocalizationCar { get; set; }

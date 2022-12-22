@@ -236,6 +236,10 @@ namespace CarManufactoring.Data
         
         
         public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
+
+        
+        
+        public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
  
 
     }
