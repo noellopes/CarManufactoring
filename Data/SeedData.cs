@@ -36,6 +36,7 @@ namespace CarManufactoring.Data
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
+            PopulateProductions(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -494,7 +495,19 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        private static void PopulateProductions(CarManufactoringContext db)
+        {
+            if (db.Production.Any()) return;
 
+            db.Production.AddRange(
+                new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity= 10 },
+                new Production { Date = DateTime.Parse("02/01/2022"), CarConfigId = 1, Quantity = 2 },
+                new Production { Date = DateTime.Parse("12/03/2023"), CarConfigId = 2, Quantity = 10 },
+                new Production { Date = DateTime.Parse("03/01/2023"), CarConfigId = 2, Quantity = 2 }
+                );
+
+            db.SaveChanges();
+        }
 
     }
 }
