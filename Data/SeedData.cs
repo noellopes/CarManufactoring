@@ -8,6 +8,7 @@ namespace CarManufactoring.Data
         {
 
             PopulateGender(db);
+            PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
@@ -22,8 +23,9 @@ namespace CarManufactoring.Data
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
+            PopulateLocalizationCode(db);
             PopulateMachines(db);
-            //PopulateMachineMaintenance(db);
+            PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
@@ -507,6 +509,36 @@ namespace CarManufactoring.Data
                 );
 
             db.SaveChanges();
+        }
+
+        private static void PopulateLocalizationCode(CarManufactoringContext db)
+        {
+            if (db.LocalizationCode.Any()) return;
+
+            db.LocalizationCode.AddRange(
+                new LocalizationCode { Column = "A", Line = "1" },
+                new LocalizationCode { Column = "A", Line = "2" },
+                new LocalizationCode { Column = "A", Line = "3" },
+                new LocalizationCode { Column = "B", Line = "1" },
+                new LocalizationCode { Column = "B", Line = "2" },
+                new LocalizationCode { Column = "B", Line = "3" }
+                );
+
+            db.SaveChanges();
+
+        }
+
+        private static void PopulateFunction(CarManufactoringContext db)
+        {
+            if (db.Function.Any()) return;
+
+            db.Function.AddRange(
+                new Function { Name = "Limpar Peça" },
+                new Function { Name = "Montar Peça" }
+                );
+
+            db.SaveChanges();
+
         }
 
     }
