@@ -39,6 +39,7 @@ namespace CarManufactoring.Data
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
+            PopulateWarehouses(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -540,6 +541,17 @@ namespace CarManufactoring.Data
             db.SaveChanges();
 
         }
+        private static void PopulateWarehouses(CarManufactoringContext db)
+        {
+            if (db.Warehouse.Any()) return;
 
+            db.Warehouse.AddRange(
+                new Warehouse { Location = "Guarda", CollaboratorID = 1 },
+                new Warehouse { Location = "Lisboa", CollaboratorID = 2 },
+                new Warehouse { Location = "Porto", CollaboratorID = 3 }
+                );
+
+            db.SaveChanges();
+        }
     }
 }
