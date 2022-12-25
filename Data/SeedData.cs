@@ -8,23 +8,26 @@ namespace CarManufactoring.Data
         {
 
             PopulateGender(db);
+            PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            PopulateMaterials(db); 
+            //PopulateSemiFinishedCars(db);
+            PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-            PopulateTaskType(db);
+            //PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
+            PopulateLocalizationCode(db);
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
             PopulateCars(db);
-            //PopulateCarConfigs(db);
+            PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
@@ -34,6 +37,9 @@ namespace CarManufactoring.Data
             PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
+            PopulateOrderState(db);
+            PopulateProductions(db);
+            PopulateWarehouses(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -41,10 +47,13 @@ namespace CarManufactoring.Data
             if (db.Material.Any()) return;
 
             db.Material.AddRange(
-                new Material { Nome = "piece1", Description = "piece 1 has dimensions x,y,z and is composed of only 1 material", Type = "iron"},
-                new Material { Nome = "piece2", Description = "piece 2 has dimensions x,y,z and is composed of only 2 material", Type = "wood"},
-                new Material { Nome = "piece3", Description = "piece 2 has dimensions x,y,z and is composed of only 3 material", Type = "wood, iron, gold"}
-               );
+                new Material { Nome = "infused iron", Description = "infused iron has dimensions x,y,z and this color is gray", Type = "iron" },
+                new Material { Nome = "shiny Wood", Description = "shiny Wood has dimensions x,y,z and this color is black", Type = "wood" },
+                new Material { Nome = "wood piano", Description = "wood piano has dimensions x,y,z and this color is brown", Type = "wood" },
+                new Material { Nome = "nappa leather", Description = "nappa leather has dimensions x,y,z and this color is white", Type = "leather" },
+                new Material { Nome = "tempered glass", Description = "tempered glass has dimensions x,y,z", Type = "glass" },
+                new Material { Nome = "frosted glass", Description = "frosted glass has dimensions x,y,z", Type = "glass" }
+                );
 
             db.SaveChanges();
         }
@@ -70,6 +79,20 @@ namespace CarManufactoring.Data
                 new SemiFinished { Family = "Jogo de filtros de ar", Reference = "ADBP220039", Manufacter = "BLUE PRINT", Description = "Cartucho filtrante", SemiFinishedState = "Under Development" },
                 new SemiFinished { Family = "Filtro de combustível", Reference = "KL571", Manufacter = "MAHLE", Description = "Filtro dos tubos", SemiFinishedState = "Under Development" },
                 new SemiFinished { Family = "Jogo de pastilhas para travão de disco", Reference = "0986494956", Manufacter = "BOSCH", Description = "Baixo teor metálico", SemiFinishedState = "Under Development" }
+
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateSemiFinishedCars(CarManufactoringContext db)
+        {
+            if (db.SemiFinishedCar.Any()) return;
+
+            db.SemiFinishedCar.AddRange(
+
+                new SemiFinishedCar { SemiFinishedId=1, CarId=2},
+                new SemiFinishedCar { SemiFinishedId = 2, CarId = 3}
 
                 );
 
@@ -206,10 +229,10 @@ namespace CarManufactoring.Data
             if (db.MachineMaintenance.Any()) return;
 
             db.MachineMaintenance.AddRange(
-                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
-                 new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
-                 new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
-                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
+                // new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
+                // new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
+                // new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
+                // new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
 
                 );
 
@@ -222,9 +245,9 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1, SemiFinishedId = 1 },
-                new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2, SemiFinishedId = 2 },
-                new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3, SemiFinishedId = 3 }
+               // new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1, SemiFinishedId = 1 },
+               // new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2, SemiFinishedId = 2 },
+               // new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3, SemiFinishedId = 3 }
 
             );
 
@@ -271,12 +294,12 @@ namespace CarManufactoring.Data
             if(db.CarConfig.Any()) return;
 
             db.CarConfig.AddRange(
-                new CarConfig { AddedPrice = 5000, ConfigName = "Performance Line", CarId = 1, NumExtras = 5 },
-                new CarConfig {  AddedPrice = 7000, ConfigName = "M Line", CarId = 2, NumExtras = 7 },
-                new CarConfig {  AddedPrice = 10000, ConfigName = "Brabus ", CarId = 3, NumExtras = 8 },
-                new CarConfig { AddedPrice = 7000, ConfigName = "S Line", CarId = 4, NumExtras = 6 },
-                new CarConfig { AddedPrice = 5000, ConfigName = "R Line", CarId = 5, NumExtras = 4 },
-                new CarConfig { AddedPrice = 5000, ConfigName = "ST Line", CarId = 6, NumExtras = 5 }
+                new CarConfig { AddedPrice = 5000, ConfigName = "Performance Line",FinalPrice = 15000 ,CarId = 1, NumExtras = 5 },
+                new CarConfig {  AddedPrice = 7000, ConfigName = "M Line", CarId = 2,FinalPrice = 22000 ,NumExtras = 7 },
+                new CarConfig {  AddedPrice = 10000, ConfigName = "Brabus ", CarId = 3,FinalPrice = 160000,NumExtras = 8 },
+                new CarConfig { AddedPrice = 7000, ConfigName = "S Line", CarId = 4, FinalPrice = 27000  ,NumExtras = 6 },
+                new CarConfig { AddedPrice = 5000, ConfigName = "R Line", CarId = 5, FinalPrice = 23000,NumExtras = 4 },
+                new CarConfig { AddedPrice = 5000, ConfigName = "ST Line", CarId = 6, FinalPrice = 19000 ,NumExtras = 5 }
                 );
 
             db.SaveChanges();
@@ -345,9 +368,9 @@ namespace CarManufactoring.Data
             if (db.Order.Any()) return;
 
             db.Order.AddRange(
-                new Order { OrderDate = "12/10/2022", OrderState = "Pendente", StateDate = new DateTime(2022, 12, 02, 10, 30, 50), CustomerId = 1 },
-                new Order { OrderDate = "10/05/2022", OrderState = "Em produçao", StateDate = new DateTime(2022, 12, 01, 15, 50, 10), CustomerId = 2 },
-                new Order { OrderDate = "01/04/2022", OrderState = "Finalizada", StateDate = new DateTime(2022, 11, 30, 11, 45, 27), CustomerId = 3 }
+                new Order { OrderDate = new DateTime(2022, 12, 02, 10, 30, 50), OrderStateId = 1, StateDate = new DateTime(2022, 12, 02, 10, 30, 50), CustomerId = 1 },
+                new Order { OrderDate = new DateTime(2020, 12, 02, 08, 30, 10), OrderStateId = 2, StateDate = new DateTime(2022, 12, 01, 15, 50, 10), CustomerId = 2 },
+                new Order { OrderDate = new DateTime(2019, 12, 03, 10, 30, 50), OrderStateId = 3, StateDate = new DateTime(2022, 11, 30, 11, 45, 27), CustomerId = 3 }
 
                 );
 
@@ -376,15 +399,18 @@ namespace CarManufactoring.Data
 
         private static void PopulateSupplier(CarManufactoringContext db)
         {
-            if (db.Supplier.Any()) return;
+            if (db.SupplierParts.Any()) return;
 
-            db.Supplier.AddRange(
-                new Supplier {SupplierName = "CarParts", SupplierEmail = "CarParts@outlook.com", SupplierContact = "932 712 231", SupplierZipCode = "28600", SupplierAddress = "P.º del Alparrache,  Navalcarnero, Madrid, Espanha" },
-                new Supplier {SupplierName = "MegaCar", SupplierEmail = "MegaCar@gmail.com", SupplierContact = "962 512 231", SupplierZipCode = "3100", SupplierAddress = "24 Bd de Courtais,  Montluçon, França" },
-                new Supplier {SupplierName = "BestDrive", SupplierEmail = "BestDrive@hotmail.com", SupplierContact = "912 112 231", SupplierZipCode = "183", SupplierAddress = "Piazzale Appio, 5, Roma RM, Itália" },
-                new Supplier {SupplierName = "NewCar", SupplierEmail = "NewCar@hotmail.com", SupplierContact = "942 332 231", SupplierZipCode = "71000", SupplierAddress = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" }
-                
+
+            db.SupplierParts.AddRange(
+                new SupplierParts { Logo = null, Name = "CarParts", Email = "CarParts@outlook.com", Contact = "932 712 231", ZipCode = "28600", Address = "P.º del Alparrache,  Navalcarnero, Madrid" , Country = "Espanha"},
+                new SupplierParts { Logo = null, Name = "MegaCar", Email = "MegaCar@gmail.com", Contact = "962 512 231", ZipCode = "3100", Address = "24 Bd de Courtais,  Montluçon", Country = "França" },
+                new SupplierParts { Logo = null, Name = "BestDrive", Email = "BestDrive@hotmail.com", Contact = "912 112 231", ZipCode = "183", Address = "Piazzale Appio, 5, Roma RM" , Country = "Itália" },
+                new SupplierParts { Logo = "https://i.pinimg.com/736x/19/73/c4/1973c4f86b4c85ba87006fc0a4bdaf50.jpg", Name = "Toyota Parts", Email = "Toyota@hotmail.com", Contact = "942 332 231", ZipCode = "71000", Address = "Vrbanja 1, Sarajevo", Country = "Bósnia" },
+                new SupplierParts { Logo = "https://th.bing.com/th/id/OIP.p2rJ5FCz6SjTf1v1riX7awHaHP?pid=ImgDet&rs=1", Name = "Bosch Pieces", Email = "Bosch@hotmail.com", Contact = "942 332 231", ZipCode = "71000", Address = "Vrbanja 1, Sarajevo", Country = "Bósnia" }
                 );
+
+        https://th.bing.com/th/id/OIP.p2rJ5FCz6SjTf1v1riX7awHaHP?pid=ImgDet&rs=1
 
             db.SaveChanges();
         }
@@ -444,7 +470,88 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        private static void PopulateOrderState(CarManufactoringContext db)
+        {
+            if (db.OrderState.Any()) return;
 
-     
+            db.OrderState.AddRange(
+                new OrderState { OrderStateName = "Pendente" },
+                new OrderState { OrderStateName = "Em Produçao" },
+                new OrderState { OrderStateName = "Finalizado" },
+                new OrderState { OrderStateName = "Cancelado" }
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateSalesLine(CarManufactoringContext db)
+        {
+            if (db.SalesLine.Any()) return;
+
+            db.SalesLine.AddRange(
+                new SalesLine { OrderId = 1, CarConfigId = 1, Price = 150000, Quantity = 10, DeliveryDate = DateTime.Parse("12/02/2022")},
+                new SalesLine { OrderId = 2, CarConfigId = 1, Price = 30000, Quantity = 2, DeliveryDate = DateTime.Parse("02/01/2022")},
+                new SalesLine { OrderId = 3, CarConfigId = 2, Price = 220000, Quantity = 10, DeliveryDate = DateTime.Parse("12/03/2023")},
+                new SalesLine { OrderId = 4, CarConfigId = 2, Price = 44000, Quantity = 2, DeliveryDate = DateTime.Parse("03/01/2023")}
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateProductions(CarManufactoringContext db)
+        {
+            if (db.Production.Any()) return;
+
+            db.Production.AddRange(
+                new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity= 10 },
+                new Production { Date = DateTime.Parse("02/01/2022"), CarConfigId = 1, Quantity = 2 },
+                new Production { Date = DateTime.Parse("12/03/2023"), CarConfigId = 2, Quantity = 10 },
+                new Production { Date = DateTime.Parse("03/01/2023"), CarConfigId = 2, Quantity = 2 }
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateLocalizationCode(CarManufactoringContext db)
+        {
+            if (db.LocalizationCode.Any()) return;
+
+            db.LocalizationCode.AddRange(
+                new LocalizationCode { Column = "A", Line = "1" },
+                new LocalizationCode { Column = "A", Line = "2" },
+                new LocalizationCode { Column = "A", Line = "3" },
+                new LocalizationCode { Column = "B", Line = "1" },
+                new LocalizationCode { Column = "B", Line = "2" },
+                new LocalizationCode { Column = "B", Line = "3" }
+                );
+
+            db.SaveChanges();
+
+        }
+
+        private static void PopulateFunction(CarManufactoringContext db)
+        {
+            if (db.Function.Any()) return;
+
+            db.Function.AddRange(
+                new Function { Name = "Limpar Peça" },
+                new Function { Name = "Montar Peça" }
+                );
+
+            db.SaveChanges();
+
+        }
+        private static void PopulateWarehouses(CarManufactoringContext db)
+        {
+            if (db.Warehouse.Any()) return;
+
+            db.Warehouse.AddRange(
+                new Warehouse { Location = "Guarda", CollaboratorID = 1 },
+                new Warehouse { Location = "Lisboa", CollaboratorID = 2 },
+                new Warehouse { Location = "Porto", CollaboratorID = 3 }
+                );
+
+            db.SaveChanges();
+        }
     }
 }

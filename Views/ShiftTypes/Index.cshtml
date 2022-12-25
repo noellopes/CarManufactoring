@@ -1,53 +1,92 @@
-﻿@model IEnumerable<CarManufactoring.Models.ShiftType>
+﻿@model ShiftTypeIndexViewModel
 
 @{
-    ViewData["Title"] = "Shift Type";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-sucess mt-3">Create New</a>
 </p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search Description</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="ShiftTypeDescriptionSearched" class="form-label" Type"></label>
+                <input name="ShiftTypeDescriptionSearched" class="form-label" type="search" value="@Model.ShiftTypeDescriptionSearched" placeholder="Description" />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secundary">Clear Search</a>
+        </form>
+    </div>
+</div>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.ShiftTime)
+                @Html.DisplayNameFor(model => new ShiftType().ShiftTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => new ShiftType().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StartTime)
+                @Html.DisplayNameFor(model => new ShiftType().StartTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EndTime)
+                @Html.DisplayNameFor(model => new ShiftType().EndTime)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShiftTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndTime)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ShiftTypeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ShiftTypeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ShiftTypeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.ShiftTypeList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShiftTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ShiftTypeId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ShiftTypeId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ShiftTypeId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.ShiftTypeList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.ShiftTypeList.PagingInfo.InitialPageToShow; p <= Model.ShiftTypeList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.ShiftTypeList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.ShiftTypeList.PagingInfo.CurrentPage == Model.ShiftTypeList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.ShiftTypeList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

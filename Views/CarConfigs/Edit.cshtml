@@ -1,10 +1,17 @@
 ﻿@model CarManufactoring.Models.CarConfig
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Car Configuration";
 }
 
-<h1>Edit</h1>
+<style>
+    .butt {
+        padding-top: 10px;
+    }
+</style>
+
+
+<h1>@ViewBag.Title</h1>
 
 <h4>CarConfig</h4>
 <hr />
@@ -13,6 +20,11 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="CarConfigId" />
+            <div class="form-group">
+                <label asp-for="CarId" class="control-label"></label>
+                <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
+                <span asp-validation-for="CarId" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="ConfigName" class="control-label"></label>
                 <input asp-for="ConfigName" class="form-control" />
@@ -29,19 +41,17 @@
                 <span asp-validation-for="AddedPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CarId" class="control-label"></label>
-                <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
-                <span asp-validation-for="CarId" class="text-danger"></span>
+                <label asp-for="FinalPrice" class="control-label"></label>
+                <input asp-for="AddedPrice" class="form-control" />
+                <span asp-validation-for="FinalPrice" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="butt form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

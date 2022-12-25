@@ -21,7 +21,7 @@ namespace CarManufactoring.Controllers
         {
 
             var cars = _context.Car.Include(c => c.Brand)
-                .Where(c => carModel == null || c.CarModel.Contains(carModel))
+                .Where(c => carModel == null || c .CarModel.Contains(carModel))
                 .Where(c => launchYear == 0 || c.LaunchYear.Equals(launchYear))
                 .Where(c => price == 0 || c.BasePrice.Equals(price))
                 .Where(c => brand == null || c.Brand.BrandName.Contains(brand))

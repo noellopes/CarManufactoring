@@ -11,7 +11,7 @@ namespace CarManufactoring.Models
 
         public string? Description { get; set; }
 
-        [StringLength(30, MinimumLength = 3)]
+        [StringLength(30)]
         [Required]
         public string Type { get; set; }
 
