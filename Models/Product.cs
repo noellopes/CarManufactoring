@@ -33,12 +33,9 @@ namespace CarManufactoring.Models {
 
         public static IOrderedQueryable<CarParts> SearchProd(CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch, string BrandSearch, string ModelSearch) {
 
-
-            var car = context.Car.Include(c => c.CarParts).ToList().ToString();
-
             var carPart = context.CarParts
-                    .Where(cp =>  BrandSearch == null || cp.Car.All(c => c.Car.Brand.BrandName.Contains(BrandSearch)))
-                    .Where(cp => ModelSearch == null || cp.Car.All(c => c.Car.CarModel.Contains(ModelSearch)))
+                    .Where(cp => BrandSearch == null || cp.CarConfig.All(c => c.CarConfig.Car.Brand.BrandName.Contains(BrandSearch)))
+                    .Where(cp => ModelSearch == null || cp.CarConfig.All(c => c.CarConfig.Car.CarModel.Contains(ModelSearch)))
                     .Where(cp => NameSearch == null || cp.Name.Contains(NameSearch))
                     .Where(cp => TypeSearch == null || cp.PartType.Contains(TypeSearch))
                     .Where(cp => referenceSearch == null || cp.Reference.Contains(referenceSearch))
