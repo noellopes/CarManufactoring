@@ -68,7 +68,6 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CollaboratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // to be added == ShiftCollaborator
 
             modelBuilder.Entity<CollaboratorShifts>().HasKey(bc => new { bc.CollaboratorId, bc.ShiftId });
 

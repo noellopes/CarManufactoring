@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using System.Xml.Linq;
 
 namespace CarManufactoring.Controllers
 {
@@ -27,6 +28,7 @@ namespace CarManufactoring.Controllers
             var collaborators = _context.Collaborator
                 .Include(c => c.Genders)
                 .Where(m => Name == null || m.Name.Contains(Name))
+                //.Where(m => m.OnDuty == false))
                 .OrderBy(m => m.Name);
             var pagingInfo = new PagingInfoViewModel(await collaborators.CountAsync(), page);
 
@@ -57,9 +59,10 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaborator == null)
             {
-                return NotFound();
+                return View("CollaboratorNotFound");
             }
 
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(collaborator);
         }
 
@@ -79,16 +82,39 @@ namespace CarManufactoring.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(collaborator);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var duplicated = _context.Collaborator
+                    .Include(c => c.Genders)
+                    .Where(m => m.Name == collaborator.Name)
+                    .Where(m => m.BirthDate == collaborator.BirthDate);
+                if (await duplicated.CountAsync() == 0)
+                {
+                    _context.Add(collaborator);
+                    await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Collaborator created successfully.";
+                    return RedirectToAction(nameof(Details), new { id = collaborator.CollaboratorId });
+
+                }
+                else
+                {
+                    return View("DuplicateCollaborator",collaborator);
+                }
             }
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
         }
 
-        // GET: Collaborators/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateDuplicte([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator duplicated)
+        {
+            _context.Add(duplicated);
+            await _context.SaveChangesAsync();
+            TempData["SuccessMessage"] = "Collaborator created successfully.";
+            return RedirectToAction(nameof(Details), new { id = duplicated.CollaboratorId });
+        }
+
+            // GET: Collaborators/Edit/5
+            public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Collaborator == null)
             {
@@ -98,7 +124,7 @@ namespace CarManufactoring.Controllers
             var collaborator = await _context.Collaborator.FindAsync(id);
             if (collaborator == null)
             {
-                return NotFound();
+                return View("CollaboratorNotFound");
             }
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
@@ -122,19 +148,21 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(collaborator);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Collaborator successfully edited.";
+                    return RedirectToAction(nameof(Details), new { id = collaborator.CollaboratorId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!CollaboratorExists(collaborator.CollaboratorId))
                     {
-                        return NotFound();
+                        return View("CollaboratorNotFound");
                     }
                     else
                     {
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
             }
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", collaborator.GenderId);
             return View(collaborator);
@@ -153,7 +181,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaborator == null)
             {
-                return NotFound();
+                return View("CollaboratorNotFound");
             }
 
             return View(collaborator);
@@ -172,10 +200,10 @@ namespace CarManufactoring.Controllers
             if (collaborator != null)
             {
                 _context.Collaborator.Remove(collaborator);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("CollaboratorDeleted");
         }
 
         private bool CollaboratorExists(int id)

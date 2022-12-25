@@ -1,0 +1,34 @@
+﻿@model CarManufactoring.Models.Collaborator
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<hr />
+@{
+    await Html.RenderPartialAsync("_AlertProblem",
+             new AlertProblemViewModel
+                     {
+                         CssClass = "alert-warning",
+                         Title = "Duplicated Collaborator",
+                         Description = "Collaborator/s with the same name and birth date already exist. Are you sure you want to proceed?"
+                     });
+}
+
+<form asp-action="CreateDuplicte">
+    <input type="hidden" asp-for="CollaboratorId" />
+    <input type="hidden" asp-for="Name" class="form-control" />
+    <input type="hidden" asp-for="BirthDate" class="form-control" />
+    <input type="hidden" asp-for="Phone" class="form-control" />
+    <input type="hidden" asp-for="Email" class="form-control" />
+    <input type="hidden" asp-for="GenderId" class="form-control"/>
+    <input type="hidden" class="form-check-input" asp-for="OnDuty" />
+    <input type="hidden" asp-for="CollaboratorId" />
+    <input type="submit" value="Continue Creating" class="btn btn-danger" /> |
+    <a asp-action="Index">Collaborator's List</a>
+</form>
+
+
+
