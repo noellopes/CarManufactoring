@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,25 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index( string shiftType = null, int page = 0)
         {
-            var carManufactoringContext = _context.Shift.Include(s => s.ShiftType);
-            return View(await carManufactoringContext.ToListAsync());
+            var shifts = _context.Shift.Include(m => m.ShiftType)
+                .Where(m => shiftType == null || m.ShiftType.Description.Contains(shiftType))
+                .OrderBy(m => m.StartDate);
+            var pagingInfo = new PagingInfoViewModel(await shifts.CountAsync(), page);
+
+            var model = new ShiftIndexViewModel
+            {
+                ShiftList = new ListViewModel<Shift>
+                {
+                    List = await shifts
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                ShiftTypeSearched = shiftType,
+            };
+            return View(model);
         }
 
         // GET: Shifts/Details/5
@@ -42,6 +58,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(shift);
         }
 
@@ -63,7 +80,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(shift);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                TempData["SuccessMessage"] = "Shift created successfully.";
+
+                return RedirectToAction(nameof(Details),new { id = shift.ShiftId });
             }
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
@@ -104,6 +124,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(shift);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Shift edited successfully.";
+                    return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -154,10 +177,11 @@ namespace CarManufactoring.Controllers
             if (shift != null)
             {
                 _context.Shift.Remove(shift);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+
+            return View("ShiftDeleted");
         }
 
         private bool ShiftExists(int id)

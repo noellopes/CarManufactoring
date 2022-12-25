@@ -1,27 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Kevin Alves Details";
 }
-
 <h1>@ViewData["Title"]</h1>
 
-<h3>Number: 1704033</h3>
+<div style="float:right;">
+    <img class="img-fluid" src="\img\students\1704033.jpg" style="border-radius: 15%;width: 200px;scale: -1 1;" />
+    <div style="padding: 2px 46px;">
+        <a asp-controller="Groups" asp-action="Details" asp-route-number="7" class="btn btn-primary" style="margin-top: 30px;">Group Page</a>
+    </div>
+</div>
 
-<p><img class="img-fluid" src="\img\students\1704033.jpg" width="100" height="100" /></p>
-
-
-
-<h3>Feito:</h3>
-<h5>Ciração da view estudante</h5>
-<h5>Ciração da view de grupo</h5>
-<h5>Atualização da view de estudante</h5>
-<h5>Atualização da view de grupo</h5>
-<h5>Adição a lista de alunos o estudante Kevin Alves</h5>
-<h5>Adição de imagem de estudante</h5>
-<h5>Adição das imagens de grupo</h5>
-<h5>Redimentionamento da imagem do estudante</h5>
-<h5>Resolução de um bug do botão de commit desativado e de Amend Impossivel</h5>
-<h5>Criar tabela intermedia da ligação entre 'Semiacabado' e 'Materia'</h5>
-
-<h3>What I need to do:</h3>
-<h5>Atualizar as imagens da pagina de grupo</h5>
-<h5>Adição de um botão para aceder à pagina de grupo a partir da pagina do estudante</h5>
+<div style="margin-top: 50px; padding: 30px; width: 60%; border: 2px #000000 solid;">
+    <h3>What I Have Done:</h3>
+    <ul>
+        <li>Criação das views de Grupo e de Estudante</li>
+        <li>Adição do estudante na lista de estudantes</li>
+        <li>Adição de Imagens de Software II no projeto</li>
+        <li>Adição de imagem de estudante</li>
+        <li>Atualização das views de Grupo e de Estudante</li>
+        <li>Criação de um model para uma tabela intermediaria entre 'SemiFinished' e 'Material'</li>
+        <li>Adição de um botão na view estudante para aceder a view de grupo</li>
+        <li>Migração</li>
+        <li>Criação de Scaffolder</li>
+        <li>Criação de dados ficticios</li>
+    </ul>
+    <h3>What I Need To Do:</h3>
+    <ul>
+        <li>Adição das novas imagens de Software II no projeto e na view</li>
+        <li>Atualizar as imagens de Software II no projeto e na view</li>
+    </ul>
+</div>

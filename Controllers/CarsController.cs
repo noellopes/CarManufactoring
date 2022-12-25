@@ -17,14 +17,15 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Cars
-        public async Task<IActionResult> Index(string carModel = null, int launchYear = 0, double price = 0, string brand = null, int page = 1 )
+        public async Task<IActionResult> Index(string carModel = null, int launchYear = 0, double price = 0, string brand = null, int timeProduction = 0, int page = 1 )
         {
 
             var cars = _context.Car.Include(c => c.Brand)
-                .Where(c => carModel == null || c.CarModel.Contains(carModel))
+                .Where(c => carModel == null || c .CarModel.Contains(carModel))
                 .Where(c => launchYear == 0 || c.LaunchYear.Equals(launchYear))
                 .Where(c => price == 0 || c.BasePrice.Equals(price))
                 .Where(c => brand == null || c.Brand.BrandName.Contains(brand))
+                .Where(c => timeProduction == 0 || c.TimeProduction.Equals(timeProduction))
                 .OrderBy(c => c.BasePrice);
             var pagingInfo = new PagingInfoViewModel(await cars.CountAsync(), page);
 
@@ -41,7 +42,7 @@ namespace CarManufactoring.Controllers
                 LaunchYearSearched =launchYear,
                 PriceSearched = price,
                 BrandSearched = brand,
-
+                TimeProductionSearched = timeProduction,
             };
             return View(model);
         }
@@ -61,7 +62,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(car);
         }
 
@@ -78,13 +79,15 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CarId,BrandId,CarModel,LaunchYear,BasePrice")] Car car)
+        public async Task<IActionResult> Create([Bind("CarId,BrandId,CarModel,LaunchYear,BasePrice,TimeProduction")] Car car)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(car);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Car created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = car.CarId });
             }
             ViewData["BrandId"] = new SelectList(_context.Brand, "BrandId", "BrandName", car.BrandId);
             return View(car);
@@ -112,7 +115,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CarId,BrandId,CarModel,LaunchYear,BasePrice")] Car car)
+        public async Task<IActionResult> Edit(int id, [Bind("CarId,BrandId,CarModel,LaunchYear,BasePrice,TimeProduction")] Car car)
         {
             if (id != car.CarId)
             {
@@ -158,7 +161,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(car);
         }
 
@@ -172,13 +176,14 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.Car'  is null.");
             }
             var car = await _context.Car.FindAsync(id);
-            if (car != null)
+            if (car == null)
             {
-                _context.Car.Remove(car);
+                //TODO: Car was not found page 
             }
-            
+            _context.Car.Remove(car);
+            TempData["SuccessMessage"] = "Car removed successfully.";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("CarDeleted");
         }
 
         private bool CarExists(int id)

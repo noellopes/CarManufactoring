@@ -7,16 +7,16 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-primary">Create New</a>
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.PecaId)
+                @Html.DisplayNameFor(model => model.CarParts)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ModeloId)
+                @Html.DisplayNameFor(model => model.CarConfig)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.QtdPecas)
@@ -25,38 +25,23 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PecaId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModeloId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.QtdPecas)
-                </td>
-                <td>
-                    <div class="dropdown">
-                        <a class="btn btn-primary dropdown-toggle" role="button" data-bs-toggle="dropdown">
-                            Ações
-                        </a>
-
-                        <ul>
-                            <li>
-                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                            </li>
-                            <li>
-                                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                            </li>
-                            <li>
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                            </li>
-                        </ul>
-                    </div>
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarParts.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarConfig.ConfigName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QtdPecas)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
     </tbody>
 </table>

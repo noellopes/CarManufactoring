@@ -1,0 +1,40 @@
+﻿@model SemiFinishedCar
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.SemiFinishedCarId)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.SemiFinishedCarId)
+    </dd>
+    <dt class="col-sm-2">
+        S.F. Family
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.SemiFinished.Family)
+    </dd>
+    <dt class="col-sm-2">
+        S.F. Reference
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.SemiFinished.Reference)
+    </dd>
+    <dt class="col-sm-2">
+        C. Brand
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Car.Brand.BrandName)
+    </dd>
+    <dt class="col-sm-2">
+        C. Model
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Car.CarModel)
+    </dd>
+    <dt class="col-sm-2">
+        C. Launch Year
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Car.LaunchYear)
+    </dd>
+</dl>

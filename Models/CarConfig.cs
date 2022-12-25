@@ -7,7 +7,7 @@ namespace CarManufactoring.Models
         public int CarConfigId { get; set; }
 
         [Required]
-        [Display(Name ="Name")]
+        [Display(Name ="Configuration Name")]
         public string ConfigName { get; set; }
 
         [Required]
@@ -21,8 +21,20 @@ namespace CarManufactoring.Models
         public double AddedPrice { get; set; }
 
         [Required]
+        [Display(Name = "Final Price")]
+        [Range(0, int.MaxValue, ErrorMessage = "Value must be greater than zero")]
+        public double FinalPrice { get; set; }
+
+        [Required]
         [Display(Name ="Car")]
         public int CarId { get; set; }
         public Car? Car { get; set; }
+
+        public ICollection<ConfigList>? ConfigLists { get; set; }
+        public ICollection<SalesLine>? Order { get; set; }
+
+        ///Ricardo Sousa ligação M:M para com a tabela StockProduct
+        public ICollection<ModelParts> CarParts { get; set; }
+
     }
 }

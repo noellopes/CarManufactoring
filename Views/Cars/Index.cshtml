@@ -12,9 +12,15 @@
 
 <h1>@ViewBag.Title</h1>
 
-<div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Search Car</h5>
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Search
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
         <form asp-action="Index" method="get">
             <div class="mb-3">
             <label for="brand" class="form-label">Brand</label>
@@ -32,10 +38,15 @@
             <label for="price" class="form-label">Price</label>
             <input name="price" class="form-control" type="search" value="@Model.PriceSearched" />
             </div>
-
+            <div class="mb-3">
+            <label for="TimeProduction" class="form-label">Time of Production</label>
+            <input name="TimeProduction" class="form-control" type="search" value="@Model.TimeProductionSearched" />
+            </div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
         </form>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -55,6 +66,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => new Car().BasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Car().TimeProduction)
             </th>
             <th></th>
         </tr>
@@ -77,8 +91,11 @@
                     @Html.DisplayFor(modelItem => item.BasePrice)€
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CarId" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.CarId" class="btn btn-info">Details</a> |
+                    @Html.DisplayFor(modelItem => item.TimeProduction) days
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CarId" class="btn btn-warning">Edit</a> 
+                    <a asp-action="Details" asp-route-id="@item.CarId" class="btn btn-info">Details</a> 
                     <a asp-action="Delete" asp-route-id="@item.CarId" class="btn btn-danger">Delete</a>
                 </td>
             </tr>

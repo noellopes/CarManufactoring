@@ -21,12 +21,16 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Phone Number")]
+
         [StringLength(20)]
         [Phone]
+
+        [StringLength(20, MinimumLength = 9)]
+
         public string SupplierContact { get; set; }
           
 
-        
+
         [Required]
         [Display(Name = "ZIP Code")]
         [StringLength(20)]
@@ -35,7 +39,12 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Address")]
         [StringLength(100, MinimumLength = 2)]
+
         public string SupplierAddress { get; set; }    
         
+
+        public string SupplierAddress { get; set; }
+
+
     }
 }

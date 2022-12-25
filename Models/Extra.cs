@@ -16,5 +16,7 @@ namespace CarManufactoring.Models
         [Range(0, int.MaxValue, ErrorMessage = "Price must be greater than zero")]
         public double Price { get; set; }
 
+        public ICollection<ConfigList>? ConfigLists { get; set; }
+
     }
 }

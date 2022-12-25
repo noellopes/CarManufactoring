@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: ModelParts
         public async Task<IActionResult> Index()
         {
-              return View(await _context.ModelParts.ToListAsync());
+            var carManufactoringContext = _context.ModelParts.Include(m => m.CarConfig).Include(m => m.CarParts);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: ModelParts/Details/5
@@ -34,7 +35,9 @@ namespace CarManufactoring.Controllers
             }
 
             var modelParts = await _context.ModelParts
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(m => m.CarConfig)
+                .Include(m => m.CarParts)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (modelParts == null)
             {
                 return NotFound();
@@ -46,6 +49,8 @@ namespace CarManufactoring.Controllers
         // GET: ModelParts/Create
         public IActionResult Create()
         {
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name");
             return View();
         }
 
@@ -54,7 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PecaId,ModeloId,QtdPecas")] ModelParts modelParts)
+        public async Task<IActionResult> Create([Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +67,8 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", modelParts.CarConfigId);
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name", modelParts.ProductId);
             return View(modelParts);
         }
 
@@ -78,6 +85,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", modelParts.CarConfigId);
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name", modelParts.ProductId);
             return View(modelParts);
         }
 
@@ -86,9 +95,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PecaId,ModeloId,QtdPecas")] ModelParts modelParts)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
-            if (id != modelParts.Id)
+            if (id != modelParts.ProductId)
             {
                 return NotFound();
             }
@@ -102,7 +111,7 @@ namespace CarManufactoring.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModelPartsExists(modelParts.Id))
+                    if (!ModelPartsExists(modelParts.ProductId))
                     {
                         return NotFound();
                     }
@@ -113,6 +122,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", modelParts.CarConfigId);
+            ViewData["ProductId"] = new SelectList(_context.CarParts, "ProductId", "Name", modelParts.ProductId);
             return View(modelParts);
         }
 
@@ -125,7 +136,9 @@ namespace CarManufactoring.Controllers
             }
 
             var modelParts = await _context.ModelParts
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(m => m.CarConfig)
+                .Include(m => m.CarParts)
+                .FirstOrDefaultAsync(m => m.ProductId == id);
             if (modelParts == null)
             {
                 return NotFound();
@@ -155,7 +168,7 @@ namespace CarManufactoring.Controllers
 
         private bool ModelPartsExists(int id)
         {
-          return _context.ModelParts.Any(e => e.Id == id);
+          return _context.ModelParts.Any(e => e.ProductId == id);
         }
     }
 }

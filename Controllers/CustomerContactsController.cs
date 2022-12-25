@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,11 +21,37 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CustomerContacts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string CustomerName = null, string CustomerRole = null, string CustomerPhone = null, string CustomerEmail = null, string Customer = null, int page = 1)
         {
-            var carManufactoringContext = _context.CustomerContact.Include(c => c.Customer);
-            return View(await carManufactoringContext.ToListAsync());
+
+            var contacts = _context.CustomerContact.Include(c => c.Customer)
+                .Where(c => CustomerName == null || c.CustomerName.Equals(CustomerName))
+                .Where(c => CustomerRole == null || c.CustomerRole.Contains(CustomerRole))
+                .Where(c => CustomerPhone == null || c.CustomerPhone.Equals(CustomerPhone))
+                .Where(c => CustomerEmail == null || c.CustomerEmail.Equals(CustomerEmail))
+                .Where(c => Customer == null || c.Customer.CustomerName.Contains(Customer))
+                .OrderBy(c => c.CustomerName);
+            var pagingInfo = new PagingInfoViewModel(await contacts.CountAsync(), page);
+
+            var model = new CustomerContactsIndexViewModel
+            {
+                CustomerContactList = new ListViewModel<CustomerContact>
+                {
+                    List = await contacts
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                CustomerContactNameSearched = CustomerName,
+                CustomerRoleSearched = CustomerRole,
+                CustomerPhoneSearched = CustomerPhone,
+                CustomerEmailSearched = CustomerEmail,
+                CustomerSearched = Customer,
+
+            };
+            return View(model);
         }
+
 
         // GET: CustomerContacts/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -41,7 +68,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(customerContact);
         }
 
@@ -63,7 +90,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(customerContact);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Customer Contact created successfully.";
+                return RedirectToAction(nameof(Details), new { id = customerContact.CustomerContactId });
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", customerContact.CustomerId);
             return View(customerContact);
@@ -155,9 +183,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.CustomerContact.Remove(customerContact);
             }
-            
+
+            _context.CustomerContact.Remove(customerContact);
+            TempData["SuccessMessage"] = "Customer Contact removed successfully.";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("CustomerContactDeleted");
         }
 
         private bool CustomerContactExists(int id)

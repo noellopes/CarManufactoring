@@ -8,12 +8,15 @@ namespace CarManufactoring.Models
         public int ProductionId { get; set; }
 
         [Required]
-        [Display(Name = "Order Date")]
-        public String OrderDate { get; set; }
+        [Display(Name = "Production Start Date")]
+        [DataType(DataType.Date)]
+        public DateTime Date { get; set; }
 
-        [Required]
-        [Display(Name = "Delivery Date")]
-        [StringLength(25)]
-        public string DeliveryDate { get; set; }
+        [Display(Name = "Car Configuration")]
+        public int CarConfigId { get; set; }
+
+        public CarConfig? CarConfig { get; set; }
+
+        public int Quantity { get; set; }
     }
 }

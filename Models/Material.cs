@@ -9,19 +9,12 @@ namespace CarManufactoring.Models
         [Required]
         public string Nome { get; set; }
 
-        [StringLength(200, MinimumLength = 10)]
-        [Required]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        [StringLength(15, MinimumLength = 3)]
-        [Required]
-        public string State { get; set; }
-
-
-        [StringLength(30, MinimumLength = 3)]
+        [StringLength(30)]
         [Required]
         public string Type { get; set; }
 
-        public ICollection<Car>? MaterialUsado { get; set; }
+        public ICollection<MaterialUsed>? MaterialUsed { get; set; }
     }
 }

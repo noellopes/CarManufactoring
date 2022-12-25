@@ -8,7 +8,7 @@
 <style>
     .Scroll{
         overflow-y:scroll;
-        height: 100px;
+        height: 150px;
         width : 100%;
     }
     .tablee{
@@ -21,9 +21,9 @@
 <h1><img align="right"  class="rounded-circle" src="/img/students/1700331.jpg" >@ViewData["Title"]</h1>
 <h2>Group 3</h2>
 <h3>Number: 1700331</h3>
-<a class="btn btn-secondary " asp-controller="Groups" asp-action="Details" asp-route-number="3">Group Info</a>
-
-
+<a class="btn btn-secondary " asp-controller="Groups" asp-action="Details" asp-route-number="3">Group Info & Documentation</a>
+<hr />
+<p><h4>Models: </h4>Car, CarConfig & Brand</p>
 <hr>
 <h4>What I'm going to do:</h4>
 <table class="table tablee" >
@@ -48,11 +48,22 @@
 
 <h4> What I'm doing:</h4>
 <ul>
-    <li>Interfaces related to Car, CarConfig and Brand Classes, specifically adding search and paging on index view </li>
+    <li>System automation to calculate final price on car config class, using added price from car config and base price from car</li>
+    <li>Interfaces related to Car, CarConfig and Brand Classes, specifically adding search, paging on index view and notifications when Creating and Deleting data for those classes </li>
 </ul>
 <hr />
 <h4>What I've done so far: </h4>
 <ul class="Scroll">
+    <li>18/12 : Uniformization between car config and car CRUD pages  </li>
+    <li>18/12 : Added Final Price to Car Config Class</li>
+    <li>18/12 : Added base price on index page for car config </li>
+    <li>18/12 : Updated personal page and modified some little details related to car configs pages </li>
+    <li>17/12 : Showing brand in car configurations related pages since it's considered the final product</li>
+    <li>17/12 : Search and pagination for car config class </li>
+    <li>15/12 : Pop-ups when creating and deleting Car implemented (Layout slightly modified)</li>
+    <li>14/12 : Solved problems related to populate Inspections and Testing on SeedData file (Program not running)</li>
+    <li>13/12 : Solved problems related to ModelParts Module (Program not running) </li>
+    <li>12/12 : Search and paging for car index page</li>
     <li>09/12 : SeedData for Car, CarConfig and Brand Classes done </li>
     <li>09/12 : Updated personal files and personal page</li>
     <li>09/12 : When creating car , the year launch is predefined as the system's year</li>
@@ -66,7 +77,13 @@
 </ul>
 
 <hr />
-
+<div>
+<h4>Notes:</h4>
+<p>I didn't do the pagination and search for brand class because in practice normally a car factory doesn't
+    work with many brands, that's why I thought it was unnecessary to implement, since the user can perfectly see all the brands without scrolling to much
+</p>
+</div>
+<hr />
 <div class="row">
     <table class="table">
         <thead>

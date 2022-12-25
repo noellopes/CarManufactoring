@@ -8,6 +8,6 @@ namespace CarManufactoring.Models {
         [StringLength(120, MinimumLength = 3)]
         public string PartType { get; set; } //i.e Filters, brakes, ignition, suspension, etc.
 
-        
+        public ICollection<ModelParts> CarConfig { get; set; }
     }
 }

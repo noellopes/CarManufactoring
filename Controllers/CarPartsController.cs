@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group2;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,12 +22,29 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts
-        public async Task<IActionResult> Index()
-        {
-            var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
-                
+        public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, int page = 1) {
+            //var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
+           
+            var CarParts = Product.SearchProd(_context, name, partType, reference);
 
-            return View(CarParts);
+            var pagingInfo = new PagingInfoViewModel(await CarParts.CountAsync(), page);
+
+            var model = new CarPartsIndexViewModel {
+
+                CarPartsList = new ListViewModel<CarParts> {
+
+                    List = await CarParts
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize) 
+                    .Take(pagingInfo.PageSize)
+                    .ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                NameSearch = name,
+                ReferenceSearch = reference,
+                TypeSearch = partType
+            };
+
+            return View(model);
         }
 
         // GET: CarParts/Details/5

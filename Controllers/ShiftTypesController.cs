@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +22,23 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ShiftTypes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(String ShiftTypeDescriptionSearched = null, int page = 0)
         {
-              return View(await _context.ShiftType.ToListAsync());
+            var shiftTypes = _context.ShiftType.Include(m => m.ShiftTypeSearch)
+                .Where(m => ShiftTypeDescriptionSearched == null || m.Description.Contains(ShiftTypeDescriptionSearched)).OrderBy(m => m.StartTime)
+                .OrderBy(m => m.StartTime);
+            var pagingInfo = new PagingInfoViewModel(await shiftTypes.CountAsync(), page);
+            var model = new ShiftTypeIndexViewModel
+            {
+                ShiftTypeList = new ListViewModel<ShiftType> {
+                    List = await shiftTypes
+                    .Skip((pagingInfo.CurrentPage - 1 ) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                ShiftTypeDescriptionSearched = ShiftTypeDescriptionSearched,
+            };
+              return View(model);
         }
 
         // GET: ShiftTypes/Details/5
@@ -54,7 +70,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ShiftTypeId,ShiftTime,Description")] ShiftType shiftType)
+        public async Task<IActionResult> Create([Bind("ShiftTypeId,ShiftTime,Description,StartTime,EndTime")] ShiftType shiftType)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +102,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ShiftTypeId,ShiftTime,Description")] ShiftType shiftType)
+        public async Task<IActionResult> Edit(int id, [Bind("ShiftTypeId,ShiftTime,Description,StartTime,EndTime")] ShiftType shiftType)
         {
             if (id != shiftType.ShiftTypeId)
             {

@@ -1,0 +1,125 @@
+﻿@model SalesLineIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .butt {
+        padding-bottom: 10px;
+    }
+</style>
+
+<h1>@ViewBag.Title</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search SalesLine</h5>
+        <form asp-action="Index" method="get">
+             <div class="mb-3">
+                <label for="order" class="form-label">Order</label>
+                <input name="order" class="form-control" type="search" value="@Model.OrderSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="carconfig" class="form-label">Car Config</label>
+                <input name="carconfig" class="form-control" type="search" value="@Model.CarConfigSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input name="quantity" class="form-control" type="search" value="@Model.QuantitySearched" />
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input name="price" class="form-control" type="search" value="@Model.PriceSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="deliveryDate" class="form-label">Delivery Date</label>
+                <input name="deliveryDate" class="form-control" type="search" value="@Model.DeliveryDateSearched" />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+        </form>
+    </div>
+</div>
+
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => new SalesLine().Order.Customer.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new SalesLine().CarConfig.ConfigName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new SalesLine().Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new SalesLine().DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new SalesLine().Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SalesLineList.List)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Order.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CarConfig.ConfigName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<div class="mt-3 butt">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.SalesLineList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.SalesLineList.PagingInfo.InitialPageToShow; p <= Model.SalesLineList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.SalesLineList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.SalesLineList.PagingInfo.CurrentPage == Model.SalesLineList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.SalesLineList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

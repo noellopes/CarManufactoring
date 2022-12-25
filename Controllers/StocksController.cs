@@ -40,7 +40,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {
-                return NotFound();
+                return View("StockNotFound");
             }
 
             return View(stock);
@@ -49,8 +49,8 @@ namespace CarManufactoring.Controllers
         // GET: Stocks/Create
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome");
             return View();
         }
 
@@ -65,10 +65,14 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(stock);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                ViewBag.SuccessMessage = "Stock created successfully";
+                stock.Material = _context.Material.Find(stock.MaterialId);
+
+                return View("Details", stock);
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
             return View(stock);
         }
 
@@ -85,8 +89,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
             return View(stock);
         }
 
@@ -122,8 +126,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", stock.CollaboratorId);
-            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Description", stock.MaterialId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
+            ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
             return View(stock);
         }
 
@@ -160,10 +164,10 @@ namespace CarManufactoring.Controllers
             if (stock != null)
             {
                 _context.Stock.Remove(stock);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("StockDeleted");
         }
 
         private bool StockExists(int id)

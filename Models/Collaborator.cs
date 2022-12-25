@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarManufactoring.Models
 {
@@ -8,37 +10,47 @@ namespace CarManufactoring.Models
         [Key]
         public int CollaboratorId { get; set; }
 
-        [StringLength(100, MinimumLength = 10)]
-        [Required]
+
+        [StringLength(100, MinimumLength = 3,ErrorMessage = "Please Enter Collaborator's Full Name!")]
+        [Required(ErrorMessage = "Please Enter Collaborator's Name!")]
         public string Name { get; set; }
 
-        [Required]
-        public DateTime BirthDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please Enter Collaborator's Birth Date!")]
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        public DateTime BirthDate { get; set; }
+        //public DateOnly? BirthDate { get; set; }
+
+
+
+        [Required(ErrorMessage = "Collaborator's Phone Number is Required!")]
         [StringLength(20)]
-        [Phone]
+        [Phone(ErrorMessage = "Please Enter  a Valid Phone Number")]
         public string Phone { get; set; }
 
-        [Required]
-        [EmailAddress]
+
+        [Required(ErrorMessage = "Collaborator's E-Mail! is Required!")]
+        [EmailAddress(ErrorMessage = "Please Enter  a Valid Email Address!")]
         [StringLength(256)]
         public string Email { get; set; }
+
 
         [Required]
         [Display(Name = "Gender")]
         public int GenderId { get; set; }
-        public Gender Genders { get; set; }
-
+        public Gender? Genders { get; set; }
+        //to be replaced with enum since the genders are limited
 
         public Task? Task { get; set; }
 
-        //public ICollection<CollaboratorShift>? Shifts { get; set; }
-        //To be added by Ana 
+        public ICollection<CollaboratorShifts>? CollaboraterShift { get; set; }
 
         [Required]
         public bool OnDuty { get; set; }
 
         public string? Status { get; set; }
+
+        public ICollection<MaintenanceCollaborator>? MaintenanceCollaborators { get; set; }
     }
 }

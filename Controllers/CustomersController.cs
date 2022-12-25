@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +21,29 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Customers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string CustomerName = null, DateTime CustomerFoundDate = default, int page = 1)
         {
-              return View(await _context.Customer.ToListAsync());
+
+            var customers = _context.Customer
+                .Where(c => CustomerName == null || c.CustomerName.Equals(CustomerName))
+                .Where(c => CustomerFoundDate == default || c.CustomerFoundDate.Equals(CustomerFoundDate))
+                .OrderBy(c => c.CustomerFoundDate);
+            var pagingInfo = new PagingInfoViewModel(await customers.CountAsync(), page);
+
+            var model = new CustomerIndexViewModel
+            {
+                CustomerList = new ListViewModel<Customer>
+                {
+                    List = await customers
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                CustomerNameSearched = CustomerName,
+                CustomerFoundDateSearched = CustomerFoundDate,
+
+            };
+            return View(model);
         }
 
         // GET: Customers/Details/5
@@ -39,7 +60,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(customer);
         }
 
@@ -60,7 +81,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Customer created successfully.";
+                return RedirectToAction(nameof(Details), new { id = customer.CustomerId });
             }
             return View(customer);
         }
@@ -148,9 +170,12 @@ namespace CarManufactoring.Controllers
             {
                 _context.Customer.Remove(customer);
             }
-            
+
+
+            _context.Customer.Remove(customer);
+            TempData["SuccessMessage"] = "Customer removed successfully.";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("CustomerDeleted");
         }
 
         private bool CustomerExists(int id)

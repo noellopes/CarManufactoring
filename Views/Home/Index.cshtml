@@ -9,7 +9,19 @@
 
 
 <div class="mt-5">
-    <a asp-controller="SemiFinisheds" asp-action="Index" class="btn btn-secondary">Semi Finisheds</a>
+    <div class="mb-4">
+        <a asp-controller="SemiFinisheds" asp-action="Index" class="btn btn-secondary">SemiFinisheds</a>
+        <a asp-controller="SemiFinishedCars" asp-action="Index" class="btn btn-secondary">SemiFinisheds - Cars</a>
+    </div>
+
     <a asp-controller="Materials" asp-action="Index" class="btn btn-secondary">Materials</a>
     <a asp-controller="InspectionAndTests" asp-action="Index" class="btn btn-secondary">Inspections/Tests</a>
+    <a asp-controller="Collaborators" asp-action="Index" class="btn btn-danger">Collaborators-Dev</a>
+
+    <div class="mt-4">
+        <a asp-controller="SupplierParts" asp-action="Index" class="btn btn-secondary">Suppliers-Parts</a>
+    </div>
+    
+
 </div>
+

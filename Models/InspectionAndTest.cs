@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography.Xml;
 
 namespace CarManufactoring.Models
 {
@@ -22,6 +23,15 @@ namespace CarManufactoring.Models
             public string Description { get; set; }
 
 
-        
+            public int CollaboratorId { get; set; }
+
+            public Collaborator? Collaborator { get; set; }
+
+            public int SemiFinishedId { get; set; }
+
+            public SemiFinished? SemiFinished { get; set; }
+
+
+
     }
 }
