@@ -4,6 +4,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarManufactoring.Models {
     public abstract class Product {
@@ -19,17 +20,16 @@ namespace CarManufactoring.Models {
         [StringLength(120, MinimumLength =4)]
         public string Name { get; set; }
 
-        [Required]
         public double PointOfPurchase { get; set; }
 
         [Required]
         public double SafetyStock { get; set; }
 
-        [Required]
         [Range(0,1)]
         public decimal LevelService { get; set; }
 
-        public string StockState { get; } //Wait for stockStorage to be done
+        [NotMapped]
+        public string StockState { get; set; } = "to Implement"; //Wait for stockStorage to be done
 
         public static IOrderedQueryable<CarParts> SearchProd(CarManufactoringContext context, string NameSearch, string TypeSearch, string referenceSearch, string BrandSearch, string ModelSearch) {
 

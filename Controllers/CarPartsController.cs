@@ -64,6 +64,8 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+
             return View(carParts);
         }
 
@@ -84,8 +86,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(carParts);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Car Part Added Successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = carParts.ProductId});
             }
+
             return View(carParts);
         }
 
