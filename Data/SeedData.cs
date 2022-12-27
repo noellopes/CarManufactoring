@@ -8,11 +8,12 @@ namespace CarManufactoring.Data
         {
 
             PopulateGender(db);
+            PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
             //PopulateSemiFinishedCars(db);
-            PopulateMaterials(db); 
+            PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
@@ -22,20 +23,23 @@ namespace CarManufactoring.Data
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
+            PopulateLocalizationCode(db);
             PopulateMachines(db);
-            //PopulateMachineMaintenance(db);
+            PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            PopulateOrder(db);
+            //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
+            PopulateProductions(db);
+            PopulateWarehouses(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -414,9 +418,9 @@ namespace CarManufactoring.Data
         {
             if (db.Collaborator.Any()) return;
             db.Collaborator.AddRange(
-                new Collaborator { Name = "Worker1", BirthDate = DateTime.Parse("12 / 12 / 1999"), Phone = "919293949", Email = "Worker1@cars.pt", GenderId = 1, OnDuty = true },
-                new Collaborator { Name = "Worker2", BirthDate = DateTime.Parse("12 / 12 / 1995"), Phone = "919293949", Email = "Worker2@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Worker3", BirthDate = DateTime.Parse("12 / 12 / 1991"), Phone = "919293949", Email = "Worker3@cars.pt", GenderId = 1, OnDuty = false }
+                new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true },
+                new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true },
+                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false }
                 );
             db.SaveChanges();
         }
@@ -494,7 +498,60 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        private static void PopulateProductions(CarManufactoringContext db)
+        {
+            if (db.Production.Any()) return;
 
+            db.Production.AddRange(
+                new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity= 10 },
+                new Production { Date = DateTime.Parse("02/01/2022"), CarConfigId = 1, Quantity = 2 },
+                new Production { Date = DateTime.Parse("12/03/2023"), CarConfigId = 2, Quantity = 10 },
+                new Production { Date = DateTime.Parse("03/01/2023"), CarConfigId = 2, Quantity = 2 }
+                );
 
+            db.SaveChanges();
+        }
+
+        private static void PopulateLocalizationCode(CarManufactoringContext db)
+        {
+            if (db.LocalizationCode.Any()) return;
+
+            db.LocalizationCode.AddRange(
+                new LocalizationCode { Column = "A", Line = "1" },
+                new LocalizationCode { Column = "A", Line = "2" },
+                new LocalizationCode { Column = "A", Line = "3" },
+                new LocalizationCode { Column = "B", Line = "1" },
+                new LocalizationCode { Column = "B", Line = "2" },
+                new LocalizationCode { Column = "B", Line = "3" }
+                );
+
+            db.SaveChanges();
+
+        }
+
+        private static void PopulateFunction(CarManufactoringContext db)
+        {
+            if (db.Function.Any()) return;
+
+            db.Function.AddRange(
+                new Function { Name = "Limpar Peça" },
+                new Function { Name = "Montar Peça" }
+                );
+
+            db.SaveChanges();
+
+        }
+        private static void PopulateWarehouses(CarManufactoringContext db)
+        {
+            if (db.Warehouse.Any()) return;
+
+            db.Warehouse.AddRange(
+                new Warehouse { Location = "Guarda", CollaboratorID = 1 },
+                new Warehouse { Location = "Lisboa", CollaboratorID = 2 },
+                new Warehouse { Location = "Porto", CollaboratorID = 3 }
+                );
+
+            db.SaveChanges();
+        }
     }
 }

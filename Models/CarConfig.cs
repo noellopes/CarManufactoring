@@ -33,5 +33,8 @@ namespace CarManufactoring.Models
         public ICollection<ConfigList>? ConfigLists { get; set; }
         public ICollection<SalesLine>? Order { get; set; }
 
+        ///Ricardo Sousa ligação M:M para com a tabela StockProduct
+        public ICollection<ModelParts> CarParts { get; set; }
+
     }
 }

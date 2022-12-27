@@ -11,16 +11,10 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
+            @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeliveryDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeliveryDate)
+            @Html.DisplayFor(model => model.Date)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CarConfig)
@@ -29,14 +23,14 @@
             @Html.DisplayFor(model => model.CarConfig.ConfigName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxQuantity)
+            @Html.DisplayNameFor(model => model.Quantity)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxQuantity)
+            @Html.DisplayFor(model => model.Quantity)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductionId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ProductionId" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

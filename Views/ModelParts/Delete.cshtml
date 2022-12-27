@@ -1,4 +1,4 @@
-﻿@model CarManufactoring.Models.Production
+﻿@model CarManufactoring.Models.ModelParts
 
 @{
     ViewData["Title"] = "Delete";
@@ -8,20 +8,14 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Production</h4>
+    <h4>ModelParts</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
+            @Html.DisplayNameFor(model => model.CarParts)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeliveryDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeliveryDate)
+            @Html.DisplayFor(model => model.CarParts.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.CarConfig)
@@ -30,15 +24,16 @@
             @Html.DisplayFor(model => model.CarConfig.ConfigName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxQuantity)
+            @Html.DisplayNameFor(model => model.QtdPecas)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxQuantity)
+            @Html.DisplayFor(model => model.QtdPecas)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ProductionId" />
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="CarConfigId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index">Back to List</a>
     </form>

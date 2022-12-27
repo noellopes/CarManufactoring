@@ -1,4 +1,4 @@
-﻿@model CarManufactoring.Models.Production
+﻿@model CarManufactoring.Models.ModelParts
 
 @{
     ViewData["Title"] = "Create";
@@ -6,30 +6,24 @@
 
 <h1>Create</h1>
 
-<h4>Production</h4>
+<h4>ModelParts</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeliveryDate" class="control-label"></label>
-                <input asp-for="DeliveryDate" class="form-control" />
-                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+                <label asp-for="ProductId" class="control-label"></label>
+                <select asp-for="ProductId" class ="form-control" asp-items="ViewBag.ProductId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CarConfigId" class="control-label"></label>
                 <select asp-for="CarConfigId" class ="form-control" asp-items="ViewBag.CarConfigId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="MaxQuantity" class="control-label"></label>
-                <input asp-for="MaxQuantity" class="form-control" />
-                <span asp-validation-for="MaxQuantity" class="text-danger"></span>
+                <label asp-for="QtdPecas" class="control-label"></label>
+                <input asp-for="QtdPecas" class="form-control" />
+                <span asp-validation-for="QtdPecas" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

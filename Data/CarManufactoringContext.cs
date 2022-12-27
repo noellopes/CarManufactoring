@@ -68,7 +68,6 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CollaboratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // to be added == ShiftCollaborator
 
             modelBuilder.Entity<CollaboratorShifts>().HasKey(bc => new { bc.CollaboratorId, bc.ShiftId });
 
@@ -87,18 +86,18 @@ namespace CarManufactoring.Data
                     
 
 
-            modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.ProductId, bc.CarId });
+            modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.ProductId, bc.CarConfigId });
 
             modelBuilder.Entity<ModelParts>()
                 .HasOne(x => x.CarParts)
-                .WithMany(c => c.Car)
+                .WithMany(c => c.CarConfig)
                 .HasForeignKey(x => x.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<ModelParts>()
-                .HasOne(x => x.Car)
+                .HasOne(x => x.CarConfig)
                 .WithMany(c => c.CarParts)
-                .HasForeignKey(x => x.CarId)
+                .HasForeignKey(x => x.CarConfigId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<SalesLine>().HasKey(bc => new { bc.OrderId, bc.CarConfigId });
@@ -239,7 +238,12 @@ namespace CarManufactoring.Data
 
         
         
+
         public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
+
+        public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
+
+
  
 
     }
