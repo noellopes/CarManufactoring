@@ -25,7 +25,15 @@
             
             <div class="mb-3">
                 <label asp-for="Type" class="form-label"></label>
-                <input asp-for="Type" class="form-control" />
+                 <select asp-for="Type" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Please choose an option --</option>
+                    <option>Iron</option>
+                    <option>leather</option>
+                    <option>Glass</option>
+                    <option>Wood</option>
+                    <option>Gold</option>
+                    <option>Eraser</option>
+                </select>
                 <span asp-validation-for="Type" class="form-text text-danger"></span>
             </div>
             <div class="mb-3">

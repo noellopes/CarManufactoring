@@ -16,7 +16,14 @@
             </div>
             <div class="mb-3">
                 <label for="type" class="form-label">Type</label>
-                <input name="type" class="form-control" type="search" value="@Model.TypeSearched" />
+                <select name="type" class="form-control" type="search" value="@Model.TypeSearched" />
+                 <option selected="selected" disabled="disabled">-- Please choose an option --</option>
+                    <option>Iron</option>
+                    <option>leather</option>
+                    <option>Glass</option>
+                    <option>Wood</option>
+                    <option>Gold</option>
+                    <option>Eraser</option>
             </div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">Clear search</a>
