@@ -561,18 +561,12 @@ namespace CarManufactoring.Data
             if(db.ModelParts.Any()) return;
 
             db.ModelParts.AddRange(
-                    new ModelParts { CarConfigId = 0, ProductId = 0, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 0, ProductId = 1, QtdPecas = 135 },
-                    new ModelParts { CarConfigId = 0, ProductId = 2, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 0, ProductId = 3, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 0, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 0, ProductId = 5, QtdPecas = 1},
                     new ModelParts { CarConfigId = 1, ProductId = 0, QtdPecas = 1 },
                     new ModelParts { CarConfigId = 1, ProductId = 1, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 1, ProductId = 2, QtdPecas = 1 },
                     new ModelParts { CarConfigId = 1, ProductId = 3, QtdPecas = 1 },
                     new ModelParts { CarConfigId = 1, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 1},
                     new ModelParts { CarConfigId = 2, ProductId = 0, QtdPecas = 1 },
                     new ModelParts { CarConfigId = 2, ProductId = 1, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 2, ProductId = 2, QtdPecas = 1 },
@@ -590,7 +584,13 @@ namespace CarManufactoring.Data
                     new ModelParts { CarConfigId = 4, ProductId = 2, QtdPecas = 1 },
                     new ModelParts { CarConfigId = 4, ProductId = 3, QtdPecas = 1 },
                     new ModelParts { CarConfigId = 4, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 1 }
+                    new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 0, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 1, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 5, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 4, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 5, ProductId = 5, QtdPecas = 1 }
             );
 
             db.SaveChanges();
@@ -601,11 +601,11 @@ namespace CarManufactoring.Data
             if (db.TimeOfProduction.Any()) return;
 
             db.TimeOfProduction.AddRange(
-                new TimeOfProduction { CarConfigId =  0, Time = 2 },
-                new TimeOfProduction { CarConfigId = 1, Time = 1 },
-                new TimeOfProduction { CarConfigId = 2, Time = 3},
-                new TimeOfProduction { CarConfigId = 3, Time = 1},
-                new TimeOfProduction { CarConfigId = 4, Time = 4 }
+                new TimeOfProduction { CarConfigId = 1, Time = 2 },
+                new TimeOfProduction { CarConfigId = 2, Time = 1 },
+                new TimeOfProduction { CarConfigId = 3, Time = 3},
+                new TimeOfProduction { CarConfigId = 4, Time = 1},
+                new TimeOfProduction { CarConfigId = 5, Time = 4 }
                 );
             db.SaveChanges();
         }
