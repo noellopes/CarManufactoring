@@ -10,8 +10,7 @@ namespace CarManufactoring.Models
         public int LocalizationCarId { get; set; }
         public LocalizationCar? LocalizationCar { get; set; }
 
-        public int CarConfigId { get; set; }
-        public CarConfig? CarConfig { get; set; }
+        
 
         [Required]
         

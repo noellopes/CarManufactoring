@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: StockFinalProducts
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.StockFinalProduct.Include(s => s.CarConfig).Include(s => s.Production);
+            var carManufactoringContext = _context.StockFinalProduct.Include(s => s.Production);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace CarManufactoring.Controllers
             }
 
             var stockFinalProduct = await _context.StockFinalProduct
-                .Include(s => s.CarConfig)
                 .Include(s => s.Production)
                 .FirstOrDefaultAsync(m => m.LocalizationCarId == id);
             if (stockFinalProduct == null)
@@ -49,7 +48,6 @@ namespace CarManufactoring.Controllers
         // GET: StockFinalProducts/Create
         public IActionResult Create()
         {
-            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
             ViewData["ProductionId"] = new SelectList(_context.Production, "ProductionId", "ProductionId");
             return View();
         }
@@ -59,7 +57,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocalizationCarId,CarConfigId,ChassiNumber,ProductionId")] StockFinalProduct stockFinalProduct)
+        public async Task<IActionResult> Create([Bind("LocalizationCarId,ChassiNumber,ProductionId")] StockFinalProduct stockFinalProduct)
         {
             if (ModelState.IsValid)
             {
@@ -67,7 +65,6 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", stockFinalProduct.CarConfigId);
             ViewData["ProductionId"] = new SelectList(_context.Production, "ProductionId", "ProductionId", stockFinalProduct.ProductionId);
             return View(stockFinalProduct);
         }
@@ -85,7 +82,6 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", stockFinalProduct.CarConfigId);
             ViewData["ProductionId"] = new SelectList(_context.Production, "ProductionId", "ProductionId", stockFinalProduct.ProductionId);
             return View(stockFinalProduct);
         }
@@ -95,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LocalizationCarId,CarConfigId,ChassiNumber,ProductionId")] StockFinalProduct stockFinalProduct)
+        public async Task<IActionResult> Edit(int id, [Bind("LocalizationCarId,ChassiNumber,ProductionId")] StockFinalProduct stockFinalProduct)
         {
             if (id != stockFinalProduct.LocalizationCarId)
             {
@@ -122,7 +118,6 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", stockFinalProduct.CarConfigId);
             ViewData["ProductionId"] = new SelectList(_context.Production, "ProductionId", "ProductionId", stockFinalProduct.ProductionId);
             return View(stockFinalProduct);
         }
@@ -136,7 +131,6 @@ namespace CarManufactoring.Controllers
             }
 
             var stockFinalProduct = await _context.StockFinalProduct
-                .Include(s => s.CarConfig)
                 .Include(s => s.Production)
                 .FirstOrDefaultAsync(m => m.LocalizationCarId == id);
             if (stockFinalProduct == null)
