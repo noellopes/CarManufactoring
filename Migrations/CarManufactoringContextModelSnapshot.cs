@@ -1755,7 +1755,7 @@ namespace CarManufactoring.Migrations
                     b.Navigation("LocalizationCar");
 
                     b.Navigation("Production");
-
+                });
             modelBuilder.Entity("CarManufactoring.Models.Warehouse", b =>
                 {
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
