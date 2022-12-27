@@ -20,9 +20,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Sections
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Name = null)
         {
-              return View(await _context.Section.ToListAsync());
+            var section = _context.Section.OrderBy(b => b.Name);
+            return View(section);
         }
 
         // GET: Sections/Details/5
@@ -39,6 +40,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(section);
         }
@@ -60,7 +62,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(section);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = section.SectionId });
             }
             return View(section);
         }
@@ -99,6 +104,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(section);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = section.SectionId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -146,11 +154,13 @@ namespace CarManufactoring.Controllers
             var section = await _context.Section.FindAsync(id);
             if (section != null)
             {
+
                 _context.Section.Remove(section);
+                await _context.SaveChangesAsync();
             }
+
+            return View("SectionDeleted");
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool SectionExists(int id)
