@@ -20,9 +20,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: LocalizationCodes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Collumn = null)
         {
-              return View(await _context.LocalizationCode.ToListAsync());
+            var localizationcode = _context.LocalizationCode.OrderBy(b => b.Column).ThenBy(b => b.Line);
+            return View(localizationcode);
         }
 
         // GET: LocalizationCodes/Details/5
@@ -39,6 +40,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(localizationCode);
         }
@@ -60,7 +62,9 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(localizationCode);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = localizationCode.LocalizationCodeId });
             }
             return View(localizationCode);
         }
@@ -99,6 +103,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(localizationCode);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = localizationCode.LocalizationCodeId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,10 +154,10 @@ namespace CarManufactoring.Controllers
             if (localizationCode != null)
             {
                 _context.LocalizationCode.Remove(localizationCode);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("LocalizationCodeDeleted");
         }
 
         private bool LocalizationCodeExists(int id)
