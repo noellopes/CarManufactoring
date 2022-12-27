@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.LocalizationCar)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ChassiNumber)
             </th>
             <th>
@@ -25,15 +28,18 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.LocalizationCar.Line)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ChassiNumber)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Production.ProductionId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.LocalizationCarId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.LocalizationCarId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.LocalizationCarId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.StockFinalProductId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.StockFinalProductId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.StockFinalProductId">Delete</a>
             </td>
         </tr>
 }
