@@ -225,26 +225,15 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
         
-        
         public DbSet<CarManufactoring.Models.OrderState> OrderState { get; set; }
-
-        
         
         public DbSet<CarManufactoring.Models.SalesLine> SalesLine { get; set; }
-
-        
         
         public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
 
-        
-        
-
-        public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
-
         public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
 
-
- 
+        public DbSet<CarManufactoring.Models.LocalizationCar> LocalizationCar { get; set; }
 
     }
 }
