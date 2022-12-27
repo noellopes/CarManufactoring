@@ -12,12 +12,12 @@ namespace CarManufactoring.Data
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            //PopulateSemiFinishedCars(db);
+            PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
             PopulateMachineState(db);
-            //PopulateTaskType(db);
+            PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
             PopulatePriority(db);
@@ -27,12 +27,13 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
             PopulateCars(db);
+            PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            //PopulateOrder(db);
+            PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
@@ -40,6 +41,7 @@ namespace CarManufactoring.Data
             PopulateOrderState(db);
             PopulateProductions(db);
             PopulateWarehouses(db);
+            PopulateModelParts(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -551,6 +553,60 @@ namespace CarManufactoring.Data
                 new Warehouse { Location = "Porto", CollaboratorID = 3 }
                 );
 
+            db.SaveChanges();
+        }
+
+        private static void PopulateModelParts(CarManufactoringContext db)
+        {
+            if(db.ModelParts.Any()) return;
+
+            db.ModelParts.AddRange(
+                    new ModelParts { CarConfigId = 0, ProductId = 0, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 0, ProductId = 1, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 0, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 0, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 0, ProductId = 4, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 0, ProductId = 5, QtdPecas = 1},
+                    new ModelParts { CarConfigId = 1, ProductId = 0, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 1, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 1, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 4, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 0, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 1, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 2, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 4, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 2, ProductId = 5, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 0, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 1, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 3, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 4, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 3, ProductId = 5, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 0, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 1, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 4, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 4, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 1 }
+            );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateTimeOfProduction(CarManufactoringContext db)
+        {
+            if (db.TimeOfProduction.Any()) return;
+
+            db.TimeOfProduction.AddRange(
+                new TimeOfProduction { CarConfigId =  0, Time = 2 },
+                new TimeOfProduction { CarConfigId = 1, Time = 1 },
+                new TimeOfProduction { CarConfigId = 2, Time = 3},
+                new TimeOfProduction { CarConfigId = 3, Time = 1},
+                new TimeOfProduction { CarConfigId = 4, Time = 4 }
+                );
             db.SaveChanges();
         }
     }
