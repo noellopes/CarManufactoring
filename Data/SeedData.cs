@@ -28,7 +28,7 @@ namespace CarManufactoring.Data
             PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateTimeOfProduction(db);
-            PopulateCarConfigs(db);
+            //PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
@@ -39,9 +39,9 @@ namespace CarManufactoring.Data
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            PopulateProductions(db);
-            PopulateWarehouses(db);
-            PopulateModelParts(db);
+            //PopulateProductions(db);
+            //PopulateWarehouses(db);
+            //PopulateModelParts(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -561,36 +561,36 @@ namespace CarManufactoring.Data
             if(db.ModelParts.Any()) return;
 
             db.ModelParts.AddRange(
-                    new ModelParts { CarConfigId = 1, ProductId = 0, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 1, ProductId = 1, QtdPecas = 135 },
-                    new ModelParts { CarConfigId = 1, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 2, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 1, ProductId = 3, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 1, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 1},
-                    new ModelParts { CarConfigId = 2, ProductId = 0, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 2, ProductId = 1, QtdPecas = 135 },
-                    new ModelParts { CarConfigId = 2, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 1, ProductId = 6, QtdPecas = 1},
+                    new ModelParts { CarConfigId = 2, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 2, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 2, ProductId = 3, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 2, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 2, ProductId = 5, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 3, ProductId = 0, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 3, ProductId = 1, QtdPecas = 135 },
-                    new ModelParts { CarConfigId = 3, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 2, ProductId = 6, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 2, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 3, ProductId = 3, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 3, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 3, ProductId = 5, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 4, ProductId = 0, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 4, ProductId = 1, QtdPecas = 135 },
-                    new ModelParts { CarConfigId = 4, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 3, ProductId = 6, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 2, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 4, ProductId = 3, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 4, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 5, ProductId = 0, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 5, ProductId = 1, QtdPecas = 135 },
-                    new ModelParts { CarConfigId = 5, ProductId = 2, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 4, ProductId = 6, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 2, QtdPecas = 135 },
                     new ModelParts { CarConfigId = 5, ProductId = 3, QtdPecas = 1 },
-                    new ModelParts { CarConfigId = 5, ProductId = 4, QtdPecas = 4 },
-                    new ModelParts { CarConfigId = 5, ProductId = 5, QtdPecas = 1 }
+                    new ModelParts { CarConfigId = 5, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 5, ProductId = 6, QtdPecas = 1 }
             );
 
             db.SaveChanges();
