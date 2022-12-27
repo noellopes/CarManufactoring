@@ -32,7 +32,7 @@ namespace CarManufactoring.Data
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            PopulateOrder(db);
+            //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
