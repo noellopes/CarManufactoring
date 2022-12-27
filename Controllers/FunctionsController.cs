@@ -20,9 +20,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Functions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Name = null)
         {
-              return View(await _context.Function.ToListAsync());
+            var function = _context.Function.OrderBy(b => b.Name);
+            return View(function);
         }
 
         // GET: Functions/Details/5
@@ -39,6 +40,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(function);
         }
@@ -60,7 +62,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(function);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = function.FunctionId });
             }
             return View(function);
         }
@@ -99,6 +104,10 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(function);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = function.FunctionId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,10 +156,10 @@ namespace CarManufactoring.Controllers
             if (function != null)
             {
                 _context.Function.Remove(function);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("FunctionDeleted");
         }
 
         private bool FunctionExists(int id)
