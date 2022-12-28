@@ -484,6 +484,9 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalizationCarId"), 1L, 1);
 
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Line")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");

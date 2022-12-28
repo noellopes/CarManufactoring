@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20221227225250_StockFinalProduct")]
+    [Migration("20221228030007_StockFinalProduct")]
     partial class StockFinalProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -485,6 +485,9 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LocalizationCarId"), 1L, 1);
+
+                    b.Property<bool>("IsOccupied")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Line")
                         .IsRequired()
