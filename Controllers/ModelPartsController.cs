@@ -27,9 +27,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? CarConfigId, int? ProductId)
         {
-            if (id == null || _context.ModelParts == null)
+
+            if (CarConfigId == null || ProductId == null || _context.ModelParts == null)
             {
                 return NotFound();
             }
@@ -37,7 +38,7 @@ namespace CarManufactoring.Controllers
             var modelParts = await _context.ModelParts
                 .Include(m => m.CarConfig)
                 .Include(m => m.CarParts)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+                .FirstOrDefaultAsync(m => m.CarConfigId == CarConfigId && m.ProductId == ProductId);
             if (modelParts == null)
             {
                 return NotFound();

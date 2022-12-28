@@ -37,9 +37,9 @@
                 @Html.DisplayFor(modelItem => item.QtdPecas)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "Edit", new { CarConfigId=item.CarConfigId, ProductId=item.ProductId }) |
+                    @Html.ActionLink("Details", "Details", new { item.CarConfigId, item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { item.CarConfigId, item.ProductId })
             </td>
         </tr>
 }
