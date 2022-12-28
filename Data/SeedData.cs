@@ -609,5 +609,30 @@ namespace CarManufactoring.Data
                 );
             db.SaveChanges();
         }
-    }
+
+        private static void PopulateLocalizationCar (CarManufactoringContext db)
+        {
+            if (db.LocalizationCar.Any()) return;
+
+            db.LocalizationCar.AddRange(
+                new LocalizationCar { Line = "1", Row = "1", IsOccupied = false},
+                new LocalizationCar { Line = "1", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "2" ,Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "4", IsOccupied = false }
+                );
+            db.SaveChanges();
+        }
+        }
 }
