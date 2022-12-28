@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("LocalizationCarId,Line,Row")] LocalizationCar localizationCar)
+        public async Task<IActionResult> Create([Bind("LocalizationCarId,Line,Row,IsOccupied")] LocalizationCar localizationCar)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("LocalizationCarId,Line,Row")] LocalizationCar localizationCar)
+        public async Task<IActionResult> Edit(int id, [Bind("LocalizationCarId,Line,Row,IsOccupied")] LocalizationCar localizationCar)
         {
             if (id != localizationCar.LocalizationCarId)
             {
