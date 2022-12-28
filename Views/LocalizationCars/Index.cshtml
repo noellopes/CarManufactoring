@@ -18,6 +18,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Row)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsOccupied)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -29,6 +32,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Row)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsOccupied)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.LocalizationCarId">Edit</a> |
