@@ -634,5 +634,21 @@ namespace CarManufactoring.Data
                 );
             db.SaveChanges();
         }
+
+        private static void PopulateStockFinalProduct(CarManufactoringContext db)
+        {
+            if (db.StockFinalProduct.Any()) return;
+
+            db.StockFinalProduct.AddRange(
+                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1 },
+                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2 },
+                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3 },
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4 },
+                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5 }
+
+                );
+            db.SaveChanges();
         }
+
+    }
 }
