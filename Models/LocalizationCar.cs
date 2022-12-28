@@ -14,5 +14,8 @@ namespace CarManufactoring.Models
          [Display(Name = "Row where the car is located ")]
          public string Row  { get; set; }
 
+        [Required]
+
+        public bool IsOccupied { get; set; }
 }
 }
