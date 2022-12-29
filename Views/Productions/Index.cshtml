@@ -1,11 +1,27 @@
-﻿@model IEnumerable<CarManufactoring.Models.Production>
+﻿@model ProductionIndexViewModel
 
 @{
     ViewData["Title"] = "Productions";
 }
 
 <h1>@ViewBag.Title</h1>
-
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input name="nome" class="form-control" type="search" value="@Model.CarConfigSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <input name="type" class="form-control" type="search" value="@Model.QuantitySearched" />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
@@ -13,19 +29,20 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @Html.DisplayNameFor(model =>new Production().Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarConfig)
+                @Html.DisplayNameFor(model => new Production().CarConfig)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantity)
+                @Html.DisplayNameFor(model => new Production().Quantity)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.ProductionList.List)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -45,3 +62,27 @@
 }
     </tbody>
 </table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.ProductionList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.ProductionList.PagingInfo.InitialPageToShow; p <= Model.ProductionList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.ProductionList.PagingInfo.CurrentPage)
+            {
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                        <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.ProductionList.PagingInfo.CurrentPage == Model.ProductionList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.ProductionList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

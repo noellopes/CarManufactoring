@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,12 +21,29 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Productions
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int CarConfig, int Quantity, int page = 1)
         {
-            var carManufactoringContext = _context.Production.Include(p => p.CarConfig);
-            return View(await carManufactoringContext.ToListAsync());
-        }
+            var production = _context.Production.Include(c => c.CarConfig);
 
+
+
+            var pagingInfo = new PagingInfoViewModel(await production.CountAsync(), page);
+
+            var model = new ProductionIndexViewModel
+            {
+                ProductionList = new ListViewModel<Production>
+                {
+                    List = await production
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                CarConfigSearched = CarConfig,
+                QuantitySearched = Quantity
+            };
+
+            return View(model);
+        }
         // GET: Productions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
