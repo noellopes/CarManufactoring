@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,31 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string CarConfigName = null, string CarPartName = null, int QtdPecas = 0, int page = 1)
         {
-            var carManufactoringContext = _context.ModelParts.Include(m => m.CarConfig).Include(m => m.CarParts);
-            return View(await carManufactoringContext.ToListAsync());
+            var ModelPartsVar = _context.ModelParts.Include(s => s.CarConfig).Include(s => s.CarParts)
+                .Where(c => QtdPecas == 0 || c.QtdPecas.Equals(QtdPecas))
+                .Where(c => CarConfigName == null || c.CarConfig.ConfigName.Contains(CarConfigName))
+                .Where(c => CarPartName == null || c.CarParts.Name.Contains(CarPartName))
+                .OrderBy(c => c.CarConfig.ConfigName);
+
+            var PagingInfoVar = new PagingInfoViewModel(await ModelPartsVar.CountAsync(), page);
+
+            var model = new ModelPartsIndexViewModel
+            {
+                ModelPartsList = new ListViewModel<ModelParts>
+                {
+                    List = await ModelPartsVar
+                    .Skip((PagingInfoVar.CurrentPage - 1) * PagingInfoVar.PageSize)
+                    .Take(PagingInfoVar.PageSize).ToListAsync(),
+                    PagingInfo = PagingInfoVar
+                },
+                QuantitySearched = QtdPecas,
+                CarConfigNameSearched = CarConfigName,
+                ModelPartsNameSearched = CarPartName
+            };
+            
+            return View(model);
         }
 
         // GET: ModelParts/Details/5
