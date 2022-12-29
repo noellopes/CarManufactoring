@@ -23,15 +23,17 @@ namespace CarManufactoring.Controllers
 
         // GET: Collaborators
 
-        public async Task<IActionResult> Index(int OnDuty, string Name = null, int page = 0)
+        public async Task<IActionResult> Index(int OnDuty, string Name = null, string Phone = null, int page = 0)
         {
-            IOrderedQueryable<Collaborator> collaborators = null;
+            //ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
+            IQueryable<Collaborator> collaborators = null;
             switch (OnDuty)
             {
                 case 1:
                     collaborators = _context.Collaborator
                         .Include(c => c.Genders)
                         .Where(m => Name == null || m.Name.Contains(Name))
+                        .Where(m => Phone == null || m.Phone.Contains(Phone))
                         .Where(m => m.OnDuty == true)
                         .OrderBy(m => m.Name);
                     break;
@@ -40,6 +42,7 @@ namespace CarManufactoring.Controllers
                     collaborators = _context.Collaborator
                         .Include(c => c.Genders)
                         .Where(m => Name == null || m.Name.Contains(Name))
+                        .Where(m => Phone == null || m.Phone.Contains(Phone))
                         .Where(m => m.OnDuty == false)
                         .OrderBy(m => m.Name);
                     break;
@@ -47,10 +50,12 @@ namespace CarManufactoring.Controllers
                     collaborators = _context.Collaborator
                         .Include(c => c.Genders)
                         .Where(m => Name == null || m.Name.Contains(Name))
+                        .Where(m => Phone == null || m.Phone.Contains(Phone))
                         .OrderBy(m => m.Name);
                     break;
             }
 
+            //collaborators = collaborators.Where(m => m.GenderId == 1);
 
             var pagingInfo = new PagingInfoViewModel(await collaborators.CountAsync(), page);
 
@@ -64,7 +69,9 @@ namespace CarManufactoring.Controllers
                     PagingInfo = pagingInfo
                 },
                 NameSearched = Name,
+                PhoneSearched = Phone,
                 OnDutyFilter = OnDuty,
+
             };
             return View(model);
         }
