@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CarConfigId)
+                @Html.DisplayNameFor(model => model.CarConfig)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Time)
@@ -25,7 +25,7 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CarConfigId)
+                @Html.DisplayFor(modelItem => item.CarConfig.ConfigName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Time)

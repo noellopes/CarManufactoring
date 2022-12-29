@@ -22,7 +22,8 @@ namespace CarManufactoring.Controllers
         // GET: TimeOfProductions
         public async Task<IActionResult> Index()
         {
-              return View(await _context.TimeOfProduction.ToListAsync());
+            var carManufactoringContext = _context.TimeOfProduction.Include(t => t.CarConfig);
+            return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: TimeOfProductions/Details/5
@@ -34,6 +35,7 @@ namespace CarManufactoring.Controllers
             }
 
             var timeOfProduction = await _context.TimeOfProduction
+                .Include(t => t.CarConfig)
                 .FirstOrDefaultAsync(m => m.TimeOfProductionId == id);
             if (timeOfProduction == null)
             {
@@ -46,6 +48,7 @@ namespace CarManufactoring.Controllers
         // GET: TimeOfProductions/Create
         public IActionResult Create()
         {
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
             return View();
         }
 
@@ -62,6 +65,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", timeOfProduction.CarConfigId);
             return View(timeOfProduction);
         }
 
@@ -78,6 +82,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", timeOfProduction.CarConfigId);
             return View(timeOfProduction);
         }
 
@@ -113,6 +118,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", timeOfProduction.CarConfigId);
             return View(timeOfProduction);
         }
 
@@ -125,6 +131,7 @@ namespace CarManufactoring.Controllers
             }
 
             var timeOfProduction = await _context.TimeOfProduction
+                .Include(t => t.CarConfig)
                 .FirstOrDefaultAsync(m => m.TimeOfProductionId == id);
             if (timeOfProduction == null)
             {
