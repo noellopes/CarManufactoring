@@ -20,6 +20,6 @@ namespace CarManufactoring.Models
         public int Quantity { get; set; }
 
         //Telmo Morais InspectionAndTests
-        public ICollection<InspectionTestsProduction> InspectionTests { get; set;}
+        public ICollection<InspectionTestsProduction>? InspectionTests { get; set;}
     }
 }
