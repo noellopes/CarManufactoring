@@ -7,6 +7,6 @@ namespace CarManufactoring.ViewModels
         public string? NameSearched { get; set; }
         public string? PhoneSearched { get; set; }
         public int? OnDutyFilter { get; set; }
-        //public int? GenderSearched { get; set; }
+        public int? GenderSearched { get; set; }
     }
 }

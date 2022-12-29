@@ -23,9 +23,10 @@ namespace CarManufactoring.Controllers
 
         // GET: Collaborators
 
-        public async Task<IActionResult> Index(int OnDuty, string Name = null, string Phone = null, int page = 0)
+        public async Task<IActionResult> Index(int Gender, int OnDuty, string Name = null, string Phone = null, int page = 0)
         {
-            //ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
+            ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
+
             IQueryable<Collaborator> collaborators = null;
             switch (OnDuty)
             {
@@ -54,8 +55,21 @@ namespace CarManufactoring.Controllers
                         .OrderBy(m => m.Name);
                     break;
             }
+            // to Check if the gender id passed to search field exists & keep the code dynamic
+            Gender SelectedGender = null;
+            try
+            {
+                SelectedGender = _context.Gender.First(g => g.GenderId == Gender);
 
-            //collaborators = collaborators.Where(m => m.GenderId == 1);
+            }
+            catch (Exception)
+            {
+
+            }
+            if (Gender != 0 && SelectedGender != null)
+            {
+                collaborators = collaborators.Where(m => m.GenderId == Gender);
+            }
 
             var pagingInfo = new PagingInfoViewModel(await collaborators.CountAsync(), page);
 
@@ -71,6 +85,7 @@ namespace CarManufactoring.Controllers
                 NameSearched = Name,
                 PhoneSearched = Phone,
                 OnDutyFilter = OnDuty,
+                GenderSearched = Gender,
 
             };
             return View(model);
