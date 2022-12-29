@@ -114,6 +114,21 @@ namespace CarManufactoring.Data
                         .HasForeignKey(x => x.CarConfigId)
                         .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<InspectionTestsProduction>().HasKey(bc => new { bc.InspectionId, bc.ProductionId });
+
+            modelBuilder.Entity<InspectionTestsProduction>()
+                .HasOne(x => x.InspectionAndTest)
+                .WithMany(s => s.Production)
+                .HasForeignKey( x => x.InspectionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InspectionTestsProduction>()
+                .HasOne(x => x.Production)
+                .WithMany(s => s.InspectionTests)
+                .HasForeignKey(x => x.ProductionId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+
         }
        
 
@@ -236,6 +251,8 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.LocalizationCar> LocalizationCar { get; set; }
 
         public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
+
+        public DbSet<CarManufactoring.Models.InspectionTestsProduction> InspectionTestsProduction { get; set; }
 
     }
 }

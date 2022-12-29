@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20221229142305_InspectionTestsProductions")]
+    partial class InspectionTestsProductions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1332,8 +1334,7 @@ namespace CarManufactoring.Migrations
 
                     b.HasKey("TimeOfProductionId");
 
-                    b.HasIndex("CarConfigId")
-                        .IsUnique();
+                    b.HasIndex("CarConfigId");
 
                     b.ToTable("TimeOfProduction");
                 });
@@ -1484,7 +1485,7 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.InspectionTestsProduction", b =>
                 {
                     b.HasOne("CarManufactoring.Models.InspectionAndTest", "InspectionAndTest")
-                        .WithMany("InspectionTestsProduction")
+                        .WithMany()
                         .HasForeignKey("InspectionAndTestInspectionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1789,8 +1790,8 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.TimeOfProduction", b =>
                 {
                     b.HasOne("CarManufactoring.Models.CarConfig", "CarConfig")
-                        .WithOne("TimeOfProduction")
-                        .HasForeignKey("CarManufactoring.Models.TimeOfProduction", "CarConfigId")
+                        .WithMany()
+                        .HasForeignKey("CarConfigId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1827,9 +1828,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("ConfigLists");
 
                     b.Navigation("Order");
-
-                    b.Navigation("TimeOfProduction")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.CarParts", b =>
@@ -1861,11 +1859,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Collaborators");
 
                     b.Navigation("SectionManagers");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.InspectionAndTest", b =>
-                {
-                    b.Navigation("InspectionTestsProduction");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineBrand", b =>

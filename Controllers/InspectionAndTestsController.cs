@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.InspectionAndTest.Include(i => i.Collaborator).Include(i => i.SemiFinished);
+            var carManufactoringContext = _context.InspectionAndTest.Include(i => i.Collaborator);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -36,7 +36,6 @@ namespace CarManufactoring.Controllers
 
             var inspectionAndTest = await _context.InspectionAndTest
                 .Include(i => i.Collaborator)
-                .Include(i => i.SemiFinished)
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
@@ -50,7 +49,6 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description");
             return View();
         }
 
@@ -59,7 +57,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InspectionId,Date,State,Description,CollaboratorId,SemiFinishedId")] InspectionAndTest inspectionAndTest)
+        public async Task<IActionResult> Create([Bind("InspectionId,Date,State,Description,CollaboratorId")] InspectionAndTest inspectionAndTest)
         {
             if (ModelState.IsValid)
             {
@@ -68,7 +66,6 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description", inspectionAndTest.SemiFinishedId);
             return View(inspectionAndTest);
         }
 
@@ -86,7 +83,6 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description", inspectionAndTest.SemiFinishedId);
             return View(inspectionAndTest);
         }
 
@@ -95,7 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InspectionId,Date,State,Description,CollaboratorId,SemiFinishedId")] InspectionAndTest inspectionAndTest)
+        public async Task<IActionResult> Edit(int id, [Bind("InspectionId,Date,State,Description,CollaboratorId")] InspectionAndTest inspectionAndTest)
         {
             if (id != inspectionAndTest.InspectionId)
             {
@@ -123,7 +119,6 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
-            ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Description", inspectionAndTest.SemiFinishedId);
             return View(inspectionAndTest);
         }
 
@@ -137,7 +132,6 @@ namespace CarManufactoring.Controllers
 
             var inspectionAndTest = await _context.InspectionAndTest
                 .Include(i => i.Collaborator)
-                .Include(i => i.SemiFinished)
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
