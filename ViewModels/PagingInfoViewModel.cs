@@ -2,24 +2,26 @@
 {
     public class PagingInfoViewModel
     {
-        public const int Pages_Show_Before_After = 3;
-        
-        public PagingInfoViewModel(int totalItems, int currentPage, int pageSize = 5 )
+
+        public PagingInfoViewModel(int totalItems, int currentPage, int pageSize = 5, int pages_Show_Before_After = 3)
         {
-            TotalItems= totalItems;
-            PageSize= pageSize;
+            TotalItems = totalItems;
+            PageSize = pageSize;
+            Pages_Show_Before_After = pages_Show_Before_After;
 
             if (currentPage < 1)
             {
-                currentPage=1;
+                currentPage = 1;
             } else if (currentPage > TotalPages)
             {
-                currentPage= TotalPages;
+                currentPage = TotalPages;
             }
 
-            CurrentPage= currentPage;
+            CurrentPage = currentPage;
         }
-        
+
+
+        public int Pages_Show_Before_After { get; set; }
         public int TotalItems { get; set; }
         public int PageSize { get; set; }
         public int CurrentPage { get; set; }

@@ -31,6 +31,9 @@ namespace CarManufactoring.Controllers
 
             var PagingInfoVar = new PagingInfoViewModel(await ModelPartsVar.CountAsync(), page);
 
+            PagingInfoVar.PageSize = 10;
+            PagingInfoVar.Pages_Show_Before_After = 6;
+
             var model = new ModelPartsIndexViewModel
             {
                 ModelPartsList = new ListViewModel<ModelParts>
