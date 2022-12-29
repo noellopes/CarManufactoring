@@ -74,14 +74,14 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? CarConfigId, int? ProductId)
         {
-            if (id == null || _context.ModelParts == null)
+            if (CarConfigId == null || ProductId == null || _context.ModelParts == null)
             {
                 return NotFound();
             }
 
-            var modelParts = await _context.ModelParts.FindAsync(id);
+            var modelParts = await _context.ModelParts.FindAsync(CarConfigId, ProductId);
             if (modelParts == null)
             {
                 return NotFound();
@@ -96,9 +96,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
+        public async Task<IActionResult> Edit(int CarConfigId, int ProductId, [Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
-            if (id != modelParts.ProductId)
+            if (CarConfigId != modelParts.CarConfigId || ProductId != modelParts.ProductId)
             {
                 return NotFound();
             }
@@ -112,7 +112,7 @@ namespace CarManufactoring.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModelPartsExists(modelParts.ProductId))
+                    if (!ModelPartsExists(modelParts.ProductId, modelParts.CarConfigId))
                     {
                         return NotFound();
                     }
@@ -167,9 +167,9 @@ namespace CarManufactoring.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ModelPartsExists(int id)
+        private bool ModelPartsExists(int ProductId, int CarConfigId)
         {
-          return _context.ModelParts.Any(e => e.ProductId == id);
+          return _context.ModelParts.Any(e => e.ProductId == ProductId && e.CarConfigId == CarConfigId);
         }
     }
 }
