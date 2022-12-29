@@ -8,9 +8,9 @@ namespace CarManufactoring.Data
         {
 
             PopulateGender(db);
-            //PopulateFunction(db);
+            PopulateFunction(db);
             PopulateCollaborators(db);
-           /* PopulateCarParts(db);
+            PopulateCarParts(db);
             PopulateSemiFinisheds(db);
             //PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
@@ -28,20 +28,20 @@ namespace CarManufactoring.Data
             PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateTimeOfProduction(db);
-            PopulateCarConfigs(db);*/
+            PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
-            /*PopulateCustomers(db);
+            PopulateCustomers(db);
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             PopulateStocks(db);
             PopulateExtras(db);
-            PopulateOrderState(db);*/
+            PopulateOrderState(db);
             //PopulateProductions(db);
             //PopulateWarehouses(db);
-            //PopulateModelParts(db);
+            PopulateModelParts(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
