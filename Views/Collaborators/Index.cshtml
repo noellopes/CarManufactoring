@@ -15,26 +15,36 @@
         <h5 class="card-title">Collaborator Search</h5>
         <form asp-action="Index" method="get">
             <div class="mb-3">
-                <label for="Name" class="form-label"></label>
+                <h6 class="form-label">Name</h6>
                 <input name="Name" asp-for="NameSearched" class="form-control" type="search" placeholder="Collaborators Name"/>
             </div>
 
             <div class="mb-3">
-                <label for="Phone" class="form-label"></label>
+                <h6 class="form-label">Phone Number</h6>
                 <input name="Phone" asp-for="PhoneSearched" class="form-control" type="search" placeholder="Collaborators Phone"/>
             </div>
 
-            <label class="form-label">On Duty</label>
-            <div class="mb-3 ">
-                <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="1"/> On Duty 
-                <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="2" />       Off Duty
-                <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="0" />       All
-            <div/>
+            <div class="row">
+                <div class="col-lg-6 col-sm-12">
+                     <h6 class="form-label">On Duty</h6>
+                    <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="1"/> On Duty 
+                    <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="2" />       Off Duty
+                    <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="0" />       All
+                </div>
+                <div class="col-lg-6 col-sm-12">
+                    <h6 class="form-label">Gender</h6>
+                    <select asp-for="GenderSearched" class="form-control" name="Gender" asp-items="ViewBag.GenderId">
+                        <option value="0"> All</option>
+                    </select>
+                </div>
 
-            <label for="Gender" class="form-label"></label>
-            @*<select asp-for="GenderSearched" class="form-control" asp-items="ViewBag.GenderId"></select>*@
+                <!-- Force next columns to break to new line -->
+            <div class="w-100"></div>
+          </div>
 
 
+            <br />
+            
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
         </form>
