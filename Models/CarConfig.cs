@@ -36,5 +36,6 @@ namespace CarManufactoring.Models
         ///Ricardo Sousa ligação M:M para com a tabela StockProduct
         public ICollection<ModelParts> CarParts { get; set; }
 
+        public TimeOfProduction? TimeOfProduction { get; set; }
     }
 }
