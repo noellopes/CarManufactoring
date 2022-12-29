@@ -11,7 +11,7 @@ namespace CarManufactoring.Models
         public int CollaboratorId { get; set; }
 
 
-        [StringLength(100, MinimumLength = 3,ErrorMessage = "Please Enter Collaborator's Full Name!")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "Please Enter Collaborator's Full Name!")]
         [Required(ErrorMessage = "Please Enter Collaborator's Name!")]
         public string Name { get; set; }
 
@@ -19,6 +19,7 @@ namespace CarManufactoring.Models
         [Required(ErrorMessage = "Please Enter Collaborator's Birth Date!")]
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
+        [AgeValidator]
         public DateTime BirthDate { get; set; }
         //public DateOnly? BirthDate { get; set; }
 
