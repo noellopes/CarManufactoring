@@ -23,13 +23,35 @@ namespace CarManufactoring.Controllers
 
         // GET: Collaborators
 
-        public async Task<IActionResult> Index(string Name = null, int page = 0)
+        public async Task<IActionResult> Index(int OnDuty, string Name = null, int page = 0)
         {
-            var collaborators = _context.Collaborator
-                .Include(c => c.Genders)
-                .Where(m => Name == null || m.Name.Contains(Name))
-                //.Where(m => m.OnDuty == false))
-                .OrderBy(m => m.Name);
+            IOrderedQueryable<Collaborator> collaborators = null;
+            switch (OnDuty)
+            {
+                case 1:
+                    collaborators = _context.Collaborator
+                        .Include(c => c.Genders)
+                        .Where(m => Name == null || m.Name.Contains(Name))
+                        .Where(m => m.OnDuty == true)
+                        .OrderBy(m => m.Name);
+                    break;
+
+                case 2:
+                    collaborators = _context.Collaborator
+                        .Include(c => c.Genders)
+                        .Where(m => Name == null || m.Name.Contains(Name))
+                        .Where(m => m.OnDuty == false)
+                        .OrderBy(m => m.Name);
+                    break;
+                default:
+                    collaborators = _context.Collaborator
+                        .Include(c => c.Genders)
+                        .Where(m => Name == null || m.Name.Contains(Name))
+                        .OrderBy(m => m.Name);
+                    break;
+            }
+
+
             var pagingInfo = new PagingInfoViewModel(await collaborators.CountAsync(), page);
 
             var model = new CollaboratorIndexViewModel
@@ -42,6 +64,7 @@ namespace CarManufactoring.Controllers
                     PagingInfo = pagingInfo
                 },
                 NameSearched = Name,
+                OnDutyFilter = OnDuty,
             };
             return View(model);
         }
