@@ -28,7 +28,7 @@ namespace CarManufactoring.Models
             public Collaborator? Collaborator { get; set; }
 
 
-            public ICollection<InspectionTestsProduction> InspectionTestsProduction { get; set; }
+            public ICollection<InspectionTestsProduction> Production { get; set; }
 
             
 
