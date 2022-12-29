@@ -15,15 +15,24 @@
         <h5 class="card-title">Collaborator Search</h5>
         <form asp-action="Index" method="get">
             <div class="mb-3">
-                <label for="Name" class="form-label" Type"></label>
+                <label for="Name" class="form-label"></label>
                 <input name="Name" asp-for="NameSearched" class="form-control" type="search" placeholder="Collaborators Name"/>
             </div>
 
             <div class="mb-3">
+                <label for="Phone" class="form-label"></label>
+                <input name="Phone" asp-for="PhoneSearched" class="form-control" type="search" placeholder="Collaborators Phone"/>
+            </div>
+
+            <label class="form-label">On Duty</label>
+            <div class="mb-3 ">
                 <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="1"/> On Duty 
                 <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="2" />       Off Duty
                 <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="0" />       All
             <div/>
+
+            <label for="Gender" class="form-label"></label>
+            @*<select asp-for="GenderSearched" class="form-control" asp-items="ViewBag.GenderId"></select>*@
 
 
             <input type="submit" value="Search" class="btn btn-primary" />
