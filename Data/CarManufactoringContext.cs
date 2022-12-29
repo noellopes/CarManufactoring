@@ -237,5 +237,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
 
+        public DbSet<CarManufactoring.Models.InspectionTestsProduction> InspectionTestsProduction { get; set; }
+
     }
 }

@@ -27,9 +27,7 @@ namespace CarManufactoring.Models
 
             public Collaborator? Collaborator { get; set; }
 
-            public int SemiFinishedId { get; set; }
-
-            public SemiFinished? SemiFinished { get; set; }
+            
 
 
 
