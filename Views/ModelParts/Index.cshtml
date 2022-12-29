@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarManufactoring.Models.ModelParts>
+﻿@model ModelPartsIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -25,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.ModelPartsList.List) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CarParts.Name)
@@ -45,3 +45,26 @@
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.ModelPartsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+        @for (int p = Model.ModelPartsList.PagingInfo.InitialPageToShow; p <= Model.ModelPartsList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.ModelPartsList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.ModelPartsList.PagingInfo.CurrentPage == Model.ModelPartsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.ModelPartsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
