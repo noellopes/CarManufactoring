@@ -610,45 +610,45 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        //private static void PopulateLocalizationCar (CarManufactoringContext db)
-        //{
-        //    if (db.LocalizationCar.Any()) return;
+        private static void PopulateLocalizationCar(CarManufactoringContext db)
+        {
+            if (db.LocalizationCar.Any()) return;
 
-        //    db.LocalizationCar.AddRange(
-        //        new LocalizationCar { Line = "1", Row = "1", IsOccupied = false},
-        //        new LocalizationCar { Line = "1", Row = "2", IsOccupied = false },
-        //        new LocalizationCar { Line = "1", Row = "3", IsOccupied = false },
-        //        new LocalizationCar { Line = "1", Row = "4", IsOccupied = false },
-        //        new LocalizationCar { Line = "2", Row = "1", IsOccupied = false },
-        //        new LocalizationCar { Line = "2", Row = "2", IsOccupied = false },
-        //        new LocalizationCar { Line = "2" ,Row = "3", IsOccupied = false },
-        //        new LocalizationCar { Line = "2", Row = "4", IsOccupied = false },
-        //        new LocalizationCar { Line = "3", Row = "1", IsOccupied = false },
-        //        new LocalizationCar { Line = "3", Row = "2", IsOccupied = false },
-        //        new LocalizationCar { Line = "3", Row = "3", IsOccupied = false },
-        //        new LocalizationCar { Line = "3", Row = "4", IsOccupied = false },
-        //        new LocalizationCar { Line = "4", Row = "1", IsOccupied = false },
-        //        new LocalizationCar { Line = "4", Row = "2", IsOccupied = false },
-        //        new LocalizationCar { Line = "4", Row = "3", IsOccupied = false },
-        //        new LocalizationCar { Line = "4", Row = "4", IsOccupied = false }
-        //        );
-        //    db.SaveChanges();
-        //}
+            db.LocalizationCar.AddRange(
+                new LocalizationCar { Line = "1", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "4", IsOccupied = false }
+                );
+            db.SaveChanges();
+        }
 
-        //private static void PopulateStockFinalProduct(CarManufactoringContext db)
-        //{
-        //    if (db.StockFinalProduct.Any()) return;
+        private static void PopulateStockFinalProduct(CarManufactoringContext db)
+        {
+            if (db.StockFinalProduct.Any()) return;
 
-        //    db.StockFinalProduct.AddRange(
-        //        new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1 },
-        //        new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2 },
-        //        new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3 },
-        //        new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4 },
-        //        new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5 }
+            db.StockFinalProduct.AddRange(
+                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1 },
+                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2 },
+                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3 },
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4 },
+                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5 }
 
-        //        );
-        //    db.SaveChanges();
-        //}
+                );
+            db.SaveChanges();
+        }
 
     }
 }

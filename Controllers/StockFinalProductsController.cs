@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,50 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: StockFinalProducts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Line=null, string Row = null,string CarConfig= null, string ChassiNumber = null, DateTime InsertionDate = default,int page =1)
         {
-            var carManufactoringContext = _context.StockFinalProduct.Include(s => s.LocalizationCar).Include(s => s.Production);
-            return View(await carManufactoringContext.ToListAsync());
+            var stockFinalProduction = _context.StockFinalProduct.Include(s => s.LocalizationCar).Include(s => s.Production)
+                .Where(c => Line == null || c.LocalizationCar.Line == Line)
+                .Where(c => Row == null || c.LocalizationCar.Row == Row)
+                .Where(c => CarConfig == null || c.Production.CarConfig.ConfigName.Equals(CarConfig))
+                .Where(c => ChassiNumber == null || c.ChassiNumber.Equals(ChassiNumber))
+                .Where(c => InsertionDate == default || c.InsertionDate == InsertionDate)
+                .OrderBy(c => c.LocalizationCar.Line);
+
+            var PagingInfoVar = new PagingInfoViewModel(await stockFinalProduction.CountAsync(), page);
+
+            PagingInfoVar.PageSize = 10;
+            PagingInfoVar.Pages_Show_Before_After = 6;
+
+            try
+            {
+                var model = new StockFinalProductIndexViewModel
+                {
+                    StockFinalProductList = new ListViewModel<StockFinalProduct>
+                    {
+                        List = await stockFinalProduction
+                    .Skip((PagingInfoVar.CurrentPage - 1) * PagingInfoVar.PageSize)
+                    .Take(PagingInfoVar.PageSize).ToListAsync(),
+                        PagingInfo = PagingInfoVar
+                    },
+                    LineSearched = Line,
+                    CarConfigNameSearched = CarConfig,
+                    RowSearched = Row,
+                    ChassiNumberSearched = ChassiNumber,
+                    InsertionDateSearched = InsertionDate,
+                    LocalizationCar = _context.LocalizationCar.OrderBy(c => c.Line).ToList(),
+                    CarConfigs = _context.CarConfig.OrderBy(c => c.ConfigName).ToList()
+
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "Not Found";
+                return await Index( Line,  Row,  CarConfig,  ChassiNumber,  InsertionDate, page );
+            }
+
         }
 
         // GET: StockFinalProducts/Details/5

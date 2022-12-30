@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarManufactoring.Models.StockFinalProduct>
+﻿@model StockFinalProductIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -13,28 +13,34 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LocalizationCar)
+                Line,Row
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ChassiNumber)
+                Car Config
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Production)
+              Chassi Number
             </th>
+            <th>
+                Insertion Date
+            </th>  
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.StockFinalProductList.List) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LocalizationCar.Line)
+                @Html.DisplayFor(modelItem => item.LocalizationCar.Line, item.LocalizationCar.Row)
+            </td>
+             <td>
+                    @Html.DisplayFor(modelItem => item.Production.CarConfig.ConfigName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ChassiNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Production.ProductionId)
+                @Html.DisplayFor(modelItem => item.InsertionDate)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.StockFinalProductId">Edit</a> |
@@ -45,3 +51,27 @@
 }
     </tbody>
 </table>
+
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.StockFinalProductList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+        @for (int p = Model.StockFinalProductList.PagingInfo.InitialPageToShow; p <= Model.StockFinalProductList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.StockFinalProductList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.StockFinalProductList.PagingInfo.CurrentPage == Model.StockFinalProductList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.StockFinalProductList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
