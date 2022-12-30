@@ -23,6 +23,15 @@ namespace CarManufactoring.Controllers
         // GET: ModelParts
         public async Task<IActionResult> Index(string CarConfigName = null, string CarPartName = null, int QtdPecas = 0, int page = 1)
         {
+            /*var empty = _context.ModelParts.Count();
+
+            if (empty == 0)
+            {
+                return View("NoDataFound");
+            }*/
+            
+
+
             var ModelPartsVar = _context.ModelParts.Include(s => s.CarConfig).Include(s => s.CarParts)
                 .Where(c => QtdPecas == 0 || c.QtdPecas.Equals(QtdPecas))
                 .Where(c => CarConfigName == null || c.CarConfig.ConfigName.Contains(CarConfigName))
@@ -58,7 +67,7 @@ namespace CarManufactoring.Controllers
             }
             catch(Exception ex)
             {
-                ViewBag.ErrorMessage = "Not Found";
+                ViewBag.ErrorMessage = "Not Found" ;
                 return await Index(CarConfigName, CarPartName, 0, page);
             }
             
@@ -167,9 +176,9 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? CarConfigId, int? ProductId)
         {
-            if (id == null || _context.ModelParts == null)
+            if (CarConfigId == null || ProductId == null || _context.ModelParts == null)
             {
                 return NotFound();
             }
@@ -177,7 +186,7 @@ namespace CarManufactoring.Controllers
             var modelParts = await _context.ModelParts
                 .Include(m => m.CarConfig)
                 .Include(m => m.CarParts)
-                .FirstOrDefaultAsync(m => m.ProductId == id);
+                .FirstOrDefaultAsync(m => m.ProductId == ProductId && m.CarConfigId == CarConfigId);
             if (modelParts == null)
             {
                 return NotFound();
@@ -189,16 +198,16 @@ namespace CarManufactoring.Controllers
         // POST: ModelParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int CarConfigId, int ProductId)
         {
             if (_context.ModelParts == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.ModelParts'  is null.");
             }
-            var modelParts = await _context.ModelParts.FindAsync(id);
+            var modelParts = await _context.ModelParts.Where(m => m.CarConfigId == CarConfigId && m.ProductId == ProductId).ToListAsync();
             if (modelParts != null)
             {
-                _context.ModelParts.Remove(modelParts);
+                _context.ModelParts.Remove(modelParts[0]);
             }
             
             await _context.SaveChangesAsync();
