@@ -23,12 +23,12 @@ namespace CarManufactoring.Controllers
         // GET: ModelParts
         public async Task<IActionResult> Index(string CarConfigName = null, string CarPartName = null, int QtdPecas = 0, int page = 1)
         {
-            /*var empty = _context.ModelParts.Count();
+            var empty = _context.ModelParts.Count();
 
             if (empty == 0)
             {
                 return View("NoDataFound");
-            }*/
+            }
             
 
 
@@ -68,7 +68,7 @@ namespace CarManufactoring.Controllers
             catch(Exception ex)
             {
                 ViewBag.ErrorMessage = "Not Found" ;
-                return await Index(CarConfigName, CarPartName, 0, page);
+                return await Index(null, null, 0, page);
             }
             
         }
