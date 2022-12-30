@@ -42,6 +42,9 @@ namespace CarManufactoring.Data
             //PopulateProductions(db);
             //PopulateWarehouses(db);
             PopulateModelParts(db);
+            PopulateLocalizationCar(db);
+            //PopulateStockFinalProduct(db);
+            
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -640,11 +643,12 @@ namespace CarManufactoring.Data
             if (db.StockFinalProduct.Any()) return;
 
             db.StockFinalProduct.AddRange(
-                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1 },
-                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2 },
-                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3 },
-                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4 },
-                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5 }
+                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
 
                 );
             db.SaveChanges();

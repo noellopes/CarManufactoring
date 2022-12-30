@@ -22,7 +22,13 @@ namespace CarManufactoring.Controllers
 
         // GET: StockFinalProducts
         public async Task<IActionResult> Index(string Line=null, string Row = null,string CarConfig= null, string ChassiNumber = null, DateTime InsertionDate = default,int page =1)
+       
         {
+            var number   = _context.StockFinalProduct.Count();
+            if (number == 0)
+            {
+                return View("NoDataFound");
+            }
             var stockFinalProduction = _context.StockFinalProduct.Include(s => s.LocalizationCar).Include(s => s.Production)
                 .Where(c => Line == null || c.LocalizationCar.Line == Line)
                 .Where(c => Row == null || c.LocalizationCar.Row == Row)
@@ -30,7 +36,7 @@ namespace CarManufactoring.Controllers
                 .Where(c => ChassiNumber == null || c.ChassiNumber.Equals(ChassiNumber))
                 .Where(c => InsertionDate == default || c.InsertionDate == InsertionDate)
                 .OrderBy(c => c.LocalizationCar.Line);
-            // se nao hoyver dados entra em loop a nossa "cena" :)
+          
             var PagingInfoVar = new PagingInfoViewModel(await stockFinalProduction.CountAsync(), page);
 
             PagingInfoVar.PageSize = 10;
@@ -62,7 +68,7 @@ namespace CarManufactoring.Controllers
             catch (Exception ex)
             {
                 ViewBag.ErrorMessage = "Not Found";
-               // return await Index( Line,  Row,  CarConfig,  ChassiNumber,  InsertionDate, page );
+               return await Index( Line,  Row,  CarConfig,  ChassiNumber,  InsertionDate, page );
             }
 
         }
