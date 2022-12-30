@@ -39,7 +39,7 @@ namespace CarManufactoring.Data
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            //PopulateProductions(db);
+            PopulateProductions(db);
             //PopulateWarehouses(db);
             PopulateModelParts(db);
         }
