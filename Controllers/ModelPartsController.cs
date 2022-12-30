@@ -47,7 +47,9 @@ namespace CarManufactoring.Controllers
                 CarConfigNameSearched = CarConfigName,
                 ModelPartsNameSearched = CarPartName,
                 CarParts = _context.CarParts
-                .OrderBy(c => c.Name).ToList()
+                .OrderBy(c => c.Name).ToList(),
+                CarConfigs = _context.CarConfig
+                .OrderBy(c => c.ConfigName).ToList(),
         };
             
             return View(model);

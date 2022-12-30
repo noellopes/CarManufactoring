@@ -13,17 +13,31 @@
 
             <div class="mb-3">
                 <label for="CarConfigName" class="form-label">Car Config</label>
-                <input name="CarConfigName" class="form-control" type="search" id="CarConfigName" value="@Model.CarConfigNameSearched" />
+                <select name="CarConfigName" class="form-control" type="search" id="CarConfigName" value="@Model.CarConfigNameSearched">
+                    <option selected="selected" disabled="disabled">-- Please choose an option --</option>
+                    @foreach (var item in Model.CarConfigs)
+                    {
+                        <option>@item.ConfigName</option>
+                    }
+
+                </select>
+                
             </div>            
             
             <div class="mb-3">
                 <label for="CarPartName" class="form-label">Car Part</label>
                 <select name="CarPartName" class="form-control" type="search" id="CarPartName" value="@Model.ModelPartsNameSearched">
+                    <option selected="selected" disabled="disabled">-- Please choose an option --</option>
                 @foreach (var item in Model.CarParts)
                 {
                     <option>@item.Name</option>
                 }
                 </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="QtdPecas" class="form-label">Car Config</label>
+                <input name="QtdPecas" class="form-control" type="search" id="QtdPecas" value="@Model.QuantitySearched" />
             </div>
 
             <input type="submit" value="Search" class="btn btn-primary" />
