@@ -39,12 +39,14 @@ namespace CarManufactoring.Data
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            //PopulateProductions(db);
+            PopulateProductions(db);
             //PopulateWarehouses(db);
+
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
             //PopulateStockFinalProduct(db);
             
+
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
