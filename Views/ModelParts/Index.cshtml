@@ -6,6 +6,32 @@
 
 <h1>Index</h1>
 
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search ModelParts</h5>
+        <form asp-action="Index" method="get">
+
+            <div class="mb-3">
+                <label for="CarConfigName" class="form-label">Car Config</label>
+                <input name="CarConfigName" class="form-control" type="search" id="CarConfigName" value="@Model.CarConfigNameSearched" />
+            </div>            
+            
+            <div class="mb-3">
+                <label for="CarPartName" class="form-label">Car Part</label>
+                <select name="CarPartName" class="form-control" type="search" id="CarPartName" value="@Model.ModelPartsNameSearched">
+                @foreach (var item in Model.CarParts)
+                {
+                    <option>@item.Name</option>
+                }
+                </select>
+            </div>
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+        </form>
+    </div>
+</div>
+
 <p>
     <a asp-action="Create">Create New</a>
 </p>

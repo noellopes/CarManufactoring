@@ -45,8 +45,10 @@ namespace CarManufactoring.Controllers
                 },
                 QuantitySearched = QtdPecas,
                 CarConfigNameSearched = CarConfigName,
-                ModelPartsNameSearched = CarPartName
-            };
+                ModelPartsNameSearched = CarPartName,
+                CarParts = _context.CarParts
+                .OrderBy(c => c.Name).ToList()
+        };
             
             return View(model);
         }

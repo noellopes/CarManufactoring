@@ -27,7 +27,7 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
             PopulateCars(db);
-            PopulateTimeOfProduction(db);
+            //PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
