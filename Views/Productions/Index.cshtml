@@ -10,12 +10,18 @@
         <h5 class="card-title">Search</h5>
         <form asp-action="Index" method="get">
             <div class="mb-3">
-                <label for="nome" class="form-label">Nome</label>
-                <input name="nome" class="form-control" type="search" value="@Model.CarConfigSearched" />
+                <label for="carConfig" class="form-label">CarConfig</label>
+                <select name="CarConfig" class="form-control" type="search" id="CarConfig" value="@Model.CarConfigSearched">
+                    <option selected="selected" disabled="disabled">Please choose an option</option>
+                    @foreach (var item in Model.CarConfigs)
+                    {
+                        <option>@item.ConfigName</option>
+                    }
+                </select>
             </div>
             <div class="mb-3">
-                <label for="type" class="form-label">Type</label>
-                <input name="type" class="form-control" type="search" value="@Model.QuantitySearched" />
+                <label for="quantity" class="form-label">Quantity</label>
+                <input name="quantity" class="form-control" type="number" value="@Model.QuantitySearched" />
             </div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">Clear search</a>

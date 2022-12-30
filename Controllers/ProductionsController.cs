@@ -21,9 +21,11 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Productions
-        public async Task<IActionResult> Index(int CarConfig, int Quantity, int page = 1)
+        public async Task<IActionResult> Index( String carConfig = null,int quantity = 0, int page = 1)
         {
-            var production = _context.Production.Include(c => c.CarConfig);
+            var production = _context.Production.Include(s => s.CarConfig)
+                .Where(c => carConfig == null || c.CarConfig.ConfigName.Contains(carConfig))
+                .Where(c => quantity == 0 || c.Quantity.Equals(quantity));
 
 
 
@@ -38,8 +40,9 @@ namespace CarManufactoring.Controllers
                     .Take(pagingInfo.PageSize).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
-                CarConfigSearched = CarConfig,
-                QuantitySearched = Quantity
+                CarConfigSearched = carConfig,
+                QuantitySearched = quantity,
+                CarConfigs = _context.CarConfig
             };
 
             return View(model);
