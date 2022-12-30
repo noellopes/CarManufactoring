@@ -248,11 +248,9 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
 
-        public DbSet<CarManufactoring.Models.LocalizationCar> LocalizationCar { get; set; }
-
-        public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
-
         public DbSet<CarManufactoring.Models.InspectionTestsProduction> InspectionTestsProduction { get; set; }
+
+        public DbSet<CarManufactoring.Models.LocalizationCar> LocalizationCar { get; set; }
 
     }
 }
