@@ -16,5 +16,7 @@ namespace CarManufactoring.Models
         public string Row { get; set; }
 
         public bool IsOccupied { get; set; }
+
+        
     }
 }
