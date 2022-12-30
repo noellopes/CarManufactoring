@@ -34,25 +34,34 @@ namespace CarManufactoring.Controllers
             PagingInfoVar.PageSize = 10;
             PagingInfoVar.Pages_Show_Before_After = 6;
 
-            var model = new ModelPartsIndexViewModel
+            try
             {
-                ModelPartsList = new ListViewModel<ModelParts>
+                var model = new ModelPartsIndexViewModel
                 {
-                    List = await ModelPartsVar
+                    ModelPartsList = new ListViewModel<ModelParts>
+                    {
+                        List = await ModelPartsVar
                     .Skip((PagingInfoVar.CurrentPage - 1) * PagingInfoVar.PageSize)
                     .Take(PagingInfoVar.PageSize).ToListAsync(),
-                    PagingInfo = PagingInfoVar
-                },
-                QuantitySearched = QtdPecas,
-                CarConfigNameSearched = CarConfigName,
-                ModelPartsNameSearched = CarPartName,
-                CarParts = _context.CarParts
+                        PagingInfo = PagingInfoVar
+                    },
+                    QuantitySearched = QtdPecas,
+                    CarConfigNameSearched = CarConfigName,
+                    ModelPartsNameSearched = CarPartName,
+                    CarParts = _context.CarParts
                 .OrderBy(c => c.Name).ToList(),
-                CarConfigs = _context.CarConfig
+                    CarConfigs = _context.CarConfig
                 .OrderBy(c => c.ConfigName).ToList(),
-        };
+                };
+
+                return View(model);
+            }
+            catch(Exception ex)
+            {
+                ViewBag.ErrorMessage = "Not Found";
+                return await Index(CarConfigName, CarPartName, 0, page);
+            }
             
-            return View(model);
         }
 
         // GET: ModelParts/Details/5

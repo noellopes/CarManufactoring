@@ -37,16 +37,17 @@
 
             <div class="mb-3">
                 <label for="QtdPecas" class="form-label">Car Config</label>
-                <input name="QtdPecas" class="form-control" type="number" id="QtdPecas"  value="Digite um valor"/>
+                <input name="QtdPecas" class="form-control" type="number" id="QtdPecas"  value="1" min="1"/>
                 <div class="valid-feedback">Looks good!</div>
                 <div class="invalid-feedback">Please choose a number bigger than 1</div>
             </div>
 
-            <input type="submit" value="Search" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+            <input asp-action="Index" type="submit" value="Search" class="btn btn-primary" />
         </form>
     </div>
 </div>
+
+<h1 class="text-center fw-bold text-danger">@ViewBag.ErrorMessage</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
