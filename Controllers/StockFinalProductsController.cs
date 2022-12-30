@@ -30,7 +30,7 @@ namespace CarManufactoring.Controllers
                 .Where(c => ChassiNumber == null || c.ChassiNumber.Equals(ChassiNumber))
                 .Where(c => InsertionDate == default || c.InsertionDate == InsertionDate)
                 .OrderBy(c => c.LocalizationCar.Line);
-
+            // se nao hoyver dados entra em loop a nossa "cena" :)
             var PagingInfoVar = new PagingInfoViewModel(await stockFinalProduction.CountAsync(), page);
 
             PagingInfoVar.PageSize = 10;
@@ -62,7 +62,7 @@ namespace CarManufactoring.Controllers
             catch (Exception ex)
             {
                 ViewBag.ErrorMessage = "Not Found";
-                return await Index( Line,  Row,  CarConfig,  ChassiNumber,  InsertionDate, page );
+               // return await Index( Line,  Row,  CarConfig,  ChassiNumber,  InsertionDate, page );
             }
 
         }
