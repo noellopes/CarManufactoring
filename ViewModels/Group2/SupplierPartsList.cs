@@ -4,7 +4,7 @@ namespace CarManufactoring.ViewModels.Group2
 {
     public class SupplierPartsList
     {
-        public readonly static List<SupplierParts> CarPart = new List<SupplierParts>()
+        public readonly static List<SupplierParts> SupplierPart = new List<SupplierParts>()
         {
 
         };
