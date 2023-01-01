@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CarManufactoring.Models.SupplierParts>
+﻿@using CarManufactoring.ViewModels.Group2
+@model SupplierPartsIndexViewModel
+
 
 @{
     ViewData["Title"] = "Index";
@@ -7,6 +9,30 @@
 <h1>Index</h1>
 <link rel="stylesheet" href="~/css/SupplierLogo.css">
 
+
+
+                <div class="card border-secondary mb-4">
+                    <div class="card-body">
+                        <form asp-action="Index" method="get">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input name="name" class="form-control" type="search" value="@Model.NameSearch" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="country" class="form-label">Country</label>
+                                <input name="country" class="form-control" type="search" value="@Model.CountrySearch" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input name="email" class="form-control" type="search" value="@Model.EmailSearch" />
+                            </div>
+                            <input type="submit" value="Search" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Clear Search</a>
+                        </form>
+                    </div>
+                </div>
+
+
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
@@ -14,59 +40,86 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Logo)
+                @Html.DisplayNameFor(model => new SupplierParts().Logo)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.DisplayNameFor(model => new SupplierParts().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayNameFor(model => new SupplierParts().Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Contact)
+                @Html.DisplayNameFor(model => new SupplierParts().Contact)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Country)
+                @Html.DisplayNameFor(model => new SupplierParts().Country)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (SupplierParts sp in Model.SupplierPartsList.List)
+        {
             <tr>
                 <td>
                     @{
-                        
-                        if (item.Logo == null){
+
+                        if (sp.Logo == null)
+                        {
                             Random random = new Random();
                             int num = random.Next(1, 5);
                             <div class="logo-holder logo-@(num)">
-                                <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+                                <h3>@Html.DisplayFor(modelItem => sp.Name)</h3>
                                 <p>The Best</p>
                             </div>
                         }else{
-                            <img src="@(item.Logo)" width="150" height="150" style="margin-left:75px">
+                            <img src="@(sp.Logo)" width="150" height="150" style="margin-left:75px">
                         }
                    }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => sp.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                    @Html.DisplayFor(modelItem => sp.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Contact)
+                    @Html.DisplayFor(modelItem => sp.Contact)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Country)
+                    @Html.DisplayFor(modelItem => sp.Country)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.SupplierPartsId" class="btn btn-warning">Edit</a> 
-                    <a asp-action="Details" asp-route-id="@item.SupplierPartsId" class="btn btn-info">Details</a> 
-                    <a asp-action="Delete" asp-route-id="@item.SupplierPartsId" class="btn btn-danger">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@sp.SupplierPartsId" class="btn btn-warning">Edit</a>
+
+                    <a asp-action="Details" asp-route-id="@sp.SupplierPartsId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@sp.SupplierPartsId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.SupplierPartsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+        @for (int p = Model.SupplierPartsList.PagingInfo.InitialPageToShow; p <= Model.SupplierPartsList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.SupplierPartsList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+
+            }
+            else
+            {
+
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.SupplierPartsList.PagingInfo.CurrentPage == Model.SupplierPartsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.SupplierPartsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
