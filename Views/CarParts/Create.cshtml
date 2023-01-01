@@ -1,0 +1,44 @@
+﻿@model CarManufactoring.Models.CarParts
+
+@{
+    ViewData["Title"] = "Add new Car Part";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="PartType" class="control-label"></label>
+                <input asp-for="PartType" class="form-control" />
+                <span asp-validation-for="PartType" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Reference" class="control-label"></label>
+                <input asp-for="Reference" class="form-control" />
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="SafetyStock" class="control-label"></label>
+                <input asp-for="SafetyStock" class="form-control" />
+                <span asp-validation-for="SafetyStock" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

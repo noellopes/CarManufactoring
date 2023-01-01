@@ -1,0 +1,93 @@
+﻿@model MaterialIndexViewModel
+
+@{
+    ViewData["Title"] = "Materials list";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="nome" class="form-label">Nome</label>
+                <input name="nome" class="form-control" type="search" value="@Model.NomeSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="type" class="form-label">Type</label>
+                <select name="type" class="form-control" type="search" value="@Model.TypeSearched" />
+                 <option selected="selected" disabled="disabled">-- Please choose an option --</option>
+                    <option>Iron</option>
+                    <option>leather</option>
+                    <option>Glass</option>
+                    <option>Wood</option>
+                    <option>Gold</option>
+                    <option>Eraser</option>
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
+<div class="mt-3">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => new Material().Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Material().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Material().Type)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MaterialList.List) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.MaterialId" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.MaterialId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.MaterialId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.MaterialList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+        @for (int p = Model.MaterialList.PagingInfo.InitialPageToShow; p <= Model.MaterialList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.MaterialList.PagingInfo.CurrentPage)
+            {
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.MaterialList.PagingInfo.CurrentPage == Model.MaterialList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.MaterialList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

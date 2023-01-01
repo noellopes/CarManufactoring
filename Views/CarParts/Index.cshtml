@@ -1,0 +1,132 @@
+﻿@using CarManufactoring.ViewModels.Group2
+@model CarPartsIndexViewModel
+
+@{
+    ViewData["Title"] = "Car Parts";
+}
+
+<h1>@ViewBag.Title</h1>
+<hr />
+
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Search
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="card border-secondary mb-4">
+                    <div class="card-body">
+                        <form asp-action="Index" method="get">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input name="name" class="form-control" type="search" value="@Model.NameSearch" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="reference" class="form-label">Reference</label>
+                                <input name="reference" class="form-control" type="search" value="@Model.ReferenceSearch" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="partType" class="form-label">Part Type</label>
+                                <input name="partType" class="form-control" type="search" value="@Model.TypeSearch" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="brand" class="form-label">Brand</label>
+                                <input name="brand" class="form-control" type="search" value="@Model.BrandSearch" />
+                            </div>
+                            <div class="mb-3">
+                                <label for="model" class="form-label">Car Model</label>
+                                <input name="model" class="form-control" type="search" value="@Model.ModelSearch" />
+                            </div>
+                            <input type="submit" value="Search" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Clear Search</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <p>
+        <a asp-action="Create" class="btn btn-success">Add New Car Part</a>
+    </p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => new CarParts().PartType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new CarParts().Reference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new CarParts().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new CarParts().PointOfPurchase)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new CarParts().SafetyStock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new CarParts().LevelService)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (CarParts cp in Model.CarPartsList.List) {
+        <tr>
+            <td>
+                @cp.PartType
+            </td>
+            <td>
+                @cp.Reference
+            </td>
+            <td>
+                @cp.Name
+            </td>
+            <td>
+                @cp.PointOfPurchase
+            </td>
+            <td>
+                @cp.SafetyStock
+            </td>
+            <td>
+                @cp.LevelService
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@cp.ProductId" class="btn btn-outline-warning">Details</a>
+                <a asp-action="" asp-route-id="@cp.ProductId" class="btn btn-warning">Storage</a>
+                <a asp-action="" asp-route-id="@cp.ProductId" class="btn btn-info">Buy</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.CarPartsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+        @for(int p = Model.CarPartsList.PagingInfo.InitialPageToShow; p <= Model.CarPartsList.PagingInfo.FinalPageToShow; p++) {
+            if(p == Model.CarPartsList.PagingInfo.CurrentPage) {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+
+            } else {
+
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.CarPartsList.PagingInfo.CurrentPage == Model.CarPartsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.CarPartsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

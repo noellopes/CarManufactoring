@@ -1,0 +1,17 @@
+﻿@model CarManufactoring.Models.Material
+
+@{
+    ViewData["Title"] = "Delete Material";
+}
+
+<h1 class="text-danger">Are you sure you want to delete this?</h3>
+<hr/>
+    @{
+        await Html.RenderPartialAsync("_MaterialDetails", Model);
+    }
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaterialId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Details" asp-route-id="@Model.MaterialId" class="btn btn-secondary">Cancel</a>
+    </form>

@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Collaborator not found";
+}
+
+<h1>@ViewBag.Title</h1>
+<hr/>
+
+@{
+    await Html.RenderPartialAsync("_AlertProblem",
+             new AlertProblemViewModel {
+                         CssClass = "alert-warning",
+                         Title = "Unable to retrive the collaborator",
+                         Description = "Collaborator not found. it may have been deleted by another user."
+                     });
+}
+
+<a asp-action="Index" class="btn btn-primary">Collaborator's list</a>

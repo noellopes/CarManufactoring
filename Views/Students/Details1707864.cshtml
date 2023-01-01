@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="text-center">
-        <img src="~/img/students/1707864.jpg" width="200" height="300">
+        <img src="~/img/students/1707864.jpg" width="200" height="200">
         <h1>@ViewBag.Title</h1>
         <h4 style="color:#494949">1707864</h4>
     </div>
@@ -15,6 +15,7 @@
                 <th scope="col">No</th>
                 <th scope="col">Tasks</th>
                 <th scope="col">Description</th>
+                <th scope="col">Date</th>
                 <th scope="col">Status</th>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                 <td>1</td>
                 <td>Create student page</td>
                 <td>added view MustafaBukhariDeatils to show progress details.</td>
+                <td>14/11/2022</td>
                 <td>
                     <div class="text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -42,6 +44,7 @@
                         <li>Renamed to match my student number</li>
                     </ul>
                 </td>
+                <td>17/11/2022</td>
                 <td>
                     <div class="text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -55,6 +58,7 @@
                 <td>3</td>
                 <td>Student details views</td>
                 <td>Renamed student details page to match my student number</td>
+                <td>23/11/2022</td>
                 <td>
                     <div class="text-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
@@ -65,18 +69,267 @@
                 </td>
             </tr>
             <tr>
-                <td></td>
-                <td>...</td>
-                <td>...</td>
+                <td>4</td>
+                <td>Student Photos</td>
+                <td>
+                    <ul>
+                        <li>Resized my photo to width:400px height:400px.</li>
+                    </ul>
+                </td>
+                <td>24/11/2022</td>
                 <td>
                     <div class="text-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hourglass-split" viewBox="0 0 16 16">
-                            <path d="M2.5 15a.5.5 0 1 1 0-1h1v-1a4.5 4.5 0 0 1 2.557-4.06c.29-.139.443-.377.443-.59v-.7c0-.213-.154-.451-.443-.59A4.5 4.5 0 0 1 3.5 3V2h-1a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-1v1a4.5 4.5 0 0 1-2.557 4.06c-.29.139-.443.377-.443.59v.7c0 .213.154.451.443.59A4.5 4.5 0 0 1 12.5 13v1h1a.5.5 0 0 1 0 1h-11zm2-13v1c0 .537.12 1.045.337 1.5h6.326c.216-.455.337-.963.337-1.5V2h-7zm3 6.35c0 .701-.478 1.236-1.011 1.492A3.5 3.5 0 0 0 4.5 13s.866-1.299 3-1.48V8.35zm1 0v3.17c2.134.181 3 1.48 3 1.48a3.5 3.5 0 0 0-1.989-3.158C8.978 9.586 8.5 9.052 8.5 8.351z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
                         </svg>
-                        <p style="text-align:center">waiting...</p>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Configuring EF Database </td>
+                <td>
+                    <ul>
+                        <li>Prepared the database for its first use.</li>
+                        <li>Added initial migration</li>
+                    </ul>
+                </td>
+                <td>24/11/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Constructed Collaborator, Shift, Task models<strong>(Previous version)</strong> </td>
+                <td>
+                    <ul>
+                        <li>Constructed Collaborator, Shift, Task models <strong>(Previous version of classes diagram)</strong>.</li>
+                        <li>configure  elationships between (Shift - collaborator) with ShiftCollaborator table. </li>
+                        <li>configure  elationships between  (Task-ShiftCollaborator) with TaskCollaborator table.</li>
+                        <li>Added migration.</li>
+                        <li>In Branch G6MustafaBukhReconstructionV2 and other version in G6MustafaBukhariReconstructiong</li>
+                    </ul>
+                </td>
+                <td>5/12/2022 - 8/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Constructed Collaborator, Shift, Task models<strong> (Current version)</strong></td>
+                <td>
+                    <ul>
+                        <li>Constructed Collaborator and Task models <strong>(Current version of classes diagram)</strong>.</li>
+                        <li>configure  elationships between (Task - collaborator) with ShiftCollaborator table. </li>
+                        <li>Added migration.</li>
+                    </ul>
+                </td>
+                <td>9/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>SeedData</td>
+                <td>
+                    <ul>
+                        <li>Added SeedData.</li>
+                        <li>Added Collaborators-dev button to home page.</li>
+                        <li>deleted oncreate/edit validationcheck.</li>
+                    </ul>
+                </td>
+                <td>13/12/2022 - 14/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>DateOnly For collaborator model</td>
+                <td>
+                    <ul>
+                        <li>Added DateOnly type conversion for datebirth property in collaborator model.</li>
+                    </ul>
+                </td>
+                <td>15/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Validation For Collaborator Model</td>
+                <td>
+                    <ul>
+                        <li>solving Current errors in validation</strong>.</li>
+                        <li>adding new validation rules</li>
+                        <li>adding validation error messages</li>
+                    </ul>
+                </td>
+                <td>14/12/2022 - 15/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Pagination and Search For Collaborator</td>
+                <td>
+                    <ul>
+                        <li>Added pagination for listing Collaborators</li>
+                        <li>Added searching by name for collaborators</li>
+                        <li>Added viewModel for collaborator</li>
+                    </ul>
+                </td>
+                <td>15/12/2022 - 16/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Editing Main CRUD functions For Collaborator model</td>
+                <td>
+                    <ul>
+                        <li>Configured Create,Update,Delete & Listing for collaborator.</li>
+                        <li>Added succesfull messages</li>
+                        <li>Added Error messages.</li>
+                    </ul>
+                </td>
+                <td>16/12/2022 - 25/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Warning page and validation for duplicate collaborators data.</td>
+                <td>
+                    <ul>
+                        <li>added additonal validaation to create method in collaborator controller.</li>
+                        <li>added warning page before adding duplicated collaborator</li>
+                    </ul>
+                </td>
+                <td>25/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Adding more fields to search section</td>
+                <td>
+                    <ul>
+                        <li>filter by onDuty/OffDuty.</li>
+                        <li>filter by male/female.</li>
+                        <li>Adding search phone number.</li>
+                    </ul>
+                </td>
+                <td>27/12/2022 - 29/12/2022</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Adding birth date validation</td>
+                <td>validation birth dates to make sure they are in the acceptable rage (Over 18 , under 60)</td>
+                <td>29/12/2022 - 01/01/2023</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+                        </svg>
+                        <p style="text-align:center">Done</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Linking Collaborator with shitfsz.</td>
+                <td>showing which shif the collaborator workson and adding method to assign collabrators to shifts</td>
+                <td>02/01/2023 - 03/01/2023</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fast-forward-fill" viewBox="0 0 16 16">
+                            <path d="M7.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z" />
+                            <path d="M15.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C8.713 12.69 8 12.345 8 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z" />
+                        </svg>
+                        <p style="text-align:center">Up next...</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>applying new style.</td>
+                <td>for list, details, create, edit and delete and changing onDuty view style</td>
+                <td>03/01/2023 - 04/01/2023</td>
+                <td>
+                    <div class="text-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-fast-forward-fill" viewBox="0 0 16 16">
+                            <path d="M7.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C.713 12.69 0 12.345 0 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z" />
+                            <path d="M15.596 7.304a.802.802 0 0 1 0 1.392l-6.363 3.692C8.713 12.69 8 12.345 8 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692Z" />
+                        </svg>
+                        <p style="text-align:center">Up next...</p>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
+
+    <a class="btn btn-secondary" asp-controller="Groups" asp-action="Details" asp-route-number="6">Group Info</a>
 </div>

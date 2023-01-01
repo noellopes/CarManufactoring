@@ -1,8 +1,103 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using CarManufactoring.ViewModels.Group4;
+@model IEnumerable<Documents>
 @{
     ViewData["Title"] = "Group 4";
 }
 
-<h1 align="left">@ViewData["Title"]</h1>
+<style>
+    img {
+        padding-left: 10px;
+    }
+</style>
+
+<h1>
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1012639"><img align="right" class="img" src="~/img/students/1012639.jpg" width="7%" ></a>
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1012659"> <img align="right" class="img" src="~/img/students/1012659.jpg" width="7%"></a>
+    <a asp-controller="Students" asp-action="Details" asp-route-number="1707787"><img align="right" class="img" src="~/img/students/1707787.jpg" width="10.2%"></a>@ViewData["Title"] | Gestão de máquinas/recursos para a produção
+</h1>
+<br />
+<hr />
+            
+
+    
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-hover">
+                <!--<thead>
+                    <tr>
+                        <th scope="col">Documento</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>-->
+                <tbody>
+                    <div>
+                        <img class="img" src="~/documents/Group4/GroupDocuments/DocForProject_ESII-_2_.png" width="70%" height="70%" \>
+                    </div>
+                    
+                    <div>
+                        @foreach (Documents d in Model)
+                        {
+                        <tr>
+                            <td scope="col">@d.Name</td>
+                            <td>
+                                <button onclick="downloadPDF(`@d.Name`)" class="border-0">
+                                    <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                                </button>
+                            </td>
+                        </tr>
+                        }
+                    </div>
+                     
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</>
+
+<script>
+
+    function downloadPDF(name){
+
+        var url = '';
+
+        if (name == "Diagrama de Classes "){
+
+            url = "/documents/Group4/GroupDocuments/Diagrama_de_Classes.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Diagrama de Estado ") {
+
+            url = "/documents/Group4/GroupDocuments/Diagrama_de_Estado.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Diagrama de Caso de Uso ") {
+
+            url = "/documents/Group4/GroupDocuments/Diagrama_de_Caso_de_Uso.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Diagrama de Sequencia ") {
+
+            url = "/documents/Group4/GroupDocuments/Diagrama_de_Sequencia.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Fornecedores ") {
+
+            url = "/documents/Group4/GroupDocuments/Fornecedores.pdf";
+
+            window.location.assign(url);
+        }
+        if (name == "Tabela de Funcionalidades ") {
+
+            url = "/documents/Group4/GroupDocuments/Tabela_de_Funcionalidades.pdf";
+
+            window.location.assign(url);
+        }
+
+    }
+
+</script>

@@ -1,0 +1,56 @@
+﻿@model CarManufactoring.Models.SemiFinished
+
+@{
+    ViewData["Title"] = "Add new Semi Finished";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-14">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+            <div class="mb-2">
+                <label asp-for="Family" class="form-label"></label>
+                <input asp-for="Family" class="form-control" />
+                <span asp-validation-for="Family" class="form-text text-danger"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Reference" class="form-label"></label>
+                <input asp-for="Reference" class="form-control" />
+                <span asp-validation-for="Reference" class="form-text text-danger"></span>
+            </div>
+           
+            <div class="mb-2">
+                <label asp-for="Manufacter" class="form-label"></label>
+                <input asp-for="Manufacter" class="form-control" />
+                <span asp-validation-for="Manufacter" class="form-text text-danger"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="Description" class="form-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="form-text text-danger"></span>
+            </div>
+            <div class="mb-2">
+                <label asp-for="SemiFinishedState" class="form-label"></label>
+             
+                <select asp-for="SemiFinishedState" class="form-control">
+                    <option selected="selected" disabled="disabled">-- Please choose an option --</option>
+                    <option>Under Development</option>
+                    <option>Concluded</option>
+                </select>
+                <span asp-validation-for="SemiFinishedState" class="form-text text-danger"></span>
+            </div>
+            <div class="mb-2">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

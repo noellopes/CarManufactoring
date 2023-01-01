@@ -1,0 +1,104 @@
+﻿@model CustomerIndexViewModel
+
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<style>
+    .butt {
+        padding-bottom: 10px;
+    }
+</style>
+
+<h1>@ViewBag.Title</h1>
+
+
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Search
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <form asp-action="Index" method="get">
+                    <div class="mb-3">
+                        <label for="CustomerName" class="form-label">Customer Name</label>
+                        <input name="CustomerName" class="form-control" type="search" value="@Model.CustomerNameSearched" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="CustomerFoundDate" class="form-label">Customer Foundation Date</label>
+                        <input name="CustomerFoundDate" class="form-control" type="search" value="@Model.CustomerFoundDateSearched" />
+                    </div>
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => new Customer().CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Customer().CustomerFoundDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CustomerList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerFoundDate)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CustomerId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CustomerId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.CustomerId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="mt-3 butt">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.CustomerList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.CustomerList.PagingInfo.InitialPageToShow; p <= Model.CustomerList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.CustomerList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.CustomerList.PagingInfo.CurrentPage == Model.CustomerList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.CustomerList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

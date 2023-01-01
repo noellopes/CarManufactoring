@@ -1,20 +1,78 @@
-﻿@{
-    
-    ViewData["Title"] = "Guilherme Alves Details";
+﻿@using CarManufactoring.ViewModels.Group1;
+@using CarManufactoring.ViewModels.Group3;
+@model IEnumerable<Documents>
+@{
+    ViewData["Title"] = "Guilherme Alves";
 }
 
-<h1><img align="right" class="img" src="~/img/students/1701480.jpg" width="100" height="100" \>@ViewData["Title"]</h1>
+
+<h1><img align="right" class="rounded-circle" src="/img/students/1701480.jpg">@ViewData["Title"]</h1>
 <h2>Group 3</h2>
+<h3>Number : 1701480</h3>
+
+<hr></hr>
+
+<h4> What I'm doing:</h4>
+<ul class="Scroll">
+    <li></li>
+</ul>
+
+<h4>What I'm going to do:</h4>
+<ul class="Scroll">
+    <li>Client Class </li>
+    <li>Order Class</li>
+    <li>Sales Line Class </li>
+</ul>
 
 
-<hr>
+<h4>What I've done so far: </h4>
+<ul class="Scroll">
+    <li>18/12: Pop-ups when creating and deleting Customers and CustomersContacts implemented </li>
+    <li>18/12: Pagination and Search added to CustomersContacts! </li>
+    <li>18/12: Pagination and Search added to Customers! </li>
+    <li>17/12: Pop-ups when creating and deleting Order implemented </li>
+    <li>17/12: Created Relation between Orders and State Order Class! </li>
+    <li>17/12: Pagination and Search added to Orders!</li>
+    <li>17/12: State Order Class Created and seed data added! </li>
+    <li>11/12: Added Seed Data for Customer , CustomerContacts and Order Class's'! </li>
+    <li>11/12: Created Relation between Customer , CustomerContacts and Order Class's'! </li>
+    <li>11/12: Scaffolding for CustomerContacts Class </li>
+    <li>11/12: Migration and DB Updated </li>
+    <li>11/12: Scaffolding for Order Class </li>
+    <li>01/12: Migration and DB Updated </li>
+    <li>01/12: Scaffolding for Customer Class</li>
+    <li>8/11 to 24/11: Group and personal view with documentation with links implemented, uploaded documents and personal photo</li>
+</ul>
+<hr />
 
-<h4> What I'm doing:</h4><p>Resizing photo, put the documentation in a group's specific folder </p>
-
-<h4>What I'm going to do:</h4><p>Put information in my personal view </p>
+<div class="row">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Format</th>
+            <th scope="col">Document</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+                    @foreach (Documents d in Model)
+                    {
+                    <tr>
+                        <td scope="col">
+                            <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                        </td>
+                        <td scope="col">@d.Name</td>
+                        <td>
+                            <a href="@d.DocPath" target="_blank">
+                                <img class="img-fluid" src="/documents/grupo1/img/download.png">
+                            </a>
+                        </td>
+                    </tr>
+                    }
+        </tbody>
+    </table>
+</div>
 
 <hr />
 
-<a class="btn btn-info">Personal documentation</a>
-
-<a class="btn btn-secondary" asp-controller="Groups" asp-action="Group3Details">Group Info</a>
+<a class="btn btn-secondary" asp-controller="Groups" asp-action="Details" asp-route-number="3">Group Info</a>

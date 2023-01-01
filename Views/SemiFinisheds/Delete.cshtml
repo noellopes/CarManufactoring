@@ -1,0 +1,21 @@
+﻿@model CarManufactoring.Models.SemiFinished
+
+@{
+    ViewData["Title"] = "Delete Semi Finished";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<h3 class="text-danger">Are you sure you want to delete this?</h3>
+<hr />
+
+@{
+    await Html.RenderPartialAsync("SemiFinishedDetails", Model);
+}
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="SemiFinishedId" />
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="Details" asp-route-id="@Model.SemiFinishedId" class="btn btn-secondary">Cancel</a>
+</form>
+

@@ -1,0 +1,135 @@
+﻿@model CustomerContactsIndexViewModel
+
+
+@{
+    ViewData["Title"] = "Customer Contacts";
+}
+
+<style>
+    .butt {
+        padding-bottom: 10px;
+    }
+</style>
+
+<h1>@ViewBag.Title</h1>
+
+
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Search
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <form asp-action="Index" method="get">
+                    <div class="mb-3">
+                        <label for="CustomerContactName" class="form-label">Customer Contact Name</label>
+                        <input name="CustomerContactName" class="form-control" type="search" value="@Model.CustomerContactNameSearched" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="CustomerRole" class="form-label">Customer Role</label>
+                        <input name="CustomerRole" class="form-control" type="search" value="@Model.CustomerRoleSearched" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="CustomerPhone" class="form-label">Customer Phone</label>
+                        <input name="CustomerPhone" class="form-control" type="search" value="@Model.CustomerPhoneSearched" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="CustomerEmail" class="form-label">Customer Email</label>
+                        <input name="CustomerEmail" class="form-control" type="search" value="@Model.CustomerEmailSearched" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Customer" class="form-label">Customer</label>
+                        <input name="Customer" class="form-control" type="search" value="@Model.CustomerSearched" />
+                    </div>
+                    <input type="submit" value="Search" class="btn btn-primary" />
+                    <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => new CustomerContact().CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new  CustomerContact().CustomerRole)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => new  CustomerContact().CustomerPhone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new  CustomerContact().CustomerEmail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Order().Customer.CustomerName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CustomerContactList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerRole)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerPhone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustomerEmail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CustomerContactId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CustomerContactId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.CustomerContactId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="mt-3 butt">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.CustomerContactList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.CustomerContactList.PagingInfo.InitialPageToShow; p <= Model.CustomerContactList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.CustomerContactList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.CustomerContactList.PagingInfo.CurrentPage == Model.CustomerContactList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.CustomerContactList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

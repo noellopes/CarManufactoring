@@ -1,15 +1,32 @@
 ﻿@{
     ViewData["Title"] = "Kevin Alves Details";
 }
-
 <h1>@ViewData["Title"]</h1>
 
-<h3>Number: 1704033</h3>
+<div style="float:right;">
+    <img class="img-fluid" src="\img\students\1704033.jpg" style="border-radius: 15%;width: 200px;scale: -1 1;" />
+    <div style="padding: 2px 46px;">
+        <a asp-controller="Groups" asp-action="Details" asp-route-number="7" class="btn btn-primary" style="margin-top: 30px;">Group Page</a>
+    </div>
+</div>
 
-<p><img class="img-fluid" src="~\documents\Grupo7\Kevin\TEMP.png" width="80" height="80" /></p>
-
-<h3>What I'm doing:</h3>
-<h4>...</h4>
-
-<h3>What I'm going to do:</h3>
-<h4>Remplace the temp image for profile picture</h4>
+<div style="margin-top: 50px; padding: 30px; width: 60%; border: 2px #000000 solid;">
+    <h3>What I Have Done:</h3>
+    <ul>
+        <li>Criação das views de Grupo e de Estudante</li>
+        <li>Adição do estudante na lista de estudantes</li>
+        <li>Adição de Imagens de Software II no projeto</li>
+        <li>Adição de imagem de estudante</li>
+        <li>Atualização das views de Grupo e de Estudante</li>
+        <li>Criação de um model para uma tabela intermediaria entre 'SemiFinished' e 'Material'</li>
+        <li>Adição de um botão na view estudante para aceder a view de grupo</li>
+        <li>Migração</li>
+        <li>Criação de Scaffolder</li>
+        <li>Criação de dados ficticios</li>
+    </ul>
+    <h3>What I Need To Do:</h3>
+    <ul>
+        <li>Adição das novas imagens de Software II no projeto e na view</li>
+        <li>Atualizar as imagens de Software II no projeto e na view</li>
+    </ul>
+</div>

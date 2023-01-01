@@ -1,0 +1,21 @@
+﻿@model CarManufactoring.Models.LocalizationCode
+
+@{
+    ViewData["Title"] = "Delete Localization Code";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<h4 class="mb-3">Are you sure you want to delete this Localization Code?</h4>
+
+@{
+    await Html.RenderPartialAsync("_LocalizationCodeDetails", Model);
+}
+
+    
+<form asp-action="Delete">
+    <input type="hidden" asp-for="LocalizationCodeId" />
+    <input type="submit" value="Delete" class="btn btn-danger" /> |
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
