@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<CarManufactoring.Models.SectionManager>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Section Manager List";
 }
 
-<h1>Index</h1>
+<h2>@ViewBag.Title</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success mt-3">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -55,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Sections.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.SectionManagerId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SectionManagerId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SectionManagerId">Delete</a>
+                    <a asp-action="Details" asp-route-id="@item.SectionManagerId" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.SectionManagerId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.SectionManagerId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

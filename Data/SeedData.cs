@@ -43,7 +43,7 @@ namespace CarManufactoring.Data
             //PopulateWarehouses(db);
 
             PopulateModelParts(db);
-            PopulateLocalizationCar(db);
+            //PopulateLocalizationCar(db);
             //PopulateStockFinalProduct(db);
             
 
