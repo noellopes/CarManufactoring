@@ -7,41 +7,41 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
-            PopulateGender(db);
-            PopulateFunction(db);
-            PopulateCollaborators(db);
-            PopulateCarParts(db);
-            PopulateSemiFinisheds(db);
-            //PopulateSemiFinishedCars(db);
-            PopulateMaterials(db);
-            PopulateSection(db);
-            PopulateSectionManager(db);
-            PopulateMachineState(db);
-            PopulateTaskType(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulatePriority(db);
-            PopulateMachineBrand(db);
-            PopulateMachineModel(db);
-            PopulateLocalizationCode(db);
-            PopulateMachines(db);
-            PopulateMachineMaintenance(db);
-            PopulateCars(db);
-            PopulateTimeOfProduction(db);
-            PopulateCarConfigs(db);
-            PopulateShiftType(db);
-            PopulateShift(db);
-            PopulateCustomers(db);
-            PopulateCustomerContacts(db);
-            //PopulateOrder(db);
-            PopulateMaterialUsed(db);
-            PopulateSupplier(db);
-            PopulateStocks(db);
-            PopulateExtras(db);
-            PopulateOrderState(db);
-            //PopulateProductions(db);
-            //PopulateWarehouses(db);
-            PopulateModelParts(db);
+            //PopulateGender(db);
+            //PopulateFunction(db);
+            //PopulateCollaborators(db);
+            //PopulateCarParts(db);
+            //PopulateSemiFinisheds(db);
+            ////PopulateSemiFinishedCars(db);
+            //PopulateMaterials(db);
+            //PopulateSection(db);
+            //PopulateSectionManager(db);
+            //PopulateMachineState(db);
+            //PopulateTaskType(db);
+            //PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+            //PopulatePriority(db);
+            //PopulateMachineBrand(db);
+            //PopulateMachineModel(db);
+            //PopulateLocalizationCode(db);
+            //PopulateMachines(db);
+            //PopulateMachineMaintenance(db);
+            //PopulateCars(db);
+            //PopulateTimeOfProduction(db);
+            //PopulateCarConfigs(db);
+            //PopulateShiftType(db);
+            //PopulateShift(db);
+            //PopulateCustomers(db);
+            //PopulateCustomerContacts(db);
+            ////PopulateOrder(db);
+            //PopulateMaterialUsed(db);
+            //PopulateSupplier(db);
+            //PopulateStocks(db);
+            //PopulateExtras(db);
+            //PopulateOrderState(db);
+            ////PopulateProductions(db);
+            ////PopulateWarehouses(db);
+            //PopulateModelParts(db);
         }
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
@@ -431,9 +431,9 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, CollaboratorId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, CollaboratorId = 1 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, CollaboratorId = 1 }
+                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1 },
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3 }
                 );
 
             db.SaveChanges();
