@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using static System.Collections.Specialized.BitVector32;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,15 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SectionManagers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int Gender,string Name = null, string Phone = null)
         {
-            var carManufactoringContext = _context.SectionManager.Include(s => s.Genders).Include(s => s.Sections);
-            return View(await carManufactoringContext.ToListAsync());
+            var sectionManager = _context.SectionManager
+                .Include(s => s.Genders)
+                .Where(m => Name == null || m.Name.Contains(Name))
+                .Where(m => Phone == null || m.Phone.Contains(Phone))
+                .OrderBy(m => m.Name); ;
+
+                return View(sectionManager);
         }
 
         // GET: SectionManagers/Details/5
@@ -42,6 +48,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(sectionManager);
         }
@@ -65,7 +72,9 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(sectionManager);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = sectionManager.SectionManagerId });
             }
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition", sectionManager.GenderId);
             ViewData["SectionId"] = new SelectList(_context.Section, "SectionId", "Name", sectionManager.SectionId);
@@ -108,6 +117,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(sectionManager);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Assigment created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = sectionManager.SectionManagerId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -160,10 +172,11 @@ namespace CarManufactoring.Controllers
             if (sectionManager != null)
             {
                 _context.SectionManager.Remove(sectionManager);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+
+            return View("SectionManagerDeleted");
         }
 
         private bool SectionManagerExists(int id)
