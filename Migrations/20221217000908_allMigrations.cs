@@ -761,18 +761,13 @@ namespace CarManufactoring.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<double>(type: "float", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    CollaboratorId = table.Column<int>(type: "int", nullable: false),
+                    
                     MaterialId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stock", x => x.StockId);
-                    table.ForeignKey(
-                        name: "FK_Stock_Collaborator_CollaboratorId",
-                        column: x => x.CollaboratorId,
-                        principalTable: "Collaborator",
-                        principalColumn: "CollaboratorId",
-                        onDelete: ReferentialAction.Cascade);
+                    
                     table.ForeignKey(
                         name: "FK_Stock_Material_MaterialId",
                         column: x => x.MaterialId,

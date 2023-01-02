@@ -436,9 +436,9 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, CollaboratorId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, CollaboratorId = 1 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, CollaboratorId = 1 }
+                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1 },
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3 }
                 );
 
             db.SaveChanges();
