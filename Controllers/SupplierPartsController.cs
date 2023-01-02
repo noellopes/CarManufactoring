@@ -75,6 +75,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessageSuppliersParts = TempData["SuccessMessageSuppliersParts"];
 
             return View(supplierParts);
         }
@@ -96,7 +97,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(supplierParts);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessageSuppliersParts"] = "Created Successfully!";
+                return RedirectToAction(nameof(Details),new { id = supplierParts.SupplierPartsId });
             }
             return View(supplierParts);
         }
@@ -186,7 +188,7 @@ namespace CarManufactoring.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("SupplierPartDeleted");
         }
 
         private bool SupplierPartsExists(int id)
