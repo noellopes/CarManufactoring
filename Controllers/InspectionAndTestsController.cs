@@ -22,7 +22,7 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests
         public async Task<IActionResult> Index()
         {
-            var carManufactoringContext = _context.InspectionAndTest.Include(i => i.Collaborator);
+            var carManufactoringContext = _context.InspectionAndTest.Include(i => i.Collaborator).Include(i => i.Productions).Include(i => i.State);
             return View(await carManufactoringContext.ToListAsync());
         }
 
@@ -36,6 +36,8 @@ namespace CarManufactoring.Controllers
 
             var inspectionAndTest = await _context.InspectionAndTest
                 .Include(i => i.Collaborator)
+                .Include(i => i.Productions)
+                .Include(i => i.State)
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
@@ -49,6 +51,8 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
+            ViewData["ProductionsId"] = new SelectList(_context.Production, "ProductionId", "ProductionId");
+            ViewData["StateId"] = new SelectList(_context.InspectionTestState, "InspectionTestStateId", "State");
             return View();
         }
 
@@ -57,7 +61,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("InspectionId,Date,State,Description,CollaboratorId")] InspectionAndTest inspectionAndTest)
+        public async Task<IActionResult> Create([Bind("InspectionId,ProductionsId,QuantityTested,StateId,Description,Date,CollaboratorId")] InspectionAndTest inspectionAndTest)
         {
             if (ModelState.IsValid)
             {
@@ -66,6 +70,8 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
+            ViewData["ProductionsId"] = new SelectList(_context.Production, "ProductionId", "ProductionId", inspectionAndTest.ProductionsId);
+            ViewData["StateId"] = new SelectList(_context.InspectionTestState, "InspectionTestStateId", "State", inspectionAndTest.StateId);
             return View(inspectionAndTest);
         }
 
@@ -83,6 +89,8 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
+            ViewData["ProductionsId"] = new SelectList(_context.Production, "ProductionId", "ProductionId", inspectionAndTest.ProductionsId);
+            ViewData["StateId"] = new SelectList(_context.InspectionTestState, "InspectionTestStateId", "State", inspectionAndTest.StateId);
             return View(inspectionAndTest);
         }
 
@@ -91,7 +99,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("InspectionId,Date,State,Description,CollaboratorId")] InspectionAndTest inspectionAndTest)
+        public async Task<IActionResult> Edit(int id, [Bind("InspectionId,ProductionsId,QuantityTested,StateId,Description,Date,CollaboratorId")] InspectionAndTest inspectionAndTest)
         {
             if (id != inspectionAndTest.InspectionId)
             {
@@ -119,6 +127,8 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", inspectionAndTest.CollaboratorId);
+            ViewData["ProductionsId"] = new SelectList(_context.Production, "ProductionId", "ProductionId", inspectionAndTest.ProductionsId);
+            ViewData["StateId"] = new SelectList(_context.InspectionTestState, "InspectionTestStateId", "State", inspectionAndTest.StateId);
             return View(inspectionAndTest);
         }
 
@@ -132,6 +142,8 @@ namespace CarManufactoring.Controllers
 
             var inspectionAndTest = await _context.InspectionAndTest
                 .Include(i => i.Collaborator)
+                .Include(i => i.Productions)
+                .Include(i => i.State)
                 .FirstOrDefaultAsync(m => m.InspectionId == id);
             if (inspectionAndTest == null)
             {
