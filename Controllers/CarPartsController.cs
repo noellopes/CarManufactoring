@@ -176,10 +176,11 @@ namespace CarManufactoring.Controllers
             if (carParts != null)
             {
                 _context.CarParts.Remove(carParts);
+                await _context.SaveChangesAsync();
             }
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+           
+            return View("_CarPartDeleted");
         }
 
         private bool CarPartsExists(int id)
