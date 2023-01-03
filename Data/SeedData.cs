@@ -36,6 +36,7 @@ namespace CarManufactoring.Data
             //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
+            PopulateWarehouseStocks(db);
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
@@ -436,14 +437,25 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, CollaboratorId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, CollaboratorId = 1 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, CollaboratorId = 1 }
+                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 1 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 1 }
                 );
 
             db.SaveChanges();
         }
 
+        private static void PopulateWarehouseStocks(CarManufactoringContext db)
+        {
+            if (db.WarehouseStock.Any()) return;
+
+            db.WarehouseStock.AddRange(
+                new WarehouseStock { Identification = "First"}
+                
+                );
+
+            db.SaveChanges();
+        }
 
         private static void PopulateMaterialUsed(CarManufactoringContext db)
         {
