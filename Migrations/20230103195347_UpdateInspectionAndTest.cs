@@ -57,7 +57,7 @@ namespace CarManufactoring.Migrations
                 column: "ProductionsId",
                 principalTable: "Production",
                 principalColumn: "ProductionId",
-                onDelete: ReferentialAction.Cascade);
+                onDelete: ReferentialAction.NoAction);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
