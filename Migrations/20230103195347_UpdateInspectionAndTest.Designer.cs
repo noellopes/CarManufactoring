@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20230103195347_UpdateInspectionAndTest")]
+    partial class UpdateInspectionAndTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1158,10 +1160,8 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StockId"), 1L, 1);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -1174,14 +1174,11 @@ namespace CarManufactoring.Migrations
                     b.Property<double>("Quantity")
                         .HasColumnType("float");
 
-                    b.Property<int>("WarehouseStockId")
-                        .HasColumnType("int");
-
                     b.HasKey("StockId");
 
-                    b.HasIndex("MaterialId");
+                    b.HasIndex("CollaboratorId");
 
-                    b.HasIndex("WarehouseStockId");
+                    b.HasIndex("MaterialId");
 
                     b.ToTable("Stock");
                 });
@@ -1405,24 +1402,6 @@ namespace CarManufactoring.Migrations
                     b.HasIndex("CollaboratorID");
 
                     b.ToTable("Warehouse");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.WarehouseStock", b =>
-                {
-                    b.Property<int>("WarehouseStockId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarehouseStockId"), 1L, 1);
-
-                    b.Property<string>("Identification")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("WarehouseStockId");
-
-                    b.ToTable("WarehouseStock");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WorkingHours", b =>
@@ -1831,21 +1810,21 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Stock", b =>
                 {
+                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
+                        .WithMany()
+                        .HasForeignKey("CollaboratorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CarManufactoring.Models.Material", "Material")
                         .WithMany()
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarManufactoring.Models.WarehouseStock", "WarehouseStock")
-                        .WithMany("Stocks")
-                        .HasForeignKey("WarehouseStockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Collaborator");
 
                     b.Navigation("Material");
-
-                    b.Navigation("WarehouseStock");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.StockFinalProduct", b =>
@@ -2036,11 +2015,6 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.SupplierParts", b =>
                 {
                     b.Navigation("CarParts");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.WarehouseStock", b =>
-                {
-                    b.Navigation("Stocks");
                 });
 #pragma warning restore 612, 618
         }

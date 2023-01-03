@@ -11,16 +11,39 @@ namespace CarManufactoring.Models
             [Required]
             public int InspectionId { get; set; }
 
-            [Required]
-            public DateTime Date { get; set; }
+
+
+
+            public int ProductionsId { get; set; }
+
+            public Production? Productions { get; set; }
+
+
+
+
 
             [Required]
-            [StringLength(20, MinimumLength = 3)]
-            public string State { get; set; }
+            public int QuantityTested { get; set; }
+
+
+
+
+            public int StateId { get; set; }
+
+            public InspectionTestState? State { get; set; }
+
+
+
+
 
             [Required]
             [StringLength(200, MinimumLength = 10)]
             public string Description { get; set; }
+
+            [Required]
+            public DateTime Date { get; set; }
+
+
 
 
             public int CollaboratorId { get; set; }
@@ -28,7 +51,8 @@ namespace CarManufactoring.Models
             public Collaborator? Collaborator { get; set; }
 
 
-            public ICollection<InspectionTestsProduction> Production { get; set; }
+
+            public ICollection<InspectionTestsProduction>? Production { get; set; }
 
             
 
