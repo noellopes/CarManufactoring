@@ -269,7 +269,11 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
 
+
         public DbSet<CarManufactoring.Models.InspectionTestState> InspectionTestState { get; set; }
+
+        public DbSet<CarManufactoring.Models.WarehouseStock> WarehouseStock { get; set; }
+
 
     }
 }

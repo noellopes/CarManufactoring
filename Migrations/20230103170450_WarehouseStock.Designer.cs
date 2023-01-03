@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20230103170450_WarehouseStock")]
+    partial class WarehouseStock
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -459,22 +461,14 @@ namespace CarManufactoring.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("ProductionsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("QuantityTested")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StateId")
-                        .HasColumnType("int");
+                    b.Property<string>("State")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("InspectionId");
 
                     b.HasIndex("CollaboratorId");
-
-                    b.HasIndex("ProductionsId");
-
-                    b.HasIndex("StateId");
 
                     b.ToTable("InspectionAndTest");
                 });
@@ -500,24 +494,6 @@ namespace CarManufactoring.Migrations
                     b.HasIndex("ProductionId");
 
                     b.ToTable("InspectionTestsProduction");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.InspectionTestState", b =>
-                {
-                    b.Property<int>("InspectionTestStateId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InspectionTestStateId"), 1L, 1);
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("InspectionTestStateId");
-
-                    b.ToTable("InspectionTestState");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.LocalizationCar", b =>
@@ -1543,23 +1519,7 @@ namespace CarManufactoring.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarManufactoring.Models.Production", "Productions")
-                        .WithMany()
-                        .HasForeignKey("ProductionsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CarManufactoring.Models.InspectionTestState", "State")
-                        .WithMany()
-                        .HasForeignKey("StateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Collaborator");
-
-                    b.Navigation("Productions");
-
-                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.InspectionTestsProduction", b =>
