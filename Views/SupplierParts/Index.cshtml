@@ -20,7 +20,13 @@
                             </div>
                             <div class="mb-3">
                                 <label for="country" class="form-label">Country</label>
-                                <input name="country" class="form-control" type="search" value="@Model.CountrySearch" />
+                                <select name="country" class="form-control" type="search" value="@Model.CountrySearch">
+                                    <option selected="selected" disabled="disabled">Please choose a Country</option>
+                                    @foreach (var item in Model.SupplierPartsList.List)
+                                    {
+                                        <option>@item.Country</option>
+                                    }
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
@@ -68,12 +74,12 @@
                         {
                             Random random = new Random();
                             int num = random.Next(1, 5);
-                            <div class="logo-holder logo-@(num)">
-                                <h3>@Html.DisplayFor(modelItem => sp.Name)</h3>
-                                <p>The Best</p>
-                            </div>
+                                <div class="logo-holder logo-@(num)">
+                                    <h3>@Html.DisplayFor(modelItem => sp.Name)</h3>
+                                    <p>The Best</p>
+                                </div>
                         }else{
-                            <img src="@(sp.Logo)" width="150" height="150" style="margin-left:75px">
+                                <img src="@(sp.Logo)" width="150" height="150" style="margin-left:75px">
                         }
                    }
             </td>

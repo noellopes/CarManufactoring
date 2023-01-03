@@ -95,9 +95,12 @@ namespace CarManufactoring.Controllers
         {
             if (ModelState.IsValid)
             {
+                string[] PaisNum = supplierParts.Country.Split(' ');
+                supplierParts.Country = PaisNum[0];
+                supplierParts.Contact = PaisNum[1] +" "+ supplierParts.Contact;
                 _context.Add(supplierParts);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessageSuppliersParts"] = "Created Successfully!";
+                TempData["SuccessMessageSuppliersParts"] = "Created "+supplierParts.Name+" Successfully!";
                 return RedirectToAction(nameof(Details),new { id = supplierParts.SupplierPartsId });
             }
             return View(supplierParts);
