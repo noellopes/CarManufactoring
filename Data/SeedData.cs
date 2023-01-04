@@ -256,9 +256,11 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                //new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1 },
-                //new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2 },
-                //new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3 }
+                //new InspectionAndTest { ProductionsId = 1, QuantityTested = 5, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                //new InspectionAndTest { ProductionsId = 2, QuantityTested = 15, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                //new InspectionAndTest { ProductionsId = 3, QuantityTested = 50, StateId = 3, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                //new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                //new InspectionAndTest { ProductionsId = 2, QuantityTested = 10, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 }
 
             );
 
@@ -538,10 +540,10 @@ namespace CarManufactoring.Data
             if (db.Production.Any()) return;
 
             db.Production.AddRange(
-                //new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity= 10 },
-                //new Production { Date = DateTime.Parse("02/01/2022"), CarConfigId = 1, Quantity = 2 },
-                //new Production { Date = DateTime.Parse("12/03/2023"), CarConfigId = 2, Quantity = 10 },
-                //new Production { Date = DateTime.Parse("03/01/2023"), CarConfigId = 2, Quantity = 2 }
+                new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity = 10 },
+                new Production { Date = DateTime.Parse("02/01/2022"), CarConfigId = 1, Quantity = 2 },
+                new Production { Date = DateTime.Parse("12/03/2023"), CarConfigId = 2, Quantity = 10 },
+                new Production { Date = DateTime.Parse("03/01/2023"), CarConfigId = 2, Quantity = 2 }
                 );
 
             db.SaveChanges();
