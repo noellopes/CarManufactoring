@@ -274,6 +274,8 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.WarehouseStock> WarehouseStock { get; set; }
 
+        public DbSet<CarManufactoring.Models.WorkerPunctuality> WorkerPunctuality { get; set; }
+
 
     }
 }
