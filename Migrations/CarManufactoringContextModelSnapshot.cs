@@ -819,19 +819,24 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.MaterialUsed", b =>
                 {
-                    b.Property<int>("MaterialId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SemiFinishedId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaterialUsedId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaterialUsedId"), 1L, 1);
+
+                    b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("MaterialId", "SemiFinishedId");
+                    b.Property<int>("SemiFinishedId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MaterialUsedId");
+
+                    b.HasIndex("MaterialId");
 
                     b.HasIndex("SemiFinishedId");
 
@@ -1680,21 +1685,17 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.MaterialUsed", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Material", "Material")
-                        .WithMany("SemiFinished")
+                    b.HasOne("CarManufactoring.Models.Material", null)
+                        .WithMany("MaterialUsed")
                         .HasForeignKey("MaterialId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarManufactoring.Models.SemiFinished", "SemiFinished")
-                        .WithMany("Material")
+                    b.HasOne("CarManufactoring.Models.SemiFinished", null)
+                        .WithMany("MaterialUsed")
                         .HasForeignKey("SemiFinishedId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Material");
-
-                    b.Navigation("SemiFinished");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ModelParts", b =>
@@ -1984,7 +1985,7 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Material", b =>
                 {
-                    b.Navigation("SemiFinished");
+                    b.Navigation("MaterialUsed");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Order", b =>
@@ -2018,7 +2019,7 @@ namespace CarManufactoring.Migrations
                 {
                     b.Navigation("Cars");
 
-                    b.Navigation("Material");
+                    b.Navigation("MaterialUsed");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Shift", b =>
