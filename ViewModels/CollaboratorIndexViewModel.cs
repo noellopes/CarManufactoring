@@ -5,11 +5,8 @@ namespace CarManufactoring.ViewModels
     {
         public ListViewModel<Collaborator> collaboratorList { get; set; }
         public string? NameSearched { get; set; }
-
-        //public string? GenderSearched { get; set; }
-
-        //public string? TaskSearched { get; set; }
-
-        //public string? StatusSearched { get; set; }
+        public string? PhoneSearched { get; set; }
+        public int? OnDutyFilter { get; set; }
+        public int? GenderSearched { get; set; }
     }
 }

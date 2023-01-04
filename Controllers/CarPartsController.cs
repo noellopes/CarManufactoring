@@ -22,10 +22,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts
-        public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, int page = 1) {
+        public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, string brand = null, string cmodel = null,int page = 1) {
             //var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
            
-            var CarParts = Product.SearchProd(_context, name, partType, reference);
+            var CarParts = Product.SearchProd(_context, name, partType, reference, brand, cmodel);
 
             var pagingInfo = new PagingInfoViewModel(await CarParts.CountAsync(), page);
 
@@ -41,7 +41,9 @@ namespace CarManufactoring.Controllers
                 },
                 NameSearch = name,
                 ReferenceSearch = reference,
-                TypeSearch = partType
+                TypeSearch = partType,
+                BrandSearch = brand,
+                ModelSearch = cmodel
             };
 
             return View(model);
@@ -61,6 +63,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
             return View(carParts);
         }
@@ -82,8 +86,11 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(carParts);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Car Part Added Successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = carParts.ProductId});
             }
+
             return View(carParts);
         }
 

@@ -1,19 +1,22 @@
 ﻿@model IEnumerable<CarManufactoring.Models.InspectionAndTest>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Inspections and Tests";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New Test</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @Html.DisplayNameFor(model => model.Productions)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityTested)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.State)
@@ -22,10 +25,10 @@
                 @Html.DisplayNameFor(model => model.Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Collaborator)
+                @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SemiFinished)
+                @Html.DisplayNameFor(model => model.Collaborator)
             </th>
             <th></th>
         </tr>
@@ -34,24 +37,27 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Date)
+                @Html.DisplayFor(modelItem => item.Productions.ProductionId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.State)
+                @Html.DisplayFor(modelItem => item.QuantityTested)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State.State)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Collaborator.Email)
+                @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SemiFinished.Description)
+                @Html.DisplayFor(modelItem => item.Collaborator.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.InspectionId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.InspectionId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.InspectionId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.InspectionId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.InspectionId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.InspectionId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

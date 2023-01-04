@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +22,29 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string material = null, string warehouseStock = null, int page = 1)
         {
-            var carManufactoringContext = _context.Stock.Include(s => s.Collaborator).Include(s => s.Material);
-            return View(await carManufactoringContext.ToListAsync());
+            var stocks = _context.Stock.Include(s => s.Material).Include(s => s.WarehouseStock)
+                .Where(s => material == null || s.Material.Nome.Contains(material))
+                .Where(s => warehouseStock == null || s.WarehouseStock.Identification.Contains(warehouseStock))
+            .OrderBy(s => s.WarehouseStock);
+
+            var pagingInfo = new PagingInfoViewModel(await stocks.CountAsync(), page);
+
+            var model = new StockIndexViewModel
+            {
+                StockList = new ListViewModel<Stock>
+                {
+                    List = await stocks
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                MaterialSearched = material,
+                WarehouseStockSearched = warehouseStock
+            };
+
+            return View(model);
         }
 
         // GET: Stocks/Details/5
@@ -35,12 +56,12 @@ namespace CarManufactoring.Controllers
             }
 
             var stock = await _context.Stock
-                .Include(s => s.Collaborator)
                 .Include(s => s.Material)
+                .Include(s => s.WarehouseStock)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {
-                return View("StockNotFound");
+                return NotFound();
             }
 
             return View(stock);
@@ -49,8 +70,8 @@ namespace CarManufactoring.Controllers
         // GET: Stocks/Create
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome");
+            ViewData["WarehouseStockId"] = new SelectList(_context.Set<WarehouseStock>(), "WarehouseStockId", "Identification");
             return View();
         }
 
@@ -59,20 +80,16 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("StockId,Quantity,Location,CollaboratorId,MaterialId")] Stock stock)
+        public async Task<IActionResult> Create([Bind("StockId,Quantity,Description,Location,WarehouseStockId,MaterialId")] Stock stock)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(stock);
                 await _context.SaveChangesAsync();
-                //return RedirectToAction(nameof(Index));
-                ViewBag.SuccessMessage = "Stock created successfully";
-                stock.Material = _context.Material.Find(stock.MaterialId);
-
-                return View("Details", stock);
+                return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
+            ViewData["WarehouseStockId"] = new SelectList(_context.Set<WarehouseStock>(), "WarehouseStockId", "Identification", stock.WarehouseStockId);
             return View(stock);
         }
 
@@ -89,8 +106,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
+            ViewData["WarehouseStockId"] = new SelectList(_context.Set<WarehouseStock>(), "WarehouseStockId", "Identification", stock.WarehouseStockId);
             return View(stock);
         }
 
@@ -99,7 +116,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("StockId,Quantity,Location,CollaboratorId,MaterialId")] Stock stock)
+        public async Task<IActionResult> Edit(int id, [Bind("StockId,Quantity,Description,Location,WarehouseStockId,MaterialId")] Stock stock)
         {
             if (id != stock.StockId)
             {
@@ -126,8 +143,8 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", stock.CollaboratorId);
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome", stock.MaterialId);
+            ViewData["WarehouseStockId"] = new SelectList(_context.Set<WarehouseStock>(), "WarehouseStockId", "Identification", stock.WarehouseStockId);
             return View(stock);
         }
 
@@ -140,8 +157,8 @@ namespace CarManufactoring.Controllers
             }
 
             var stock = await _context.Stock
-                .Include(s => s.Collaborator)
                 .Include(s => s.Material)
+                .Include(s => s.WarehouseStock)
                 .FirstOrDefaultAsync(m => m.StockId == id);
             if (stock == null)
             {
@@ -164,10 +181,10 @@ namespace CarManufactoring.Controllers
             if (stock != null)
             {
                 _context.Stock.Remove(stock);
-                await _context.SaveChangesAsync();
             }
-
-            return View("StockDeleted");
+            
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         private bool StockExists(int id)

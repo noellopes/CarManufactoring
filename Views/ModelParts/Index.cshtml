@@ -1,10 +1,53 @@
-﻿@model IEnumerable<CarManufactoring.Models.ModelParts>
+﻿@model ModelPartsIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search ModelParts</h5>
+        <form asp-action="Index" method="get" class="was-validated">
+
+            <div class="mb-3">
+                <label for="CarConfigName" class="form-label">Car Config</label>
+                <select name="CarConfigName" class="form-control" type="search" id="CarConfigName" value="@Model.CarConfigNameSearched">
+                    <option selected="selected" disabled="disabled">Please choose an option</option>
+                    @foreach (var item in Model.CarConfigs)
+                    {
+                        <option>@item.ConfigName</option>
+                    }
+
+                </select>
+                
+            </div>            
+            
+            <div class="mb-3">
+                <label for="CarPartName" class="form-label">Car Part</label>
+                <select name="CarPartName" class="form-control" type="search" id="CarPartName" value="@Model.ModelPartsNameSearched">
+                    <option selected="selected" disabled="disabled">Please choose an option</option>
+                @foreach (var item in Model.CarParts)
+                {
+                    <option>@item.Name</option>
+                }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="QtdPecas" class="form-label">Car Config</label>
+                <input name="QtdPecas" class="form-control" type="number" id="QtdPecas"  value="1" min="1"/>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please choose a number bigger than 1</div>
+            </div>
+
+            <input asp-action="Index" type="submit" value="Search" class="btn btn-primary" />
+        </form>
+    </div>
+</div>
+
+<h1 class="text-center fw-bold text-danger">@ViewBag.ErrorMessage</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -13,19 +56,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CarParts)
+                Nome da Peça
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarConfig)
+                Nome do modelo do carro
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QtdPecas)
+                Quantidade de peças
             </th>
-            <th></th>
+            <th>Ações</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.ModelPartsList.List) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CarParts.Name)
@@ -37,11 +80,34 @@
                 @Html.DisplayFor(modelItem => item.QtdPecas)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Edit", "Edit", new { item.CarConfigId, item.ProductId }) |
+                    @Html.ActionLink("Details", "Details", new { item.CarConfigId, item.ProductId }) |
+                    @Html.ActionLink("Delete", "Delete", new { item.CarConfigId, item.ProductId })
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.ModelPartsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+        @for (int p = Model.ModelPartsList.PagingInfo.InitialPageToShow; p <= Model.ModelPartsList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.ModelPartsList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.ModelPartsList.PagingInfo.CurrentPage == Model.ModelPartsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.ModelPartsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

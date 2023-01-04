@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+
+using CarManufactoring.ViewModels.Group2;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +23,42 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SupplierParts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1)
         {
-              return View(await _context.SupplierParts.ToListAsync());
+            var supplierparts = _context.SupplierParts
+              .Where(b => name == null || b.Name.Contains(name))
+              .Where(b => country == null || b.Country.Contains(country))
+              .Where(b => email == null || b.Email.Contains(email))
+              .OrderBy(b => b.Name);
+
+            var pagingInfo = new PagingInfoViewModel(await supplierparts.CountAsync(), page);
+
+            try
+            {
+                var model = new SupplierPartsIndexViewModel
+            {
+                SupplierPartsList = new ListViewModel<SupplierParts>
+                {
+                    List = await supplierparts
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+
+                NameSearch = name,
+                CountrySearch = country,
+                EmailSearch = email
+
+            };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, null, null ,page);
+            }
+
         }
 
         // GET: SupplierParts/Details/5
@@ -39,6 +75,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessageSuppliersParts = TempData["SuccessMessageSuppliersParts"];
 
             return View(supplierParts);
         }
@@ -58,9 +95,13 @@ namespace CarManufactoring.Controllers
         {
             if (ModelState.IsValid)
             {
+                string[] PaisNum = supplierParts.Country.Split(' ');
+                supplierParts.Country = PaisNum[0];
+                supplierParts.Contact = PaisNum[1] +" "+ supplierParts.Contact;
                 _context.Add(supplierParts);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessageSuppliersParts"] = "Created "+supplierParts.Name+" Successfully!";
+                return RedirectToAction(nameof(Details),new { id = supplierParts.SupplierPartsId });
             }
             return View(supplierParts);
         }
@@ -150,7 +191,7 @@ namespace CarManufactoring.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("SupplierPartDeleted");
         }
 
         private bool SupplierPartsExists(int id)

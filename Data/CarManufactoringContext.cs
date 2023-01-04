@@ -72,7 +72,6 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CollaboratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            // to be added == ShiftCollaborator
 
 
             modelBuilder.Entity<MachineAquisition>()
@@ -111,6 +110,21 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CarConfigId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
+            modelBuilder.Entity<SupplierPartsCarParts>().HasKey(bc => new { bc.SupplierPartsId, bc.ProductId });
+
+            modelBuilder.Entity<SupplierPartsCarParts>()
+                .HasOne(x => x.SupplierParts)
+                .WithMany(c => c.CarParts)
+                .HasForeignKey(x => x.SupplierPartsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<SupplierPartsCarParts>()
+                .HasOne(x => x.CarParts)
+                .WithMany(c => c.SupplierParts)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<SalesLine>().HasKey(bc => new { bc.OrderId, bc.CarConfigId });
 
             modelBuilder.Entity<SalesLine>()
@@ -124,6 +138,20 @@ namespace CarManufactoring.Data
                         .WithMany(c => c.Order)
                         .HasForeignKey(x => x.CarConfigId)
                         .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InspectionTestsProduction>().HasKey(bc => new { bc.InspectionId, bc.ProductionId });
+
+            modelBuilder.Entity<InspectionTestsProduction>()
+                .HasOne(x => x.InspectionAndTest)
+                .WithMany(s => s.Production)
+                .HasForeignKey( x => x.InspectionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<InspectionTestsProduction>()
+                .HasOne(x => x.Production)
+                .WithMany(s => s.InspectionTests)
+                .HasForeignKey(x => x.ProductionId)
+                .OnDelete(DeleteBehavior.Restrict); 
 
 
         }
@@ -239,22 +267,25 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Supplier> Supplier { get; set; }
 
         
-        
         public DbSet<CarManufactoring.Models.OrderState> OrderState { get; set; }
-
-        
         
         public DbSet<CarManufactoring.Models.SalesLine> SalesLine { get; set; }
-
-        
         
         public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
 
-        
-        
         public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
 
- 
+        public DbSet<CarManufactoring.Models.InspectionTestsProduction> InspectionTestsProduction { get; set; }
+
+        public DbSet<CarManufactoring.Models.LocalizationCar> LocalizationCar { get; set; }
+
+        public DbSet<CarManufactoring.Models.StockFinalProduct> StockFinalProduct { get; set; }
+
+
+        public DbSet<CarManufactoring.Models.InspectionTestState> InspectionTestState { get; set; }
+
+        public DbSet<CarManufactoring.Models.WarehouseStock> WarehouseStock { get; set; }
+
 
     }
 }

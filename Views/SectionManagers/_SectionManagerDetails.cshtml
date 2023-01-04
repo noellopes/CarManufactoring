@@ -1,0 +1,40 @@
+﻿@model SectionManager
+
+<dl class="row">
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.BirthDate)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.BirthDate)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Genders)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Genders.GenderDefinition)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Phone)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Phone)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Email)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Email)
+    </dd>
+    <dt class="col-sm-2">
+        @Html.DisplayNameFor(model => model.Sections)
+    </dt>
+    <dd class="col-sm-10">
+        @Html.DisplayFor(model => model.Sections.Name)
+    </dd>
+</dl>

@@ -1,26 +1,29 @@
 ﻿@model CarManufactoring.Models.InspectionAndTest
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Test";
 }
 
-<h1>Create</h1>
+<h1>@ViewBag.Title</h1>
 
-<h4>InspectionAndTest</h4>
+<h4>Inspection And Test</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+                <label asp-for="ProductionsId" class="control-label"></label>
+                <select asp-for="ProductionsId" class ="form-control" asp-items="ViewBag.ProductionsId"></select>
             </div>
             <div class="form-group">
-                <label asp-for="State" class="control-label"></label>
-                <input asp-for="State" class="form-control" />
-                <span asp-validation-for="State" class="text-danger"></span>
+                <label asp-for="QuantityTested" class="control-label"></label>
+                <input asp-for="QuantityTested" class="form-control" />
+                <span asp-validation-for="QuantityTested" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StateId" class="control-label"></label>
+                <select asp-for="StateId" class ="form-control" asp-items="ViewBag.StateId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
@@ -28,22 +31,24 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="CollaboratorId" class="control-label"></label>
                 <select asp-for="CollaboratorId" class ="form-control" asp-items="ViewBag.CollaboratorId"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="SemiFinishedId" class="control-label"></label>
-                <select asp-for="SemiFinishedId" class ="form-control" asp-items="ViewBag.SemiFinishedId"></select>
-            </div>
-            <div class="form-group">
+            <div class="form-group mt-1">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {
