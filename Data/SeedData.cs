@@ -314,6 +314,20 @@ namespace CarManufactoring.Data
             db.SaveChanges() ;
         }
 
+
+        //Seed da tabela MachineAquisition
+        public static void PopulateMachineAquisition(CarManufactoringContext db)
+        {
+            if (db.MachineAquisition.Any()) return;
+            db.MachineAquisition.AddRange(
+                new MachineAquisition { MachineAquisitionName = "ARC Mate", Price = 55000, QuantityOfParts = 10, ProducedParts = 8, MaintenancePrice = 15, Operation = "avanços de produtividade e tempos de integração rápidos" },
+                new MachineAquisition { MachineAquisitionName = "ARC Mate 120", Price = 60000, QuantityOfParts = 10, ProducedParts = 10, MaintenancePrice = 20, Operation = "É um robô versátil que pode soldar peças grandes graças ao seu alcance horizontal"},
+                new MachineAquisition { MachineAquisitionName = "ARC ", Price = 50000, QuantityOfParts = 10, ProducedParts = 5, MaintenancePrice = 10000, Operation = "excelente desempenho em tarefas estreitas. Os custos operacionais são reduzidos e a instalação é fácil." }
+                );
+
+            db.SaveChanges();
+        }
+
         // SeedData for CarConfig Class 
         private static void PopulateCarConfigs(CarManufactoringContext db)
         {
@@ -453,6 +467,17 @@ namespace CarManufactoring.Data
         private static void PopulateStocks(CarManufactoringContext db)
         {
             if (db.Stock.Any()) return;
+
+
+            db.Supplier.AddRange(
+                new Supplier {SupplierName = "CarParts", SupplierEmail = "CarParts@outlook.com", SupplierContact = "932 712 231", SupplierZipCode = "28600", SupplierAddress = "P.º del Alparrache,  Navalcarnero, Madrid, Espanha" },
+                new Supplier {SupplierName = "MegaCar", SupplierEmail = "MegaCar@gmail.com", SupplierContact = "962 512 231", SupplierZipCode = "3100", SupplierAddress = "24 Bd de Courtais,  Montluçon, França" },
+                new Supplier {SupplierName = "BestDrive", SupplierEmail = "BestDrive@hotmail.com", SupplierContact = "912 112 231", SupplierZipCode = "183", SupplierAddress = "Piazzale Appio, 5, Roma RM, Itália" },
+                new Supplier {SupplierName = "NewCar", SupplierEmail = "NewCar@hotmail.com", SupplierContact = "942 332 231", SupplierZipCode = "71000", SupplierAddress = "Vrbanja 1, Sarajevo , Bósnia e Herzegovina" },
+                new Supplier {SupplierName = "BOCH", SupplierEmail = "BoschCarService@outlook.com", SupplierContact = "271 213 862", SupplierZipCode = "6300-877", SupplierAddress = "Quinta da Torre,Guarda" },
+                new Supplier {SupplierName = "COFICAB", SupplierEmail = "Coficab@gmail.com", SupplierContact = "+351 271 205 090", SupplierZipCode = "6300-230", SupplierAddress = "Lote 46 EN 18.1 Km 2,5 Vale de Estrela, Guarda Portugal" },
+                new Supplier {SupplierName = "SODECIA", SupplierEmail = "SODECIA@hotmail.com", SupplierContact = "+351 271 222 470", SupplierZipCode = "6300-625", SupplierAddress = "Parque Industrial da Guarda, GUARDA" }
+
 
             db.Stock.AddRange(
                 new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },

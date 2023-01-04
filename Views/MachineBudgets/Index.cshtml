@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierAddress)
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Aquisition.MachineAquisitionName)
@@ -57,3 +57,7 @@
 }
     </tbody>
 </table>
+
+<p>
+    <a asp-action="Comparison">Perform Comparison</a>
+</p>
