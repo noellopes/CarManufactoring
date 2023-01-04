@@ -50,7 +50,7 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName");
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress");
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName");
             return View();
         }
 
