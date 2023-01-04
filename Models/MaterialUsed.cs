@@ -13,17 +13,21 @@ namespace CarManufactoring.Models
         public int MaterialUsedId { get; set; }
 
         [Required]
-        [Display(Name = "Id do Material")]
-        public int MaterialId { get; set; }
-
-        [Required]
-        [Display(Name = "Id do SemiAcabado")]
-        public int SemiFinishedId { get; set; }
-
-        [Required]
         [Display(Name = "Quantidade")]
         [Range(0, int.MaxValue, ErrorMessage = "A quantidade precisa de um valor válido")]
         public int Quantity { get; set; }
+
+
+        [Required]
+        public int MaterialId { get; set; }
+
+        [Required]
+        public int SemiFinishedId { get; set; }
+
+
+        public Material Material { get; set; }
+
+        public SemiFinished SemiFinished { get; set; }
     }
 
 }
