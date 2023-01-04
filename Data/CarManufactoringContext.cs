@@ -5,11 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Models;
 using static System.Reflection.Metadata.BlobBuilder;
-
-using OpenXmlPowerTools;
-
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-
 
 namespace CarManufactoring.Data
 {
@@ -72,12 +68,6 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.CollaboratorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-
-            modelBuilder.Entity<MachineAquisition>()
-                .HasOne(x => x.MachineBudget)
-                .WithOne(c => c.Aquisition)
-                .HasForeignKey<MachineAquisition>(x => x.MachineBudgetId);
 
             modelBuilder.Entity<CollaboratorShifts>().HasKey(bc => new { bc.CollaboratorId, bc.ShiftId });
 
@@ -184,8 +174,6 @@ namespace CarManufactoring.Data
 
 
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
-
-        
 
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }

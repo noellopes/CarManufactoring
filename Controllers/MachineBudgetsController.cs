@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
-using System.Collections;
 
 namespace CarManufactoring.Controllers
 {
@@ -51,7 +50,7 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName");
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName");
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress");
             return View();
         }
 
@@ -69,7 +68,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -87,7 +86,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -124,7 +123,7 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
@@ -162,54 +161,14 @@ namespace CarManufactoring.Controllers
             {
                 _context.MachineBudget.Remove(machineBudget);
             }
-
+            
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-        public async Task<IActionResult> Comparison()
-        {
-            //Pega orçamento
-            string queryBudget = "SELECT * FROM MachineBudget";
-
-            //Comparação de preços
-            string queryValue = "SELECT Valor FROM MachineBudget";
-            List<double> price = await _context.MachineBudget.FromSqlRaw(queryValue).Select(x => x.Valor).ToListAsync();
-
-            //Entrega Estimada
-            string queryEntrega = "SELECT dataEntrega FROM MachineBudget";
-            List<DateTime> entrega = await _context.MachineBudget.FromSqlRaw(queryEntrega).Select(x => x.dataEntrega).ToListAsync();
-
-            if (price == null || price.Count <= 0)
-            {
-                return NotFound();
-            }
-
-            
-            double min = price.Min();
-            DateTime menorPrazo = entrega.Min();
-
-            //Formataçao data para formato PT e remoção do horário
-            string formatted = menorPrazo.ToString("dd/MM/yyyy");
-
-            ViewData["price"] = min;
-            ViewData["deadline"] = formatted;
-
-            return View();
-
-        }
-
-        //
-        //OK ele consegue retornaras coisas = Status Code.
-        //Criar uma view generica - Varias listas
-        //
-
 
         private bool MachineBudgetExists(int id)
         {
           return _context.MachineBudget.Any(e => e.MachineBudgetID == id);
         }
-
-        
     }
 }

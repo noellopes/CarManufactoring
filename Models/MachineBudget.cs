@@ -6,7 +6,7 @@ using System.Xml.Linq;
 namespace CarManufactoring.Models
 {
 
-    //Orçamento de maquinas
+    //Orçamento de máquinas
     public class MachineBudget
     {
         public int MachineBudgetID { get; set; }

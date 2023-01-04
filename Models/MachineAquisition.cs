@@ -33,8 +33,5 @@ namespace CarManufactoring.Models
         [Display(Name = "Operation")]
         public string Operation { get; set; }
 
-        [Display(Name = "MachineBudget")]
-        public int MachineBudgetId { get; set; }
-        public MachineBudget? MachineBudget { get; set; }
     }
 }
