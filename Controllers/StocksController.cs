@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +22,29 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string material = null, string warehouseStock = null, int page = 1)
         {
-            var carManufactoringContext = _context.Stock.Include(s => s.Material).Include(s => s.WarehouseStock);
-            return View(await carManufactoringContext.ToListAsync());
+            var stocks = _context.Stock.Include(s => s.Material).Include(s => s.WarehouseStock)
+                .Where(s => material == null || s.Material.Nome.Contains(material))
+                .Where(s => warehouseStock == null || s.WarehouseStock.Identification.Contains(warehouseStock))
+            .OrderBy(s => s.WarehouseStock);
+
+            var pagingInfo = new PagingInfoViewModel(await stocks.CountAsync(), page);
+
+            var model = new StockIndexViewModel
+            {
+                StockList = new ListViewModel<Stock>
+                {
+                    List = await stocks
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                MaterialSearched = material,
+                WarehouseStockSearched = warehouseStock
+            };
+
+            return View(model);
         }
 
         // GET: Stocks/Details/5
