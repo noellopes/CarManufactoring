@@ -8,45 +8,45 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
-            PopulateGender(db);
-            PopulateFunction(db);
-            PopulateCollaborators(db);
-            PopulateCarParts(db);
-            PopulateSemiFinisheds(db);
+            //PopulateGender(db);
+            //PopulateFunction(db);
+            //PopulateCollaborators(db);
+            //PopulateCarParts(db);
+            //PopulateSemiFinisheds(db);
             //PopulateSemiFinishedCars(db);
-            PopulateMaterials(db);
-            PopulateSection(db);
-            PopulateSectionManager(db);
-            PopulateMachineState(db);
-            PopulateTaskType(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateInspectionTestState(db);
+            //PopulateMaterials(db);
+            //PopulateSection(db);
+            //PopulateSectionManager(db);
+            //PopulateMachineState(db);
+            //PopulateTaskType(db);
+            //PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+            //PopulateInspectionTestState(db);
 
-            PopulatePriority(db);
-            PopulateMachineBrand(db);
-            PopulateMachineModel(db);
-            PopulateLocalizationCode(db);
-            PopulateMachines(db);
-            PopulateMachineMaintenance(db);
-            PopulateCars(db);
+            //PopulatePriority(db);
+            //PopulateMachineBrand(db);
+            //PopulateMachineModel(db);
+            //PopulateLocalizationCode(db);
+            //PopulateMachines(db);
+            //PopulateMachineMaintenance(db);
+            //PopulateCars(db);
             //PopulateTimeOfProduction(db);
-            PopulateCarConfigs(db);
+            //PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
-            PopulateCustomers(db);
-            PopulateCustomerContacts(db);
+            //PopulateCustomers(db);
+            //PopulateCustomerContacts(db);
             //PopulateOrder(db);
-            PopulateMaterialUsed(db);
-            PopulateSupplier(db);
-            PopulateWarehouseStocks(db);
-            PopulateStocks(db);
-            PopulateExtras(db);
-            PopulateOrderState(db);
-            PopulateProductions(db);
+            //PopulateMaterialUsed(db);
+            //PopulateSupplier(db);
+            //PopulateWarehouseStocks(db);
+            //PopulateStocks(db);
+            //PopulateExtras(db);
+            //PopulateOrderState(db);
+            //PopulateProductions(db);
             //PopulateWarehouses(db);
 
-            PopulateModelParts(db);
+            //PopulateModelParts(db);
             //PopulateLocalizationCar(db);
             //PopulateStockFinalProduct(db);
 
@@ -350,12 +350,15 @@ namespace CarManufactoring.Data
             if(db.Shift.Any()) return;
 
             db.Shift.AddRange(
-                new Shift { StartDate = new DateTime(2021, 12, 02, 08, 00, 00) , EndDate = new DateTime(2021, 12, 02, 14, 00, 00), ShiftTypeId = 1 },
-                new Shift { StartDate = new DateTime(2021, 1, 04, 16, 00, 00), EndDate = new DateTime(2021, 1, 04, 22, 00, 00), ShiftTypeId = 2 },
-                new Shift { StartDate = new DateTime(2022, 4, 25, 16, 00, 00), EndDate = new DateTime(2022, 4, 25, 22, 00, 00), ShiftTypeId = 2 },
-                new Shift { StartDate = new DateTime(2022, 4, 13, 00, 00, 00), EndDate = new DateTime(2022, 4, 13, 06, 00, 00), ShiftTypeId = 3 },
-                new Shift { StartDate = new DateTime(2020, 7, 09, 00, 00, 00), EndDate = new DateTime(2020, 4, 09, 08, 00, 00), ShiftTypeId = 3 },
-                new Shift { StartDate = new DateTime(2020, 10, 21, 08, 00, 00), EndDate = new DateTime(2020, 10, 21, 16, 00, 00), ShiftTypeId = 4}
+                new Shift { StartDate = new DateTime(2023, 1, 01, 00, 00, 00), EndDate = new DateTime(2023, 01, 01, 06, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2023, 1, 01, 08, 00, 00), EndDate = new DateTime(2023, 01, 01, 14, 00, 00), ShiftTypeId = 1 },
+                new Shift { StartDate = new DateTime(2023, 1, 01, 16, 00, 00), EndDate = new DateTime(2023, 01, 01, 22, 00, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2023, 1, 02, 00, 00, 00), EndDate = new DateTime(2023, 01, 02, 06, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2023, 1, 02, 08, 00, 00), EndDate = new DateTime(2023, 01, 02, 14, 00, 00), ShiftTypeId = 1 },
+                new Shift { StartDate = new DateTime(2023, 1, 02, 16, 00, 00), EndDate = new DateTime(2023, 01, 02, 22, 00, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2023, 1, 03, 00, 00, 00), EndDate = new DateTime(2023, 01, 03, 06, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2023, 1, 03, 08, 00, 00), EndDate = new DateTime(2023, 01, 03, 14, 00, 00), ShiftTypeId = 1 },
+                new Shift { StartDate = new DateTime(2023, 1, 03, 16, 00, 00), EndDate = new DateTime(2023, 01, 03, 22, 00, 00), ShiftTypeId = 2 }
             );
 
             db.SaveChanges();
