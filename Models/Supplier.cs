@@ -25,8 +25,6 @@ namespace CarManufactoring.Models
         [StringLength(20)]
         [Phone]
 
-        [StringLength(20, MinimumLength = 9)]
-
         public string SupplierContact { get; set; }
           
 
@@ -43,7 +41,6 @@ namespace CarManufactoring.Models
         public string SupplierAddress { get; set; }    
         
 
-        public string SupplierAddress { get; set; }
 
 
     }
