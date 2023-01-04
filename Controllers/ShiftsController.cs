@@ -20,6 +20,8 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
+        int nPage = 6;
+
         // GET: Shifts
         public async Task<IActionResult> Index( string shiftType = null, int page = 0)
         {
@@ -33,8 +35,8 @@ namespace CarManufactoring.Controllers
                 ShiftList = new ListViewModel<Shift>
                 {
                     List = await shifts
-                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
-                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    .Skip((pagingInfo.CurrentPage - 1) * nPage)
+                    .Take(nPage).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
                 ShiftTypeSearched = shiftType,
