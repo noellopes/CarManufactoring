@@ -25,9 +25,9 @@ namespace CarManufactoring.Models
         public int SemiFinishedId { get; set; }
 
 
-        public Material Material { get; set; }
+        public Material? Material { get; set; }
 
-        public SemiFinished SemiFinished { get; set; }
+        public SemiFinished? SemiFinished { get; set; }
     }
 
 }
