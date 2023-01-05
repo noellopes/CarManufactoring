@@ -24,7 +24,9 @@ namespace CarManufactoring.Models
         [Display(Name = "Section")]
         public int SectionId { get; set; }
         public Section? Section { get; set; }
+       // public ICollection<Breakdown> Breakdowns { get; set; }
 
-       
+
+
     }
 }

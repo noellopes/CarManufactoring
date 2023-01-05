@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BreakdownId,BreakdownName,BreakdownDate,BreakdownNumber,ReparationDate,MachineStop,MachineReplacement")] Breakdown breakdown)
+        public async Task<IActionResult> Create([Bind("BreakdownId,BreakdownName,BreakdownDate,BreakdownNumber,ReparationDate,MachineStop,MachineReplacement,RepairInTheCompany")] Breakdown breakdown)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BreakdownId,BreakdownName,BreakdownDate,BreakdownNumber,ReparationDate,MachineStop,MachineReplacement")] Breakdown breakdown)
+        public async Task<IActionResult> Edit(int id, [Bind("BreakdownId,BreakdownName,BreakdownDate,BreakdownNumber,ReparationDate,MachineStop,MachineReplacement,RepairInTheCompany")] Breakdown breakdown)
         {
             if (id != breakdown.BreakdownId)
             {
