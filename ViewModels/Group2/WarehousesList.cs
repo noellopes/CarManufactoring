@@ -2,7 +2,7 @@
 
 namespace CarManufactoring.ViewModels.Group2
 {
-    public class WareHousesList
+    public class WarehousesList
     {
         public readonly static List<Warehouse> Warehouse = new List<Warehouse>()
         {

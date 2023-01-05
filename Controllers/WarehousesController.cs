@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels.Group2;
+using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +25,38 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Warehouses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string location = null, int page = 1)
         {
-            var carManufactoringContext = _context.Warehouse.Include(w => w.Collaborator);
-            return View(await carManufactoringContext.ToListAsync());
+            var warehouses = _context.Warehouse.Where(w => location == null || w.Location.Contains(location)).OrderBy(w => w.Location);
+            
+
+            var pagingInfo = new PagingInfoViewModel(await warehouses.CountAsync(), page);
+
+            try
+            {
+                var model = new WarehousesIndexViewModel
+                {
+                    WarehousesList = new ListViewModel<Warehouse>
+                    {
+                        List = await warehouses
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                        PagingInfo = pagingInfo
+                    },
+
+                    LocationSearch = location
+                };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, page);
+            }
+
+            //var carManufactoringContext = _context.Warehouse.Include(w => w.Collaborator);
+            //return View(await carManufactoringContext.ToListAsync());
         }
 
         // GET: Warehouses/Details/5

@@ -2,11 +2,10 @@
 
 namespace CarManufactoring.ViewModels.Group2
 {
-    public class WareHousesIndexViewModel
+    public class WarehousesIndexViewModel
     {
         public ListViewModel<Warehouse> WarehousesList { get; set; }
         public string? LocationSearch { get; set; }
-        public int? CollaboratorSearch { get; set; }
 
     }
 }
