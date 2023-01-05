@@ -43,7 +43,7 @@
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierAddress)
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Aquisition.MachineAquisitionName)
@@ -54,6 +54,19 @@
                 <a asp-action="Delete" asp-route-id="@item.MachineBudgetID">Delete</a>
             </td>
         </tr>
+
+       
 }
     </tbody>
 </table>
+
+@if (Model.Count() >= 2)
+{
+
+    <p>
+        <a asp-action="Comparison">Perform Comparison</a>
+    </p>
+}
+
+
+

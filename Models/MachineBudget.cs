@@ -30,5 +30,9 @@ namespace CarManufactoring.Models
         [Display(Name = "Machine")]
         public int AquisitionId { get; set; }
         public MachineAquisition? Aquisition { get; set; }
+
+        //to be replaced
+        //Machine to be replaced
+        // Machine to be aquisition
     }
 }
