@@ -141,9 +141,22 @@ namespace CarManufactoring.Data
                 .HasOne(x => x.Production)
                 .WithMany(s => s.InspectionTests)
                 .HasForeignKey(x => x.ProductionId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
 
 
+            modelBuilder.Entity<MaterialUsed>().HasKey(bc => new { bc.MaterialId, bc.SemiFinishedId });
+
+            modelBuilder.Entity<MaterialUsed>()
+                .HasOne(x => x.SemiFinished)
+                .WithMany(s => s.Material)
+                .HasForeignKey(x => x.SemiFinishedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<MaterialUsed>()
+                .HasOne(x => x.Material)
+                .WithMany(s => s.SemiFinished)
+                .HasForeignKey(x => x.MaterialId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
        
 

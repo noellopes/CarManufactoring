@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20230105045730_RecreateTableMaterialUsedsDeleteCascade")]
+    partial class RecreateTableMaterialUsedsDeleteCascade
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,6 +90,7 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("BreakdownNumber")
+                        .HasMaxLength(99)
                         .HasColumnType("int");
 
                     b.Property<string>("MachineReplacement")
@@ -96,10 +99,8 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("MachineStop")
+                        .HasMaxLength(99)
                         .HasColumnType("int");
-
-                    b.Property<bool>("RepairInTheCompany")
-                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ReparationDate")
                         .HasColumnType("datetime2");
@@ -1420,33 +1421,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("WarehouseStock");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.WorkerPunctuality", b =>
-                {
-                    b.Property<int>("WorkerPunctualityId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkerPunctualityId"), 1L, 1);
-
-                    b.Property<int>("LateShiftsLastWeek")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MissedHoursLastWeek")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WeekNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WorkerCollaboratorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("WorkerPunctualityId");
-
-                    b.HasIndex("WorkerCollaboratorId");
-
-                    b.ToTable("WorkerPunctuality");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.WorkingHours", b =>
                 {
                     b.Property<int>("WorkingHoursId")
@@ -1934,17 +1908,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("Collaborator");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.WorkerPunctuality", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.Collaborator", "Worker")
-                        .WithMany("Evaluations")
-                        .HasForeignKey("WorkerCollaboratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Worker");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.Brand", b =>
                 {
                     b.Navigation("Cars");
@@ -1978,8 +1941,6 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
                 {
                     b.Navigation("CollaboraterShift");
-
-                    b.Navigation("Evaluations");
 
                     b.Navigation("MaintenanceCollaborators");
                 });
