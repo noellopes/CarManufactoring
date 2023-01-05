@@ -105,7 +105,7 @@ namespace CarManufactoring.Controllers
             var carParts = await _context.CarParts.FindAsync(id);
             if (carParts == null)
             {
-                return NotFound();
+                return View("CarPartsNotFound");
             }
             return View(carParts);
         }
@@ -128,6 +128,9 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(carParts);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Changes saved sucessfully.";
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
