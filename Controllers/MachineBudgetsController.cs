@@ -60,7 +60,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,SupplierId,AquisitionId")] MachineBudget machineBudget)
+        public async Task<IActionResult> Create([Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,prazoGarantia,custoManutencao,SupplierId,AquisitionId")] MachineBudget machineBudget)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,SupplierId,AquisitionId")] MachineBudget machineBudget)
+        public async Task<IActionResult> Edit(int id, [Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,prazoGarantia,custoManutencao,SupplierId,AquisitionId")] MachineBudget machineBudget)
         {
             if (id != machineBudget.MachineBudgetID)
             {

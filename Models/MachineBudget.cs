@@ -23,6 +23,14 @@ namespace CarManufactoring.Models
         [Display(Name = "Valor")]
         public double Valor { get; set; }
 
+        [Required]
+        [Display(Name = "Prazo de Garantia (em meses)")]
+        public int prazoGarantia { get; set; }
+
+        [Required]
+        [Display(Name = "Custo Manutenção")]
+        public double custoManutencao { get; set; }
+
         [Display(Name = "Supplier")]
         public int SupplierId { get; set; }
         public Supplier? Supplier { get; set; }
@@ -33,6 +41,6 @@ namespace CarManufactoring.Models
 
         //to be replaced
         //Machine to be replaced
-        // Machine to be aquisition
+        //Machine to be aquisition
     }
 }
