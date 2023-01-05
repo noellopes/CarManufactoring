@@ -460,8 +460,8 @@ namespace CarManufactoring.Data
 
             db.Stock.AddRange(
                 new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 1 }
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 }
                 );
 
             db.SaveChanges();
@@ -472,8 +472,12 @@ namespace CarManufactoring.Data
             if (db.WarehouseStock.Any()) return;
 
             db.WarehouseStock.AddRange(
-                new WarehouseStock { Identification = "First"}
-                
+                new WarehouseStock { Identification = "Warehouse nº 1"},
+                new WarehouseStock { Identification = "Warehouse nº 2" },
+                new WarehouseStock { Identification = "Warehouse nº 3" },
+                new WarehouseStock { Identification = "Warehouse nº 4" }
+
+
                 );
 
             db.SaveChanges();
