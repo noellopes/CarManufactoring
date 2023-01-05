@@ -60,7 +60,7 @@ namespace CarManufactoring.Data
         }
 
         private static async System.Threading.Tasks.Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
-            if(! await roleManager.RoleExistsAsync(role)) {
+            if(await roleManager.RoleExistsAsync(role)) {
                 return;
             }
 

@@ -75,10 +75,30 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[AllowAnonymous]
         public async Task<IActionResult> Create([Bind("CustomerId,CustomerName,CustomerFoundDate")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                /*
+                 var user = await _userManager.FindByNameAsync(customerInfo.Email)
+                if(user != null){
+                 ModelState.AddModelError("Email","An user with that email already exists");
+                    return view(); 
+                }
+
+                user = new IdentityUser(customerInfo.Email);
+                var result = await _userManager.createAsync(user, customerinfo.Password);
+
+                if(!result.Succeeded){
+                ModelState.AddModelError("","Something went wrong, try again later");
+                }
+
+                _context.Add(customer)
+                ....
+                ....
+                 */
+
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Customer created successfully.";
