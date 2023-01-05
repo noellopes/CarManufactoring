@@ -38,7 +38,7 @@ namespace CarManufactoring.Data
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
             //PopulateMaterialUsed(db);
-            PopulateSupplier(db);
+            //PopulateSupplier(db);
             //PopulateWarehouseStocks(db);
             PopulateStocks(db);
             PopulateExtras(db);
@@ -50,6 +50,9 @@ namespace CarManufactoring.Data
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
+
+            PopulateSupplierPartsCarParts(db);
+            PopulateSupplierParts(db);
 
 
         }
@@ -427,7 +430,7 @@ namespace CarManufactoring.Data
         }
 
 
-        private static void PopulateSupplier(CarManufactoringContext db)
+        private static void PopulateSupplierParts(CarManufactoringContext db)
         {
             if (db.SupplierParts.Any()) return;
 
@@ -440,7 +443,6 @@ namespace CarManufactoring.Data
                 new SupplierParts { Logo = "https://th.bing.com/th/id/OIP.p2rJ5FCz6SjTf1v1riX7awHaHP?pid=ImgDet&rs=1", Name = "Bosch Pieces", Email = "Bosch@hotmail.com", Contact = "942 332 231", ZipCode = "71000", Address = "Vrbanja 1, Sarajevo", Country = "Bósnia" }
                 );
 
-        https://th.bing.com/th/id/OIP.p2rJ5FCz6SjTf1v1riX7awHaHP?pid=ImgDet&rs=1
 
             db.SaveChanges();
         }
