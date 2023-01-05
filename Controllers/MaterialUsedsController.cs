@@ -10,6 +10,7 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using System.Xml.Linq;
 using System.Security.Principal;
+using System.Runtime.InteropServices;
 
 namespace CarManufactoring.Controllers
 {
@@ -22,8 +23,17 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
+        private async void Populate(int id, IEnumerable<MaterialUsed> materialUseds)
+        {
+            if (materialUseds.Count() == 1) { _context.Add(materialUseds); }
+            else { _context.AddRange(materialUseds); }
+            await _context.SaveChangesAsync();
+            Index(id);
+        }
+        
+
         // GET: MaterialUseds
-        public async Task<IActionResult> Index(int id)
+        public IActionResult Index(int id)
         {
             if (id < 0) { return NotFound("Id Error"); }
             //if (!MaterialUsedExists(id)) { return NotFound("This Semifinished does not exist in database yet"); }
@@ -33,31 +43,34 @@ namespace CarManufactoring.Controllers
                 List<Material> allMaterials = _context.Material.Select(m => m).OrderBy(m => m.Type).ToList();
                 if (allMaterials.Count == 0) { return NotFound("Empty Materials List Error"); }
 
-                // Selecionar todos os materiais usados
-                List<MaterialUsed> materialUsed = _context.MaterialUsed.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).OrderBy(mu => mu.Quantity).ToList();
+                // Selecionar todos os materiais usados (ordonado pelo nome com prioridade para a quantidade)
+                List<MaterialUsed> materialUsed = _context.MaterialUsed.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).OrderBy(mu => mu.Material.Nome).OrderBy(mu => mu.Quantity).ToList();
+
+                // Se um novo material for criado depois, essa adição sera feita automaticamente ma db
                 if (materialUsed.Count < allMaterials.Count)
                 {
-                    List<Material> materialToPopulate = new();
+                    List<MaterialUsed> materialToPopulate = new();
                     for (int i = 0; i < allMaterials.Count; i++)
                     {
+                        bool have = false;
                         for (int k = 0; k < materialUsed.Count; k++)
+                        { if (allMaterials[i].MaterialId == materialUsed[i].MaterialId) { have = true; break; } }
+                        if (!have)
                         {
-                            if (allMaterials[i].MaterialId == materialUsed.)
+                            SemiFinished? sf = _context.SemiFinished.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).FirstOrDefault();
+                            materialToPopulate.Add(
+                                new MaterialUsed
+                                {
+                                    Material = allMaterials[i],
+                                    SemiFinished = sf,
+                                    MaterialId = allMaterials[i].MaterialId,
+                                    SemiFinishedId = id,
+                                    Quantity = 0
+                                });
                         }
-                        
                     }
-                    PopulateThisId(id);
+                    if (materialToPopulate.Count > 0) { Populate(id, materialToPopulate); }
                 }
-
-
-
-
-                List<Dictionary<string, string>> Materials = new(); // Vai conter todos os materiais com as keys respetivas
-
-
-
-                List<Material> allMaterials = _context.Material.Select(m => m).OrderBy(m => m.Type).ToList();
-                if (allMaterials.Count == 0) { return NotFound("Empty Materials List Error"); }
 
                 // Criar um titulo com o nome do semiFinished obj
                 SemiFinished? semiFinished = _context.SemiFinished.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).FirstOrDefault();
@@ -65,33 +78,13 @@ namespace CarManufactoring.Controllers
 
                 // Meter na ViewBag
                 ViewBag.SFName = string.Format("{0} ({1})", semiFinished.Family, semiFinished.Reference);
-                ViewBag.MaterialUseds = usedMaterials;
-                ViewBag.MaterialsAll = allMaterials;
+                ViewBag.Materials = materialUsed;
 
                 // Returnar a View
                 return View("Index");
             }
             catch { return NotFound("Database Error"); }
         }
-
-        // GET: MaterialUseds/Edit
-        //public async Task<IActionResult> Edit(int id)
-        //{
-        //    if (!MaterialUsedExists(id)) { return NotFound(); }
-        //    if (_context.MaterialUsed == null)
-        //    {
-        //        // Create a register
-        //        // Retornar em pagina de success create
-        //        // Pagina success create redireciona ao fim de 2/3 segundos para aqui
-        //    }
-
-        //    var materialUsed = await _context.MaterialUsed.FirstOrDefaultAsync(m => m.SemiFinishedId == id);
-        //    var semiFinished = await _context.SemiFinished.FirstOrDefaultAsync(m => m.SemiFinishedId == id);
-        //    var material = await _context.MaterialUsed.FirstOrDefaultAsync(m => m.MaterialUsedId == id);
-        //    if (materialUsed == null) { return View("Error"); }
-
-        //    return View("semiFinished/Index");
-        //}
 
         private bool MaterialUsedExists(int id) => _context.MaterialUsed.Any(e => e.MaterialUsedId == id);
     }
