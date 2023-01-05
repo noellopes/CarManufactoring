@@ -1,5 +1,7 @@
-﻿using CarManufactoring.Migrations;
-using CarManufactoring.Models;
+﻿using CarManufactoring.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace CarManufactoring.Data
 {
@@ -21,8 +23,6 @@ namespace CarManufactoring.Data
             PopulateTaskType(db);
             PopulateBrands(db);
             PopulateInspectionTesting(db);
-            PopulateInspectionTestState(db);
-
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
@@ -30,29 +30,47 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
             PopulateCars(db);
-            PopulateTimeOfProduction(db);
+            //PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
-            //PopulateMaterialUsed(db);
+            PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            PopulateWarehouseStocks(db);
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
-            PopulateWarehouses(db);
+            //PopulateWarehouses(db);
 
             PopulateModelParts(db);
-            PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
-            PopulateBreakdows(db);
-
+            //PopulateLocalizationCar(db);
+            //PopulateStockFinalProduct(db);
+            
 
         }
+
+        internal static async System.Threading.Tasks.Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
+            await EnsureUserIsCreatedAsync(userManager, "admin@ipg.pt", "Secret123$");
+
+        }
+
+        private static async System.Threading.Tasks.Task EnsureUserIsCreatedAsync(UserManager<IdentityUser> userManager, string username, string password) {
+
+            var user = await userManager.FindByNameAsync(username);
+
+            if(user != null) {
+                return;
+            }
+
+            user = new IdentityUser(username);
+            await userManager.CreateAsync(user, password);
+
+        }
+
+
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -257,25 +275,10 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                //new InspectionAndTest { ProductionsId = 1, QuantityTested = 5, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                //new InspectionAndTest { ProductionsId = 2, QuantityTested = 15, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                //new InspectionAndTest { ProductionsId = 3, QuantityTested = 50, StateId = 3, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                //new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                //new InspectionAndTest { ProductionsId = 2, QuantityTested = 10, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 }
+                //new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1 },
+                //new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2 },
+                //new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3 }
 
-            );
-
-            db.SaveChanges();
-        }
-
-        private static void PopulateInspectionTestState(CarManufactoringContext db)
-        {
-            if(db.InspectionTestState.Any()) return;
-
-            db.InspectionTestState.AddRange(
-                new InspectionTestState { State = "Passed On"},
-                new InspectionTestState { State = "Failed" },
-                new InspectionTestState { State = "Testing" }
             );
 
             db.SaveChanges();
@@ -351,15 +354,12 @@ namespace CarManufactoring.Data
             if(db.Shift.Any()) return;
 
             db.Shift.AddRange(
-                new Shift { StartDate = new DateTime(2023, 1, 01, 00, 00, 00), EndDate = new DateTime(2023, 01, 01, 06, 00, 00), ShiftTypeId = 3 },
-                new Shift { StartDate = new DateTime(2023, 1, 01, 08, 00, 00), EndDate = new DateTime(2023, 01, 01, 14, 00, 00), ShiftTypeId = 1 },
-                new Shift { StartDate = new DateTime(2023, 1, 01, 16, 00, 00), EndDate = new DateTime(2023, 01, 01, 22, 00, 00), ShiftTypeId = 2 },
-                new Shift { StartDate = new DateTime(2023, 1, 02, 00, 00, 00), EndDate = new DateTime(2023, 01, 02, 06, 00, 00), ShiftTypeId = 3 },
-                new Shift { StartDate = new DateTime(2023, 1, 02, 08, 00, 00), EndDate = new DateTime(2023, 01, 02, 14, 00, 00), ShiftTypeId = 1 },
-                new Shift { StartDate = new DateTime(2023, 1, 02, 16, 00, 00), EndDate = new DateTime(2023, 01, 02, 22, 00, 00), ShiftTypeId = 2 },
-                new Shift { StartDate = new DateTime(2023, 1, 03, 00, 00, 00), EndDate = new DateTime(2023, 01, 03, 06, 00, 00), ShiftTypeId = 3 },
-                new Shift { StartDate = new DateTime(2023, 1, 03, 08, 00, 00), EndDate = new DateTime(2023, 01, 03, 14, 00, 00), ShiftTypeId = 1 },
-                new Shift { StartDate = new DateTime(2023, 1, 03, 16, 00, 00), EndDate = new DateTime(2023, 01, 03, 22, 00, 00), ShiftTypeId = 2 }
+                new Shift { StartDate = new DateTime(2021, 12, 02, 08, 00, 00) , EndDate = new DateTime(2021, 12, 02, 14, 00, 00), ShiftTypeId = 1 },
+                new Shift { StartDate = new DateTime(2021, 1, 04, 16, 00, 00), EndDate = new DateTime(2021, 1, 04, 22, 00, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2022, 4, 25, 16, 00, 00), EndDate = new DateTime(2022, 4, 25, 22, 00, 00), ShiftTypeId = 2 },
+                new Shift { StartDate = new DateTime(2022, 4, 13, 00, 00, 00), EndDate = new DateTime(2022, 4, 13, 06, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2020, 7, 09, 00, 00, 00), EndDate = new DateTime(2020, 4, 09, 08, 00, 00), ShiftTypeId = 3 },
+                new Shift { StartDate = new DateTime(2020, 10, 21, 08, 00, 00), EndDate = new DateTime(2020, 10, 21, 16, 00, 00), ShiftTypeId = 4}
             );
 
             db.SaveChanges();
@@ -459,25 +459,14 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 1 }
+                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1 },
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3 }
                 );
 
             db.SaveChanges();
         }
 
-        private static void PopulateWarehouseStocks(CarManufactoringContext db)
-        {
-            if (db.WarehouseStock.Any()) return;
-
-            db.WarehouseStock.AddRange(
-                new WarehouseStock { Identification = "First"}
-                
-                );
-
-            db.SaveChanges();
-        }
 
         private static void PopulateMaterialUsed(CarManufactoringContext db)
         {
@@ -544,7 +533,7 @@ namespace CarManufactoring.Data
             if (db.Production.Any()) return;
 
             db.Production.AddRange(
-                new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity = 10 },
+                new Production { Date = DateTime.Parse("13/02/2022"), CarConfigId = 1, Quantity= 10 },
                 new Production { Date = DateTime.Parse("02/01/2022"), CarConfigId = 1, Quantity = 2 },
                 new Production { Date = DateTime.Parse("12/03/2023"), CarConfigId = 2, Quantity = 10 },
                 new Production { Date = DateTime.Parse("03/01/2023"), CarConfigId = 2, Quantity = 2 }
@@ -587,9 +576,9 @@ namespace CarManufactoring.Data
             if (db.Warehouse.Any()) return;
 
             db.Warehouse.AddRange(
-                //new Warehouse { Location = "Guarda", CollaboratorID = 1 },
-                //new Warehouse { Location = "Lisboa", CollaboratorID = 2 },
-                //new Warehouse { Location = "Porto", CollaboratorID = 3 }
+                new Warehouse { Location = "Guarda", CollaboratorID = 1 },
+                new Warehouse { Location = "Lisboa", CollaboratorID = 2 },
+                new Warehouse { Location = "Porto", CollaboratorID = 3 }
                 );
 
             db.SaveChanges();
@@ -600,36 +589,36 @@ namespace CarManufactoring.Data
             if(db.ModelParts.Any()) return;
 
             db.ModelParts.AddRange(
-                    ////new ModelParts { CarConfigId = 1, ProductId = 1, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 1, ProductId = 2, QtdPecas = 135 },
-                    ////new ModelParts { CarConfigId = 1, ProductId = 3, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 1, ProductId = 4, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 4 },
-                    ////new ModelParts { CarConfigId = 1, ProductId = 6, QtdPecas = 1},
-                    ////new ModelParts { CarConfigId = 2, ProductId = 1, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 2, ProductId = 2, QtdPecas = 135 },
-                    ////new ModelParts { CarConfigId = 2, ProductId = 3, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 2, ProductId = 4, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 2, ProductId = 5, QtdPecas = 4 },
-                    ////new ModelParts { CarConfigId = 2, ProductId = 6, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 3, ProductId = 1, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 3, ProductId = 2, QtdPecas = 135 },
-                    ////new ModelParts { CarConfigId = 3, ProductId = 3, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 3, ProductId = 4, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 3, ProductId = 5, QtdPecas = 4 },
-                    ////new ModelParts { CarConfigId = 3, ProductId = 6, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 4, ProductId = 1, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 4, ProductId = 2, QtdPecas = 135 },
-                    ////new ModelParts { CarConfigId = 4, ProductId = 3, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 4, ProductId = 4, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 4 },
-                    ////new ModelParts { CarConfigId = 4, ProductId = 6, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 5, ProductId = 1, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 5, ProductId = 2, QtdPecas = 135 },
-                    ////new ModelParts { CarConfigId = 5, ProductId = 3, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 5, ProductId = 4, QtdPecas = 1 },
-                    ////new ModelParts { CarConfigId = 5, ProductId = 5, QtdPecas = 4 },
-                    ////new ModelParts { CarConfigId = 5, ProductId = 6, QtdPecas = 1 }
+                    new ModelParts { CarConfigId = 1, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 2, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 1, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 1, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 1, ProductId = 6, QtdPecas = 1},
+                    new ModelParts { CarConfigId = 2, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 2, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 2, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 2, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 2, ProductId = 6, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 2, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 3, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 3, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 3, ProductId = 6, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 2, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 4, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 4, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 4, ProductId = 6, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 1, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 2, QtdPecas = 135 },
+                    new ModelParts { CarConfigId = 5, ProductId = 3, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 4, QtdPecas = 1 },
+                    new ModelParts { CarConfigId = 5, ProductId = 5, QtdPecas = 4 },
+                    new ModelParts { CarConfigId = 5, ProductId = 6, QtdPecas = 1 }
             );
 
             db.SaveChanges();
@@ -640,11 +629,11 @@ namespace CarManufactoring.Data
             if (db.TimeOfProduction.Any()) return;
 
             db.TimeOfProduction.AddRange(
-                //new TimeOfProduction { CarConfigId = 1, Time = 2 },
-                //new TimeOfProduction { CarConfigId = 2, Time = 1 },
-                //new TimeOfProduction { CarConfigId = 3, Time = 3},
-                //new TimeOfProduction { CarConfigId = 4, Time = 1},
-                //new TimeOfProduction { CarConfigId = 5, Time = 4 }
+                new TimeOfProduction { CarConfigId = 1, Time = 2 },
+                new TimeOfProduction { CarConfigId = 2, Time = 1 },
+                new TimeOfProduction { CarConfigId = 3, Time = 3},
+                new TimeOfProduction { CarConfigId = 4, Time = 1},
+                new TimeOfProduction { CarConfigId = 5, Time = 4 }
                 );
             db.SaveChanges();
         }
@@ -654,22 +643,22 @@ namespace CarManufactoring.Data
             if (db.LocalizationCar.Any()) return;
 
             db.LocalizationCar.AddRange(
-                //new LocalizationCar { Line = "1", Row = "1", IsOccupied = false },
-                //new LocalizationCar { Line = "1", Row = "2", IsOccupied = false },
-                //new LocalizationCar { Line = "1", Row = "3", IsOccupied = false },
-                //new LocalizationCar { Line = "1", Row = "4", IsOccupied = false },
-                //new LocalizationCar { Line = "2", Row = "1", IsOccupied = false },
-                //new LocalizationCar { Line = "2", Row = "2", IsOccupied = false },
-                //new LocalizationCar { Line = "2", Row = "3", IsOccupied = false },
-                //new LocalizationCar { Line = "2", Row = "4", IsOccupied = false },
-                //new LocalizationCar { Line = "3", Row = "1", IsOccupied = false },
-                //new LocalizationCar { Line = "3", Row = "2", IsOccupied = false },
-                //new LocalizationCar { Line = "3", Row = "3", IsOccupied = false },
-                //new LocalizationCar { Line = "3", Row = "4", IsOccupied = false },
-                //new LocalizationCar { Line = "4", Row = "1", IsOccupied = false },
-                //new LocalizationCar { Line = "4", Row = "2", IsOccupied = false },
-                //new LocalizationCar { Line = "4", Row = "3", IsOccupied = false },
-                //new LocalizationCar { Line = "4", Row = "4", IsOccupied = false }
+                new LocalizationCar { Line = "1", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "1", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "2", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "3", Row = "4", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "1", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "2", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "3", IsOccupied = false },
+                new LocalizationCar { Line = "4", Row = "4", IsOccupied = false }
                 );
             db.SaveChanges();
         }
@@ -679,63 +668,16 @@ namespace CarManufactoring.Data
             if (db.StockFinalProduct.Any()) return;
 
             db.StockFinalProduct.AddRange(
-                //new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
-                //new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
-                //new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
-                //new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
-                //new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
-                //new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
+                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
 
                 );
             db.SaveChanges();
         }
-
-        private static void PopulateBreakdows(CarManufactoringContext db)
-        {
-            if (db.Breakdown.Any()) return;
-
-            db.Breakdown.AddRange(
-
-               new Breakdown
-               {
-                   BreakdownName = "Fuga de Fluido",
-                   BreakdownDate = DateTime.Parse("13/02/2022"),
-                   BreakdownNumber = 1,
-                   ReparationDate = DateTime.Parse("13/02/2022"),
-                   MachineStop = 4,
-                   MachineReplacement = "",
-                   RepairInTheCompany = true
-               },
-
-                new Breakdown
-                {
-                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
-                    BreakdownDate = DateTime.Parse("01/01/2023"),
-                    BreakdownNumber = 2,
-                    ReparationDate = DateTime.Parse("03/01/2023"),
-                    MachineStop = 12,
-                    MachineReplacement = "",
-                    RepairInTheCompany = true
-                },
-                 new Breakdown
-                 {
-                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
-                     BreakdownDate = DateTime.Parse("13/02/2022"),
-                     BreakdownNumber = 3,
-                     ReparationDate = DateTime.Parse("13/02/2022"),
-                     MachineStop = 12,
-                     MachineReplacement = "",
-                     RepairInTheCompany = true
-                 }
-
-
-                );
-
-            db.SaveChanges();
-        }
-
-       
-
 
     }
 }
