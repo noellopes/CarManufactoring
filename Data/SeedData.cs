@@ -49,6 +49,7 @@ namespace CarManufactoring.Data
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
+            PopulateBreakdows(db);
 
 
         }
@@ -688,6 +689,53 @@ namespace CarManufactoring.Data
                 );
             db.SaveChanges();
         }
+
+        private static void PopulateBreakdows(CarManufactoringContext db)
+        {
+            if (db.Breakdown.Any()) return;
+
+            db.Breakdown.AddRange(
+
+               new Breakdown
+               {
+                   BreakdownName = "Fuga de Fluido",
+                   BreakdownDate = DateTime.Parse("13/02/2022"),
+                   BreakdownNumber = 1,
+                   ReparationDate = DateTime.Parse("13/02/2022"),
+                   MachineStop = 4,
+                   MachineReplacement = "",
+                   RepairInTheCompany = true
+               },
+
+                new Breakdown
+                {
+                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
+                    BreakdownDate = DateTime.Parse("01/01/2023"),
+                    BreakdownNumber = 2,
+                    ReparationDate = DateTime.Parse("03/01/2023"),
+                    MachineStop = 12,
+                    MachineReplacement = "",
+                    RepairInTheCompany = true
+                },
+                 new Breakdown
+                 {
+                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownDate = DateTime.Parse("13/02/2022"),
+                     BreakdownNumber = 3,
+                     ReparationDate = DateTime.Parse("13/02/2022"),
+                     MachineStop = 12,
+                     MachineReplacement = "",
+                     RepairInTheCompany = true
+                 }
+
+
+                );
+
+            db.SaveChanges();
+        }
+
+       
+
 
     }
 }

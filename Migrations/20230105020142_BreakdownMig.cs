@@ -4,10 +4,17 @@
 
 namespace CarManufactoring.Migrations
 {
-    public partial class addedworkerPucmodel : Migration
+    public partial class BreakdownMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<bool>(
+                name: "RepairInTheCompany",
+                table: "Breakdown",
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
+
             migrationBuilder.CreateTable(
                 name: "WorkerPunctuality",
                 columns: table => new
@@ -40,6 +47,10 @@ namespace CarManufactoring.Migrations
         {
             migrationBuilder.DropTable(
                 name: "WorkerPunctuality");
+
+            migrationBuilder.DropColumn(
+                name: "RepairInTheCompany",
+                table: "Breakdown");
         }
     }
 }

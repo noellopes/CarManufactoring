@@ -88,7 +88,6 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("BreakdownNumber")
-                        .HasMaxLength(99)
                         .HasColumnType("int");
 
                     b.Property<string>("MachineReplacement")
@@ -97,8 +96,10 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("MachineStop")
-                        .HasMaxLength(99)
                         .HasColumnType("int");
+
+                    b.Property<bool>("RepairInTheCompany")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("ReparationDate")
                         .HasColumnType("datetime2");
