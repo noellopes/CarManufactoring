@@ -71,7 +71,7 @@ namespace CarManufactoring.Controllers
                     }
                     if (materialToPopulate.Count > 0) { Populate(id, materialToPopulate); }
                 }
-
+                Thread.Sleep(500);
                 // Criar um titulo com o nome do semiFinished obj
                 SemiFinished? semiFinished = _context.SemiFinished.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).FirstOrDefault();
                 if (semiFinished == null) { return NotFound("SemiFinished not Found"); } // If semiFinished is not found
@@ -83,7 +83,7 @@ namespace CarManufactoring.Controllers
                 // Returnar a View
                 return View("Index");
             }
-            catch { return NotFound("Database Error"); }
+            catch { return NotFound("Go back to the list and retry, if doesn't work it's a database error"); }
         }
 
         private bool MaterialUsedExists(int id) => _context.MaterialUsed.Any(e => e.MaterialUsedId == id);

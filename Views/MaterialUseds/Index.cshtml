@@ -27,20 +27,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (Material item in ViewBag.MaterialsAll)
+            @foreach (MaterialUsed item in ViewBag.Materials)
             {
                 <tr>
-                    <td>@item.Type</td>
-                    <td>@item.Nome</td>
-                    <td>@item.Description</td>
+                    <td>@item.Material.Type</td>
+                    <td>@item.Material.Nome</td>
+                    <td>@item.Material.Description</td>
                     <td>
                         <div class="d-flex justify-content-around">
                             <button type="button" class="btn btn-outline-success btn-block"><i class="fa-solid fa-plus"></i></button>
-                            @if (ViewBag.usedMaterials.Length == 0)
-                            {
-                                <p class="text-center">0</p>
-                            }
-
+                            <p class="text-center">@item.Quantity</p>
                             <button type="button" class="btn btn-outline-danger btn-block"><i class="fa-solid fa-minus"></i></button>
                         </div>
                     </td>
