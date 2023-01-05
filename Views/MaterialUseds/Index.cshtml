@@ -3,132 +3,49 @@
 @{
 }
 
-
+@* Nome do SemiFinished *@
 <div class="text-center" style="padding: 15px;border: 4px solid #000000;border-radius: 30px;margin-bottom: 30px;"><h3>@ViewBag.SFName</h3></div>
 
+@* Save Changes e Search Bar *@
 <div class="d-flex justify-content-around" style="margin-bottom: 10px;">
-    <form>
-        <div class="col-auto"><button type="submit" id="saveId" class="btn btn-success mb-3">Save Changes</button></div>
-    </form>
+    <form><div class="col-auto"><button type="submit" id="saveId" class="btn btn-success mb-3">Save Changes</button></div></form>
     <form class="row g-3">
         <div class="col-auto"><input class="form-control" type="search" placeholder="Search" id="searchId" aria-label="Search"></div>
         <div class="col-auto"><button type="submit" class="btn btn-primary mb-3">Search</button></div>
     </form>
 </div>
 
-
+@* Lista dos materiais *@
 <div class="table-responsive">
-    <table class="table caption-top align-middle">
-        <thead class="table-dark">
+    <table class="table">
+        <thead>
             <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Quantity</th>
+                <th scope="col">@Html.DisplayNameFor(model => new Material().Type)</th>
+                <th scope="col">@Html.DisplayNameFor(model => new Material().Nome)</th>
+                <th scope="col">@Html.DisplayNameFor(model => new Material().Description)</th>
+                <th scope="col">@Html.DisplayNameFor(model => new MaterialUsed().Quantity)</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">Iron</th>
-                <td>Irno2nsodinfs</td>
-                <td>oissjfbsod</td>
-                <td>
-                    <div class="d-flex justify-content-around">
-                        <button type="button" class="btn btn-outline-success btn-block"><i class="fa-solid fa-plus"></i></button>
-                        <p class="text-center">12</p>
-                        <button type="button" class="btn btn-outline-danger btn-block"><i class="fa-solid fa-minus"></i></button>
-                    </div>
-                </td>
-            </tr>
+            @foreach (Material item in ViewBag.MaterialsAll)
+            {
+                <tr>
+                    <td>@item.Type</td>
+                    <td>@item.Nome</td>
+                    <td>@item.Description</td>
+                    <td>
+                        <div class="d-flex justify-content-around">
+                            <button type="button" class="btn btn-outline-success btn-block"><i class="fa-solid fa-plus"></i></button>
+                            @if (ViewBag.usedMaterials.Length == 0)
+                            {
+                                <p class="text-center">0</p>
+                            }
+
+                            <button type="button" class="btn btn-outline-danger btn-block"><i class="fa-solid fa-minus"></i></button>
+                        </div>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
-
-@*
-<div class="table-responsive">
-    <table class="table caption-top">
-        <thead class="table-dark">
-            <tr>
-                <th scope="col">Type</th>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Quantity</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-
-
-
-            <tr>
-                <th scope="row">Iron</th>
-                <td>Irno2nsodinfs</td>
-                <td>oissjfbsod</td>
-                <td>5</td>
-                <td><button type="button" class="btn btn-outline-success">+</button></td>
-                <td><button type="button" class="btn btn-outline-danger">-</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Iron</th>
-                <td>Irno2nsodinfs</td>
-                <td>oissjfbsod</td>
-                <td>5</td>
-                <td><button type="button" class="btn btn-outline-primary">+</button></td>
-                <td><button type="button" class="btn btn-outline-danger">-</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Iron</th>
-                <td>Irno2nsodinfs</td>
-                <td>oissjfbsod</td>
-                <td>5</td>
-                <td><button type="button" class="btn btn-outline-primary">+</button></td>
-                <td><button type="button" class="btn btn-outline-secondary">-</button></td>
-            </tr>
-            <tr>
-                <th scope="row">Iron</th>
-                <td>Irno2nsodinfs</td>
-                <td>oissjfbsod</td>
-                <td>5</td>
-                <td><button type="button" class="btn btn-outline-primary">+</button></td>
-                <td><button type="button" class="btn btn-outline-secondary">-</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-*@
-
-
-
-
-@*
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Quantity)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaterialUsedId">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaterialUsedId">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaterialUsedId">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
-*@
-

@@ -29,10 +29,33 @@ namespace CarManufactoring.Controllers
             //if (!MaterialUsedExists(id)) { return NotFound("This Semifinished does not exist in database yet"); }
             try
             {
-                // Selecionar as materialUsed(quantidades) para apresentar em primeiro
-                List<MaterialUsed> usedMaterials = _context.MaterialUsed.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).OrderBy(mu => mu.Quantity).ToList();
+                // Selecionar todos os materiais
+                List<Material> allMaterials = _context.Material.Select(m => m).OrderBy(m => m.Type).ToList();
+                if (allMaterials.Count == 0) { return NotFound("Empty Materials List Error"); }
 
-                // Selecionar todos os materiais (para listar-los)
+                // Selecionar todos os materiais usados
+                List<MaterialUsed> materialUsed = _context.MaterialUsed.Select(mu => mu).Where(mu => mu.SemiFinishedId == id).OrderBy(mu => mu.Quantity).ToList();
+                if (materialUsed.Count < allMaterials.Count)
+                {
+                    List<Material> materialToPopulate = new();
+                    for (int i = 0; i < allMaterials.Count; i++)
+                    {
+                        for (int k = 0; k < materialUsed.Count; k++)
+                        {
+                            if (allMaterials[i].MaterialId == materialUsed.)
+                        }
+                        
+                    }
+                    PopulateThisId(id);
+                }
+
+
+
+
+                List<Dictionary<string, string>> Materials = new(); // Vai conter todos os materiais com as keys respetivas
+
+
+
                 List<Material> allMaterials = _context.Material.Select(m => m).OrderBy(m => m.Type).ToList();
                 if (allMaterials.Count == 0) { return NotFound("Empty Materials List Error"); }
 
