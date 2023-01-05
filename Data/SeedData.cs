@@ -56,6 +56,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Colaborator");
             await EnsureRoleIsCreated(roleManager, "Manager");
             await EnsureRoleIsCreated(roleManager, "Production");
+            await EnsureRoleIsCreated(roleManager, "Customer");
         }
 
         private static async System.Threading.Tasks.Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -68,21 +69,37 @@ namespace CarManufactoring.Data
         }
 
         internal static async System.Threading.Tasks.Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
-            await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
+            var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Admin");
+
+            user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Manager");
+
+            user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Customer");
 
         }
 
-        private static async System.Threading.Tasks.Task EnsureUserIsCreated(UserManager<IdentityUser> userManager, string username, string password) {
+        private static async System.Threading.Tasks.Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
+            if(await userManager.IsInRoleAsync(user, role)) {
+                return;
+            }
+
+            await userManager.AddToRoleAsync(user, role);
+        }
+
+        private static async Task<IdentityUser> EnsureUserIsCreated(UserManager<IdentityUser> userManager, string username, string password) {
 
             var user = await userManager.FindByNameAsync(username);
 
             if(user != null) {
-                return;
+                return user;
             }
 
             user = new IdentityUser(username);
             await userManager.CreateAsync(user, password);
 
+            return user;
         }
 
 
