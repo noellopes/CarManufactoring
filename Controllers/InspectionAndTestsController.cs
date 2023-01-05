@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,32 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: InspectionAndTests
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string productions = null, string state = null, string collaborator = null, int page = 1)
         {
-            var carManufactoringContext = _context.InspectionAndTest.Include(i => i.Collaborator).Include(i => i.Productions).Include(i => i.State);
-            return View(await carManufactoringContext.ToListAsync());
+            var inspectionandtest = _context.InspectionAndTest.Include(s => s.Productions.CarConfig).Include(s => s.State).Include(s => s.Collaborator)
+                .Where(s => productions == null || s.Productions.CarConfig.ConfigName.Contains(productions))
+                .Where(s => state == null || s.State.State.Contains(state))
+                .Where(s => collaborator == null || s.Collaborator.Name.Contains(collaborator))
+
+            .OrderBy(s => s.StateId);
+
+            var pagingInfo = new PagingInfoViewModel(await inspectionandtest.CountAsync(), page);
+
+            var model = new InspectionTestIndexViewModel
+            {
+                InspectionAndTestList = new ListViewModel<InspectionAndTest>
+                {
+                    List = await inspectionandtest
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                ProductionsSearched = productions,
+                StateSearched = state,
+                CollaboratorSearched = collaborator
+            };
+
+            return View(model);
         }
 
         // GET: InspectionAndTests/Details/5
