@@ -7,26 +7,37 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" >Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Identification)
+                @Html.DisplayNameFor(model => new WarehouseStock().Identification)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => new Material().Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Stock().Quantity)
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (Stock item in ViewBag.Stock) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Identification)
+                @item.WarehouseStock.Identification
+            </td>
+            <td>
+                @item.Material.Nome
+            </td>
+            <td>
+                @item.Quantity
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.WarehouseStockId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.WarehouseStockId">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.WarehouseStock.Identification">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.WarehouseStockId">Delete</a>
             </td>
         </tr>

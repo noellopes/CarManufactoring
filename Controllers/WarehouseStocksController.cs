@@ -22,7 +22,26 @@ namespace CarManufactoring.Controllers
         // GET: WarehouseStocks
         public async Task<IActionResult> Index()
         {
-              return View(await _context.WarehouseStock.ToListAsync());
+            List<Stock> allStockData = new List<Stock>();
+            List<Stock> stocks = _context.Stock.ToList();
+            for (int i = 0; i < stocks.Count; i++)
+            {
+                Material material = _context.Material.Select(x => x).Where(x => x.MaterialId == stocks[i].MaterialId).FirstOrDefault();
+                WarehouseStock warehouseStock = _context.WarehouseStock.Select(x => x).Where(x => x.WarehouseStockId == stocks[i].WarehouseStockId).FirstOrDefault();
+                allStockData.Add(new Stock { 
+                    Description = stocks[i].Description, 
+                    Location = stocks[i].Location,
+                    Material = material,
+                    Quantity= stocks[i].Quantity,
+                    MaterialId= stocks[i].MaterialId,
+                    StockId = stocks[i].StockId,
+                    WarehouseStock = warehouseStock,
+                    WarehouseStockId = stocks[i].WarehouseStockId
+                }) ;
+            }
+
+            ViewBag.Stock = allStockData;
+              return View();
         }
 
         // GET: WarehouseStocks/Details/5
@@ -40,7 +59,29 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            return View(warehouseStock);
+            List<Stock> allStockData = new List<Stock>();
+            List<Stock> stocks = _context.Stock.ToList();
+            for (int i = 0; i < stocks.Count; i++)
+            {
+                Material material = _context.Material.Select(x => x).Where(x => x.MaterialId == stocks[i].MaterialId).FirstOrDefault();
+                WarehouseStock warehouseStocks = _context.WarehouseStock.Select(x => x).Where(x => x.WarehouseStockId == stocks[i].WarehouseStockId).FirstOrDefault();
+                allStockData.Add(new Stock
+                {
+                    Description = stocks[i].Description,
+                    Location = stocks[i].Location,
+                    Material = material,
+                    Quantity = stocks[i].Quantity,
+                    MaterialId = stocks[i].MaterialId,
+                    StockId = stocks[i].StockId,
+                    WarehouseStock = warehouseStocks,
+                    WarehouseStockId = stocks[i].WarehouseStockId
+                });
+            }
+
+            ViewBag.Stock = allStockData;
+            return View();
+
+            //return View(warehouseStock);
         }
 
         // GET: WarehouseStocks/Create

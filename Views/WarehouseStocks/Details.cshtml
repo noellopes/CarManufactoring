@@ -9,14 +9,37 @@
 <div>
     <h4>WarehouseStock</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Identification)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Identification)
-        </dd>
-    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => new WarehouseStock().Identification)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => new Material().Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => new Stock().Quantity)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Stock item in ViewBag.Stock)
+            {
+                <tr>
+                    <td>
+                        @item.WarehouseStock.Identification
+                    </td>
+                    <td>
+                        @item.Material.Nome
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.WarehouseStockId">Edit</a> |
