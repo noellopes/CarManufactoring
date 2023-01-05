@@ -9,9 +9,11 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group2;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CarPartsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -22,6 +24,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, string brand = null, string cmodel = null,int page = 1) {
             //var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
            

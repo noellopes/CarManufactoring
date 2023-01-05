@@ -31,7 +31,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(
         options.Lockout.MaxFailedAccessAttempts = 5;
 
     }
-).AddEntityFrameworkStores<ApplicationDbContext>();
+).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
