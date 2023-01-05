@@ -67,6 +67,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+
             return View(inspectionAndTest);
         }
 
@@ -189,10 +190,11 @@ namespace CarManufactoring.Controllers
             if (inspectionAndTest != null)
             {
                 _context.InspectionAndTest.Remove(inspectionAndTest);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+
+            return View("InspectionTestDeleted");
         }
 
         private bool InspectionAndTestExists(int id)
