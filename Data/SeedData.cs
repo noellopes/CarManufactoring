@@ -258,9 +258,9 @@ namespace CarManufactoring.Data
             db.InspectionAndTest.AddRange(
 
                 new InspectionAndTest { ProductionsId = 1, QuantityTested = 5, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                new InspectionAndTest { ProductionsId = 2, QuantityTested = 15, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                new InspectionAndTest { ProductionsId = 3, QuantityTested = 50, StateId = 3, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                new InspectionAndTest { ProductionsId = 2, QuantityTested = 15, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
+                new InspectionAndTest { ProductionsId = 3, QuantityTested = 50, StateId = 3, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 3 },
+                new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
                 new InspectionAndTest { ProductionsId = 2, QuantityTested = 10, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 }
 
             );
