@@ -51,13 +51,28 @@ namespace CarManufactoring.Data
             
 
         }
+        internal static async System.Threading.Tasks.Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
+            await EnsureRoleIsCreated(roleManager, "Admin");
+            await EnsureRoleIsCreated(roleManager, "Colaborator");
+            await EnsureRoleIsCreated(roleManager, "Manager");
+            await EnsureRoleIsCreated(roleManager, "Production");
+        }
 
-        internal static async System.Threading.Tasks.Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
-            await EnsureUserIsCreatedAsync(userManager, "admin@ipg.pt", "Secret123$");
+        private static async System.Threading.Tasks.Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
+            if(! await roleManager.RoleExistsAsync(role)) {
+                return;
+            }
+
+            await roleManager.CreateAsync(new IdentityRole(role));
 
         }
 
-        private static async System.Threading.Tasks.Task EnsureUserIsCreatedAsync(UserManager<IdentityUser> userManager, string username, string password) {
+        internal static async System.Threading.Tasks.Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
+            await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
+
+        }
+
+        private static async System.Threading.Tasks.Task EnsureUserIsCreated(UserManager<IdentityUser> userManager, string username, string password) {
 
             var user = await userManager.FindByNameAsync(username);
 
@@ -69,6 +84,7 @@ namespace CarManufactoring.Data
             await userManager.CreateAsync(user, password);
 
         }
+
 
 
         // SeedData for Material Class
@@ -679,5 +695,6 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+      
     }
 }

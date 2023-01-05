@@ -58,16 +58,21 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+using(var scope = app.Services.CreateScope()) {
 
-if (app.Environment.IsDevelopment())
-{
-    using (var scope = app.Services.CreateScope()){
-       var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-       SeedData.PopulateUsersAsync(userManager).Wait();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    SeedData.PopulateRolesAsync(roleManager).Wait();
+
+
+    if (app.Environment.IsDevelopment()) {
+    
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        SeedData.PopulateUsersAsync(userManager).Wait();
 
         var db = scope.ServiceProvider.GetRequiredService<CarManufactoringContext>();
         SeedData.Populate(db);
     }
+
 }
 
 app.Run();
