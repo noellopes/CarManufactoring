@@ -53,6 +53,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CarParts == null)
@@ -73,6 +74,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts/Create
+        [Authorize(Roles ="Manager")]
         public IActionResult Create()
         {
             return View();
@@ -83,6 +85,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Create([Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
         {
             if (ModelState.IsValid)
