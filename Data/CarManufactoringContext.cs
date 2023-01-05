@@ -157,6 +157,9 @@ namespace CarManufactoring.Data
                 .WithMany(s => s.SemiFinished)
                 .HasForeignKey(x => x.MaterialId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+
         }
        
 
@@ -256,6 +259,8 @@ namespace CarManufactoring.Data
         
 
         public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
+
+        public DbSet<CarManufactoring.Models.SupplierPartsCarParts> SupplierPartsCarParts { get; set; }
 
         public DbSet<CarManufactoring.Models.Function> Function { get; set; }
 

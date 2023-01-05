@@ -20,8 +20,8 @@ namespace CarManufactoring.Data
             PopulateMachineState(db);
             PopulateTaskType(db);
             PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateInspectionTestState(db);
+            //PopulateInspectionTesting(db);
+            //PopulateInspectionTestState(db);
 
             PopulatePriority(db);
             PopulateMachineBrand(db);
@@ -39,7 +39,7 @@ namespace CarManufactoring.Data
             //PopulateOrder(db);
             //PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            PopulateWarehouseStocks(db);
+            //PopulateWarehouseStocks(db);
             PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
@@ -49,7 +49,7 @@ namespace CarManufactoring.Data
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
-            PopulateBreakdows(db);
+            //PopulateBreakdows(db);
 
 
         }
@@ -690,6 +690,18 @@ namespace CarManufactoring.Data
                 //new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
                 //new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
 
+                );
+            db.SaveChanges();
+        }
+
+        private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
+        {
+            if (db.SupplierPartsCarParts.Any()) return;
+
+            db.SupplierPartsCarParts.AddRange(
+                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 1, PrazoEntrega = 12, Disponibilidade = true },
+                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 2, PrazoEntrega = 6, Disponibilidade = true },
+                new SupplierPartsCarParts { ProductId = 2, SupplierPartsId = 2, PrazoEntrega = 4, Disponibilidade = false }
                 );
             db.SaveChanges();
         }
