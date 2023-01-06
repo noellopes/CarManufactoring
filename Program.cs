@@ -32,7 +32,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(
 
     }
 ).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
