@@ -10,13 +10,13 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-
+            /*
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            //PopulateSemiFinishedCars(db);
+            PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
@@ -56,6 +56,7 @@ namespace CarManufactoring.Data
 
             PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
+            */
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -110,7 +111,7 @@ namespace CarManufactoring.Data
         }
 
 
-
+        /*
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -751,6 +752,7 @@ namespace CarManufactoring.Data
 
         private static void PopulateStockFinalProduct(CarManufactoringContext db)
         {
+
             if (db.StockFinalProduct.Any()) return;
 
             db.StockFinalProduct.AddRange(
@@ -820,6 +822,6 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-
+        */
     }
 }
