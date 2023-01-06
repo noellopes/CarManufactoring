@@ -23,7 +23,8 @@ namespace CarManufactoring.Data
             PopulateMachineState(db);
             PopulateTaskType(db);
             PopulateBrands(db);
-            PopulateInspectionTesting(db);
+            //PopulateInspectionTesting(db);
+            //PopulateInspectionTestState(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
@@ -41,15 +42,20 @@ namespace CarManufactoring.Data
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
             //PopulateStocks(db);
+            //PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
             //PopulateWarehouses(db);
-
             PopulateModelParts(db);
             //PopulateLocalizationCar(db);
             //PopulateStockFinalProduct(db);
-            
+            PopulateLocalizationCar(db);
+            PopulateStockFinalProduct(db);
+            //PopulateBreakdows(db);
+
+            PopulateSupplierPartsCarParts(db);
+            PopulateSupplierParts(db);
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -309,9 +315,11 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                //new InspectionAndTest { Date = new DateTime(2022, 12, 02, 10, 30, 50), State = "Passed on", Description = "The semi finished as passed on the test with no issues.", CollaboratorId = 1 },
-                //new InspectionAndTest { Date = new DateTime(2022, 12, 01, 15, 50, 10), State = "Failed", Description = "The semi finished failed the test." ,CollaboratorId = 2 },
-                //new InspectionAndTest { Date = new DateTime(2022, 11, 30, 11, 45, 27), State = "Testing", Description = "The semi finished is still being tested.", CollaboratorId = 3 }
+                new InspectionAndTest { ProductionsId = 1, QuantityTested = 5, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                new InspectionAndTest { ProductionsId = 2, QuantityTested = 15, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
+                new InspectionAndTest { ProductionsId = 3, QuantityTested = 50, StateId = 3, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 3 },
+                new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
+                new InspectionAndTest { ProductionsId = 2, QuantityTested = 10, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 }
 
             );
 
@@ -461,7 +469,7 @@ namespace CarManufactoring.Data
         }
 
 
-        private static void PopulateSupplier(CarManufactoringContext db)
+        private static void PopulateSupplierParts(CarManufactoringContext db)
         {
             if (db.SupplierParts.Any()) return;
 
@@ -474,10 +482,25 @@ namespace CarManufactoring.Data
                 new SupplierParts { Logo = "https://th.bing.com/th/id/OIP.p2rJ5FCz6SjTf1v1riX7awHaHP?pid=ImgDet&rs=1", Name = "Bosch Pieces", Email = "Bosch@hotmail.com", Contact = "942 332 231", ZipCode = "71000", Address = "Vrbanja 1, Sarajevo", Country = "Bósnia" }
                 );
 
-        https://th.bing.com/th/id/OIP.p2rJ5FCz6SjTf1v1riX7awHaHP?pid=ImgDet&rs=1
 
             db.SaveChanges();
         }
+
+        private static void PopulateSupplier(CarManufactoringContext db)
+        {
+            if (db.Supplier.Any()) return;
+
+
+            db.Supplier.AddRange(
+                new Supplier { SupplierName = "BOCH", SupplierEmail = "BoschCarService@outlook.com", SupplierContact = "+351 271 213 862", SupplierZipCode = "6300-877", SupplierAddress = "Quinta da Torre, Guarda, Portugal" },
+                new Supplier { SupplierName = "COFICAB", SupplierEmail = "Coficab@gmail.com", SupplierContact = "+351 271 205 090", SupplierZipCode = "6300-230", SupplierAddress = "Vale de Estrela, Guarda, Portugal" },
+                new Supplier { SupplierName = "SODECIA", SupplierEmail = "SODECIA@hotmail.com", SupplierContact = "+351 271 222 470", SupplierZipCode = "6300-625", SupplierAddress = "Parque Industrial da Guarda, Guarda, Portugal" }
+                );
+
+            db.SaveChanges();
+        }
+
+
         private static void PopulateCollaborators(CarManufactoringContext db)
         {
             if (db.Collaborator.Any()) return;
@@ -493,14 +516,29 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3 }
+                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
+                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 }
                 );
 
             db.SaveChanges();
         }
 
+        private static void PopulateWarehouseStocks(CarManufactoringContext db)
+        {
+            if (db.WarehouseStock.Any()) return;
+
+            db.WarehouseStock.AddRange(
+                new WarehouseStock { Identification = "Warehouse nº 1"},
+                new WarehouseStock { Identification = "Warehouse nº 2" },
+                new WarehouseStock { Identification = "Warehouse nº 3" },
+                new WarehouseStock { Identification = "Warehouse nº 4" }
+
+
+                );
+
+            db.SaveChanges();
+        }
 
         private static void PopulateMaterialUsed(CarManufactoringContext db)
         {
@@ -669,7 +707,7 @@ namespace CarManufactoring.Data
                 new TimeOfProduction { CarConfigId = 4, Time = 1},
                 new TimeOfProduction { CarConfigId = 5, Time = 4 }
                 );
-            db.SaveChanges();
+            
         }
 
         private static void PopulateLocalizationCar(CarManufactoringContext db)
@@ -713,6 +751,61 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-      
+        private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
+        {
+            if (db.SupplierPartsCarParts.Any()) return;
+
+            db.SupplierPartsCarParts.AddRange(
+                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 1, PrazoEntrega = 12, Disponibilidade = true },
+                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 2, PrazoEntrega = 6, Disponibilidade = true },
+                new SupplierPartsCarParts { ProductId = 2, SupplierPartsId = 2, PrazoEntrega = 4, Disponibilidade = false }
+                );
+            db.SaveChanges();
+        }
+
+        private static void PopulateBreakdows(CarManufactoringContext db)
+        {
+            if (db.Breakdown.Any()) return;
+
+            db.Breakdown.AddRange(
+
+               new Breakdown
+               {
+                   BreakdownName = "Fuga de Fluido",
+                   BreakdownDate = DateTime.Parse("13/02/2022"),
+                   BreakdownNumber = 1,
+                   ReparationDate = DateTime.Parse("13/02/2022"),
+                   MachineStop = 4,
+                   MachineReplacement = "",
+                   RepairInTheCompany = true
+               },
+
+                new Breakdown
+                {
+                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
+                    BreakdownDate = DateTime.Parse("01/01/2023"),
+                    BreakdownNumber = 2,
+                    ReparationDate = DateTime.Parse("03/01/2023"),
+                    MachineStop = 12,
+                    MachineReplacement = "",
+                    RepairInTheCompany = true
+                },
+                 new Breakdown
+                 {
+                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownDate = DateTime.Parse("13/02/2022"),
+                     BreakdownNumber = 3,
+                     ReparationDate = DateTime.Parse("13/02/2022"),
+                     MachineStop = 12,
+                     MachineReplacement = "",
+                     RepairInTheCompany = true
+                 }
+
+
+                );
+
+            db.SaveChanges();
+        }
+
     }
 }

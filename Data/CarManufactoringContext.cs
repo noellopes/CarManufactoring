@@ -157,6 +157,9 @@ namespace CarManufactoring.Data
                 .WithMany(s => s.SemiFinished)
                 .HasForeignKey(x => x.MaterialId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+
+
         }
        
 
@@ -250,12 +253,16 @@ namespace CarManufactoring.Data
 
         
         
-        public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
+        //public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
 
         
         
-
         public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
+        public DbSet<CarManufactoring.Models.SupplierPartsCarParts> SupplierPartsCarParts { get; set; }
+
+
+
+
 
         public DbSet<CarManufactoring.Models.Function> Function { get; set; }
 
@@ -275,6 +282,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
 
         public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
+        public DbSet<CarManufactoring.Models.ShiftSchedule> ShiftSchedule { get; set; }
 
         public DbSet<CarManufactoring.Models.InspectionTestsProduction> InspectionTestsProduction { get; set; }
 

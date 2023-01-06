@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CarManufactoringContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CarManufactoringContext") ?? throw new InvalidOperationException("Connection string 'CarManufactoringContext' not found.")));
 

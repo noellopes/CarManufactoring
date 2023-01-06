@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +21,27 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: LocalizationCodes
-        public async Task<IActionResult> Index(string Collumn = null)
+        public async Task<IActionResult> Index(string collumn = null, int page = 0)
         {
-            var localizationcode = _context.LocalizationCode.OrderBy(b => b.Column).ThenBy(b => b.Line);
-            return View(localizationcode);
+            var localizationCode = _context.LocalizationCode
+                .Where(m => collumn == null || m.Column.Contains(collumn))
+                .OrderBy(m => m.Column)
+                .ThenBy(m => m.Line);
+
+            var pagingInfo = new PagingInfoViewModel(await localizationCode.CountAsync(), page);
+
+            var model = new LocalizationCodeIndexViewModel
+            {
+                LocalizationCodeList = new ListViewModel<LocalizationCode>
+                {
+                    List = await localizationCode
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                LocalizationCodeSearched = collumn,
+            };
+            return View(model);
         }
 
         // GET: LocalizationCodes/Details/5
