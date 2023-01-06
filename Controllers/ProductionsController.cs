@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,6 +22,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Productions
+        [AllowAnonymous]
         public async Task<IActionResult> Index( String carConfig = null,int quantity = 0, int page = 1)
         {
             var production = _context.Production.Include(s => s.CarConfig)
@@ -48,6 +50,7 @@ namespace CarManufactoring.Controllers
             return View(model);
         }
         // GET: Productions/Details/5
+        
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Production == null)
@@ -178,7 +181,7 @@ namespace CarManufactoring.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("ProductionDeleted");
         }
 
         private bool ProductionExists(int id)
