@@ -21,7 +21,7 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
         // GET: ShiftSchedule
-        public async Task<IActionResult> Index(String collaborator = null, int quantity = 0, int page = 1)
+        public async Task<IActionResult> Index(String collaborator = null, int page = 1)
         {
             var shiftSchedule = _context.ShiftSchedule.Include(s => s.Collaborator)
                .Where(c => collaborator == null || c.Collaborator.Name.Contains(collaborator));
@@ -82,7 +82,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.ShiftSchedule, "CollaboratorId", "Name", shiftSchedule.CollaboratorId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             return View(shiftSchedule);
         }
         // GET: ShiftSchedule/Edit/5
