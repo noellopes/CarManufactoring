@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class deneme05 : Migration
+    public partial class AllMigrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,10 +30,11 @@ namespace CarManufactoring.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BreakdownName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     BreakdownDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BreakdownNumber = table.Column<int>(type: "int", maxLength: 99, nullable: false),
+                    BreakdownNumber = table.Column<int>(type: "int", nullable: false),
                     ReparationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MachineStop = table.Column<int>(type: "int", maxLength: 99, nullable: false),
-                    MachineReplacement = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    MachineStop = table.Column<int>(type: "int", nullable: false),
+                    MachineReplacement = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    RepairInTheCompany = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,6 +125,19 @@ namespace CarManufactoring.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Gender", x => x.GenderId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InspectionTestState",
+                columns: table => new
+                {
+                    InspectionTestStateId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    State = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InspectionTestState", x => x.InspectionTestStateId);
                 });
 
             migrationBuilder.CreateTable(
@@ -321,7 +335,7 @@ namespace CarManufactoring.Migrations
                     Contact = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     ZipCode = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     Address = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -354,6 +368,19 @@ namespace CarManufactoring.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskType", x => x.TaskTypeId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WarehouseStock",
+                columns: table => new
+                {
+                    WarehouseStockId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Identification = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WarehouseStock", x => x.WarehouseStockId);
                 });
 
             migrationBuilder.CreateTable(
@@ -505,27 +532,26 @@ namespace CarManufactoring.Migrations
                 name: "MaterialUsed",
                 columns: table => new
                 {
-                    MaterialUsedId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     MaterialId = table.Column<int>(type: "int", nullable: false),
                     SemiFinishedId = table.Column<int>(type: "int", nullable: false),
+                    MaterialUsedId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MaterialUsed", x => x.MaterialUsedId);
+                    table.PrimaryKey("PK_MaterialUsed", x => new { x.MaterialId, x.SemiFinishedId });
                     table.ForeignKey(
                         name: "FK_MaterialUsed_Material_MaterialId",
                         column: x => x.MaterialId,
                         principalTable: "Material",
                         principalColumn: "MaterialId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_MaterialUsed_SemiFinished_SemiFinishedId",
                         column: x => x.SemiFinishedId,
                         principalTable: "SemiFinished",
                         principalColumn: "SemiFinishedId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -579,6 +605,32 @@ namespace CarManufactoring.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SupplierPartsCarParts",
+                columns: table => new
+                {
+                    SupplierPartsId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    PrazoEntrega = table.Column<int>(type: "int", nullable: false),
+                    Disponibilidade = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SupplierPartsCarParts", x => new { x.SupplierPartsId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_SupplierPartsCarParts_CarParts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "CarParts",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SupplierPartsCarParts_SupplierParts_SupplierPartsId",
+                        column: x => x.SupplierPartsId,
+                        principalTable: "SupplierParts",
+                        principalColumn: "SupplierPartsId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Collaborator",
                 columns: table => new
                 {
@@ -607,6 +659,35 @@ namespace CarManufactoring.Migrations
                         column: x => x.TaskId,
                         principalTable: "Task",
                         principalColumn: "TaskId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stock",
+                columns: table => new
+                {
+                    StockId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<double>(type: "float", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    WarehouseStockId = table.Column<int>(type: "int", nullable: false),
+                    MaterialId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stock", x => x.StockId);
+                    table.ForeignKey(
+                        name: "FK_Stock_Material_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Material",
+                        principalColumn: "MaterialId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Stock_WarehouseStock_WarehouseStockId",
+                        column: x => x.WarehouseStockId,
+                        principalTable: "WarehouseStock",
+                        principalColumn: "WarehouseStockId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -719,59 +800,25 @@ namespace CarManufactoring.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "InspectionAndTest",
+                name: "ShiftSchedule",
                 columns: table => new
                 {
-                    InspectionId = table.Column<int>(type: "int", nullable: false)
+                    ShiftSchedulesId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    CollaboratorId = table.Column<int>(type: "int", nullable: false),
-                    SemiFinishedId = table.Column<int>(type: "int", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Duration = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CollaboratorId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InspectionAndTest", x => x.InspectionId);
+                    table.PrimaryKey("PK_ShiftSchedule", x => x.ShiftSchedulesId);
                     table.ForeignKey(
-                        name: "FK_InspectionAndTest_Collaborator_CollaboratorId",
+                        name: "FK_ShiftSchedule_Collaborator_CollaboratorId",
                         column: x => x.CollaboratorId,
                         principalTable: "Collaborator",
                         principalColumn: "CollaboratorId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_InspectionAndTest_SemiFinished_SemiFinishedId",
-                        column: x => x.SemiFinishedId,
-                        principalTable: "SemiFinished",
-                        principalColumn: "SemiFinishedId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Stock",
-                columns: table => new
-                {
-                    StockId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<double>(type: "float", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
-                    CollaboratorId = table.Column<int>(type: "int", nullable: false),
-                    MaterialId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Stock", x => x.StockId);
-                    table.ForeignKey(
-                        name: "FK_Stock_Collaborator_CollaboratorId",
-                        column: x => x.CollaboratorId,
-                        principalTable: "Collaborator",
-                        principalColumn: "CollaboratorId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Stock_Material_MaterialId",
-                        column: x => x.MaterialId,
-                        principalTable: "Material",
-                        principalColumn: "MaterialId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -790,6 +837,28 @@ namespace CarManufactoring.Migrations
                     table.ForeignKey(
                         name: "FK_Warehouse_Collaborator_CollaboratorID",
                         column: x => x.CollaboratorID,
+                        principalTable: "Collaborator",
+                        principalColumn: "CollaboratorId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkerPunctuality",
+                columns: table => new
+                {
+                    WorkerPunctualityId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkerCollaboratorId = table.Column<int>(type: "int", nullable: false),
+                    WeekNumber = table.Column<int>(type: "int", nullable: false),
+                    MissedHoursLastWeek = table.Column<int>(type: "int", nullable: false),
+                    LateShiftsLastWeek = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkerPunctuality", x => x.WorkerPunctualityId);
+                    table.ForeignKey(
+                        name: "FK_WorkerPunctuality_Collaborator_WorkerCollaboratorId",
+                        column: x => x.WorkerCollaboratorId,
                         principalTable: "Collaborator",
                         principalColumn: "CollaboratorId",
                         onDelete: ReferentialAction.Cascade);
@@ -953,6 +1022,42 @@ namespace CarManufactoring.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "InspectionAndTest",
+                columns: table => new
+                {
+                    InspectionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductionsId = table.Column<int>(type: "int", nullable: false),
+                    QuantityTested = table.Column<int>(type: "int", nullable: false),
+                    StateId = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CollaboratorId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InspectionAndTest", x => x.InspectionId);
+                    table.ForeignKey(
+                        name: "FK_InspectionAndTest_Collaborator_CollaboratorId",
+                        column: x => x.CollaboratorId,
+                        principalTable: "Collaborator",
+                        principalColumn: "CollaboratorId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InspectionAndTest_InspectionTestState_StateId",
+                        column: x => x.StateId,
+                        principalTable: "InspectionTestState",
+                        principalColumn: "InspectionTestStateId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_InspectionAndTest_Production_ProductionsId",
+                        column: x => x.ProductionsId,
+                        principalTable: "Production",
+                        principalColumn: "ProductionId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StockFinalProduct",
                 columns: table => new
                 {
@@ -960,7 +1065,8 @@ namespace CarManufactoring.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LocalizationCarId = table.Column<int>(type: "int", nullable: false),
                     ChassiNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProductionId = table.Column<int>(type: "int", nullable: false)
+                    ProductionId = table.Column<int>(type: "int", nullable: false),
+                    InsertionDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1003,6 +1109,32 @@ namespace CarManufactoring.Migrations
                         column: x => x.MachineMaintenanceId,
                         principalTable: "MachineMaintenance",
                         principalColumn: "MachineMaintenanceId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InspectionTestsProduction",
+                columns: table => new
+                {
+                    InspectionId = table.Column<int>(type: "int", nullable: false),
+                    ProductionId = table.Column<int>(type: "int", nullable: false),
+                    InspectionTestsProductionId = table.Column<int>(type: "int", nullable: false),
+                    Lote = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InspectionTestsProduction", x => new { x.InspectionId, x.ProductionId });
+                    table.ForeignKey(
+                        name: "FK_InspectionTestsProduction_InspectionAndTest_InspectionId",
+                        column: x => x.InspectionId,
+                        principalTable: "InspectionAndTest",
+                        principalColumn: "InspectionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_InspectionTestsProduction_Production_ProductionId",
+                        column: x => x.ProductionId,
+                        principalTable: "Production",
+                        principalColumn: "ProductionId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -1052,9 +1184,19 @@ namespace CarManufactoring.Migrations
                 column: "CollaboratorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InspectionAndTest_SemiFinishedId",
+                name: "IX_InspectionAndTest_ProductionsId",
                 table: "InspectionAndTest",
-                column: "SemiFinishedId");
+                column: "ProductionsId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InspectionAndTest_StateId",
+                table: "InspectionAndTest",
+                column: "StateId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InspectionTestsProduction_ProductionId",
+                table: "InspectionTestsProduction",
+                column: "ProductionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Machine_MachineModelId",
@@ -1105,11 +1247,6 @@ namespace CarManufactoring.Migrations
                 name: "IX_MaintenanceCollaborators_MachineMaintenanceId",
                 table: "MaintenanceCollaborators",
                 column: "MachineMaintenanceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MaterialUsed_MaterialId",
-                table: "MaterialUsed",
-                column: "MaterialId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MaterialUsed_SemiFinishedId",
@@ -1167,19 +1304,24 @@ namespace CarManufactoring.Migrations
                 column: "ShiftTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ShiftSchedule_CollaboratorId",
+                table: "ShiftSchedule",
+                column: "CollaboratorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ShiftType_ShiftTypeSearchShiftTypeId",
                 table: "ShiftType",
                 column: "ShiftTypeSearchShiftTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stock_CollaboratorId",
-                table: "Stock",
-                column: "CollaboratorId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Stock_MaterialId",
                 table: "Stock",
                 column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stock_WarehouseStockId",
+                table: "Stock",
+                column: "WarehouseStockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StockFinalProduct_LocalizationCarId",
@@ -1192,6 +1334,11 @@ namespace CarManufactoring.Migrations
                 column: "ProductionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SupplierPartsCarParts_ProductId",
+                table: "SupplierPartsCarParts",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TimeOfProduction_CarConfigId",
                 table: "TimeOfProduction",
                 column: "CarConfigId",
@@ -1201,6 +1348,11 @@ namespace CarManufactoring.Migrations
                 name: "IX_Warehouse_CollaboratorID",
                 table: "Warehouse",
                 column: "CollaboratorID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkerPunctuality_WorkerCollaboratorId",
+                table: "WorkerPunctuality",
+                column: "WorkerCollaboratorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -1224,7 +1376,7 @@ namespace CarManufactoring.Migrations
                 name: "Function");
 
             migrationBuilder.DropTable(
-                name: "InspectionAndTest");
+                name: "InspectionTestsProduction");
 
             migrationBuilder.DropTable(
                 name: "LocalizationCode");
@@ -1251,19 +1403,25 @@ namespace CarManufactoring.Migrations
                 name: "SemiFinishedCar");
 
             migrationBuilder.DropTable(
+                name: "ShiftSchedule");
+
+            migrationBuilder.DropTable(
                 name: "Stock");
 
             migrationBuilder.DropTable(
                 name: "StockFinalProduct");
 
             migrationBuilder.DropTable(
-                name: "SupplierParts");
+                name: "SupplierPartsCarParts");
 
             migrationBuilder.DropTable(
                 name: "TimeOfProduction");
 
             migrationBuilder.DropTable(
                 name: "Warehouse");
+
+            migrationBuilder.DropTable(
+                name: "WorkerPunctuality");
 
             migrationBuilder.DropTable(
                 name: "WorkingHours");
@@ -1275,6 +1433,9 @@ namespace CarManufactoring.Migrations
                 name: "Extra");
 
             migrationBuilder.DropTable(
+                name: "InspectionAndTest");
+
+            migrationBuilder.DropTable(
                 name: "MachineAquisition");
 
             migrationBuilder.DropTable(
@@ -1282,9 +1443,6 @@ namespace CarManufactoring.Migrations
 
             migrationBuilder.DropTable(
                 name: "MachineMaintenance");
-
-            migrationBuilder.DropTable(
-                name: "CarParts");
 
             migrationBuilder.DropTable(
                 name: "Order");
@@ -1296,16 +1454,28 @@ namespace CarManufactoring.Migrations
                 name: "Material");
 
             migrationBuilder.DropTable(
+                name: "WarehouseStock");
+
+            migrationBuilder.DropTable(
                 name: "LocalizationCar");
 
             migrationBuilder.DropTable(
-                name: "Production");
+                name: "CarParts");
+
+            migrationBuilder.DropTable(
+                name: "SupplierParts");
+
+            migrationBuilder.DropTable(
+                name: "ShiftType");
 
             migrationBuilder.DropTable(
                 name: "Collaborator");
 
             migrationBuilder.DropTable(
-                name: "ShiftType");
+                name: "InspectionTestState");
+
+            migrationBuilder.DropTable(
+                name: "Production");
 
             migrationBuilder.DropTable(
                 name: "Machine");
@@ -1323,13 +1493,13 @@ namespace CarManufactoring.Migrations
                 name: "OrderState");
 
             migrationBuilder.DropTable(
-                name: "CarConfig");
-
-            migrationBuilder.DropTable(
                 name: "Gender");
 
             migrationBuilder.DropTable(
                 name: "Task");
+
+            migrationBuilder.DropTable(
+                name: "CarConfig");
 
             migrationBuilder.DropTable(
                 name: "MachineModel");

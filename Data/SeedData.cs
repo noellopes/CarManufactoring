@@ -1,5 +1,4 @@
-﻿using CarManufactoring.Migrations;
-using CarManufactoring.Models;
+﻿using CarManufactoring.Models;
 
 namespace CarManufactoring.Data
 {
