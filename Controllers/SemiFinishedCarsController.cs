@@ -75,9 +75,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Create
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public IActionResult Create()
         {
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId");
@@ -91,9 +89,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Create([Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (ModelState.IsValid)
@@ -109,17 +105,15 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Edit/5
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> Edit(int? id)
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
+        public async Task<IActionResult> Edit([FromRoute] string CarId, [FromRoute] string SemiFinishedId)
         {
-            if (id == null || _context.SemiFinishedCar == null)
+            if (!ModelState.IsValid || _context.SemiFinishedCar == null)
             {
                 return NotFound();
             }
 
-            var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(id);
+            var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(CarId,SemiFinishedId);
             if (semiFinishedCar == null)
             {
                 return NotFound("SemiFinishedCarNotFound");
@@ -134,9 +128,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int? id, [Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (id != semiFinishedCar.SemiFinishedId)
@@ -172,8 +164,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Delete/5
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SemiFinishedCar == null)
@@ -196,15 +187,14 @@ namespace CarManufactoring.Controllers
         // POST: SemiFinishedCars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Manager")]
-        public async Task<IActionResult> DeleteConfirmed(int? id)
+        [Authorize(Roles = "Admin,Manager")]
+        public async Task<IActionResult> DeleteConfirmed([FromRoute] string CarId, [FromRoute] string SemiFinishedId)
         {
             if (_context.SemiFinishedCar == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.SemiFinishedCar'  is null.");
             }
-            var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(id);
+            var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(CarId,SemiFinishedId);
             if (semiFinishedCar != null)
             {
                 _context.SemiFinishedCar.Remove(semiFinishedCar);
