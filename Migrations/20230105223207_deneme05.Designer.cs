@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20230105223207_deneme05")]
+    partial class deneme05
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1043,38 +1045,6 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Shift");
                 });
 
-            modelBuilder.Entity("CarManufactoring.Models.ShiftSchedule", b =>
-                {
-                    b.Property<int>("ShiftSchedulesId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShiftSchedulesId"), 1L, 1);
-
-                    b.Property<int>("CollaboratorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Duration")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("ShiftSchedulesId");
-
-                    b.HasIndex("CollaboratorId");
-
-                    b.ToTable("ShiftSchedule");
-                });
-
             modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>
                 {
                     b.Property<int>("ShiftTypeId")
@@ -1701,17 +1671,6 @@ namespace CarManufactoring.Migrations
                         .IsRequired();
 
                     b.Navigation("ShiftType");
-                });
-
-            modelBuilder.Entity("CarManufactoring.Models.ShiftSchedule", b =>
-                {
-                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
-                        .WithMany()
-                        .HasForeignKey("CollaboratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Collaborator");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>

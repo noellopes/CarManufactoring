@@ -207,7 +207,7 @@ namespace CarManufactoring.Data
 
         
         
-        public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
+        //public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
 
         
         
@@ -232,6 +232,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
 
         public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
+        public DbSet<CarManufactoring.Models.ShiftSchedule> ShiftSchedule { get; set; }
 
         public DbSet<CarManufactoring.Models.LocalizationCar> LocalizationCar { get; set; }
 
