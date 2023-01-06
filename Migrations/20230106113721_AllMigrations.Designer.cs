@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20230105232322_IntofInt")]
-    partial class IntofInt
+    [Migration("20230106113721_AllMigrations")]
+    partial class AllMigrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,37 +23,6 @@ namespace CarManufactoring.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("CarManufactoring.Models.AttendedHours", b =>
-                {
-                    b.Property<int>("AttendedHoursId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendedHoursId"), 1L, 1);
-
-                    b.Property<DateTime>("CheckedIn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("CheckedOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAttended")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("WorkedHour")
-                        .HasColumnType("int");
-
-                    b.Property<string>("WorkerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("workingStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AttendedHoursId");
-
-                    b.ToTable("AttendedHours");
-                });
 
             modelBuilder.Entity("CarManufactoring.Models.Brand", b =>
                 {
@@ -1116,6 +1085,38 @@ namespace CarManufactoring.Migrations
                     b.ToTable("Shift");
                 });
 
+            modelBuilder.Entity("CarManufactoring.Models.ShiftSchedule", b =>
+                {
+                    b.Property<int>("ShiftSchedulesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShiftSchedulesId"), 1L, 1);
+
+                    b.Property<int>("CollaboratorId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ShiftSchedulesId");
+
+                    b.HasIndex("CollaboratorId");
+
+                    b.ToTable("ShiftSchedule");
+                });
+
             modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>
                 {
                     b.Property<int>("ShiftTypeId")
@@ -1846,6 +1847,17 @@ namespace CarManufactoring.Migrations
                         .IsRequired();
 
                     b.Navigation("ShiftType");
+                });
+
+            modelBuilder.Entity("CarManufactoring.Models.ShiftSchedule", b =>
+                {
+                    b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
+                        .WithMany()
+                        .HasForeignKey("CollaboratorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Collaborator");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.ShiftType", b =>
