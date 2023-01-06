@@ -53,12 +53,13 @@ namespace CarManufactoring.Data
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
+           // PopulateStockFinalProduct(db);
+            //PopulateBreakdows(db);
             PopulateStockFinalProduct(db);
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
             PopulateBreakdows(db);
-
-            PopulateSupplierPartsCarParts(db);
+            //PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
 
 
