@@ -38,7 +38,7 @@ namespace CarManufactoring.Data
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
             //PopulateMaterialUsed(db);
-            //PopulateSupplier(db);
+            PopulateSupplier(db);
             //PopulateWarehouseStocks(db);
             PopulateStocks(db);
             PopulateExtras(db);
@@ -446,6 +446,22 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+
+        private static void PopulateSupplier(CarManufactoringContext db)
+        {
+            if (db.Supplier.Any()) return;
+
+
+            db.Supplier.AddRange(
+                new Supplier { SupplierName = "BOCH", SupplierEmail = "BoschCarService@outlook.com", SupplierContact = "+351 271 213 862", SupplierZipCode = "6300-877", SupplierAddress = "Quinta da Torre, Guarda, Portugal" },
+                new Supplier { SupplierName = "COFICAB", SupplierEmail = "Coficab@gmail.com", SupplierContact = "+351 271 205 090", SupplierZipCode = "6300-230", SupplierAddress = "Vale de Estrela, Guarda, Portugal" },
+                new Supplier { SupplierName = "SODECIA", SupplierEmail = "SODECIA@hotmail.com", SupplierContact = "+351 271 222 470", SupplierZipCode = "6300-625", SupplierAddress = "Parque Industrial da Guarda, Guarda, Portugal" }
+                );
+
+            db.SaveChanges();
+        }
+
+
         private static void PopulateCollaborators(CarManufactoringContext db)
         {
             if (db.Collaborator.Any()) return;
