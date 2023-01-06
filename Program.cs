@@ -13,9 +13,27 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+    options => {
+        //Sign-in
+        options.SignIn.RequireConfirmedAccount = false;
+
+        //Password
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 8;
+
+        //Lockout
+        options.Lockout.AllowedForNewUsers = true;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+
+    }
+).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -41,13 +59,21 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-if (app.Environment.IsDevelopment())
-{
-    using (var scope = app.Services.CreateScope())
-    {
+using(var scope = app.Services.CreateScope()) {
+
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    SeedData.PopulateRolesAsync(roleManager).Wait();
+
+
+    if (app.Environment.IsDevelopment()) {
+    
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        SeedData.PopulateUsersAsync(userManager).Wait();
+
         var db = scope.ServiceProvider.GetRequiredService<CarManufactoringContext>();
         SeedData.Populate(db);
     }
+
 }
 
 app.Run();

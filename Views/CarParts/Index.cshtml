@@ -103,6 +103,9 @@
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@cp.ProductId" class="btn btn-outline-warning">Details</a>
+                @if (User.IsInRole("Manager")) {
+                    <a asp-action="Details" asp-route-id="@cp.ProductId" class="btn btn-warning">Edit</a>
+                }
                 <a asp-action="" asp-route-id="@cp.ProductId" class="btn btn-warning">Storage</a>
                 <a asp-action="" asp-route-id="@cp.ProductId" class="btn btn-info">Buy</a>
             </td>
