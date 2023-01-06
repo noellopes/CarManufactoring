@@ -84,9 +84,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Create
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public IActionResult Create()
         {
             return View();
@@ -97,10 +95,8 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
-        
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
+
         public async Task<IActionResult> Create([Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (ModelState.IsValid)
@@ -115,9 +111,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Edit/5
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SemiFinished == null)
@@ -138,9 +132,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Colaborator")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (id != semiFinished.SemiFinishedId)
@@ -174,8 +166,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Delete/5
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SemiFinished == null)
@@ -196,8 +187,7 @@ namespace CarManufactoring.Controllers
         // POST: SemiFinisheds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "Manager")]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.SemiFinished == null)
