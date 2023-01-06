@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using CarManufactoring.ViewModels.Group6;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +22,32 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string reference = null, int page = 1)
         {
-            var carManufactoringContext = _context.SemiFinishedCar.Include(s => s.Car.Brand).Include(s => s.SemiFinished);
-            return View(await carManufactoringContext.ToListAsync());
+            var semifinishedCar = _context.SemiFinishedCar
+                 .Include(s => s.SemiFinished)
+                 .Include(s => s.Car.Brand)
+                 .Where(s => reference == null || s.SemiFinished.Reference.Contains(reference))
+                 .OrderBy(s => s.SemiFinished.Reference);
+
+
+            var pagingInfo = new PagingInfoViewModel(await semifinishedCar.CountAsync(), page);
+
+
+            var model = new SemiFinishedCarsIndexViewModel
+            {
+                SemiFinishedCarList = new ListViewModel<SemiFinishedCar>
+                {
+                    List = await semifinishedCar
+                .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                ReferenceSearchedCar = reference
+
+            };
+
+            return View(model);
         }
 
         // GET: SemiFinishedCars/Details/5
@@ -37,7 +61,7 @@ namespace CarManufactoring.Controllers
             var semiFinishedCar = await _context.SemiFinishedCar
                 .Include(s => s.Car.Brand)
                 .Include(s => s.SemiFinished)
-                .FirstOrDefaultAsync(m => m.SemiFinishedId == id);
+                .FirstOrDefaultAsync(m => m.SemiFinishedCarId == id);
             if (semiFinishedCar == null)
             {
                 return View("SemiFinishedCarNotFound");
@@ -111,6 +135,7 @@ namespace CarManufactoring.Controllers
                     _context.Update(semiFinishedCar);
                     await _context.SaveChangesAsync();
                     TempData["SemiFinishedCar_SuccessMessage"] = "Relation Successfully Edited";
+                    return RedirectToAction(nameof(Details), new { id = semiFinishedCar.SemiFinishedCarId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -141,7 +166,7 @@ namespace CarManufactoring.Controllers
             var semiFinishedCar = await _context.SemiFinishedCar
                 .Include(s => s.Car.Brand)
                 .Include(s => s.SemiFinished)
-                .FirstOrDefaultAsync(m => m.SemiFinishedId == id);
+                .FirstOrDefaultAsync(m => m.SemiFinishedCarId == id);
             if (semiFinishedCar == null)
             {
                 return View("SemiFinishedCarNotFound");
