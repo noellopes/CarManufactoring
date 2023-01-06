@@ -652,7 +652,7 @@ namespace CarManufactoring.Data
                 //new TimeOfProduction { CarConfigId = 4, Time = 1},
                 //new TimeOfProduction { CarConfigId = 5, Time = 4 }
                 );
-            db.SaveChanges();
+            
         }
 
         private static void PopulateLocalizationCar(CarManufactoringContext db)
