@@ -9,9 +9,11 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group6;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class SemiFinishedCarsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -22,6 +24,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string reference = null, int page = 1)
         {
             var semifinishedCar = _context.SemiFinishedCar
@@ -51,6 +54,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.SemiFinishedCar == null)
@@ -71,6 +75,9 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Create
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Colaborator")]
+        [Authorize(Roles = "Manager")]
         public IActionResult Create()
         {
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId");
@@ -84,6 +91,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Colaborator")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Create([Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (ModelState.IsValid)
@@ -99,6 +109,9 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Edit/5
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Colaborator")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SemiFinishedCar == null)
@@ -121,6 +134,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Colaborator")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Edit(int? id, [Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (id != semiFinishedCar.SemiFinishedId)
@@ -156,6 +172,8 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinishedCars/Delete/5
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SemiFinishedCar == null)
@@ -178,6 +196,8 @@ namespace CarManufactoring.Controllers
         // POST: SemiFinishedCars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> DeleteConfirmed(int? id)
         {
             if (_context.SemiFinishedCar == null)
