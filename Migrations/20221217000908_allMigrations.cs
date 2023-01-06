@@ -1075,11 +1075,11 @@ namespace CarManufactoring.Migrations
                 name: "IX_ShiftType_ShiftTypeSearchShiftTypeId",
                 table: "ShiftType",
                 column: "ShiftTypeSearchShiftTypeId");
-
+/*
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_CollaboratorId",
                 table: "Stock",
-                column: "CollaboratorId");
+                column: "CollaboratorId");*/
 
             migrationBuilder.CreateIndex(
                 name: "IX_Stock_MaterialId",
