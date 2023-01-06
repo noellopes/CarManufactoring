@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using Task = System.Threading.Tasks.Task;
 
 namespace CarManufactoring.Data
 {
@@ -51,7 +52,7 @@ namespace CarManufactoring.Data
             
 
         }
-        internal static async System.Threading.Tasks.Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
+        internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
             await EnsureRoleIsCreated(roleManager, "Manager");
@@ -59,7 +60,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Customer");
         }
 
-        private static async System.Threading.Tasks.Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
+        private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
             if(await roleManager.RoleExistsAsync(role)) {
                 return;
             }
@@ -68,7 +69,7 @@ namespace CarManufactoring.Data
 
         }
 
-        internal static async System.Threading.Tasks.Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
+        internal static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
             var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Admin");
 
@@ -80,7 +81,7 @@ namespace CarManufactoring.Data
 
         }
 
-        private static async System.Threading.Tasks.Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
+        private static async Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
             if(await userManager.IsInRoleAsync(user, role)) {
                 return;
             }

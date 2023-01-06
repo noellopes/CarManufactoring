@@ -14,10 +14,12 @@ namespace CarManufactoring.Controllers
     public class CustomersController : Controller
     {
         private readonly CarManufactoringContext _context;
+        //private readonly UserManager<IdentityUser> _userManager;
 
-        public CustomersController(CarManufactoringContext context)
+        public CustomersController(CarManufactoringContext context /*, UserManager<IdentityUser> userManager*/)
         {
             _context = context;
+            //_userManager = userManager
         }
 
         // GET: Customers
@@ -81,22 +83,34 @@ namespace CarManufactoring.Controllers
             if (ModelState.IsValid)
             {
                 /*
-                 var user = await _userManager.FindByNameAsync(customerInfo.Email)
-                if(user != null){
-                 ModelState.AddModelError("Email","An user with that email already exists");
-                    return view(); 
+                var user = await _userManager.FindByNameAsync(customerInfo.Email);
+                if (user != null) {
+                    ModelState.AddModelError("Email", "An user with that email already exists. Did you forgot the password?");
+                    return View();
                 }
 
                 user = new IdentityUser(customerInfo.Email);
-                var result = await _userManager.createAsync(user, customerinfo.Password);
+                var result = await _userManager.CreateAsync(user, customerInfo.Password);
 
-                if(!result.Succeeded){
-                ModelState.AddModelError("","Something went wrong, try again later");
+                if (!result.Succeeded) {
+                    ModelState.AddModelError("", "Something went wrong. Please try again later.");
+                    return View();
                 }
 
-                _context.Add(customer)
-                ....
-                ....
+                result = await _userManager.AddToRoleAsync(user, "Customer");
+                if(!result.Succeeded) {
+                    ModelState.AddModelError("", "Something went wrong. Please try again later.");
+                    return View();
+                }
+
+                var customer = new Customer {
+                    Name = customerInfo.Name,
+                    Email = customerInfo.Email,
+                };
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
                  */
 
                 _context.Add(customer);
