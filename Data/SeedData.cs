@@ -23,8 +23,8 @@ namespace CarManufactoring.Data
             PopulateMachineState(db);
             PopulateTaskType(db);
             PopulateBrands(db);
-            //PopulateInspectionTesting(db);
-            //PopulateInspectionTestState(db);
+            PopulateInspectionTesting(db);
+            PopulateInspectionTestState(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
@@ -51,7 +51,7 @@ namespace CarManufactoring.Data
             //PopulateLocalizationCar(db);
             //PopulateStockFinalProduct(db);
             PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
+            //PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
 
             PopulateSupplierPartsCarParts(db);
@@ -321,6 +321,20 @@ namespace CarManufactoring.Data
                 new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
                 new InspectionAndTest { ProductionsId = 2, QuantityTested = 10, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 }
 
+            );
+
+            db.SaveChanges();
+        }
+
+
+        private static void PopulateInspectionTestState(CarManufactoringContext db)
+        {
+            if (db.InspectionTestState.Any()) return;
+
+            db.InspectionTestState.AddRange(
+                new InspectionTestState { State = "Passed On" },
+                new InspectionTestState { State = "Failed" },
+                new InspectionTestState { State = "Testing" }
             );
 
             db.SaveChanges();
