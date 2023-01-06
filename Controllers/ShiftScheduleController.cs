@@ -86,13 +86,8 @@ namespace CarManufactoring.Controllers
             return View(shiftSchedule);
         }
         // GET: ShiftSchedule/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null || _context.ShiftSchedule == null)
-            {
-                return NotFound();
-            }
-
             var shiftSchedule = await _context.ShiftSchedule.FindAsync(id);
             if (shiftSchedule == null)
             {
@@ -104,13 +99,8 @@ namespace CarManufactoring.Controllers
         // POST: ShiftSchedule/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,StartDate,EndDate,CollaboratorId")] ShiftSchedule shiftSchedule)
+        public async Task<IActionResult> Edit(ShiftSchedule shiftSchedule)
         {
-            if (id != shiftSchedule.ShiftSchedulesId)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
@@ -134,33 +124,14 @@ namespace CarManufactoring.Controllers
             ViewData["CollaboratorId"] = new SelectList(_context.ShiftSchedule, "CollaboratorId", "Name", shiftSchedule.CollaboratorId);
             return View(shiftSchedule);
         }
-        // GET: ShiftSchedule/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.ShiftSchedule == null)
-            {
-                return NotFound();
-            }
-
-            var production = await _context.ShiftSchedule
-                .Include(p => p.Collaborator)
-                .FirstOrDefaultAsync(m => m.ShiftSchedulesId == id);
-            if (production == null)
-            {
-                return NotFound();
-            }
-
-            return View(production);
-        }
 
         // POST: Productions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
         {
             if (_context.ShiftSchedule == null)
             {
-                return Problem("Entity set 'CarManufactoringContext.ShiftSchedule'  is null.");
+                return Json(false);
             }
             var shiftSchedule = await _context.ShiftSchedule.FindAsync(id);
             if (shiftSchedule != null)
@@ -169,7 +140,7 @@ namespace CarManufactoring.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Json(true);
         }
         private bool SchiftScheduleExists(int id)
         {
