@@ -10,7 +10,11 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-            /*
+
+
+            
+
+           
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
@@ -32,31 +36,31 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
             PopulateCars(db);
-            //PopulateTimeOfProduction(db);
+            PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            //PopulateOrder(db);
+            PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            //PopulateStocks(db);
-            //PopulateWarehouseStocks(db);
+            PopulateStocks(db);
+            PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
-            //PopulateWarehouses(db);
+            PopulateWarehouses(db);
             PopulateModelParts(db);
-            //PopulateLocalizationCar(db);
-            //PopulateStockFinalProduct(db);
             PopulateLocalizationCar(db);
-            //PopulateStockFinalProduct(db);
-            //PopulateBreakdows(db);
+            PopulateStockFinalProduct(db);
+            PopulateLocalizationCar(db);
+            PopulateStockFinalProduct(db);
+            PopulateBreakdows(db);
 
             PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
-            */
+
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
