@@ -23,6 +23,12 @@ namespace CarManufactoring.Controllers
         // GET: Productions
         public async Task<IActionResult> Index( String carConfig = null,int quantity = 0, int page = 1)
         {
+            var empty = _context.Production.Count();
+
+            if (empty == 0)
+            {
+                return View("NoDataFound");
+            }
             var production = _context.Production.Include(s => s.CarConfig)
                 .Where(c => carConfig == null || c.CarConfig.ConfigName.Contains(carConfig))
                 .Where(c => quantity == 0 || c.Quantity.Equals(quantity));
