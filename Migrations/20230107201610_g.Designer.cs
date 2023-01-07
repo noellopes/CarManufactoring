@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20230106113721_AllMigrations")]
-    partial class AllMigrations
+    [Migration("20230107201610_g")]
+    partial class g
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1437,8 +1437,12 @@ namespace CarManufactoring.Migrations
                     b.Property<int>("MissedHoursLastWeek")
                         .HasColumnType("int");
 
-                    b.Property<int>("WeekNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ScheduledDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("WorkerCollaboratorId")
                         .HasColumnType("int");

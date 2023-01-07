@@ -11,12 +11,16 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
+
+            
+
+           
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            //PopulateSemiFinishedCars(db);
+            PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
@@ -32,30 +36,31 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
             PopulateCars(db);
-            //PopulateTimeOfProduction(db);
+            PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            //PopulateOrder(db);
+            PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            //PopulateStocks(db);
-            //PopulateWarehouseStocks(db);
+            PopulateStocks(db);
+            PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
-            //PopulateWarehouses(db);
+            PopulateWarehouses(db);
             PopulateModelParts(db);
-            //PopulateLocalizationCar(db);
-            //PopulateStockFinalProduct(db);
             PopulateLocalizationCar(db);
-            //PopulateStockFinalProduct(db);
+            PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
-
+            PopulateLocalizationCar(db);
+          
+            PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
+
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -110,7 +115,7 @@ namespace CarManufactoring.Data
         }
 
 
-
+        /*
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -751,15 +756,15 @@ namespace CarManufactoring.Data
 
         private static void PopulateStockFinalProduct(CarManufactoringContext db)
         {
+
             if (db.StockFinalProduct.Any()) return;
 
             db.StockFinalProduct.AddRange(
                 new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
                 new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
                 new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") }x
+
 
                 );
             db.SaveChanges();
@@ -820,6 +825,6 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-
+        */
     }
 }

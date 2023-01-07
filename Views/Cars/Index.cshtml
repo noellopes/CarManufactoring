@@ -24,7 +24,13 @@
         <form asp-action="Index" method="get">
             <div class="mb-3">
             <label for="brand" class="form-label">Brand</label>
-            <input name="brand" class="form-control" type="search" value="@Model.BrandSearched" />
+            <select name="brand" class="form-control" type="search" value="@Model.BrandSearched" />
+               <option selected="selected" disabled="disabled">Please choose a Brand</option>
+               @foreach (var item in Model.CarsList.List)
+               {
+                     <option>@item.Brand.BrandName</option>
+               }
+            </select>
             </div>
             <div class="mb-3">
             <label for="carmodel" class="form-label">Model</label>
@@ -55,6 +61,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => new Car().CarId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => new Car().Brand.BrandName)
             </th>
             <th>
@@ -77,6 +86,9 @@
         @foreach (var item in Model.CarsList.List)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarId)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Brand.BrandName)
                 </td>
