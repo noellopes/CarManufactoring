@@ -181,10 +181,10 @@ namespace CarManufactoring.Controllers
             if (production != null)
             {
                 _context.Production.Remove(production);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("ProductionDeleted");
         }
 
         private bool ProductionExists(int id)
