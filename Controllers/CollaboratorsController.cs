@@ -9,16 +9,22 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using System.Xml.Linq;
+using CarManufactoring.ViewModels.Group1;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
     public class CollaboratorsController : Controller
     {
         private readonly CarManufactoringContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+   
 
-        public CollaboratorsController(CarManufactoringContext context)
+        public CollaboratorsController(CarManufactoringContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Collaborators
@@ -88,6 +94,8 @@ namespace CarManufactoring.Controllers
                 GenderSearched = Gender,
 
             };
+
+        
             return View(model);
         }
 
@@ -250,10 +258,44 @@ namespace CarManufactoring.Controllers
 
             return View("CollaboratorDeleted");
         }
+        //[Authorize(Roles = "ColaboratorMaintenance")]
+        public async Task<IActionResult> MaintenanceDashboard()
+
+        {
+            var finished = await _context.MaintenanceCollaborators
+                 .Include(m => m.MaintenanceMachine.Machine)
+                 .Include(m => m.MaintenanceMachine.TaskType)
+                 .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                 .Where(m => m.EffectiveEndDate.HasValue)
+                 .Where(m => m.Deleted == false)
+                 .ToListAsync();
+       
+            var unfinished = await _context.MaintenanceCollaborators
+                 .Include(m => m.MaintenanceMachine.Machine)
+                 .Include(m => m.MaintenanceMachine.TaskType)
+                 .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                 .Where(m => m.EffectiveEndDate.HasValue)
+                 .Where(m => m.Deleted == false)
+                 .ToListAsync();
+
+            var model = new MaintenanceCollaboratorViewModel
+            {
+                 Finished = finished,
+                 Unfinished= unfinished
+            };
+
+            return View(model);
+        }
 
         private bool CollaboratorExists(int id)
         {
             return _context.Collaborator.Any(e => e.CollaboratorId == id);
         }
+
+
     }
 }

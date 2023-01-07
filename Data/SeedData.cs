@@ -18,55 +18,56 @@ namespace CarManufactoring.Data
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
-            PopulateCarParts(db);
-            PopulateSemiFinisheds(db);
-            PopulateSemiFinishedCars(db);
-            PopulateMaterials(db);
+            //PopulateCarParts(db);
+            //PopulateSemiFinisheds(db);
+            //PopulateSemiFinishedCars(db);
+            //PopulateMaterials(db);
             PopulateSection(db);
-            PopulateSectionManager(db);
+            //PopulateSectionManager(db);
             PopulateMachineState(db);
             PopulateTaskType(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateInspectionTestState(db);
+            //PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+            //PopulateInspectionTestState(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
-            PopulateCars(db);
-            PopulateTimeOfProduction(db);
-            PopulateCarConfigs(db);
-            PopulateShiftType(db);
-            PopulateShift(db);
-            PopulateCustomers(db);
-            PopulateCustomerContacts(db);
-            PopulateOrder(db);
-            PopulateMaterialUsed(db);
-            PopulateSupplier(db);
-            PopulateStocks(db);
-            PopulateWarehouseStocks(db);
-            PopulateExtras(db);
-            PopulateOrderState(db);
-            PopulateProductions(db);
-            PopulateWarehouses(db);
-            PopulateModelParts(db);
-            PopulateLocalizationCar(db);
+            //PopulateCars(db);
+            //PopulateTimeOfProduction(db);
+            //PopulateCarConfigs(db);
+            //PopulateShiftType(db);
+            //PopulateShift(db);
+            //PopulateCustomers(db);
+            //PopulateCustomerContacts(db);
+            //PopulateOrder(db);
+            //PopulateMaterialUsed(db);
+            //PopulateSupplier(db);
+            //PopulateStocks(db);
+            //PopulateWarehouseStocks(db);
+            //PopulateExtras(db);
+            //PopulateOrderState(db);
+            //PopulateProductions(db);
+            //PopulateWarehouses(db);
+            //PopulateModelParts(db);
+            //PopulateLocalizationCar(db);
            // PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
-            PopulateStockFinalProduct(db);
-            PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
-            PopulateBreakdows(db);
+            //PopulateStockFinalProduct(db);
+            //PopulateLocalizationCar(db);
+            //PopulateStockFinalProduct(db);
+            //PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
-            PopulateSupplierParts(db);
+            //PopulateSupplierParts(db);
 
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
+            await EnsureRoleIsCreated(roleManager, "ColaboratorMaintenance");
             await EnsureRoleIsCreated(roleManager, "Manager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
@@ -116,7 +117,6 @@ namespace CarManufactoring.Data
         }
 
 
-        /*
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -286,14 +286,14 @@ namespace CarManufactoring.Data
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, SectionId = 2},
-                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, SectionId = 3 },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, SectionId = 2 },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, SectionId = 1 },
-                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, SectionId = 1 },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, SectionId = 5 },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, SectionId = 3 },
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, SectionId = 4 }
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2},
+                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4 }
 
                 );
 
@@ -758,18 +758,18 @@ namespace CarManufactoring.Data
         private static void PopulateStockFinalProduct(CarManufactoringContext db)
         {
 
-            if (db.StockFinalProduct.Any()) return;
+            //if (db.StockFinalProduct.Any()) return;
 
-            db.StockFinalProduct.AddRange(
-                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
+            //db.StockFinalProduct.AddRange(
+            //    new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
+            //    new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
+            //    new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
+            //    new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
+            //    new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
+            //    new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
 
-                );
-            db.SaveChanges();
+            //    );
+            //db.SaveChanges();
         }
 
         private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
@@ -827,6 +827,6 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-        */
+        
     }
 }
