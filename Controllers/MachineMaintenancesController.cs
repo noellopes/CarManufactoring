@@ -82,6 +82,7 @@ namespace CarManufactoring.Controllers
         {
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
+            ViewData["MachinesId"] = new SelectList(_context.Machine, "MachineModelId");
             return View();
         }
 
@@ -90,10 +91,11 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineMaintenanceId,Description,Deleted,BeginDate,Effective_End_Date,Expected_End_Date,TaskTypeId")] MachineMaintenance machineMaintenance)
+        public async Task<IActionResult> Create(CreateMachineMaintenanceViewModel machineMaintenance )
         {
             if (ModelState.IsValid)
             {
+                //MachineMaintenance bdMachineMaintenace = new MachineMaintenance(machineMaintenance.)
                 _context.Add(machineMaintenance);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -101,6 +103,7 @@ namespace CarManufactoring.Controllers
 
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
+            ViewData["MachinesId"] = new SelectList(_context.Machine, "MachineId", "Name");
             return View(machineMaintenance);
         }
 
