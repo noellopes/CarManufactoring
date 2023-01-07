@@ -81,6 +81,7 @@ namespace CarManufactoring.Controllers
         public IActionResult Create()
         {
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             return View();
         }
 
@@ -99,6 +100,7 @@ namespace CarManufactoring.Controllers
             }
 
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             return View(machineMaintenance);
         }
 

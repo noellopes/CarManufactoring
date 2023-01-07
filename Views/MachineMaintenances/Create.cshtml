@@ -1,4 +1,4 @@
-﻿@model CarManufactoring.Models.MachineMaintenance
+﻿@model CarManufactoring.ViewModels.Group1.CreateMachineMaintenanceViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -27,6 +27,13 @@
                 <select asp-for="TaskTypeId" class="form-control" asp-items="ViewBag.TaskTypeId"></select>
                 <span asp-validation-for="TaskTypeId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Collaborators" class="control-label"></label>
+                <span>Clique shift + click para selecionar mais do que um colaborador</span>
+                <select multiple asp-for="Collaborators" class="form-control" asp-items="ViewBag.CollaboratorId"></select>
+                <span asp-validation-for="Collaborators" class="text-danger"></span>
+            </div>
+            
             <div class="form-group pt-5">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
