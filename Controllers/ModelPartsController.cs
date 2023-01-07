@@ -29,8 +29,6 @@ namespace CarManufactoring.Controllers
             {
                 return View("NoDataFound");
             }
-            
-
 
             var ModelPartsVar = _context.ModelParts.Include(s => s.CarConfig).Include(s => s.CarParts)
                 .Where(c => QtdPecas == 0 || c.QtdPecas.Equals(QtdPecas))
@@ -38,38 +36,36 @@ namespace CarManufactoring.Controllers
                 .Where(c => CarPartName == null || c.CarParts.Name.Contains(CarPartName))
                 .OrderBy(c => c.CarConfig.ConfigName);
 
+            if(ModelPartsVar.Count() == 0)
+            {
+                ViewBag.ErrorMessage = "Not Found";
+                return await Index(null, null, 0, page);
+            }
+
             var PagingInfoVar = new PagingInfoViewModel(await ModelPartsVar.CountAsync(), page);
 
             PagingInfoVar.PageSize = 10;
             PagingInfoVar.Pages_Show_Before_After = 6;
 
-            try
+            var model = new ModelPartsIndexViewModel
             {
-                var model = new ModelPartsIndexViewModel
+                ModelPartsList = new ListViewModel<ModelParts>
                 {
-                    ModelPartsList = new ListViewModel<ModelParts>
-                    {
-                        List = await ModelPartsVar
+                    List = await ModelPartsVar
                     .Skip((PagingInfoVar.CurrentPage - 1) * PagingInfoVar.PageSize)
                     .Take(PagingInfoVar.PageSize).ToListAsync(),
-                        PagingInfo = PagingInfoVar
-                    },
-                    QuantitySearched = QtdPecas,
-                    CarConfigNameSearched = CarConfigName,
-                    ModelPartsNameSearched = CarPartName,
-                    CarParts = _context.CarParts
+                    PagingInfo = PagingInfoVar
+                },
+                QuantitySearched = QtdPecas,
+                CarConfigNameSearched = CarConfigName,
+                ModelPartsNameSearched = CarPartName,
+                CarParts = _context.CarParts
                 .OrderBy(c => c.Name).ToList(),
-                    CarConfigs = _context.CarConfig
+                CarConfigs = _context.CarConfig
                 .OrderBy(c => c.ConfigName).ToList(),
-                };
-
-                return View(model);
-            }
-            catch(Exception ex)
-            {
-                ViewBag.ErrorMessage = "Not Found" ;
-                return await Index(null, null, 0, page);
-            }
+            };
+            return View(model);
+            
             
         }
 
