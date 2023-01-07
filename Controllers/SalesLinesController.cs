@@ -86,6 +86,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(salesLine);
                 await _context.SaveChangesAsync();
+                var Order = await _context.Order.FindAsync(salesLine.OrderId);
+
+                _context.Production.Add(new Production { CarConfigId = salesLine.CarConfigId, Quantity = salesLine.Quantity, Date = Order.OrderDate });
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", salesLine.CarConfigId);
