@@ -15,53 +15,6 @@ namespace CarManufactoring.Data
             
 
            
-            PopulateGender(db);
-            PopulateFunction(db);
-            PopulateCollaborators(db);
-            PopulateCarParts(db);
-            PopulateSemiFinisheds(db);
-            PopulateSemiFinishedCars(db);
-            PopulateMaterials(db);
-            PopulateSection(db);
-            PopulateSectionManager(db);
-            PopulateMachineState(db);
-            PopulateTaskType(db);
-            PopulateBrands(db);
-            PopulateInspectionTesting(db);
-            PopulateInspectionTestState(db);
-            PopulatePriority(db);
-            PopulateMachineBrand(db);
-            PopulateMachineModel(db);
-            PopulateLocalizationCode(db);
-            PopulateMachines(db);
-            PopulateMachineMaintenance(db);
-            PopulateCars(db);
-            PopulateTimeOfProduction(db);
-            PopulateCarConfigs(db);
-            PopulateShiftType(db);
-            PopulateShift(db);
-            PopulateCustomers(db);
-            PopulateCustomerContacts(db);
-            PopulateOrder(db);
-            PopulateMaterialUsed(db);
-            PopulateSupplier(db);
-            PopulateStocks(db);
-            PopulateWarehouseStocks(db);
-            PopulateExtras(db);
-            PopulateOrderState(db);
-            PopulateProductions(db);
-            PopulateWarehouses(db);
-            PopulateModelParts(db);
-            PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
-            PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
-            PopulateBreakdows(db);
-
-            PopulateSupplierPartsCarParts(db);
-            PopulateSupplierParts(db);
-
-
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
