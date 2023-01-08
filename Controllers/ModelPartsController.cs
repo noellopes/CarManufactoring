@@ -131,7 +131,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var modelParts = await _context.ModelParts.FindAsync(CarConfigId, ProductId);
+            var modelParts = await _context.ModelParts.FirstOrDefaultAsync(c => c.CarConfigId == CarConfigId && c.ProductId == ProductId);
             if (modelParts == null)
             {
                 return NotFound();
