@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using CarManufactoring.ViewModels.Group1;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CarManufactoring.Controllers
 {
@@ -259,33 +260,56 @@ namespace CarManufactoring.Controllers
             return View("CollaboratorDeleted");
         }
         //[Authorize(Roles = "ColaboratorMaintenance")]
-        public async Task<IActionResult> MaintenanceDashboard()
+        public async Task<IActionResult> MaintenanceDashboard(int workState, int page = 0)
 
         {
-            var finished = await _context.MaintenanceCollaborators
+            IQueryable<MaintenanceCollaborator> filter = null;
+            switch (workState) {
+                case 1:
+                    filter = _context.MaintenanceCollaborators
+                   .Include(m => m.MaintenanceMachine.Machine)
+                   .Include(m => m.MaintenanceMachine.TaskType)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                   .Where(m => !m.EffectiveEndDate.HasValue)
+                   .Where(m => m.Deleted == false);
+                   
+                    break;
+                case 2:
+                  filter =  _context.MaintenanceCollaborators
                  .Include(m => m.MaintenanceMachine.Machine)
                  .Include(m => m.MaintenanceMachine.TaskType)
                  .Include(m => m.MaintenanceMachine.Machine.MachineModel)
                  .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                  .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
                  .Where(m => m.EffectiveEndDate.HasValue)
-                 .Where(m => m.Deleted == false)
-                 .ToListAsync();
-       
-            var unfinished = await _context.MaintenanceCollaborators
-                 .Include(m => m.MaintenanceMachine.Machine)
-                 .Include(m => m.MaintenanceMachine.TaskType)
-                 .Include(m => m.MaintenanceMachine.Machine.MachineModel)
-                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
-                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
-                 .Where(m => m.EffectiveEndDate.HasValue)
-                 .Where(m => m.Deleted == false)
-                 .ToListAsync();
+                 .Where(m => m.Deleted == false);
+                    break;
 
+                default:
+                    filter = _context.MaintenanceCollaborators
+                .Include(m => m.MaintenanceMachine.Machine)
+                .Include(m => m.MaintenanceMachine.TaskType)
+                .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                .Where(m => !m.EffectiveEndDate.HasValue && m.EffectiveEndDate.HasValue)
+                .Where(m => m.Deleted == false);
+                    break;
+            
+        }
+            var pagingInfo = new PagingInfoViewModel(await filter.CountAsync(), page);
             var model = new MaintenanceCollaboratorViewModel
             {
-                 Finished = finished,
-                 Unfinished= unfinished
+                MaintenanceCollaboratorList = new ListViewModel<MaintenanceCollaborator>
+                {
+                    List = await filter
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                CollaboratorWorkState = workState
             };
 
             return View(model);

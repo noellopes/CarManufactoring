@@ -17,6 +17,7 @@ namespace CarManufactoring.Models
         public DateTime BeginDate { get; set; } = DateTime.Now.Date;
         [Display(Name = "Date of finish")]
         [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime? EffectiveEndDate { get; set; }
 
         public bool Deleted { get; set; } = false;

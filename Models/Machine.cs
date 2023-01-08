@@ -31,7 +31,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Description")]
         [StringLength(160)]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
 
     }

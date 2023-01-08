@@ -13,9 +13,19 @@
         </div>
     </div>
     <div class="row py-4">
-        <div class="col-4">
-            <a class="btn" asp-action="Create"><i class="fa-sharp fa-solid fa-plus pe-2"></i>Criar</a>
-        </div>
+      
+            <div class="col-lg-6 col-sm-12">
+            <form asp-action="MaintenanceDashboard" method="get">
+                <h6 class="form-label">My Jobs State</h6>
+                <input type="radio" class="form-check-input" asp-for="CollaboratorWorkState" name="workState" value="1" /> Finished
+                <input type="radio" class="form-check-input" asp-for="CollaboratorWorkState" name="workState" value="2" /> Unfinished
+                <input type="radio" class="form-check-input" asp-for="CollaboratorWorkState" name="workState" value="0" /> All
+                <br />
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <a asp-action="MaintenanceDashboard" class="btn btn btn-secondary">Clear Search</a>
+            </form>
+            </div>
+       
         <div class="col-8">
             <h3>Trabalhos em aberto</h3>
             <hr />
@@ -23,110 +33,66 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Finished.First().MachineMaintenanceId)
+                            @Html.DisplayNameFor(model => new MachineMaintenance().MachineMaintenanceId)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Finished.First().MaintenanceMachine.TaskType)
+                            @Html.DisplayNameFor(model => new MachineMaintenance().TaskType)
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Finished.First().MaintenanceMachine.Machine.MachineModel)
+                            @Html.DisplayNameFor(model => new MachineMaintenance().Machine.MachineModel)   @Html.DisplayNameFor(model => new MachineMaintenance().Machine.MachineModel.MachineBrandId)
                         </th>
+                     
                         <th>
-                            @Html.DisplayNameFor(model => model.Finished.First().MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Finished.First().MaintenanceMachine.Machine.LocalizationCodeId)
+                            @Html.DisplayNameFor(model => new MachineMaintenance().Machine.LocalizationCodeId)
                         </th>
                        
                         <th>
-                            @Html.DisplayNameFor(model => model.Finished.First().EffectiveEndDate)
+                            @Html.DisplayNameFor(model => new MachineMaintenance().EffectiveEndDate)
                         </th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (var machineMaintenace in Model.Finished)
+                    @foreach (var item in Model.MaintenanceCollaboratorList.List)
                     {
                         <tr>
-                            <th>@machineMaintenace.MachineMaintenanceId</th>
-                            <th>@machineMaintenace.MaintenanceMachine.TaskType</th>
-                            <th>@machineMaintenace.MaintenanceMachine.Machine.MachineModel</th>
-                            <th>@machineMaintenace.MaintenanceMachine.Machine.MachineModel.MachineBrandNames</th>
-                            <th>@machineMaintenace.MaintenanceMachine.Machine.MachineLocalizationCode.Column - @machineMaintenace.MaintenanceMachine.Machine.MachineLocalizationCode.Line</th>                            
-                           
-                            <th>@machineMaintenace.EffectiveEndDate</th>
+                            <th>@Html.DisplayFor(modelItem=> item.MachineMaintenanceId)</th>
+                            <th>@Html.DisplayFor(modelItem =>item.MaintenanceMachine.TaskType.TaskName)</th>
+                            <th>@Html.DisplayFor(modelItem =>item.MaintenanceMachine.Machine.MachineModel.MachineModelName) - @Html.DisplayFor(modelItem =>item.MaintenanceMachine.Machine.MachineModel.MachineBrandNames.MachineBrandName)</th>
+                            
+                            <th>@Html.DisplayFor(modelItem =>item.MaintenanceMachine.Machine.MachineLocalizationCode.Column) - @Html.DisplayFor(modelItem =>item.MaintenanceMachine.Machine.MachineLocalizationCode.Line)</th>
+
+                            <th>@Html.DisplayFor(modelItem =>item.EffectiveEndDate)</th>
                          
-
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
     </div>
-    @*<div class="row">
-        <div class="col-6">
-            <form asp-action="Index" method="get">
-                <div class="mb-3">
-                    <label for="brand" class="form-label">Brand</label>
-                    <input name="brand" class="form-control" type="search" value="" />
-                </div>
-
-                <input type="submit" value="Search" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
-            </form>
-        </div>
-    </div>
-    <div class="row py-4">
-        <div class="col-12">
-            <h3>Todos os Trabalhos</h3>
-            <hr />
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().MachineMaintenanceId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().BeginDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().ExpectedEndDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().EffectiveEndDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().TaskTypeId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().PriorityId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().MachineId)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var machineMaintenace in Model.All)
-                    {
-                        <tr>
-                            <th>@machineMaintenace.MachineMaintenanceId</th>
-                            <th>@machineMaintenace.Description</th>
-                            <th>@machineMaintenace.BeginDate.ToShortDateString()</th>
-                            <th>@machineMaintenace.ExpectedEndDate.ToShortDateString()</th>
-                            <th>@machineMaintenace.EffectiveEndDate?.Date.ToShortDateString()</th>
-                            <th>@machineMaintenace.TaskType.TaskName</th>
-                            <th>@machineMaintenace.Priority.Name</th>
-                            <th>@machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName </th>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-
-    </div>*@
+   
 </div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.MaintenanceCollaboratorList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="MaintenanceDashboard" asp-route-page="1">First</a>
+        </li>
+
+        @for (int p = Model.MaintenanceCollaboratorList.PagingInfo.InitialPageToShow; p <= Model.MaintenanceCollaboratorList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.MaintenanceCollaboratorList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="MaintenanceDashboard" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.MaintenanceCollaboratorList.PagingInfo.CurrentPage == Model.MaintenanceCollaboratorList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="MaintenanceDashboard" asp-route-page="@Model.MaintenanceCollaboratorList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+
