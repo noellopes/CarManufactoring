@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20230107191014_locCode")]
+    partial class locCode
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -547,11 +549,6 @@ namespace CarManufactoring.Migrations
 
                     b.Property<DateTime>("DateAcquired")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(160)
-                        .HasColumnType("nvarchar(160)");
 
                     b.Property<int>("LocalizationCodeId")
                         .HasColumnType("int");
@@ -1439,25 +1436,21 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkerPunctualityId"), 1L, 1);
 
-                    b.Property<int?>("CollaboratorId")
-                        .HasColumnType("int");
-
                     b.Property<int>("LateShiftsLastWeek")
                         .HasColumnType("int");
 
                     b.Property<int>("MissedHoursLastWeek")
                         .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("WeekNumber")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("ScheduledDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("WorkerCollaboratorId")
+                        .HasColumnType("int");
 
                     b.HasKey("WorkerPunctualityId");
 
-                    b.HasIndex("CollaboratorId");
+                    b.HasIndex("WorkerCollaboratorId");
 
                     b.ToTable("WorkerPunctuality");
                 });
@@ -1966,9 +1959,13 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.WorkerPunctuality", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.Collaborator", null)
+                    b.HasOne("CarManufactoring.Models.Collaborator", "Worker")
                         .WithMany("Evaluations")
-                        .HasForeignKey("CollaboratorId");
+                        .HasForeignKey("WorkerCollaboratorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Worker");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Brand", b =>
