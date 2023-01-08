@@ -10,6 +10,9 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 
 using CarManufactoring.ViewModels.Group2;
+using Microsoft.AspNetCore.Authorization;
+using static System.Formats.Asn1.AsnWriter;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarManufactoring.Controllers
 {
@@ -80,11 +83,16 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+
         // GET: SupplierParts/Create
         public IActionResult Create()
         {
             return View();
         }
+
+
+        //[Authorize(Roles = "Supplier")]
+
 
         // POST: SupplierParts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -97,11 +105,27 @@ namespace CarManufactoring.Controllers
             {
                 string[] PaisNum = supplierParts.Country.Split(' ');
                 supplierParts.Country = PaisNum[0];
-                supplierParts.Contact = PaisNum[1] +" "+ supplierParts.Contact;
+                supplierParts.Contact = PaisNum[1] + " " + supplierParts.Contact;
                 _context.Add(supplierParts);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessageSuppliersParts"] = "Created "+supplierParts.Name+" Successfully!";
-                return RedirectToAction(nameof(Details),new { id = supplierParts.SupplierPartsId });
+
+                //Adicionar Produtos ao novo Fornecedor
+                Random rnd = new Random();
+                int dias;
+                int disp;
+                foreach (CarParts cp in _context.CarParts.ToArray()) {
+                    dias = rnd.Next(1, 31);
+                    disp = rnd.Next(0, 2);
+                    _context.SupplierPartsCarParts.AddRange(
+                        new SupplierPartsCarParts { ProductId = cp.ProductId, SupplierPartsId = supplierParts.SupplierPartsId, PrazoEntrega = dias, Disponibilidade = Convert.ToBoolean(disp) }
+                    );
+                    Console.WriteLine(cp.ProductId);
+                }
+                await _context.SaveChangesAsync();
+                //Adicionados todos os produtos existentes ao fornecedor criado
+
+                TempData["SuccessMessageSuppliersParts"] = "Created " + supplierParts.Name + " Successfully!";
+                return RedirectToAction(nameof(Details), new { id = supplierParts.SupplierPartsId });
             }
             return View(supplierParts);
         }
@@ -122,6 +146,10 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+        
+        //[Authorize(Roles = "Supplier")]
+        
+        
         // POST: SupplierParts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -175,6 +203,9 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+        //[Authorize(Roles = "Supplier")]
+        
+        
         // POST: SupplierParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
