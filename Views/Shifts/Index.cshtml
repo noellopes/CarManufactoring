@@ -23,7 +23,13 @@
                     <div class="mb-3">
 
                     <label for="shiftType" class="form-label"Type">Shift Type</label>
-                    <input name="shiftType" class="form-control" type="search" value="@Model.ShiftTypeSearched" placeholder="Type"/>
+                        <select name="shiftType" class="form-control" type="search" value="@Model.ShiftTypeSearched">
+                            <option selected="selected" disabled="disabled">Choose a shift type</option>
+                            <option>Morninng Shift</option>
+                            <option>Afternoon Shift</option>
+                            <option>Night Shift</option>
+                            <option>Mixed Shift</option>
+                            </select>
                     </div>
                     <input type="submit" value="Search" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
