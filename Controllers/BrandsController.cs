@@ -39,7 +39,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(brand);
         }
 
@@ -60,7 +60,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(brand);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Brand created successfully";
+                return RedirectToAction(nameof(Details), new {id = brand.BrandId});
             }
             return View(brand);
         }
@@ -130,7 +131,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(brand);
         }
 
@@ -146,11 +148,12 @@ namespace CarManufactoring.Controllers
             var brand = await _context.Brand.FindAsync(id);
             if (brand != null)
             {
-                _context.Brand.Remove(brand);
+               //TODO : Brand was not found page
             }
-            
+            _context.Brand.Remove(brand);
+            TempData["SuccessMessage"] = "Brand removed successfully.";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("BrandDeleted");
         }
 
         private bool BrandExists(int id)
