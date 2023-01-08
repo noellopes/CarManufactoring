@@ -14,12 +14,12 @@ namespace CarManufactoring.Data
 
             
 
-            /*PopulateGender(db);
+            PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            PopulateSemiFinishedCars(db);
+            //PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
@@ -33,32 +33,32 @@ namespace CarManufactoring.Data
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
             PopulateMachines(db);
-            PopulateMachineMaintenance(db);
+            //PopulateMachineMaintenance(db);
             PopulateCars(db);
-            PopulateTimeOfProduction(db);
+            //PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateShiftType(db);
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            PopulateOrder(db);
+            //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            PopulateStocks(db);
+            //PopulateStocks(db);
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            PopulateProductions(db);
+            //PopulateProductions(db);
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
+            //PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
-            PopulateLocalizationCar(db);
+            //PopulateLocalizationCar(db);
           
             PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
-            PopulateSupplierParts(db);*/
+            PopulateSupplierParts(db);
 
 
         }
