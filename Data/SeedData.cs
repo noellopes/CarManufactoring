@@ -18,6 +18,7 @@ namespace CarManufactoring.Data
             PopulateShiftType(db);
             PopulateShift(db);
 
+            PopulateGender(db);
             PopulateFunction(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
@@ -37,7 +38,7 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             //PopulateMachineMaintenance(db);
             PopulateCars(db);
-            PopulateTimeOfProduction(db);
+            //PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
@@ -48,10 +49,14 @@ namespace CarManufactoring.Data
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            PopulateProductions(db);
+            //PopulateProductions(db);
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
+            //PopulateStockFinalProduct(db);
+            //PopulateBreakdows(db);
+            //PopulateLocalizationCar(db);
+          
             PopulateStockFinalProduct(db);
             PopulateBreakdows(db);
             PopulateLocalizationCar(db);
