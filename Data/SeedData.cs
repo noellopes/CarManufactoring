@@ -21,7 +21,7 @@ namespace CarManufactoring.Data
             PopulateFunction(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            PopulateSemiFinishedCars(db);
+            //PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
@@ -35,16 +35,16 @@ namespace CarManufactoring.Data
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
             PopulateMachines(db);
-            PopulateMachineMaintenance(db);
+            //PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            PopulateOrder(db);
+            //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            PopulateStocks(db);
+            //PopulateStocks(db);
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
@@ -53,12 +53,14 @@ namespace CarManufactoring.Data
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
-            //PopulateBreakdows(db);
+            PopulateBreakdows(db);
             PopulateLocalizationCar(db);
             PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
 
+            PopulateSupplierParts(db);
+            PopulateSupplierPartsCarParts(db);
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -68,6 +70,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Manager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
+            await EnsureRoleIsCreated(roleManager, "Supplier");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -88,6 +91,9 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+
+            user = await EnsureUserIsCreated(userManager, "Supp@ipg.pt", "Secret");
+            await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
         }
 
@@ -789,14 +795,30 @@ namespace CarManufactoring.Data
         private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
         {
             if (db.SupplierPartsCarParts.Any()) return;
+            //Aproveitando a ideia do professor, como a ordem importa
+            //Caso não exista a tabela SupplierParts e CarParts é chamada a funçãi para criar a mesmo e depois sim criar a tabela intermedia
+            if (!db.SupplierParts.Any()) PopulateSupplierParts(db);
+            if (!db.CarParts.Any()) PopulateCarParts(db);
 
-            db.SupplierPartsCarParts.AddRange(
-                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 1, PrazoEntrega = 12, Disponibilidade = true },
-                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 2, PrazoEntrega = 6, Disponibilidade = true },
-                new SupplierPartsCarParts { ProductId = 2, SupplierPartsId = 2, PrazoEntrega = 4, Disponibilidade = false }
-                );
+            Random rnd = new Random();
+            int dias;
+            int disp;
+
+
+            foreach (SupplierParts sp in db.SupplierParts.ToArray())
+            {
+                foreach (CarParts cp in db.CarParts.ToArray())
+                {
+                    dias = rnd.Next(1, 31);
+                    disp = rnd.Next(0, 2);
+                    db.SupplierPartsCarParts.AddRange(
+                        new SupplierPartsCarParts { ProductId = cp.ProductId, SupplierPartsId = sp.SupplierPartsId, PrazoEntrega = dias, Disponibilidade = Convert.ToBoolean(disp) }
+                    );
+                }
+            };
             db.SaveChanges();
         }
+
 
         private static void PopulateBreakdows(CarManufactoringContext db)
         {
