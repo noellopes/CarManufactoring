@@ -14,7 +14,7 @@ namespace CarManufactoring.Data
 
             
 
-            PopulateGender(db);
+            /*PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
@@ -58,7 +58,7 @@ namespace CarManufactoring.Data
           
             PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
-            PopulateSupplierParts(db);
+            PopulateSupplierParts(db);*/
 
 
         }
