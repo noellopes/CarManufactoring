@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group1;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize(Roles = "MaintenanceManager")]
     public class MachineMaintenancesController : Controller
     {
         private readonly CarManufactoringContext _context;

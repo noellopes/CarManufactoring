@@ -64,6 +64,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
             await EnsureRoleIsCreated(roleManager, "Manager");
+            await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
         }
@@ -86,6 +87,11 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+
+            user = await EnsureUserIsCreated(userManager, "josav@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+
+
 
         }
 
@@ -523,7 +529,8 @@ namespace CarManufactoring.Data
             db.Collaborator.AddRange(
                 new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true },
                 new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false }
+                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false },
+                new Collaborator { Name = "Joaquim Saraiva", BirthDate = DateTime.Parse("05 / 04 / 1981"), Phone = "+351930706133", Email = "josav@cars.pt", GenderId = 1, OnDuty = false }
                 );
             db.SaveChanges();
         }
