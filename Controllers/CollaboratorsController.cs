@@ -272,7 +272,7 @@ namespace CarManufactoring.Controllers
                    .Include(m => m.MaintenanceMachine.Machine.MachineModel)
                    .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                    .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
-                   .Where(m => !m.EffectiveEndDate.HasValue)
+                   .Where(m => m.EffectiveEndDate.HasValue)
                    .Where(m => m.Deleted == false);
                    
                     break;
@@ -283,7 +283,7 @@ namespace CarManufactoring.Controllers
                  .Include(m => m.MaintenanceMachine.Machine.MachineModel)
                  .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                  .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
-                 .Where(m => m.EffectiveEndDate.HasValue)
+                 .Where(m => !m.EffectiveEndDate.HasValue)
                  .Where(m => m.Deleted == false);
                     break;
 
@@ -294,7 +294,7 @@ namespace CarManufactoring.Controllers
                 .Include(m => m.MaintenanceMachine.Machine.MachineModel)
                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
-                .Where(m => !m.EffectiveEndDate.HasValue && m.EffectiveEndDate.HasValue)
+         
                 .Where(m => m.Deleted == false);
                     break;
             
