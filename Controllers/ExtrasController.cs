@@ -61,7 +61,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(extra);
         }
 
@@ -82,7 +82,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(extra);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Extra created successfully";
+                return RedirectToAction(nameof(Details), new {id = extra.ExtraID});
             }
             return View(extra);
         }
@@ -152,7 +153,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(extra);
         }
 
@@ -168,11 +170,13 @@ namespace CarManufactoring.Controllers
             var extra = await _context.Extra.FindAsync(id);
             if (extra != null)
             {
-                _context.Extra.Remove(extra);
+                //TODO : Extra was not found page
             }
-            
+            _context.Extra.Remove(extra);
+            TempData["SuccessMessage"] = "Brand removed successfully.";
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("ExtraDeleted");
         }
 
         private bool ExtraExists(int id)
