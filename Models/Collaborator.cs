@@ -20,6 +20,7 @@ namespace CarManufactoring.Models
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
         [AgeValidator]
+        [Display(Name = "Date of Birth")]
         public DateTime BirthDate { get; set; }
         //public DateOnly? BirthDate { get; set; }
 
@@ -41,13 +42,13 @@ namespace CarManufactoring.Models
         [Display(Name = "Gender")]
         public int GenderId { get; set; }
         public Gender? Genders { get; set; }
-        //to be replaced with enum since the genders are limited
 
         public Task? Task { get; set; }
 
         public ICollection<CollaboratorShifts>? CollaboraterShift { get; set; }
 
         [Required]
+        [Display(Name = "On Duty")]
         [CollaboratorStatusValidator]
         public bool OnDuty { get; set; }
         public string? Status { get; set; }
