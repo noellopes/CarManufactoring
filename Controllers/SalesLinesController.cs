@@ -177,19 +177,19 @@ namespace CarManufactoring.Controllers
         // POST: SalesLines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int OrderId, int CarConfigId)
         {
             if (_context.SalesLine == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.SalesLine'  is null.");
             }
-            var salesLine = await _context.SalesLine.FindAsync(id);
-            if (salesLine != null)
+            var salesLine = await _context.SalesLine.FindAsync(OrderId, CarConfigId);
+            if (salesLine == null)
             {
                 //TODO : Extra was not found page
             }
             _context.SalesLine.Remove(salesLine);
-            TempData["SuccessMessage"] = "Brand removed successfully.";
+            TempData["SuccessMessage"] = "Sales Line removed successfully.";
 
             await _context.SaveChangesAsync();
             return View("SalesLineDeleted");
