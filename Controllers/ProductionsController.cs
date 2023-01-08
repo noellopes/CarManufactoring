@@ -8,6 +8,10 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Collections;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,7 +25,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Productions
-        public async Task<IActionResult> Index( String carConfig = null,int quantity = 0, int page = 1)
+        public async Task<IActionResult> Index(String carConfig = null, int quantity = 0, int page = 1)
         {
             var empty = _context.Production.Count();
 
@@ -33,12 +37,44 @@ namespace CarManufactoring.Controllers
                 .Where(c => carConfig == null || c.CarConfig.ConfigName.Contains(carConfig))
                 .Where(c => quantity == 0 || c.Quantity.Equals(quantity));
 
-
-
             var pagingInfo = new PagingInfoViewModel(await production.CountAsync(), page);
+
+            var lista = (from p in _context.Production
+                         join t in _context.TimeOfProduction
+                         on p.CarConfigId equals t.CarConfigId into lj
+                         from res in lj.DefaultIfEmpty()
+                         select new
+                         {
+                             CarConfigId = p.CarConfigId,
+                             TimeOfProductionId = res.TimeOfProductionId,
+                             TimeOfProduction = res.Time,
+                             StartDate = p.Date
+                         }).ToList();
+
+            ArrayList progress = new ArrayList();
+
+            foreach(var item in lista)
+            {
+                DateTime startDate = item.StartDate;
+                DateTime endDate = item.StartDate.AddMinutes(item.TimeOfProduction);
+                DateTime currentDate = DateTime.Now;
+
+                double totalMinuts = endDate.Subtract(startDate).TotalMinutes;
+                double currentMinuts = currentDate.Subtract(startDate).TotalMinutes;
+
+                double percentagemCompleta = currentMinuts / totalMinuts;
+
+                percentagemCompleta = percentagemCompleta * 100;
+
+                progress.Add(percentagemCompleta);
+            }
+
 
             var model = new ProductionIndexViewModel
             {
+
+                ProductionProgress = progress,
+
                 ProductionList = new ListViewModel<Production>
                 {
                     List = await production
