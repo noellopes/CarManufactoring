@@ -70,7 +70,7 @@
 @foreach (var item in Model.StockFinalProductList.List) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.LocalizationCar.Line, item.LocalizationCar.Row)
+                @Html.DisplayFor(modelItem => item.LocalizationCar.Line), @Html.DisplayFor(modelItem => item.LocalizationCar.Row)
             </td>
              <td>
                     @Html.DisplayFor(modelItem => item.Production.CarConfig.ConfigName)

@@ -51,6 +51,10 @@ namespace CarManufactoring.Controllers
                              StartDate = p.Date
                          }).ToList();
 
+            var tempList = production.ToList();
+
+            var index = 0;
+
             ArrayList progress = new ArrayList();
 
             foreach(var item in lista)
@@ -67,6 +71,21 @@ namespace CarManufactoring.Controllers
                 percentagemCompleta = percentagemCompleta * 100;
 
                 progress.Add(percentagemCompleta);
+
+                if(percentagemCompleta >= 100 && !AlreadyInStockFinal(tempList[index].ProductionId))
+                {
+                    var pos = await _context.LocalizationCar.
+                       FirstOrDefaultAsync(m => !m.IsOccupied);
+
+                    _context.StockFinalProduct.Add(new StockFinalProduct { ProductionId = tempList[index].ProductionId, InsertionDate = DateTime.Now, ChassiNumber = "", LocalizationCarId = pos.LocalizationCarId });
+                    await _context.SaveChangesAsync();
+
+                    pos.IsOccupied = true;
+
+                    _context.LocalizationCar.Update(pos);
+                    await _context.SaveChangesAsync();
+                }
+                index++;
             }
 
 
@@ -218,6 +237,17 @@ namespace CarManufactoring.Controllers
             {
                 _context.Production.Remove(production);
                 await _context.SaveChangesAsync();
+
+                var stockFinal = await _context.StockFinalProduct.FirstOrDefaultAsync(e => e.ProductionId == id);
+                _context.StockFinalProduct.Remove(stockFinal);
+
+                var pos = await _context.LocalizationCar.
+                       FirstOrDefaultAsync(m => m.LocalizationCarId == stockFinal.LocalizationCarId);
+
+                pos.IsOccupied = false;
+
+                _context.LocalizationCar.Update(pos);
+                await _context.SaveChangesAsync();
             }
 
             return View("ProductionDeleted");
@@ -226,6 +256,11 @@ namespace CarManufactoring.Controllers
         private bool ProductionExists(int id)
         {
           return _context.Production.Any(e => e.ProductionId == id);
+        }
+
+        private bool AlreadyInStockFinal(int id)
+        {
+            return _context.StockFinalProduct.Any(e => e.ProductionId == id);
         }
     }
 }

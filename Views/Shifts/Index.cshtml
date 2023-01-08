@@ -22,14 +22,14 @@
                 <form asp-action="Index" method="get">
                     <div class="mb-3">
 
-                    <label for="shiftType" class="form-label"Type">Shift Type</label>
+                        <label for="shiftType" class="form-label" Type">Shift Type</label>
                         <select name="shiftType" class="form-control" type="search" value="@Model.ShiftTypeSearched">
                             <option selected="selected" disabled="disabled">Choose a shift type</option>
                             <option>Morninng Shift</option>
                             <option>Afternoon Shift</option>
                             <option>Night Shift</option>
                             <option>Mixed Shift</option>
-                            </select>
+                        </select>
                     </div>
                     <input type="submit" value="Search" class="btn btn-primary" />
                     <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
@@ -55,24 +55,25 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.ShiftList.List) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShiftType.Description)
-            </td>
-            <td>
-                    <a asp-action="Details" asp-route-id="@item.ShiftId" class="btn btn-info">Details</a> 
+        @foreach (var item in Model.ShiftList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShiftType.Description)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.ShiftId" class="btn btn-info">Details</a>
                     <a asp-action="Edit" asp-route-id="@item.ShiftId" class="btn btn-warning">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.ShiftId" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -86,11 +87,11 @@
         {
             if (p == Model.ShiftList.PagingInfo.CurrentPage)
             {
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
             }
             else
             {
-                        <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
             }
         }
 
@@ -100,4 +101,3 @@
 
     </ul>
 </nav>
-
