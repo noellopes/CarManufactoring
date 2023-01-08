@@ -105,6 +105,13 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
+            if(ModelPartsExists(modelParts.ProductId, modelParts.CarConfigId))
+            {
+                ViewBag.CarConfigId = modelParts.CarConfigId;
+                ViewBag.ProductId = modelParts.ProductId;
+                return View("ModelPartAlreadyExists");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(modelParts);
@@ -124,7 +131,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var modelParts = await _context.ModelParts.FindAsync(CarConfigId, ProductId);
+            var modelParts = await _context.ModelParts.FirstOrDefaultAsync(c => c.CarConfigId == CarConfigId && c.ProductId == ProductId);
             if (modelParts == null)
             {
                 return NotFound();
