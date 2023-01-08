@@ -18,15 +18,16 @@ namespace CarManufactoring.Data
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
-            PopulateCarParts(db);
-            PopulateSemiFinisheds(db);
-            PopulateSemiFinishedCars(db);
-            PopulateMaterials(db);
+            //PopulateCarParts(db);
+            //PopulateSemiFinisheds(db);
+            //PopulateSemiFinishedCars(db);
+            //PopulateMaterials(db);
             PopulateSection(db);
-            PopulateSectionManager(db);
+            //PopulateSectionManager(db);
             PopulateMachineState(db);
-            PopulateTaskType(db);
+
             PopulateBrands(db);
+
             //PopulateInspectionTesting(db);
             //PopulateInspectionTestState(db);
             PopulatePriority(db);
@@ -35,6 +36,7 @@ namespace CarManufactoring.Data
             PopulateLocalizationCode(db);
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
+
             PopulateCars(db);
             PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
@@ -55,17 +57,19 @@ namespace CarManufactoring.Data
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
-            PopulateLocalizationCar(db);
+
           
             PopulateBreakdows(db);
+
             //PopulateSupplierPartsCarParts(db);
-            PopulateSupplierParts(db);
+            //PopulateSupplierParts(db);
 
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
+            await EnsureRoleIsCreated(roleManager, "ColaboratorMaintenance");
             await EnsureRoleIsCreated(roleManager, "Manager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
@@ -115,7 +119,6 @@ namespace CarManufactoring.Data
         }
 
 
-        /*
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -285,14 +288,14 @@ namespace CarManufactoring.Data
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, SectionId = 2},
-                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, SectionId = 3 },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, SectionId = 2 },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, SectionId = 1 },
-                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, SectionId = 1 },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, SectionId = 5 },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, SectionId = 3 },
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, SectionId = 4 }
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2,Description=" "},
+                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1 , Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
 
                 );
 
@@ -304,13 +307,25 @@ namespace CarManufactoring.Data
             if (db.MachineMaintenance.Any()) return;
 
             db.MachineMaintenance.AddRange(
-                // new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
-                // new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
-                // new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
-                // new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
+                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro", BeginDate = DateTime.Parse("01/02/2022"), ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 5 },
+                 new MachineMaintenance { Description = "Manutenção periódica de Março", BeginDate = DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 6 },
+                 new MachineMaintenance { Description = "Avaria braço robótico máquina", BeginDate = DateTime.Parse("07/07/2022"), ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 7 },
+                 new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
 
                 );
 
+            db.SaveChanges();
+        }
+
+        private static void PopulateMaintenanceCollaborator(CarManufactoringContext db)
+        {
+            if (db.MaintenanceCollaborators.Any()) return;
+            db.MaintenanceCollaborators.AddRange(
+                new MaintenanceCollaborator { CollaboratorId=1,MachineMaintenanceId=1,BeginDate = DateTime.Parse("01/02/2022"),EffectiveEndDate = DateTime.Parse("15/02/2022") },
+                new MaintenanceCollaborator { CollaboratorId=2,MachineMaintenanceId=1,BeginDate = DateTime.Parse("01/02/2022"),EffectiveEndDate = DateTime.Parse("11/02/2022") },
+                new MaintenanceCollaborator { CollaboratorId = 3, MachineMaintenanceId = 3, BeginDate = DateTime.Parse("07/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022") },
+                new MaintenanceCollaborator { CollaboratorId =2,MachineMaintenanceId=3, BeginDate=DateTime.Parse("07/08/2022") }             
+                );
             db.SaveChanges();
         }
         private static void PopulateInspectionTesting(CarManufactoringContext db)
@@ -757,7 +772,7 @@ namespace CarManufactoring.Data
         private static void PopulateStockFinalProduct(CarManufactoringContext db)
         {
 
-            if (db.StockFinalProduct.Any()) return;
+            //if (db.StockFinalProduct.Any()) return;
 
             db.StockFinalProduct.AddRange(
                 new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
@@ -766,8 +781,8 @@ namespace CarManufactoring.Data
                 new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") }x
 
 
-                );
-            db.SaveChanges();
+            //    );
+            //db.SaveChanges();
         }
 
         private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
@@ -825,6 +840,6 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-        */
+        
     }
 }
