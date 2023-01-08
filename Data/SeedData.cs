@@ -15,6 +15,7 @@ namespace CarManufactoring.Data
             
 
            
+
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
