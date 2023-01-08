@@ -70,7 +70,7 @@ using(var scope = app.Services.CreateScope()) {
     if (app.Environment.IsDevelopment()) {
     
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-        SeedData.PopulateUsersAsync(userManager).Wait();
+        //SeedData.PopulateUsersAsync(userManager).Wait();
 
         var db = scope.ServiceProvider.GetRequiredService<CarManufactoringContext>();
         SeedData.Populate(db);

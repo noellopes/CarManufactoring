@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using System.Collections.Generic;
 using Task = System.Threading.Tasks.Task;
 
 namespace CarManufactoring.Data
@@ -12,11 +13,13 @@ namespace CarManufactoring.Data
         {
 
 
-            
+            PopulateGender(db);
+            PopulateCollaborators(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
 
             PopulateGender(db);
             PopulateFunction(db);
-            PopulateCollaborators(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
             //PopulateSemiFinishedCars(db);
@@ -37,8 +40,6 @@ namespace CarManufactoring.Data
             PopulateCars(db);
             //PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
-            PopulateShiftType(db);
-            PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
@@ -56,10 +57,15 @@ namespace CarManufactoring.Data
             //PopulateBreakdows(db);
             //PopulateLocalizationCar(db);
           
+            PopulateStockFinalProduct(db);
+            PopulateBreakdows(db);
+            PopulateLocalizationCar(db);
             PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
 
+            PopulateSupplierParts(db);
+            PopulateSupplierPartsCarParts(db);
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -69,6 +75,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Manager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
+            await EnsureRoleIsCreated(roleManager, "Supplier");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -89,6 +96,9 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+
+            user = await EnsureUserIsCreated(userManager, "Supp@ipg.pt", "Secret");
+            await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
         }
 
@@ -535,9 +545,15 @@ namespace CarManufactoring.Data
         {
             if (db.Collaborator.Any()) return;
             db.Collaborator.AddRange(
-                new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true },
-                new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false }
+                new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("12 / 06 / 1989"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Lisa Holland", BirthDate = DateTime.Parse("10 / 02 / 1991"), Phone = "+351970560731", Email = "lisaholland@cars.pt", GenderId = 2, OnDuty = false, Status = "Not Available" },
+                new Collaborator { Name = "Haris  Howell", BirthDate = DateTime.Parse("11 / 09 / 1997"), Phone = "+351996321856", Email = "harishowel@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Thea Moss", BirthDate = DateTime.Parse("06 / 12 / 1995"), Phone = "+351951357488", Email = "theamoss@cars.pt", GenderId = 2, OnDuty = false, Status = "Available" },
+                new Collaborator { Name = "James Mcgee", BirthDate = DateTime.Parse("07 / 10 / 1998"), Phone = "+351987535926", Email = "jamesmcgee@cars.pt", GenderId = 1, OnDuty = false, Status = "Available" },
+                new Collaborator { Name = "Luck Brown", BirthDate = DateTime.Parse("02 / 05 / 1997"), Phone = "+351954852358", Email = "luckbrown@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Kyle Hoffman", BirthDate = DateTime.Parse("06 / 08 / 1996"), Phone = "+351987565233", Email = "kylehoffman@cars.pt", GenderId = 1, OnDuty = false, Status = "Available" }
                 );
             db.SaveChanges();
         }
@@ -784,14 +800,30 @@ namespace CarManufactoring.Data
         private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
         {
             if (db.SupplierPartsCarParts.Any()) return;
+            //Aproveitando a ideia do professor, como a ordem importa
+            //Caso não exista a tabela SupplierParts e CarParts é chamada a funçãi para criar a mesmo e depois sim criar a tabela intermedia
+            if (!db.SupplierParts.Any()) PopulateSupplierParts(db);
+            if (!db.CarParts.Any()) PopulateCarParts(db);
 
-            db.SupplierPartsCarParts.AddRange(
-                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 1, PrazoEntrega = 12, Disponibilidade = true },
-                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 2, PrazoEntrega = 6, Disponibilidade = true },
-                new SupplierPartsCarParts { ProductId = 2, SupplierPartsId = 2, PrazoEntrega = 4, Disponibilidade = false }
-                );
+            Random rnd = new Random();
+            int dias;
+            int disp;
+
+
+            foreach (SupplierParts sp in db.SupplierParts.ToArray())
+            {
+                foreach (CarParts cp in db.CarParts.ToArray())
+                {
+                    dias = rnd.Next(1, 31);
+                    disp = rnd.Next(0, 2);
+                    db.SupplierPartsCarParts.AddRange(
+                        new SupplierPartsCarParts { ProductId = cp.ProductId, SupplierPartsId = sp.SupplierPartsId, PrazoEntrega = dias, Disponibilidade = Convert.ToBoolean(disp) }
+                    );
+                }
+            };
             db.SaveChanges();
         }
+
 
         private static void PopulateBreakdows(CarManufactoringContext db)
         {
