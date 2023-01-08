@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group1;
+using System.Diagnostics;
 
 namespace CarManufactoring.Controllers
 {
@@ -78,11 +79,15 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineMaintenances/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
-            ViewData["MachinesId"] = new SelectList(_context.Machine, "MachineModelId");
+            ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
+
+            var machines = await  _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
+
+            ViewData["MachinesId"] = machines;
             return View();
         }
 
@@ -91,20 +96,44 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateMachineMaintenanceViewModel machineMaintenance )
+        public async Task<IActionResult> Create(CreateMachineMaintenanceViewModel machineMaintenancePost )
         {
+
             if (ModelState.IsValid)
             {
-                //MachineMaintenance bdMachineMaintenace = new MachineMaintenance(machineMaintenance.)
+        
+                MachineMaintenance machineMaintenance = new MachineMaintenance();
+
+                machineMaintenance.Description = machineMaintenancePost.Description;
+                machineMaintenance.PriorityId = machineMaintenancePost.PriorityId;
+                machineMaintenance.ExpectedEndDate = machineMaintenancePost.ExpectedEndDate;
+                machineMaintenance.MachineId = machineMaintenancePost.MachineId;
+                machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
+
                 _context.Add(machineMaintenance);
                 await _context.SaveChangesAsync();
+                if(machineMaintenancePost.CollaboratorsId != null ){
+                    foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
+                    {
+                        MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
+                        maintenanceCollaborator.CollaboratorId = collaboratorId;
+                        maintenanceCollaborator.MachineMaintenanceId =                      machineMaintenance.MachineMaintenanceId;
+                        _context.Add(maintenanceCollaborator);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                
                 return RedirectToAction(nameof(Index));
             }
 
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
-            ViewData["MachinesId"] = new SelectList(_context.Machine, "MachineId", "Name");
-            return View(machineMaintenance);
+
+
+            var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
+
+            ViewData["MachinesId"] = machines;
+            return View(machineMaintenancePost);
         }
 
         // GET: MachineMaintenances/Edit/5
