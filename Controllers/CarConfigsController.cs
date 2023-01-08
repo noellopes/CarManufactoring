@@ -65,7 +65,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(carConfig);
         }
 
@@ -87,7 +87,10 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(carConfig);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Car Config created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = carConfig.CarConfigId });
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", carConfig.CarId);
             return View(carConfig);
@@ -161,7 +164,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(carConfig);
         }
 
@@ -175,13 +179,14 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.CarConfig'  is null.");
             }
             var carConfig = await _context.CarConfig.FindAsync(id);
-            if (carConfig != null)
+            if (carConfig == null)
             {
-                _context.CarConfig.Remove(carConfig);
+                //TODO : Carconfig was not found page
             }
-            
+            _context.CarConfig.Remove(carConfig);
+            TempData["SuccessMessage"] = "Car removed successfully.";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("CarConfigDeleted");
         }
 
         private bool CarConfigExists(int id)

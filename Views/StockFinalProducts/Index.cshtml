@@ -1,17 +1,56 @@
 ﻿@model StockFinalProductIndexViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Stock Final Product";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="Line" class="form-label">Line</label>
+                <select name="Line" class="form-control" type="search" id="Line" value="@Model.LineSearched">
+                    <option selected="selected" disabled="disabled">Please choose an option</option>
+                    @foreach (var item in Model.LocalizationCar)
+                    {
+                        <option>@item.Line</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="CarConfig" class="form-label">CarConfig</label>
+                <select name="CarConfig" class="form-control" type="search" value="@Model.CarConfigNameSearched" >
+                <option selected="selected" disabled="disabled">Please choose an option</option>
+                @foreach (var item in Model.CarConfigs)
+                {
+                    <option>@item.ConfigName</option>
+                }
+                </select>
+            </div>
+
+             <div class="mb-3">
+                <label for="ChassiNumber" class="form-label">ChassiNumber</label>
+                <input name="ChassiNumber" class="form-control" type="search" value="@Model.ChassiNumberSearched" />
+               
+               
+            </div>
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success ">Create New</a>
 </p>
 <table class="table">
     <thead>
-        <tr>
+        <tr>            
             <th>
                 Line,Row
             </th>
@@ -43,9 +82,9 @@
                 @Html.DisplayFor(modelItem => item.InsertionDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StockFinalProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StockFinalProductId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StockFinalProductId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.StockFinalProductId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.StockFinalProductId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.StockFinalProductId" class="btn btn-danger ">Delete</a>
             </td>
         </tr>
 }
