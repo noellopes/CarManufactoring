@@ -14,29 +14,26 @@ namespace CarManufactoring.Data
 
             
 
-           
-            PopulateGender(db);
+            /*PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
-            //PopulateCarParts(db);
-            //PopulateSemiFinisheds(db);
-            //PopulateSemiFinishedCars(db);
-            //PopulateMaterials(db);
+            PopulateCarParts(db);
+            PopulateSemiFinisheds(db);
+            PopulateSemiFinishedCars(db);
+            PopulateMaterials(db);
             PopulateSection(db);
-            //PopulateSectionManager(db);
+            PopulateSectionManager(db);
             PopulateMachineState(db);
-
+            PopulateTaskType(db);
             PopulateBrands(db);
-
-            PopulateInspectionTesting(db);
-            PopulateInspectionTestState(db);
+            //PopulateInspectionTesting(db);
+            //PopulateInspectionTestState(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
             PopulateMachines(db);
-            //PopulateMachineMaintenance(db);
-
+            PopulateMachineMaintenance(db);
             PopulateCars(db);
             PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
@@ -44,25 +41,24 @@ namespace CarManufactoring.Data
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            //PopulateOrder(db);
-            //PopulateMaterialUsed(db);
+            PopulateOrder(db);
+            PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            //PopulateStocks(db);
+            PopulateStocks(db);
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
             PopulateWarehouses(db);
-            //PopulateModelParts(db);
+            PopulateModelParts(db);
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
-
+            PopulateLocalizationCar(db);
           
             PopulateBreakdows(db);
-
             //PopulateSupplierPartsCarParts(db);
-            //PopulateSupplierParts(db);
+            PopulateSupplierParts(db);*/
 
 
         }

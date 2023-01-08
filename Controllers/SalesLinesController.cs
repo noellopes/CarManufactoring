@@ -88,7 +88,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 var Order = await _context.Order.FindAsync(salesLine.OrderId);
 
-                _context.Production.Add(new Production { CarConfigId = salesLine.CarConfigId, Quantity = salesLine.Quantity, Date = Order.OrderDate });
+                _context.Production.Add(new Production { CarConfigId = salesLine.CarConfigId, Quantity = salesLine.Quantity, Date = DateTime.Now });
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

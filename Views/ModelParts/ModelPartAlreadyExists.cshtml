@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Error while adding item to database ";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="alert alert-danger" role="alert">
+    <h4 class="alert-heading">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#check-circle-fill" /></svg>
+        Error
+    </h4>
+
+    <p>
+        The ModelPart your are trying to create already exists.
+    </p>
+</div>
+<div>
+    <h2>Do you want to edit the Existing ModelPart</h2>
+    @Html.ActionLink("Edit", "Edit", new { ViewBag.CarConfigId, ViewBag.ProductId }, new { @class = "btn btn-warning"})
+    <h2>Return to Index Page</h2>
+    <a asp-action="Index" class="btn btn-primary">ModelParts Index Page</a>
+</div>

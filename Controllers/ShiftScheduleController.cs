@@ -93,7 +93,9 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.ShiftSchedule, "CollaboratorId", "Name", shiftSchedule.CollaboratorId);
+
+
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", shiftSchedule.CollaboratorId);
             return View(shiftSchedule);
         }
         // POST: ShiftSchedule/Edit/5
@@ -121,7 +123,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CollaboratorId"] = new SelectList(_context.ShiftSchedule, "CollaboratorId", "Name", shiftSchedule.CollaboratorId);
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", shiftSchedule.CollaboratorId);
             return View(shiftSchedule);
         }
 

@@ -47,9 +47,13 @@
             <th></th>
         </tr>
     </thead>
+    @{
+        int pos = 0;
+    }
     <tbody>
         @foreach (var item in Model.ProductionList.List)
         {
+                    
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -64,6 +68,14 @@
                     <a asp-action="Edit" asp-route-id="@item.ProductionId" class="btn btn-warning">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.ProductionId" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.ProductionId" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="@Model.ProductionProgress[pos]" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: @Convert.ToInt32(Model.ProductionProgress[pos])%"></div>
+                    @{pos++;}
+                </div>
             </td>
         </tr>
 }

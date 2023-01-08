@@ -11,7 +11,7 @@ namespace CarManufactoring.Models
         public CarConfig? CarConfig { get; set; }
 
         [Required(ErrorMessage = "It is necessary to enter a value.")]
-        [Range(1, int.MaxValue, ErrorMessage = "The value must be greater than 1.")]
+        [Range(0, int.MaxValue, ErrorMessage = "The value must be greater than 0.")]
         public int QtdPecas { get; set; }
     }
 }
