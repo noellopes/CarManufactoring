@@ -61,9 +61,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => new Car().CarId)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => new Car().Brand.BrandName)
             </th>
             <th>
@@ -86,9 +83,6 @@
         @foreach (var item in Model.CarsList.List)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CarId)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Brand.BrandName)
                 </td>

@@ -25,8 +25,9 @@ namespace CarManufactoring.Data
             PopulateSection(db);
             //PopulateSectionManager(db);
             PopulateMachineState(db);
-            PopulateTaskType(db);
-            //PopulateBrands(db);
+
+            PopulateBrands(db);
+
             //PopulateInspectionTesting(db);
             //PopulateInspectionTestState(db);
             PopulatePriority(db);
@@ -35,31 +36,31 @@ namespace CarManufactoring.Data
             PopulateLocalizationCode(db);
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
-            PopulateMaintenanceCollaborator(db);   
-            //PopulateCars(db);
-            //PopulateTimeOfProduction(db);
-            //PopulateCarConfigs(db);
-            //PopulateShiftType(db);
-            //PopulateShift(db);
-            //PopulateCustomers(db);
-            //PopulateCustomerContacts(db);
-            //PopulateOrder(db);
-            //PopulateMaterialUsed(db);
-            //PopulateSupplier(db);
-            //PopulateStocks(db);
-            //PopulateWarehouseStocks(db);
-            //PopulateExtras(db);
-            //PopulateOrderState(db);
-            //PopulateProductions(db);
-            //PopulateWarehouses(db);
-            //PopulateModelParts(db);
-            //PopulateLocalizationCar(db);
-           // PopulateStockFinalProduct(db);
+
+            PopulateCars(db);
+            PopulateTimeOfProduction(db);
+            PopulateCarConfigs(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            PopulateOrder(db);
+            PopulateMaterialUsed(db);
+            PopulateSupplier(db);
+            PopulateStocks(db);
+            PopulateWarehouseStocks(db);
+            PopulateExtras(db);
+            PopulateOrderState(db);
+            PopulateProductions(db);
+            PopulateWarehouses(db);
+            PopulateModelParts(db);
+            PopulateLocalizationCar(db);
+            PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
-            //PopulateStockFinalProduct(db);
-            //PopulateLocalizationCar(db);
-            //PopulateStockFinalProduct(db);
-            //PopulateBreakdows(db);
+
+          
+            PopulateBreakdows(db);
+
             //PopulateSupplierPartsCarParts(db);
             //PopulateSupplierParts(db);
 
@@ -773,13 +774,12 @@ namespace CarManufactoring.Data
 
             //if (db.StockFinalProduct.Any()) return;
 
-            //db.StockFinalProduct.AddRange(
-            //    new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
-            //    new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
-            //    new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
-            //    new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") },
-            //    new StockFinalProduct { ChassiNumber = "5", LocalizationCarId = 5, ProductionId = 5, InsertionDate = DateTime.Parse("13/02/2022") },
-            //    new StockFinalProduct { ChassiNumber = "6", LocalizationCarId = 6, ProductionId = 6, InsertionDate = DateTime.Parse("13/02/2022") }
+            db.StockFinalProduct.AddRange(
+                new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") }x
+
 
             //    );
             //db.SaveChanges();

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class all_Migrations : Migration
+    public partial class son1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
