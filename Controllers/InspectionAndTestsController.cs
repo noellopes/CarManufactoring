@@ -74,7 +74,7 @@ namespace CarManufactoring.Controllers
         // GET: InspectionAndTests/Create
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             ViewData["ProductionsId"] = new SelectList(_context.Production, "ProductionId", "ProductionId");
             ViewData["StateId"] = new SelectList(_context.InspectionTestState, "InspectionTestStateId", "State");
             return View();

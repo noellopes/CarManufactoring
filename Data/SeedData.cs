@@ -28,14 +28,14 @@ namespace CarManufactoring.Data
 
             PopulateBrands(db);
 
-            //PopulateInspectionTesting(db);
-            //PopulateInspectionTestState(db);
+            PopulateInspectionTesting(db);
+            PopulateInspectionTestState(db);
             PopulatePriority(db);
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
             PopulateMachines(db);
-            PopulateMachineMaintenance(db);
+            //PopulateMachineMaintenance(db);
 
             PopulateCars(db);
             PopulateTimeOfProduction(db);
@@ -44,16 +44,16 @@ namespace CarManufactoring.Data
             PopulateShift(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
-            PopulateOrder(db);
-            PopulateMaterialUsed(db);
+            //PopulateOrder(db);
+            //PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            PopulateStocks(db);
+            //PopulateStocks(db);
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
             PopulateWarehouses(db);
-            PopulateModelParts(db);
+            //PopulateModelParts(db);
             PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
             //PopulateBreakdows(db);
@@ -288,14 +288,14 @@ namespace CarManufactoring.Data
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2,Description=" "},
-                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1 , Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
+                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2,Description=" "},
+                //new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1 , Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
 
                 );
 
@@ -335,11 +335,11 @@ namespace CarManufactoring.Data
 
             db.InspectionAndTest.AddRange(
 
-                new InspectionAndTest { ProductionsId = 1, QuantityTested = 5, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
-                new InspectionAndTest { ProductionsId = 2, QuantityTested = 15, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
-                new InspectionAndTest { ProductionsId = 3, QuantityTested = 50, StateId = 3, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 3 },
-                new InspectionAndTest { ProductionsId = 4, QuantityTested = 25, StateId = 2, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 2 },
-                new InspectionAndTest { ProductionsId = 2, QuantityTested = 10, StateId = 1, Description = "The semi finished as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 }
+                new InspectionAndTest { ProductionsId = 1, QuantityTested = 5, StateId = 1, Description = "The production as passed on the test with no issues.", Date = new DateTime(2022, 12, 02, 10, 30, 50), CollaboratorId = 1 },
+                new InspectionAndTest { ProductionsId = 2, QuantityTested = 3, StateId = 2, Description = "The production as presented some issues.", Date = new DateTime(2023, 01, 02, 13, 30, 00), CollaboratorId = 2 },
+                new InspectionAndTest { ProductionsId = 3, QuantityTested = 5, StateId = 3, Description = "The production is still being tested.", Date = new DateTime(2022, 12, 27, 17, 45, 21), CollaboratorId = 3 },
+                new InspectionAndTest { ProductionsId = 4, QuantityTested = 2, StateId = 2, Description = "The production as presented some issues.", Date = new DateTime(2023, 01, 05, 09, 17, 20), CollaboratorId = 2 },
+                new InspectionAndTest { ProductionsId = 2, QuantityTested = 7, StateId = 1, Description = "The production as passed on the test with no issues.", Date = new DateTime(2022, 12, 29, 10, 50, 17), CollaboratorId = 1 }
 
             );
 
@@ -772,17 +772,17 @@ namespace CarManufactoring.Data
         private static void PopulateStockFinalProduct(CarManufactoringContext db)
         {
 
-            //if (db.StockFinalProduct.Any()) return;
+            if (db.StockFinalProduct.Any()) return;
 
             db.StockFinalProduct.AddRange(
                 new StockFinalProduct { ChassiNumber = "1", LocalizationCarId = 1, ProductionId = 1, InsertionDate = DateTime.Parse("13/02/2022") },
                 new StockFinalProduct { ChassiNumber = "2", LocalizationCarId = 2, ProductionId = 2, InsertionDate = DateTime.Parse("13/02/2022") },
                 new StockFinalProduct { ChassiNumber = "3", LocalizationCarId = 3, ProductionId = 3, InsertionDate = DateTime.Parse("13/02/2022") },
-                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") }x
+                new StockFinalProduct { ChassiNumber = "4", LocalizationCarId = 4, ProductionId = 4, InsertionDate = DateTime.Parse("13/02/2022") }
 
 
-            //    );
-            //db.SaveChanges();
+                );
+            db.SaveChanges();
         }
 
         private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
