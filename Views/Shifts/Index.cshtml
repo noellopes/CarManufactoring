@@ -1,103 +1,150 @@
-﻿@model ShiftIndexViewModel
+﻿@model CollaboratorIndexViewModel
 
 @{
-    ViewData["Title"] = "Shift List";
+    ViewData["Title"] = "Collaborators";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@ViewBag.title</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-success mt-3">Create New</a>
-</p>
-
+<div class="mt-3">
+    <a asp-action="Create" class="btn btn-success">Add Collaborator</a>
+</div>
+<br />
 <div class="accordion" id="accordion">
     <div class="accordion-item">
         <h2 class="accordion-header" id="headingOne">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                Search
+                <h5 class="card-title">Collaborator Search</h5>
             </button>
         </h2>
         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-                <form asp-action="Index" method="get">
-                    <div class="mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form asp-action="Index" method="get">
+                            <div class="mb-3">
+                                <h6 class="form-label">Name</h6>
+                                <input name="Name" asp-for="NameSearched" class="form-control" type="search" placeholder="Collaborators Name" />
+                            </div>
 
-                    <label for="shiftType" class="form-label"Type">Shift Type</label>
-                        <select name="shiftType" class="form-control" type="search" value="@Model.ShiftTypeSearched">
-                            <option selected="selected" disabled="disabled">Choose a shift type</option>
-                            <option>Morninng Shift</option>
-                            <option>Afternoon Shift</option>
-                            <option>Night Shift</option>
-                            <option>Mixed Shift</option>
-                            </select>
+                            <div class="mb-3">
+                                <h6 class="form-label">Phone Number</h6>
+                                <input name="Phone" asp-for="PhoneSearched" class="form-control" type="search" placeholder="Collaborators Phone" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12">
+                                    <h6 class="form-label">On Duty</h6>
+                                    <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="1" /> On Duty
+                                    <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="2" />       Off Duty
+                                    <input type="radio" class="form-check-input" asp-for="OnDutyFilter" name="OnDuty" value="0" />       All
+                                </div>
+                                <div class="col-lg-6 col-sm-12">
+                                    <h6 class="form-label">Gender</h6>
+                                    <select asp-for="GenderSearched" class="form-control" name="Gender" asp-items="ViewBag.GenderId">
+                                        <option value="0"> All</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <br />
+                            <input type="submit" value="Search" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+                        </form>
                     </div>
-                    <input type="submit" value="Search" class="btn btn-primary" />
-                    <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => new Shift().StartDate)
+                @Html.DisplayNameFor(model => new Collaborator().Name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new Shift().EndDate)
+                @Html.DisplayNameFor(model => new Collaborator().BirthDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new Shift().ShiftType)
+                @Html.DisplayNameFor(model => new Collaborator().Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Collaborator().Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Collaborator().Genders)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Collaborator().OnDuty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new Collaborator().Status)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.ShiftList.List) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShiftType.Description)
-            </td>
-            <td>
-                    <a asp-action="Details" asp-route-id="@item.ShiftId" class="btn btn-info">Details</a> 
-                    <a asp-action="Edit" asp-route-id="@item.ShiftId" class="btn btn-warning">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.ShiftId" class="btn btn-danger">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.collaboratorList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genders.GenderDefinition)
+                </td>
+
+                @if (item.OnDuty)
+                {
+                    <td>On Duty</td>
+                }
+                else
+                {
+                    <td>Off Duty</td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CollaboratorId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.CollaboratorId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.CollaboratorId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <li class="page-item @(Model.ShiftList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        <li class="page-item @(Model.collaboratorList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
         </li>
 
-        @for (int p = Model.ShiftList.PagingInfo.InitialPageToShow; p <= Model.ShiftList.PagingInfo.FinalPageToShow; p++)
+        @for (int p = Model.collaboratorList.PagingInfo.InitialPageToShow; p <= Model.collaboratorList.PagingInfo.FinalPageToShow; p++)
         {
-            if (p == Model.ShiftList.PagingInfo.CurrentPage)
+            if (p == Model.collaboratorList.PagingInfo.CurrentPage)
             {
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
             }
             else
             {
-                        <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
             }
         }
 
-        <li class="page-item @(Model.ShiftList.PagingInfo.CurrentPage == Model.ShiftList.PagingInfo.TotalPages ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@Model.ShiftList.PagingInfo.TotalPages">Last</a>
+        <li class="page-item @(Model.collaboratorList.PagingInfo.CurrentPage == Model.collaboratorList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.collaboratorList.PagingInfo.TotalPages">Last</a>
         </li>
-
     </ul>
 </nav>
-
