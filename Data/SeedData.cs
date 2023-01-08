@@ -11,9 +11,9 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
+            PopulateGender(db);
 
-            
-
+            PopulateCollaborators(db);
             /*PopulateGender(db);
             PopulateFunction(db);
             PopulateCollaborators(db);
