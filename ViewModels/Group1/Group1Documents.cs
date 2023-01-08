@@ -26,5 +26,11 @@
              new Documents {Name = "Gestão de Máquina de Produção  ", DocPath="/documents/grupo1/Diogo_Neto/Gestão de Máquina de Produção.png"},
 
         };
+
+        public readonly static List<Documents> PauloDocuments = new List<Documents>() {
+             new Documents {Name = "Descrição Caso Uso Iniciar Trabalho  ", DocPath="/documents/grupo1/Paulo_Proenca/Descricao caso de uso_Projeto_Estado_v2.pdf"},
+             new Documents {Name = "Diagrama Sequência Atribuir Tarefa  ", DocPath="/documents/grupo1/Paulo_Proenca/Diagrama_sequencia_projeto- atualizado.pdf"},
+             new Documents {Name = "Diagrama de Casos de Uso  ", DocPath="/documents/grupo1/Paulo_Proenca/Diagrama_de_casos_de_uso_v2.pdf"},
+        };
     }
 }

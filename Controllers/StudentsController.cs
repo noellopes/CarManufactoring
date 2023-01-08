@@ -2,6 +2,7 @@
 using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group1;
 using CarManufactoring.ViewModels.Group3;
+using System.Collections.Generic;
 
 namespace CarManufactoring.Controllers {
     public class StudentsController : Controller {
@@ -44,6 +45,14 @@ namespace CarManufactoring.Controllers {
                 List<Documents> GuiDocs = Group3Documents.GuiDocuments;
                 GuiDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
                 return View($"Details{number}", GuiDocs);
+            }
+            if (number == "1704890")
+            {
+                List<Documents> pauloDocs = Group1Documents.PauloDocuments;
+
+                pauloDocs.Sort((a, b) => a.Name.CompareTo(b.Name));
+
+                return View($"Details{number}", pauloDocs);
             }
 
             return View($"Details{number}");
