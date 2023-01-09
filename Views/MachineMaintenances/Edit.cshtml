@@ -1,5 +1,5 @@
-﻿@using CarManufactoring.ViewModels.Group1;
-@model MachineMaintenaceIndexViewModel
+﻿@model CarManufactoring.ViewModels.Group1.CrudMachineMaintenanceViewModel
+
 
 @{
     ViewData["Title"] = "Edit";
@@ -11,8 +11,9 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MachineMaintenanceId"/>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
@@ -43,14 +44,14 @@
                 <select asp-for="MachineId" class="form-control">
                     @foreach (Machine m in ViewBag.MachinesId)
                     {
-                        <option value="@m.MachineId">@m.MachineId - @m.MachineModel.MachineModelName - @m.MachineModel.MachineBrandNames.MachineBrandName</option>
+                    <option value="@m.MachineId">@m.MachineId - @m.MachineModel.MachineModelName - @m.MachineModel.MachineBrandNames.MachineBrandName</option>
                     }
                 </select>
                 <span asp-validation-for="MachineId" class="text-danger"></span>
             </div>
 
             <div class="form-group pt-5">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
         </form>
     </div>
