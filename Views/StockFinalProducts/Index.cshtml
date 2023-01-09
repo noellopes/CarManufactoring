@@ -21,6 +21,16 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="Row" class="form-label">Row</label>
+                <select name="Row" class="form-control" type="search" id="Row" value="@Model.RowSearched">
+                    <option selected="selected" disabled="disabled">Please choose an option</option>
+                    @foreach (var item in Model.LocalizationCar)
+                    {
+                        <option>@item.Row</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="CarConfig" class="form-label">CarConfig</label>
                 <select name="CarConfig" class="form-control" type="search" value="@Model.CarConfigNameSearched" >
                 <option selected="selected" disabled="disabled">Please choose an option</option>
