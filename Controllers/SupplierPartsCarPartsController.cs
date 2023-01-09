@@ -26,16 +26,16 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SupplierPartsCarParts
+
         public async Task<IActionResult> Index(int supplierid = 0, int page = 1)
         {
-
             var supplierpartscarparts = _context.SupplierPartsCarParts
                 .Include(s => s.CarParts)
                 .Include(s => s.SupplierParts)
                 .Where(s => supplierid == 0 || s.SupplierPartsId.Equals(supplierid))
                 .OrderBy(s => s.ProductId);
 
-            var pagingInfo = new PagingInfoViewModel(await supplierpartscarparts.CountAsync(), page);
+            var pagingInfo = new PagingInfoViewModel(await supplierpartscarparts.CountAsync(), page, 10);
 
             try
             {
@@ -100,7 +100,7 @@ namespace CarManufactoring.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index), new { SupplierPartsId = SupplierPartsId, page = 1 });
+            return RedirectToAction(nameof(Index), new { supplierid = SupplierPartsId});
         }
 
 

@@ -90,8 +90,10 @@ namespace CarManufactoring.Data
         internal static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
             var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Admin");
+
             user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
+
             user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Manager");
 
@@ -104,7 +106,7 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
 
-            user = await EnsureUserIsCreated(userManager, "Supp@ipg.pt", "Secret");
+            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
         }
 

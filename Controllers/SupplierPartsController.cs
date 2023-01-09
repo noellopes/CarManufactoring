@@ -26,22 +26,28 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SupplierParts
-        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1)
+        int CurrentPageSize = 5;
+        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1, int pagesize = -1)
         {
+            if (pagesize != -1)
+            {
+                CurrentPageSize = pagesize;
+            }
             var supplierparts = _context.SupplierParts
               .Where(b => name == null || b.Name.Contains(name))
               .Where(b => country == null || b.Country.Contains(country))
               .Where(b => email == null || b.Email.Contains(email))
               .OrderBy(b => b.Name);
 
-            var pagingInfo = new PagingInfoViewModel(await supplierparts.CountAsync(), page);
+            var pagingInfo = new PagingInfoViewModel(await supplierparts.CountAsync(), page, CurrentPageSize);
 
             try
             {
+                
                 var model = new SupplierPartsIndexViewModel
-            {
-                SupplierPartsList = new ListViewModel<SupplierParts>
                 {
+                    SupplierPartsList = new ListViewModel<SupplierParts>
+                    {
                     List = await supplierparts
                         .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
                         .Take(pagingInfo.PageSize).ToListAsync(),
@@ -59,7 +65,7 @@ namespace CarManufactoring.Controllers
             }
             catch (Exception ex)
             {
-                return await Index(null, null, null ,page);
+                return await Index(null, null, null ,page, CurrentPageSize);
             }
 
         }
@@ -218,10 +224,17 @@ namespace CarManufactoring.Controllers
             var supplierParts = await _context.SupplierParts.FindAsync(id);
             if (supplierParts != null)
             {
-                _context.SupplierParts.Remove(supplierParts);
+                try
+                {
+                    _context.SupplierParts.Remove(supplierParts);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return View("SupplierPartCascade");
+                }
             }
-            
-            await _context.SaveChangesAsync();
+
             return View("SupplierPartDeleted");
         }
 
