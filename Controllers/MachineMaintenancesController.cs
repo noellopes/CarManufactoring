@@ -184,14 +184,15 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-                    //inicia-se  a remoção das relações dos trablahadores
-                    var machineCollaborators = await _context.MaintenanceCollaborators.Where(mc => mc.MachineMaintenanceId == id).ToListAsync();
 
-                    foreach( var collaborator in machineCollaborators){
-                        collaborator.Deleted = true;
-                         await _context.SaveChangesAsync();
+                    var machineMaintenanceCollaboratorToDeleteList = await _context.MaintenanceCollaborators.Where(mc => mc.MachineMaintenanceId == id).ToListAsync();
+
+                    foreach(MaintenanceCollaborator machineMaintenanceCollaboratorToDelete in machineMaintenanceCollaboratorToDeleteList)
+                    {
+                        _context.MaintenanceCollaborators.Remove(machineMaintenanceCollaboratorToDelete);
+                        await _context.SaveChangesAsync();
                     }
-
+                    
 
                     //Cria-se um novo objecto do tipo MachineMaintenance com a informação 
                     // actualizada  a guardar na base de dados
@@ -204,22 +205,29 @@ namespace CarManufactoring.Controllers
                     machineMaintenance.MachineId = machineMaintenancePost.MachineId;
                     machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
 
+
                     _context.Update(machineMaintenance);
                     await _context.SaveChangesAsync();
 
                     //uma vez actualizada a manutenção volta-se adicionar as novas relações com os colaboradores
                     if (machineMaintenancePost.CollaboratorsId != null)
                     {
+                        //inicia-se  a remoção das relações dos trablahadores se estes houve alteração nestes, usa-se false delete
 
-                        foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
+                        var machineMaintenanceCollaborators = await _context.MaintenanceCollaborators.Where(mc => mc.MachineMaintenanceId == id).ToListAsync();
+
+                        MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
+
+                        foreach (var updatedCollaboratorId in machineMaintenancePost.CollaboratorsId)
                         {
-                            MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
-                            maintenanceCollaborator.CollaboratorId = collaboratorId;
-                            maintenanceCollaborator.MachineMaintenanceId = machineMaintenance.MachineMaintenanceId;
-                            _context.Add(maintenanceCollaborator);
-                            await _context.SaveChangesAsync();
 
+                              maintenanceCollaborator.CollaboratorId = updatedCollaboratorId;
+                              maintenanceCollaborator.MachineMaintenanceId =machineMaintenancePost.MachineMaintenanceId;
+                              _context.MaintenanceCollaborators.Add(maintenanceCollaborator);
+                              await _context.SaveChangesAsync();
+ 
                         }
+
 
                         return RedirectToAction(nameof(Index));
                     }
