@@ -144,6 +144,11 @@ namespace CarManufactoring.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
 
+            modelBuilder.Entity<Breakdown>()
+                .Property(e => e.MachineReplacement)
+                .HasConversion<string>();
+
+
             modelBuilder.Entity<MaterialUsed>().HasKey(bc => new { bc.MaterialId, bc.SemiFinishedId });
 
             modelBuilder.Entity<MaterialUsed>()
@@ -174,6 +179,7 @@ namespace CarManufactoring.Data
                 .WithMany(c => c.SupplierParts1)
                 .HasForeignKey(x => x.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
+
 
 
         }
