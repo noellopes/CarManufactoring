@@ -7,7 +7,6 @@
 <h1>@ViewBag.Title</h1>
 
 <div>
-    <h4>Brand</h4>
     <hr />
     @if (ViewBag.SuccessMessage != null)
     {
@@ -28,7 +27,7 @@
             </p>
         </div>
     }
-
+    <hr />
     @{
         await Html.RenderPartialAsync("_BrandDetails", Model);
     }
