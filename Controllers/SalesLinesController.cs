@@ -63,7 +63,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(salesLine);
         }
 
@@ -90,7 +90,8 @@ namespace CarManufactoring.Controllers
 
                 _context.Production.Add(new Production { CarConfigId = salesLine.CarConfigId, Quantity = salesLine.Quantity, Date = DateTime.Now });
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Extra created successfully";
+                return RedirectToAction(nameof(Details), new { id = salesLine.OrderId});
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", salesLine.CarConfigId);
             ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", salesLine.OrderId);
@@ -168,7 +169,8 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(salesLine);
         }
 
@@ -184,11 +186,13 @@ namespace CarManufactoring.Controllers
             var salesLine = await _context.SalesLine.FindAsync(id);
             if (salesLine != null)
             {
-                _context.SalesLine.Remove(salesLine);
+                //TODO : Extra was not found page
             }
-            
+            _context.SalesLine.Remove(salesLine);
+            TempData["SuccessMessage"] = "Brand removed successfully.";
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("SalesLineDeleted");
         }
 
         private bool SalesLineExists(int id)

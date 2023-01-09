@@ -48,8 +48,8 @@ namespace CarManufactoring.Models
         public ICollection<CollaboratorShifts>? CollaboraterShift { get; set; }
 
         [Required]
+        [CollaboratorStatusValidator]
         public bool OnDuty { get; set; }
-
         public string? Status { get; set; }
         public ICollection<WorkerPunctuality>? Evaluations { get; set; }
         public ICollection<MaintenanceCollaborator>? MaintenanceCollaborators { get; set; }

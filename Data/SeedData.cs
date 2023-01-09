@@ -10,7 +10,9 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
+
             PopulateGender(db);
+
             PopulateFunction(db);
             PopulateCollaborators(db);
             PopulateCarParts(db);
@@ -52,8 +54,10 @@ namespace CarManufactoring.Data
             PopulateBreakdows(db);
             PopulateLocalizationCar(db);
             PopulateBreakdows(db);
+
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
+
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
