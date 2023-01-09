@@ -1,8 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using System.Xml.Linq;
+
 
 namespace CarManufactoring.Models
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum MachineReplacement {
+        Replacement,
+        Repair
+    }
     public class Breakdown
     {
         public int BreakdownId { get; set; }
@@ -33,13 +40,13 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Machine Replacement")]
-        [StringLength(100, MinimumLength = 2)]
-        public string MachineReplacement { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
+        public MachineReplacement MachineReplacement { get; set; }
 
         [Display(Name = "Repair In The Company")]
         public bool RepairInTheCompany { get; set; }
 
-       // public int MachineId { get; set; }
-       // public Machine Machine { get; set; }
+       //public int MachineId { get; set; }
+       // public Machine Machine? { get; set; }
     }
 }
