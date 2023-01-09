@@ -49,7 +49,7 @@ namespace CarManufactoring.Data
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            //PopulateProductions(db);
+            PopulateProductions(db);
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
@@ -59,7 +59,6 @@ namespace CarManufactoring.Data
           
             PopulateStockFinalProduct(db);
             PopulateBreakdows(db);
-            PopulateLocalizationCar(db);
             PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
@@ -73,9 +72,9 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Colaborator");
             await EnsureRoleIsCreated(roleManager, "ColaboratorMaintenance");
             await EnsureRoleIsCreated(roleManager, "Manager");
-            await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
             await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
+            await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
         }
 
@@ -91,7 +90,8 @@ namespace CarManufactoring.Data
         internal static async Task PopulateUsersAsync(UserManager<IdentityUser> userManager) {
             var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Admin");
-
+            user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
             user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Manager");
 

@@ -25,7 +25,7 @@ namespace CarManufactoring.Controllers
         {
             _context = context;
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions
         public async Task<IActionResult> Index(String carConfig = null, int quantity = 0, int page = 1)
         {
@@ -88,6 +88,7 @@ namespace CarManufactoring.Controllers
 
             return View(model);
         }
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -106,14 +107,14 @@ namespace CarManufactoring.Controllers
 
             return View(production);
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions/Create
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
             return View();
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // POST: Productions/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -130,7 +131,7 @@ namespace CarManufactoring.Controllers
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", production.CarConfigId);
             return View(production);
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -147,7 +148,7 @@ namespace CarManufactoring.Controllers
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", production.CarConfigId);
             return View(production);
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // POST: Productions/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -183,7 +184,7 @@ namespace CarManufactoring.Controllers
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", production.CarConfigId);
             return View(production);
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -202,7 +203,7 @@ namespace CarManufactoring.Controllers
 
             return View(production);
         }
-
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // POST: Productions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
