@@ -143,9 +143,43 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.ProductionId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+
             modelBuilder.Entity<Breakdown>()
                 .Property(e => e.MachineReplacement)
                 .HasConversion<string>();
+
+
+            modelBuilder.Entity<MaterialUsed>().HasKey(bc => new { bc.MaterialId, bc.SemiFinishedId });
+
+            modelBuilder.Entity<MaterialUsed>()
+                .HasOne(x => x.SemiFinished)
+                .WithMany(s => s.Material)
+                .HasForeignKey(x => x.SemiFinishedId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<MaterialUsed>()
+                .HasOne(x => x.Material)
+                .WithMany(s => s.SemiFinished)
+                .HasForeignKey(x => x.MaterialId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>().HasKey(bc => new { bc.PriceSupplierPartsCarPartsId});
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>()
+                .HasOne(x => x.SupplierParts)
+                .WithMany(c => c.CarParts1)
+                .HasForeignKey(x => x.SupplierPartsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>()
+                .HasOne(x => x.CarParts)
+                .WithMany(c => c.SupplierParts1)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
 
 
         }
@@ -241,12 +275,16 @@ namespace CarManufactoring.Data
 
         
         
-        public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
+        //public DbSet<CarManufactoring.Models.AttendedHours> AttendedHours { get; set; }
 
         
         
-
         public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
+        public DbSet<CarManufactoring.Models.SupplierPartsCarParts> SupplierPartsCarParts { get; set; }
+        public DbSet<CarManufactoring.Models.PriceSupplierPartsCarParts> PriceSupplierPartsCarParts { get; set; }
+
+
+
 
         public DbSet<CarManufactoring.Models.Function> Function { get; set; }
 
@@ -266,6 +304,7 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.TimeOfProduction> TimeOfProduction { get; set; }
 
         public DbSet<CarManufactoring.Models.Warehouse> Warehouse { get; set; }
+        public DbSet<CarManufactoring.Models.ShiftSchedule> ShiftSchedule { get; set; }
 
         public DbSet<CarManufactoring.Models.InspectionTestsProduction> InspectionTestsProduction { get; set; }
 

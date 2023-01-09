@@ -3,14 +3,21 @@
 
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Supplier Parts";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 <link rel="stylesheet" href="~/css/SupplierLogo.css">
-
-
-
+<br />
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Search Supplier Parts
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
                 <div class="card border-secondary mb-4">
                     <div class="card-body">
                         <form asp-action="Index" method="get">
@@ -22,9 +29,19 @@
                                 <label for="country" class="form-label">Country</label>
                                 <select name="country" class="form-control" type="search" value="@Model.CountrySearch">
                                     <option selected="selected" disabled="disabled">Please choose a Country</option>
-                                    @foreach (var item in Model.SupplierPartsList.List)
-                                    {
-                                        <option>@item.Country</option>
+                                    @{
+                                        List<string> CountrysAdded = new List<string>();
+                                        foreach (var item in Model.SupplierPartsList.List)
+                                        {
+                                            CountrysAdded.Add(item.Country);
+
+                                        }
+                                        List<string> DeletedDups = CountrysAdded.Distinct().ToList();
+                                        foreach (var item in DeletedDups)
+                                        {
+                                            <option>@item</option>
+
+                                        }
                                     }
                                 </select>
                             </div>
@@ -37,11 +54,29 @@
                         </form>
                     </div>
                 </div>
+            </div>
+       </div>
+    </div>
+</div>
 
+<br/>
 
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
+<div class="btn-group" style="padding-left: 90%;">
+    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Page Size
+    </button>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" asp-action="Index" asp-route-pagesize="2" >2</a></li>
+        <li><a class="dropdown-item" asp-action="Index" asp-route-pagesize="4">4</a></li>
+        <li><a class="dropdown-item" asp-action="Index" asp-route-pagesize="6">6</a></li>
+        <li><a class="dropdown-item" asp-action="Index" asp-route-pagesize="8">8</a></li>
+        <li><a class="dropdown-item" asp-action="Index" asp-route-pagesize="10">10</a></li>
+    </ul>
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -61,6 +96,7 @@
                 @Html.DisplayNameFor(model => new SupplierParts().Country)
             </th>
             <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -74,12 +110,12 @@
                         {
                             Random random = new Random();
                             int num = random.Next(1, 5);
-                                <div class="logo-holder logo-@(num)">
-                                    <h3>@Html.DisplayFor(modelItem => sp.Name)</h3>
-                                    <p>The Best</p>
-                                </div>
+                                    <div class="logo-holder logo-@(num)">
+                                        <h3>@Html.DisplayFor(modelItem => sp.Name)</h3>
+                                        <p>The Best</p>
+                                    </div>
                         }else{
-                                <img src="@(sp.Logo)" width="150" height="150" style="margin-left:75px">
+                                    <img src="@(sp.Logo)" width="150" height="150" style="margin-left:75px">
                         }
                    }
             </td>
@@ -99,7 +135,10 @@
                     <a asp-action="Edit" asp-route-id="@sp.SupplierPartsId" class="btn btn-warning">Edit</a>
 
                     <a asp-action="Details" asp-route-id="@sp.SupplierPartsId" class="btn btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@sp.SupplierPartsId" class="btn btn-danger">Delete</a>
+
+                    <form asp-action="Index" asp-controller="SupplierPartsCarParts" method="get" style="display: inline;">
+                        <button name="supplierid" value="@sp.SupplierPartsId" class="btn btn-success">Product List</button>
+                    </form>
             </td>
         </tr>
 }
@@ -109,23 +148,23 @@
 <nav aria-label="Page navigation">
     <ul class="pagination">
         <li class="page-item @(Model.SupplierPartsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+            <a class="page-link" asp-action="Index" asp-route-page="1" asp-route-pagesize="@Model.SupplierPartsList.PagingInfo.PageSize">First</a>
         </li>
         @for (int p = Model.SupplierPartsList.PagingInfo.InitialPageToShow; p <= Model.SupplierPartsList.PagingInfo.FinalPageToShow; p++)
         {
             if (p == Model.SupplierPartsList.PagingInfo.CurrentPage)
             {
-                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+                <li class="page-item active" aria-current="page"><a class="page-link" asp-action="Index" asp-route-page="@p" asp-route-pagesize="@Model.SupplierPartsList.PagingInfo.PageSize">@p</a></li>
 
             }
             else
             {
 
-                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p" asp-route-pagesize="@Model.SupplierPartsList.PagingInfo.PageSize">@p</a></li>
             }
         }
         <li class="page-item @(Model.SupplierPartsList.PagingInfo.CurrentPage == Model.SupplierPartsList.PagingInfo.TotalPages ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@Model.SupplierPartsList.PagingInfo.TotalPages">Last</a>
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.SupplierPartsList.PagingInfo.TotalPages" asp-route-pagesize="@Model.SupplierPartsList.PagingInfo.PageSize">Last</a>
         </li>
     </ul>
 </nav>

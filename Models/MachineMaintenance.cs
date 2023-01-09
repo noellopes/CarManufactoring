@@ -31,6 +31,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Task Type")]
         public int TaskTypeId { get; set; }
+        [Display(Name = "Task Type")]
         public TaskType? TaskType { get; set; }
 
         [Required]

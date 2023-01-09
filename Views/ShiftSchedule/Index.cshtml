@@ -1,0 +1,111 @@
+﻿@model ShiftScheduleIndexViewModel
+@{
+    ViewData["Title"] = "Shift Schedule";
+}
+@section scripts {
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".deleteShiftSchedule").click(function() {
+                var $this = $(this);
+                var id= $this.attr("data-id");
+
+                $.post("/ShiftSchedule/Delete/" + id, function(data) {
+                    if (data == true) {
+                        $this.parent().parent().remove();
+                    } else {
+                        alert("Item cannot be removed.");
+                    }
+                });
+            });
+
+        });
+    </script>
+}
+
+<h1>@ViewBag.Title</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="Collaborator" class="form-label">ShiftSchedule</label>
+                <select name="Collaborator" class="form-control" type="search" id="Collaborator" value="@Model.CollaboratorSearched">
+                    <option selected="selected" disabled="disabled">Please choose an option</option>
+                    @foreach (var item in Model.Collaborators)
+                    {
+                        <option>@item.Name</option>
+                    }
+                </select>
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
+<p>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model =>new ShiftSchedule().Collaborator)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new ShiftSchedule().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new ShiftSchedule().EndDate)
+            </th>
+            <th>Duration</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.ShiftSchedules.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Collaborator.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDate)
+                </td>
+                <td>@String.Format("{0} Hours",(item.EndDate - item.StartDate).Hours)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ShiftSchedulesId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ShiftSchedulesId" class="btn btn-info">Details</a> |
+                    <a href="#" data-id="@item.ShiftSchedulesId" class="btn btn-danger deleteShiftSchedule">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.ShiftSchedules.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.ShiftSchedules.PagingInfo.InitialPageToShow; p <= Model.ShiftSchedules.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.ShiftSchedules.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.ShiftSchedules.PagingInfo.CurrentPage == Model.ShiftSchedules.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.ShiftSchedules.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

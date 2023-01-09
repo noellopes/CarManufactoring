@@ -26,10 +26,15 @@
                     <div class="mb-3">
                         <label for="configname" class="form-label">Configuration Name</label>
                         <input name="configname" class="form-control" type="search" value="@Model.ConfigNameSearched" />
-                    </div>   
+                    </div>
                     <div class="mb-3">
                         <label for="brand" class="form-label">Brand</label>
-                        <input name="brand" class="form-control" type="search" value="@Model.BrandSearched" />
+                        <select name="brand" class="form-control" type="search" value="@Model.BrandSearched">
+                          <option selected="selected" disabled="disabled">Please choose a Brand</option>
+                          @foreach(var item in Model.CarConfigsList.List){
+                                <option>@item.Car.Brand.BrandName</option>
+                            }
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="car" class="form-label">Car Model</label>
