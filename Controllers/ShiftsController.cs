@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.VisualBasic;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace CarManufactoring.Controllers
 {
@@ -78,15 +80,22 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(shift);
-                await _context.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Shift created successfully.";
-
-                return RedirectToAction(nameof(Details),new { id = shift.ShiftId });
+            var valor = DateTime.Compare(shift.EndDate, shift.StartDate);
+            if(valor < 0 || valor == 0) {
+                ModelState.AddModelError("EndDate", "End Date can not be before Start Date.");
             }
+            else{
+                if (ModelState.IsValid)
+                {
+                    _context.Add(shift);
+                    await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Shift created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+                }
+            }
+            
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
         }
