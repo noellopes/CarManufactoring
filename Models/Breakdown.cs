@@ -22,6 +22,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Breakdown Date")]
+        [DataType(DataType.Date)]
         public DateTime BreakdownDate { get; set; }
 
         [Required]
@@ -31,6 +32,7 @@ namespace CarManufactoring.Models
 
         [Required]
         [Display(Name = "Reparation Date")]
+        [DataType(DataType.Date)]
         public DateTime ReparationDate { get; set; }
 
         [Required]
