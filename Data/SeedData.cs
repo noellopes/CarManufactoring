@@ -25,8 +25,8 @@ namespace CarManufactoring.Data
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
             PopulateMachines(db);
-            /*PopulateMachineMaintenance(db);
-            PopulateInspectionTestState(db);
+            PopulateMachineMaintenance(db);
+            /*PopulateInspectionTestState(db);
             PopulateInspectionTesting(db);
              PopulateCars(db);
              PopulateCarParts(db);
@@ -64,6 +64,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
             await EnsureRoleIsCreated(roleManager, "Manager");
+            await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
         }
@@ -86,6 +87,11 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+
+            user = await EnsureUserIsCreated(userManager, "josav@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+
+
 
         }
 
@@ -301,10 +307,10 @@ namespace CarManufactoring.Data
             if (db.MachineMaintenance.Any()) return;
 
             db.MachineMaintenance.AddRange(
-                // new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
-                // new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
-                // new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
-                // new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
+                 new MachineMaintenance { Description = "Manutenção periódica de Fevereiro",BeginDate = DateTime.Parse("01/02/2022"),ExpectedEndDate = DateTime.Parse("15/02/2022"), EffectiveEndDate = DateTime.Parse("15/02/2022"), TaskTypeId = 2 , PriorityId = 1, MachineId = 2},
+                new MachineMaintenance { Description = "Manutenção periódica de Março",BeginDate= DateTime.Parse("01/03/2022"), ExpectedEndDate = DateTime.Parse("12/03/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 },
+                new MachineMaintenance { Description = "Avaria braço robótico máquina",BeginDate = DateTime.Parse("07/07/2022"),ExpectedEndDate = DateTime.Parse("12/07/2022"), EffectiveEndDate = DateTime.Parse("25/03/2022"), TaskTypeId = 1, PriorityId = 3, MachineId = 3 },
+                new MachineMaintenance { Description = "Manutenção periódica de Dezembro", ExpectedEndDate = DateTime.Parse("18/12/2022"), TaskTypeId = 2, PriorityId = 1, MachineId = 1 }
 
                 );
 
@@ -523,7 +529,8 @@ namespace CarManufactoring.Data
             db.Collaborator.AddRange(
                 new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true },
                 new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false }
+                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false },
+                new Collaborator { Name = "Joaquim Saraiva", BirthDate = DateTime.Parse("05 / 04 / 1981"), Phone = "+351930706133", Email = "josav@cars.pt", GenderId = 1, OnDuty = false }
                 );
             db.SaveChanges();
         }

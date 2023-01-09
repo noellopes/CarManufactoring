@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarManufactoring.ViewModels.Group1
 {
-    public class CreateMachineMaintenanceViewModel
+    public class CrudMachineMaintenanceViewModel
     {
 
         [Display(Name = "Id")]
@@ -47,5 +47,21 @@ namespace CarManufactoring.ViewModels.Group1
 
         public ICollection<MaintenanceCollaborator>? MaintenanceCollection { get; set; }
         public IEnumerable<int>? CollaboratorsId { get; set; }
+
+        public void CastToMaintenaceCrud(MachineMaintenance machineMaintenance){
+            MachineMaintenanceId = machineMaintenance.MachineMaintenanceId;
+            Description = machineMaintenance.Description;
+            Deleted = machineMaintenance.Deleted;
+            BeginDate = machineMaintenance.BeginDate;
+            EffectiveEndDate = machineMaintenance.EffectiveEndDate;
+            ExpectedEndDate = machineMaintenance.ExpectedEndDate;
+            TaskTypeId = machineMaintenance.TaskTypeId;
+            TaskType = machineMaintenance.TaskType;
+            Priority = machineMaintenance.Priority;
+            PriorityId = machineMaintenance.PriorityId;
+            MachineId = machineMaintenance.MachineId;
+            Machine = machineMaintenance.Machine;
+
+        }
     }
 }
