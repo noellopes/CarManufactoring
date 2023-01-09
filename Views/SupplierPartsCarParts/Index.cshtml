@@ -12,43 +12,45 @@
 <br />
 
 
+
+
 @{
 if (Model.SupplierPartsCarPartsList.List.ToArray().Length != 0){
     <dl class="row">
-            <dt class="col-sm-2">
-                Logo
-            </dt>
-            <dd class="col-sm-10">
-                @{
+                    <dt class="col-sm-2">
+                        Logo
+                    </dt>
+                    <dd class="col-sm-10">
+                        @{
                 if (Model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Logo == null)
                 {
                     Random random = new Random();
                     int num = random.Next(1, 5);
 
-                                        <div class="logo-@(num)">
-                                            <h3>@Html.DisplayFor(model => model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Name)</h3>
-                                            <p>The Best</p>
-                                        </div>
+                                                        <div class="logo-@(num)">
+                                                            <h3>@Html.DisplayFor(model => model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Name)</h3>
+                                                            <p>The Best</p>
+                                                        </div>
                 }
                 else
                 {
-                                       <img src="@(Model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Logo)" width="150" height="150">
+                                                       <img src="@(Model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Logo)" width="150" height="150">
                 }
-                }
-            </dd>
-            <dt class="col-sm-2">
-                Name
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Name)
-            </dd>
+                        }
+                    </dd>
+                    <dt class="col-sm-2">
+                        Name
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.SupplierPartsCarPartsList.List.ToArray()[0].SupplierParts.Name)
+                    </dd>
     </dl>
     <br />
     <br />
 }else{
     <h1 style="color: red">Supplier Has No Products!</h1>
-        <br />
-        <br />
+    <br />
+    <br />
 }
 }
 
@@ -92,3 +94,27 @@ if (Model.SupplierPartsCarPartsList.List.ToArray().Length != 0){
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.SupplierPartsCarPartsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+        @for (int p = Model.SupplierPartsCarPartsList.PagingInfo.InitialPageToShow; p <= Model.SupplierPartsCarPartsList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.SupplierPartsCarPartsList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+
+            }
+            else
+            {
+
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.SupplierPartsCarPartsList.PagingInfo.CurrentPage == Model.SupplierPartsCarPartsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.SupplierPartsCarPartsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
