@@ -49,7 +49,7 @@ namespace CarManufactoring.Data
             PopulateWarehouseStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
-            //PopulateProductions(db);
+            PopulateProductions(db);
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
@@ -97,9 +97,13 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+
             user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user,"Mechanical Eginner");
-            
+
+            user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
+
             user = await EnsureUserIsCreated(userManager, "Supp@ipg.pt", "Secret");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
         }
