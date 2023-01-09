@@ -41,7 +41,7 @@ namespace CarManufactoring.Models
         public int MachineStop { get; set; }
 
         [Required]
-        [Display(Name = "Machine Replacement")]
+        [Display(Name = "machine state")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public MachineReplacement MachineReplacement { get; set; }
 

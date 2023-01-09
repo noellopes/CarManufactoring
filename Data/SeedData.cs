@@ -720,11 +720,21 @@ namespace CarManufactoring.Data
                  new Breakdown
                  {
                      BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownDate = DateTime.Parse("13/01/2023"),
+                     BreakdownNumber = 3,
+                     ReparationDate = DateTime.Parse("16/01/2023"),
+                     MachineStop = 12,
+                     MachineReplacement =MachineReplacement.Replacement,
+                     RepairInTheCompany = false
+                 },
+                 new Breakdown
+                 {
+                     BreakdownName = "Sistema de projeção",
                      BreakdownDate = DateTime.Parse("13/02/2022"),
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("13/02/2022"),
                      MachineStop = 12,
-                     MachineReplacement =MachineReplacement.Replacement,
+                     MachineReplacement = MachineReplacement.Replacement,
                      RepairInTheCompany = false
                  }
 
