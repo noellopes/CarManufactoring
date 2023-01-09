@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20230109060906_breakdownMig")]
-    partial class breakdownMig
+    [Migration("20230109082106_breakdownMigration")]
+    partial class breakdownMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

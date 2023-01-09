@@ -4,7 +4,7 @@
 
 namespace CarManufactoring.Migrations
 {
-    public partial class breakdownMig : Migration
+    public partial class breakdownMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
