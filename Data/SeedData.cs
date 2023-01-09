@@ -703,7 +703,7 @@ namespace CarManufactoring.Data
                    BreakdownNumber = 1,
                    ReparationDate = DateTime.Parse("13/02/2022"),
                    MachineStop = 4,
-                   MachineReplacement = "",
+                   MachineReplacement =MachineReplacement.Replacement,
                    RepairInTheCompany = true
                },
 
@@ -714,7 +714,7 @@ namespace CarManufactoring.Data
                     BreakdownNumber = 2,
                     ReparationDate = DateTime.Parse("03/01/2023"),
                     MachineStop = 12,
-                    MachineReplacement = "",
+                    MachineReplacement = MachineReplacement.Repair,
                     RepairInTheCompany = true
                 },
                  new Breakdown
@@ -724,8 +724,8 @@ namespace CarManufactoring.Data
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("13/02/2022"),
                      MachineStop = 12,
-                     MachineReplacement = "",
-                     RepairInTheCompany = true
+                     MachineReplacement =MachineReplacement.Replacement,
+                     RepairInTheCompany = false
                  }
 
 
