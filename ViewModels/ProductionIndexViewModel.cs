@@ -7,8 +7,6 @@ namespace CarManufactoring.ViewModels
     {
         public ListViewModel<Production> ProductionList { get; set; }
 
-        public ArrayList ProductionProgress { get; set; }
-
         public IEnumerable<CarConfig> CarConfigs { get; set; }
 
         public String? CarConfigSearched { get; set; }
