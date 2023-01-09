@@ -22,6 +22,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts
+        [Authorize(Roles = "Admin, Mechanical Eginner, Colaborator")]
         public async Task<IActionResult> Index(string CarConfigName = null, string CarPartName = null, int QtdPecas = 0, int page = 1)
         {
             var empty = _context.ModelParts.Count();
@@ -71,6 +72,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Details/5
+        [Authorize(Roles = "Admin, Mechanical Eginner, Colaborator")]
         public async Task<IActionResult> Details(int? CarConfigId, int? ProductId)
         {
 
