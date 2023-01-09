@@ -92,8 +92,7 @@ namespace CarManufactoring.Migrations
 
                     b.Property<string>("MachineReplacement")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MachineStop")
                         .HasColumnType("int");

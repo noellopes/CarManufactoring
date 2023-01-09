@@ -141,7 +141,11 @@ namespace CarManufactoring.Data
                 .HasOne(x => x.Production)
                 .WithMany(s => s.InspectionTests)
                 .HasForeignKey(x => x.ProductionId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Breakdown>()
+                .Property(e => e.MachineReplacement)
+                .HasConversion<string>();
 
 
         }
