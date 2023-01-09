@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels.Group2;
+using CarManufactoring.ViewModels;
+using CarManufactoring.ViewModels.Group8;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,11 +23,39 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Breakdowns
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string breakdownName = null, int page = 1)
         {
-              return View(await _context.Breakdown.ToListAsync());
-        }
+            var breakdowns = _context.Breakdown
+              .Where(b => breakdownName == null || b.BreakdownName.Contains(breakdownName))
+              .OrderBy(b => b.BreakdownName);
 
+            var pagingInfo = new PagingInfoViewModel(await breakdowns.CountAsync(), page);
+
+            try
+            {
+                var model = new BreakdownIndexViewModel
+                {
+                    BreakdownList = new ListViewModel<Breakdown>
+                    {
+                        List = await breakdowns
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                        PagingInfo = pagingInfo
+                    },
+
+                    BreakdownNameSearch = breakdownName
+
+
+                };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, page);
+            }
+        }
         // GET: Breakdowns/Details/5
         public async Task<IActionResult> Details(int? id)
         {
