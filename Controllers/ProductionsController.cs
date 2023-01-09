@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Collections;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
@@ -39,28 +41,11 @@ namespace CarManufactoring.Controllers
 
             var pagingInfo = new PagingInfoViewModel(await production.CountAsync(), page);
 
-            var lista = (from p in _context.Production
-                         join t in _context.TimeOfProduction
-                         on p.CarConfigId equals t.CarConfigId into lj
-                         from res in lj.DefaultIfEmpty()
-                         select new
-                         {
-                             CarConfigId = p.CarConfigId,
-                             TimeOfProductionId = res.TimeOfProductionId,
-                             TimeOfProduction = res.Time,
-                             StartDate = p.Date
-                         }).ToList();
-
-            var tempList = production.ToList();
-
-            var index = 0;
-
-            ArrayList progress = new ArrayList();
-
-            foreach(var item in lista)
+            foreach(var item in await production.ToListAsync())
             {
-                DateTime startDate = item.StartDate;
-                DateTime endDate = item.StartDate.AddMinutes(item.TimeOfProduction);
+                DateTime startDate = item.Date;
+                var time = await _context.TimeOfProduction.Include(s => s.CarConfig).FirstOrDefaultAsync(c => c.CarConfigId == item.CarConfigId);
+                DateTime endDate = item.Date.AddMinutes(time.Time);
                 DateTime currentDate = DateTime.Now;
 
                 double totalMinuts = endDate.Subtract(startDate).TotalMinutes;
@@ -70,14 +55,12 @@ namespace CarManufactoring.Controllers
 
                 percentagemCompleta = percentagemCompleta * 100;
 
-                progress.Add(percentagemCompleta);
-
-                if(percentagemCompleta >= 100 && !AlreadyInStockFinal(tempList[index].ProductionId))
+                if(percentagemCompleta >= 100 && !AlreadyInStockFinal(item.ProductionId))
                 {
                     var pos = await _context.LocalizationCar.
                        FirstOrDefaultAsync(m => !m.IsOccupied);
 
-                    _context.StockFinalProduct.Add(new StockFinalProduct { ProductionId = tempList[index].ProductionId, InsertionDate = DateTime.Now, ChassiNumber = "", LocalizationCarId = pos.LocalizationCarId });
+                    _context.StockFinalProduct.Add(new StockFinalProduct { ProductionId = item.ProductionId, InsertionDate = DateTime.Now, ChassiNumber = "", LocalizationCarId = pos.LocalizationCarId });
                     await _context.SaveChangesAsync();
 
                     pos.IsOccupied = true;
@@ -85,14 +68,11 @@ namespace CarManufactoring.Controllers
                     _context.LocalizationCar.Update(pos);
                     await _context.SaveChangesAsync();
                 }
-                index++;
             }
 
 
             var model = new ProductionIndexViewModel
             {
-
-                ProductionProgress = progress,
 
                 ProductionList = new ListViewModel<Production>
                 {
@@ -235,18 +215,20 @@ namespace CarManufactoring.Controllers
             var production = await _context.Production.FindAsync(id);
             if (production != null)
             {
+                var stockFinal = await _context.StockFinalProduct.Include(p => p.LocalizationCar).FirstOrDefaultAsync(e => e.ProductionId == id);
+
                 _context.Production.Remove(production);
-                await _context.SaveChangesAsync();
 
-                var stockFinal = await _context.StockFinalProduct.FirstOrDefaultAsync(e => e.ProductionId == id);
-                _context.StockFinalProduct.Remove(stockFinal);
-
-                var pos = await _context.LocalizationCar.
+                if(stockFinal != null)
+                {
+                    var pos = await _context.LocalizationCar.
                        FirstOrDefaultAsync(m => m.LocalizationCarId == stockFinal.LocalizationCarId);
 
-                pos.IsOccupied = false;
+                    pos.IsOccupied = false;
 
-                _context.LocalizationCar.Update(pos);
+                    _context.LocalizationCar.Update(pos);
+                }
+
                 await _context.SaveChangesAsync();
             }
 
