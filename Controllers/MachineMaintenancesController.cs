@@ -103,7 +103,7 @@ namespace CarManufactoring.Controllers
 
             if (ModelState.IsValid)
             {
-        
+                
                 MachineMaintenance machineMaintenance = new MachineMaintenance();
 
                 machineMaintenance.Description = machineMaintenancePost.Description;
@@ -184,7 +184,7 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
-
+                       //Começa-se por apagar as relações existentes na tabela de relacionamento Collaboratoes e Maintenance
                     var machineMaintenanceCollaboratorToDeleteList = await _context.MaintenanceCollaborators.Where(mc => mc.MachineMaintenanceId == id).ToListAsync();
 
                     foreach(MaintenanceCollaborator machineMaintenanceCollaboratorToDelete in machineMaintenanceCollaboratorToDeleteList)
@@ -212,12 +212,11 @@ namespace CarManufactoring.Controllers
                     //uma vez actualizada a manutenção volta-se adicionar as novas relações com os colaboradores
                     if (machineMaintenancePost.CollaboratorsId != null)
                     {
-                        //inicia-se  a remoção das relações dos trablahadores se estes houve alteração nestes, usa-se false delete
 
                         var machineMaintenanceCollaborators = await _context.MaintenanceCollaborators.Where(mc => mc.MachineMaintenanceId == id).ToListAsync();
 
                         MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
-
+                        //percorre-se um a um os colaboradores novos a actualizar
                         foreach (var updatedCollaboratorId in machineMaintenancePost.CollaboratorsId)
                         {
 
@@ -283,13 +282,27 @@ namespace CarManufactoring.Controllers
             {
                 return Problem("Entity set 'CarManufactoringContext.MachineMaintenance'  is null.");
             }
+            //buscamos os colaboradores apagar
+            var machineMaintenanceCollaborators = await _context.MaintenanceCollaborators.Where(m => m.MachineMaintenanceId == id).ToListAsync();
             var machineMaintenance = await _context.MachineMaintenance.FindAsync(id);
+          
+
             if (machineMaintenance != null)
             {
-                _context.MachineMaintenance.Remove(machineMaintenance);
+                machineMaintenance.Deleted = true;
+
+                await _context.SaveChangesAsync();
+
+                //percorremos todos os colaboradores e modamos o estado para apagar
+                foreach(var collaborator in machineMaintenanceCollaborators)
+                {
+                    collaborator.Deleted = true;
+                    await _context.SaveChangesAsync();
+
+                }
             }
             
-            await _context.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

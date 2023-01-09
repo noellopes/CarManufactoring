@@ -16,7 +16,7 @@ namespace CarManufactoring.Models
         public DateTime BeginDate { get; set; } = DateTime.Now.Date;
 
         [DataType(DataType.Date)]
-        public DateTime EffectiveEndDate { get; set; }
+        public DateTime? EffectiveEndDate { get; set; } = null;
 
         public bool Deleted { get; set; } = false;
 
