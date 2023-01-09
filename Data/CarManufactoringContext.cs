@@ -160,6 +160,22 @@ namespace CarManufactoring.Data
 
 
 
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>().HasKey(bc => new { bc.PriceSupplierPartsCarPartsId});
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>()
+                .HasOne(x => x.SupplierParts)
+                .WithMany(c => c.CarParts1)
+                .HasForeignKey(x => x.SupplierPartsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>()
+                .HasOne(x => x.CarParts)
+                .WithMany(c => c.SupplierParts1)
+                .HasForeignKey(x => x.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
         }
        
 
@@ -259,7 +275,7 @@ namespace CarManufactoring.Data
         
         public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
         public DbSet<CarManufactoring.Models.SupplierPartsCarParts> SupplierPartsCarParts { get; set; }
-
+        public DbSet<CarManufactoring.Models.PriceSupplierPartsCarParts> PriceSupplierPartsCarParts { get; set; }
 
 
 
