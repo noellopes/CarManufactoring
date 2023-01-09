@@ -159,9 +159,9 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachineMaintenanceId,Description,Deleted,BeginDate,Effective_End_Date,Expected_End_Date")] MachineMaintenance machineMaintenance)
+        public async Task<IActionResult> Edit(int id, CreateMachineMaintenanceViewModel machineMaintenancePost)
         {
-            if (id != machineMaintenance.MachineMaintenanceId)
+            if (id != machineMaintenancePost.MachineMaintenanceId)
             {
                 return NotFound();
             }
@@ -170,12 +170,36 @@ namespace CarManufactoring.Controllers
             {
                 try
                 {
+                    var machineCollaborators = _context.MaintenanceCollaborators.Where(mc => mc.MachineMaintenanceId == id);
+
+                    _context.Remove(machineCollaborators);
+                    await _context.SaveChangesAsync();
+
+                    MachineMaintenance machineMaintenance = new MachineMaintenance();
+
+                    machineMaintenance.Description = machineMaintenancePost.Description;
+                    machineMaintenance.PriorityId = machineMaintenancePost.PriorityId;
+                    machineMaintenance.ExpectedEndDate = machineMaintenancePost.ExpectedEndDate;
+                    machineMaintenance.MachineId = machineMaintenancePost.MachineId;
+                    machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
+
                     _context.Update(machineMaintenance);
                     await _context.SaveChangesAsync();
+                    if (machineMaintenancePost.CollaboratorsId != null)
+                    {
+                        foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
+                        {
+                            MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
+                            maintenanceCollaborator.CollaboratorId = collaboratorId;
+                            maintenanceCollaborator.MachineMaintenanceId = machineMaintenance.MachineMaintenanceId;
+                            _context.Add(maintenanceCollaborator);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!MachineMaintenanceExists(machineMaintenance.MachineMaintenanceId))
+                    if (!MachineMaintenanceExists(machineMaintenancePost.MachineMaintenanceId))
                     {
                         return NotFound();
                     }
@@ -186,7 +210,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(machineMaintenance);
+            return View(machineMaintenancePost);
         }
 
         // GET: MachineMaintenances/Delete/5
