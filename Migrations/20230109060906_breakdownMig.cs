@@ -4,10 +4,19 @@
 
 namespace CarManufactoring.Migrations
 {
-    public partial class BreakdownMig : Migration
+    public partial class breakdownMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "MachineReplacement",
+                table: "Breakdown",
+                type: "nvarchar(max)",
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(100)",
+                oldMaxLength: 100);
+
             migrationBuilder.AddColumn<bool>(
                 name: "RepairInTheCompany",
                 table: "Breakdown",
@@ -51,6 +60,15 @@ namespace CarManufactoring.Migrations
             migrationBuilder.DropColumn(
                 name: "RepairInTheCompany",
                 table: "Breakdown");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "MachineReplacement",
+                table: "Breakdown",
+                type: "nvarchar(100)",
+                maxLength: 100,
+                nullable: false,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
         }
     }
 }

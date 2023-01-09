@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20230105020142_BreakdownMig")]
-    partial class BreakdownMig
+    [Migration("20230109060906_breakdownMig")]
+    partial class breakdownMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -94,8 +94,7 @@ namespace CarManufactoring.Migrations
 
                     b.Property<string>("MachineReplacement")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("MachineStop")
                         .HasColumnType("int");
