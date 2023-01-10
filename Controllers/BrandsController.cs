@@ -129,7 +129,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.BrandId == id);
             if (brand == null)
             {
-                return NotFound();
+                return View("BrandNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -148,11 +148,10 @@ namespace CarManufactoring.Controllers
             var brand = await _context.Brand.FindAsync(id);
             if (brand != null)
             {
-               //TODO : Brand was not found page
+             _context.Brand.Remove(brand);
+             await _context.SaveChangesAsync();
             }
-            _context.Brand.Remove(brand);
             TempData["SuccessMessage"] = "Brand removed successfully.";
-            await _context.SaveChangesAsync();
             return View("BrandDeleted");
         }
 
