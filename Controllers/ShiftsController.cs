@@ -59,7 +59,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ShiftId == id);
             if (shift == null)
             {
-                return NotFound();
+                return View("ShiftNotFound");
             }
 
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -111,7 +111,7 @@ namespace CarManufactoring.Controllers
             var shift = await _context.Shift.FindAsync(id);
             if (shift == null)
             {
-                return NotFound();
+                View("ShiftNotFound");
             }
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
@@ -143,7 +143,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!ShiftExists(shift.ShiftId))
                     {
-                        return NotFound();
+                        View("ShiftNotFound");
                     }
                     else
                     {
@@ -169,7 +169,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ShiftId == id);
             if (shift == null)
             {
-                return NotFound();
+                return View("ShiftNotFound");
             }
 
             return View(shift);
