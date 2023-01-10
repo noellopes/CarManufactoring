@@ -55,9 +55,9 @@ namespace CarManufactoring.Controllers
 
         // GET: SemiFinishedCars/Details/5
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int? CarId, int? SemiFinishedId)
+        public async Task<IActionResult> Details(int? Id)
         {
-            if (_context.SemiFinishedCar == null)
+            if (Id == null || _context.SemiFinishedCar == null)
             {
                 return NotFound();
             }
@@ -65,7 +65,7 @@ namespace CarManufactoring.Controllers
             var semiFinishedCar = await _context.SemiFinishedCar
                 .Include(s => s.Car.Brand)
                 .Include(s => s.SemiFinished)
-                .FirstOrDefaultAsync(m => m.CarId == CarId && m.SemiFinishedId == SemiFinishedId);
+                .FirstOrDefaultAsync(m => m.SemiFinishedCarsId == Id);
             if (semiFinishedCar == null)
             {
                 return View("SemiFinishedCarNotFound");
@@ -90,14 +90,14 @@ namespace CarManufactoring.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Colaborator,Manager")]
-        public async Task<IActionResult> Create([Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
+        public async Task<IActionResult> Create([Bind("SemiFinishedCarsId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(semiFinishedCar);
                 await _context.SaveChangesAsync();
                 TempData["SemiFinishedCar_SuccessMessage"] = "Relation created successfully.";
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new { id = semiFinishedCar.SemiFinishedCarsId });
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarId", semiFinishedCar.CarId);
             ViewData["SemiFinishedId"] = new SelectList(_context.SemiFinished, "SemiFinishedId", "Reference", semiFinishedCar.SemiFinishedId);
@@ -106,14 +106,15 @@ namespace CarManufactoring.Controllers
 
         // GET: SemiFinishedCars/Edit/5
         [Authorize(Roles = "Admin,Colaborator,Manager")]
-        public async Task<IActionResult> Edit([FromRoute] string CarId, [FromRoute] string SemiFinishedId)
+        public async Task<IActionResult> Edit(int? Id)
         {
-            if (!ModelState.IsValid || _context.SemiFinishedCar == null)
+            if (Id == null || _context.SemiFinishedCar == null)
             {
                 return NotFound();
             }
 
-            var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(CarId,SemiFinishedId);
+            var semiFinishedCar = await _context.SemiFinishedCar.FirstOrDefaultAsync(m => m.SemiFinishedCarsId == Id);
+            
             if (semiFinishedCar == null)
             {
                 return NotFound("SemiFinishedCarNotFound");
@@ -129,9 +130,9 @@ namespace CarManufactoring.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Colaborator,Manager")]
-        public async Task<IActionResult> Edit(int? CarId, int? SemiFinished, [Bind("SemiFinishedCarId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
+        public async Task<IActionResult> Edit(int? Id, [Bind("SemiFinishedCarsId,SemiFinishedId,CarId")] SemiFinishedCar semiFinishedCar)
         {
-            if (CarId != semiFinishedCar.CarId)
+            if (Id != semiFinishedCar.SemiFinishedCarsId)
             {
                 return NotFound();
             }
@@ -143,11 +144,11 @@ namespace CarManufactoring.Controllers
                     _context.Update(semiFinishedCar);
                     await _context.SaveChangesAsync();
                     TempData["SemiFinishedCar_SuccessMessage"] = "Relation Successfully Edited";
-                    return RedirectToAction(nameof(Details), new { CarId = semiFinishedCar.CarId });
+                    return RedirectToAction(nameof(Details), new { Id = semiFinishedCar.SemiFinishedCarsId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SemiFinishedCarExists(semiFinishedCar.SemiFinishedId))
+                    if (!SemiFinishedCarExists(semiFinishedCar.SemiFinishedCarsId))
                     {
                         return View("SemiFinishedCarNotFound");
                     }
@@ -165,9 +166,9 @@ namespace CarManufactoring.Controllers
 
         // GET: SemiFinishedCars/Delete/5
         [Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> Delete(int? CarId, int? SemiFinishedId)
+        public async Task<IActionResult> Delete(int? Id)
         {
-            if (_context.SemiFinishedCar == null)
+            if (Id == null || _context.SemiFinishedCar == null)
             {
                 return NotFound();
             }
@@ -175,7 +176,8 @@ namespace CarManufactoring.Controllers
             var semiFinishedCar = await _context.SemiFinishedCar
                 .Include(s => s.Car.Brand)
                 .Include(s => s.SemiFinished)
-                .FirstOrDefaultAsync(m => m.CarId == CarId && m.SemiFinishedId == SemiFinishedId);
+                .FirstOrDefaultAsync(m => m.SemiFinishedCarsId == Id);
+
             if (semiFinishedCar == null)
             {
                 return View("SemiFinishedCarNotFound");
@@ -188,13 +190,13 @@ namespace CarManufactoring.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,Manager")]
-        public async Task<IActionResult> DeleteConfirmed([FromRoute] string CarId, [FromRoute] string SemiFinishedId)
+        public async Task<IActionResult> DeleteConfirmed(int? Id)
         {
-            if (_context.SemiFinishedCar == null)
+            if (Id == null || _context.SemiFinishedCar == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.SemiFinishedCar'  is null.");
             }
-            var semiFinishedCar = await _context.SemiFinishedCar.FindAsync(CarId,SemiFinishedId);
+            var semiFinishedCar = await _context.SemiFinishedCar.FirstOrDefaultAsync(m => m.SemiFinishedCarsId == Id);
             if (semiFinishedCar != null)
             {
                 _context.SemiFinishedCar.Remove(semiFinishedCar);
