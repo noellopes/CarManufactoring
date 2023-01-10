@@ -35,7 +35,7 @@ namespace CarManufactoring.Data
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
-            PopulateMachines(db);
+            //PopulateMachines(db);
             //PopulateMachineMaintenance(db);
             PopulateCars(db);
             //PopulateTimeOfProduction(db);
@@ -192,8 +192,8 @@ namespace CarManufactoring.Data
 
             db.SemiFinishedCar.AddRange(
 
-                new SemiFinishedCar {SemiFinishedCarsId=1, SemiFinishedId =1, CarId=2},
-                new SemiFinishedCar {SemiFinishedCarsId=2, SemiFinishedId = 2, CarId = 3}
+                new SemiFinishedCar {SemiFinishedId =1, CarId=2},
+                new SemiFinishedCar {SemiFinishedId = 2, CarId = 3}
 
                 );
 
@@ -304,7 +304,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
 
         }
-
+        /*
         // Seed da tabela Machine
         private static void PopulateMachines(CarManufactoringContext db)
         {
@@ -324,6 +324,7 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+        */
 
         private static void PopulateMachineMaintenance(CarManufactoringContext db)
         {
@@ -895,6 +896,6 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-
+        */
     }
 }
