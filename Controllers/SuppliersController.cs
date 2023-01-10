@@ -81,7 +81,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Create
-        [Authorize(Roles = "SupplierEginner")]
+        //[Authorize(Roles = "Admin, SupplierEginner")]
         public IActionResult Create()
         {
             return View();
