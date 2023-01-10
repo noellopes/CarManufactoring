@@ -44,7 +44,6 @@ namespace CarManufactoring.Controllers
             .Where(m => !m.EffectiveEndDate.HasValue)
             .Where(m => m.Deleted == false)
             .ToListAsync();
-            
 
             var model = new MachineMaintenaceIndexViewModel
             {
@@ -63,28 +62,28 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var machineMaintenance = await _context.MachineMaintenance
-                .FirstOrDefaultAsync(m => m.MachineMaintenanceId == id);
+            var machineMaintenance = await _context.MachineMaintenance.
+                Include(m => m.Machine.MachineModel.MachineBrandNames).
+                FirstOrDefaultAsync(m => m.MachineMaintenanceId == id);
+
+
             if (machineMaintenance == null)
             {
                 return NotFound();
             }
 
-            return View(machineMaintenance);
+            ViewData["Collaborators"] = await _context.MaintenanceCollaborators.Include(c => c.Collaborators).Where(mc => mc.MachineMaintenanceId == id).ToListAsync();
+            
+
+                return View(machineMaintenance);
         }
 
-        
-        public IActionResult CollaboratorGetMaintenance(int? id)
-        {
-            
-            return View();
-        }
 
         // GET: MachineMaintenances/Create
         public async Task<IActionResult> Create()
         {
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
             ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
 
             var machines = await  _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
@@ -129,7 +128,7 @@ namespace CarManufactoring.Controllers
             }
 
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
             ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
 
             var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
@@ -159,9 +158,9 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName", machineMaintenanceViewModel.TaskTypeId);
+            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", machineMaintenanceViewModel.CollaboratorsId);
-            ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name", machineMaintenanceViewModel.PriorityId);
+            ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
             var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
 
             ViewData["MachinesId"] = machines;
