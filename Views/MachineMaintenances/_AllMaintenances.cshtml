@@ -1,0 +1,99 @@
+﻿@using CarManufactoring.ViewModels.Group1;
+@model MachineMaintenaceIndexViewModel
+@{
+    var state = "Aberto";
+}
+
+<table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().MachineMaintenanceId)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().Description)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().BeginDate)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().ExpectedEndDate)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().EffectiveEndDate)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().TaskTypeId)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().PriorityId)
+                                </th>
+                                <th>
+                @Html.DisplayNameFor(model => model.All.First().MachineId)
+                                </th>
+                                <th>
+                                    Estado
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+        @foreach (var machineMaintenace in Model.All)
+        {
+                                    <tr class="text-decoration-none ">
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.MachineMaintenanceId
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.Description
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.BeginDate.ToShortDateString()
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.ExpectedEndDate.ToShortDateString()
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.EffectiveEndDate
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.TaskType.TaskName
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.Priority.Name
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                                            <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
+                                            </a>
+                                        </td>
+                                        <td scope="col">
+                    @if (machineMaintenace.EffectiveEndDate != null)
+                    {
+                        state = "Fechado";
+
+                    }
+                    else
+                    {
+                        state = "Aberto";
+                    }
+                    @state
+                                        </td>
+                                    </tr>
+        }
+       </tbody>                 
+ </table>

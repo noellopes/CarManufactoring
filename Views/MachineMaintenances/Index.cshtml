@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "Gestão de Máquina na Linha de Produção";
+    
 }
 
 <div class="container-fluid">
@@ -15,11 +16,14 @@
     <div class="row py-4">
         <div class="col-4">
             <a class="btn" asp-action="Create"><i class="fa-sharp fa-solid fa-plus pe-2"></i>Criar</a>
+            <div>
+                <canvas id="myChart"></canvas>
+            </div>
         </div>
         <div class="col-8">
             <h3>Trabalhos em aberto</h3>           
             <hr />
-            <table class="table">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr>
                         <th>
@@ -50,23 +54,52 @@
                     
                     @foreach (var machineMaintenace in Model.OnProgress)
                     {
-                        <tr>
-                            <td>@machineMaintenace.MachineMaintenanceId</td>
-                            <td>@machineMaintenace.Description</td>
-                            <td>@machineMaintenace.BeginDate.ToShortDateString()</td>
-                            <td>@machineMaintenace.ExpectedEndDate.ToShortDateString()</td>
-                            <td>@machineMaintenace.TaskType.TaskName</td>
-                            <td>@machineMaintenace.Priority.Name</td>
-                            <td>@machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName </td>
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        <tr class="text-decoration-none ">
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.MachineMaintenanceId
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.Description
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.BeginDate.ToShortDateString()
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.ExpectedEndDate.ToShortDateString()
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.TaskType.TaskName
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.Priority.Name
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                    @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
+                                </a>
+                            </td>
+                            <td scope="col">
+                                <a class="text-decoration-none text-black" asp-action="Edit" asp-route-id="@machineMaintenace.MachineMaintenanceId">
                                     <i class="fa-regular fa-pen-to-square"></i>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                                <a class="text-decoration-none text-black" asp-action="Delete" asp-route-id="@machineMaintenace.MachineMaintenanceId">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a>
                             </td>
-                        </tr>   
+    
+                        </tr>    
                     }
                 </tbody>
             </table>
@@ -76,7 +109,7 @@
         <div class="col-6">
             <form asp-action="Index" method="get">
                 <div class="mb-3">
-                    <label for="brand" class="form-label">Brand</label>
+                    <label for="brand" class="form-label">Pesquisa</label>
                     <input name="brand" class="form-control" type="search" value="" />
                 </div>
 
@@ -87,55 +120,59 @@
     </div>
     <div class="row py-4">
         <div class="col-12">
-            <h3>Todos os Trabalhos</h3>
+            <h3>Tarefas</h3>
             <hr />
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().MachineMaintenanceId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().Description)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().BeginDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().ExpectedEndDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().EffectiveEndDate)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().TaskTypeId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().PriorityId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.All.First().MachineId)
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
 
-                    @foreach (var machineMaintenace in Model.All)
-                    {
-                        <tr>
-                            <td>@machineMaintenace.MachineMaintenanceId</td>
-                            <td>@machineMaintenace.Description</td>
-                            <td>@machineMaintenace.BeginDate.ToShortDateString()</td>
-                            <td>@machineMaintenace.ExpectedEndDate.ToShortDateString()</td>
-                            <td>@machineMaintenace.EffectiveEndDate?.Date.ToShortDateString()</td>
-                            <td>@machineMaintenace.TaskType.TaskName</td>
-                            <td>@machineMaintenace.Priority.Name</td>
-                            <td>@machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName </td>
-                        </tr>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#all-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Todas Tarefas</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#closed-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Tarefas Fechadas</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#deleted-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Tarefas Eliminadas</button>
+           
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="all-pane" role="tabpanel" aria-labelledby="all-tab" tabindex="0">
+                    @{
+                        await Html.RenderPartialAsync("_AllMaintenances", Model);
                     }
-                </tbody>
-            </table>
-        </div>
-
+                </div>
+                <div class="tab-pane fade" id="closed-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    @{
+                        await Html.RenderPartialAsync("_ClosedMaintenances", Model);
+                     }
+                </div>
+                <div class="tab-pane fade" id="deleted-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+                    @{
+                        await Html.RenderPartialAsync("_DeletedMaintenances", Model);
+                    }
+                </div>           
+            </div>
     </div>
 </div>
+
+
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Abertas', 'Fechadas'],
+            datasets: [{
+                label: 'Estado das Manutenções',
+                data: [@Model.All.Count(), @Model.OnProgress.Count()],
+                backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)'
+                ],
+            hoverOffset: 4
+            }]
+        },
+       
+    });
+</script>
