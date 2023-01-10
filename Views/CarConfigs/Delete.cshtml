@@ -1,18 +1,22 @@
 ﻿@model CarManufactoring.Models.CarConfig
 
 <hr />
-@if (ViewBag.SuccessMessage != null)
+@if(ViewBag.NumberCarConfSalesLines > 0 )
 {
-    <div class="alert alert-danger" role="alert">
-
-        <h1 class="text-danger">
-            Are you sure you want to delete all the information related to this car configuration ?
-        </h1>
-
-        <p>
-            @ViewBag.SuccessMessage
-        </p>
-    </div>
+     await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel {
+                        CssClass = "alert-warning",
+                        Title = "The car configuration cannot be delete ",
+                    Description = $"This car cannot be deleted since it has already {ViewBag.NumberCarConfSalesLines} sales lines associated. In order to delete the car configuration first you must delete his sales lines."
+                    });
+}
+else
+{
+     await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel
+                    {
+                        CssClass = "alert-danger",
+                        Title = "Caution ",
+                        Description = @ViewBag.Error
+                    });
 }
 
 <div>
@@ -21,10 +25,18 @@
     @{
         await Html.RenderPartialAsync("_CarConfigDetails", Model);
     }
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="CarConfigId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> 
+
+    @if (ViewBag.NumberCarConfSalesLines == 0)
+    {
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="CarConfigId" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </form>
+    }
+    else
+    {
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    </form>
+    }
+
 </div>
