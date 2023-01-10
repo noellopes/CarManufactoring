@@ -70,7 +70,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
-                return NotFound();
+                return View("OrderNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(order);
@@ -119,7 +119,7 @@ namespace CarManufactoring.Controllers
             var order = await _context.Order.FindAsync(id);
             if (order == null)
             {
-                return NotFound();
+                return View("OrderNotFound");
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
             ViewData["OrderStateId"] = new SelectList(_context.OrderState, "OrderStateId", "OrderStateName", order.OrderStateId);
@@ -150,7 +150,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!OrderExists(order.OrderId))
                     {
-                        return NotFound();
+                        return View("OrderNotFound");
                     }
                     else
                     {
@@ -179,7 +179,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
-                return NotFound();
+                return View("OrderNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];

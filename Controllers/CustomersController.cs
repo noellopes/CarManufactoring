@@ -57,7 +57,7 @@ namespace CarManufactoring.Controllers
         {
             if (id == null || _context.Customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
 
             var customer = await _context.Customer
@@ -138,7 +138,7 @@ namespace CarManufactoring.Controllers
             var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
             return View(customer);
         }
@@ -166,7 +166,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!CustomerExists(customer.CustomerId))
                     {
-                        return NotFound();
+                        return View("CustomerNotFound");
                     }
                     else
                     {
@@ -190,7 +190,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
 
             return View(customer);

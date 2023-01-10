@@ -70,7 +70,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerContactId == id);
             if (customerContact == null)
             {
-                return NotFound();
+                return View("CustomerContactsNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(customerContact);
@@ -115,7 +115,7 @@ namespace CarManufactoring.Controllers
             var customerContact = await _context.CustomerContact.FindAsync(id);
             if (customerContact == null)
             {
-                return NotFound();
+                return View("CustomerContactsNotFound");
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", customerContact.CustomerId);
             return View(customerContact);
@@ -145,7 +145,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!CustomerContactExists(customerContact.CustomerContactId))
                     {
-                        return NotFound();
+                        return View("CustomerContactsNotFound");
                     }
                     else
                     {
@@ -172,7 +172,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerContactId == id);
             if (customerContact == null)
             {
-                return NotFound();
+                return View("CustomerContactsNotFound");
             }
 
             return View(customerContact);
