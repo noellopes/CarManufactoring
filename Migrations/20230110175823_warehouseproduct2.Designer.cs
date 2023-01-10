@@ -4,6 +4,7 @@ using CarManufactoring.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    partial class CarManufactoringContextModelSnapshot : ModelSnapshot
+    [Migration("20230110175823_warehouseproduct2")]
+    partial class warehouseproduct2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2030,13 +2032,13 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.WarehouseProduct", b =>
                 {
                     b.HasOne("CarManufactoring.Models.CarParts", "CarParts")
-                        .WithMany("Warehouses")
+                        .WithMany("WarehouseProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CarManufactoring.Models.Warehouse", "Warehouses")
-                        .WithMany("CarParts")
+                        .WithMany("WarehouseProducts")
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -2084,7 +2086,7 @@ namespace CarManufactoring.Migrations
 
                     b.Navigation("SupplierParts1");
 
-                    b.Navigation("Warehouses");
+                    b.Navigation("WarehouseProducts");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.Collaborator", b =>
@@ -2200,7 +2202,7 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Warehouse", b =>
                 {
-                    b.Navigation("CarParts");
+                    b.Navigation("WarehouseProducts");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WarehouseStock", b =>
