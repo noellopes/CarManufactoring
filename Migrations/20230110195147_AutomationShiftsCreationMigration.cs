@@ -4,17 +4,16 @@
 
 namespace CarManufactoring.Migrations
 {
-    public partial class unwantedColumnDelete : Migration
+    public partial class AutomationShiftsCreationMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "ShiftSchedule");
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+
         }
     }
 }

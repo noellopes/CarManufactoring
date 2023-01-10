@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20230108165836_deneme010101")]
-    partial class deneme010101
+    [Migration("20230109222135_AlterMaintenanceCollaborator")]
+    partial class AlterMaintenanceCollaborator
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -753,7 +753,7 @@ namespace CarManufactoring.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("EffectiveEndDate")
+                    b.Property<DateTime?>("EffectiveEndDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("CollaboratorId", "MachineMaintenanceId");

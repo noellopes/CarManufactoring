@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class OrderStatesController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -20,12 +22,14 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: OrderStates
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index()
         {
               return View(await _context.OrderState.ToListAsync());
         }
 
         // GET: OrderStates/Details/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.OrderState == null)
@@ -44,6 +48,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: OrderStates/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +59,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("OrderStateId,OrderStateName")] OrderState orderState)
         {
             if (ModelState.IsValid)
@@ -66,6 +72,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: OrderStates/Edit/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.OrderState == null)
@@ -86,6 +93,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int id, [Bind("OrderStateId,OrderStateName")] OrderState orderState)
         {
             if (id != orderState.OrderStateId)
@@ -117,6 +125,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: OrderStates/Delete/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.OrderState == null)
@@ -137,6 +146,7 @@ namespace CarManufactoring.Controllers
         // POST: OrderStates/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.OrderState == null)

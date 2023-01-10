@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -23,6 +25,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Customers
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index(string CustomerName = null, DateTime CustomerFoundDate = default, int page = 1)
         {
 
@@ -49,11 +52,12 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Customers/Details/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
 
             var customer = await _context.Customer
@@ -67,6 +71,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Customers/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             return View();
@@ -77,6 +82,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         //[AllowAnonymous]
         public async Task<IActionResult> Create([Bind("CustomerId,CustomerName,CustomerFoundDate")] Customer customer)
         {
@@ -132,7 +138,7 @@ namespace CarManufactoring.Controllers
             var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
             return View(customer);
         }
@@ -160,7 +166,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!CustomerExists(customer.CustomerId))
                     {
-                        return NotFound();
+                        return View("CustomerNotFound");
                     }
                     else
                     {
@@ -184,7 +190,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
 
             return View(customer);
