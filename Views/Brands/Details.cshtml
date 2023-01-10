@@ -22,9 +22,9 @@
                 Success
             </h4>
 
-            <p>
+            <h6>
                 @ViewBag.SuccessMessage
-            </p>
+            </h6>
         </div>
     }
     <hr />
@@ -34,6 +34,7 @@
 
 </div>
 <div>
-    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.BrandId">Edit</a> 
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model?.BrandId">Edit</a> 
+    <a asp-action="Delete" asp-route-id="@Model?.BrandId" class="btn btn-danger">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
