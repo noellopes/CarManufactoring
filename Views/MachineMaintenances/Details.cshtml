@@ -5,12 +5,12 @@
     var state = "Aberto";
 }
 
-<h1>Details</h1>
+<h1>Manutenção de Máquina  nº @Model.MachineMaintenanceId</h1>
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <h1>Manutenção de Máquina  nº @Model.MachineMaintenanceId</h1>
+            <h2>Dados de Manutenção</h2>
             <p>
                 <span class="text-bold "> Máquina: </span> @Model.Machine.MachineModel.MachineBrandNames.MachineBrandName - @Model.Machine.MachineModel.MachineModelName
             </p>
@@ -19,7 +19,10 @@
                 {
                     state = "Fechado";
                  
-                }
+                } else
+                {
+                    state = "Aberto";
+                }               
                 <span class="text-bold "> Estado: @state </span>
             </p>
             <p>
@@ -40,13 +43,14 @@
     <div class="row">
         <div class="col-12 p-5">
             <h2>Colaboradores</h2>
+            <hr />
             <div class="container">
-                <div class="row">
+                <div class="row ">
                     @foreach (MaintenanceCollaborator collaborator in ViewBag.Collaborators)
                     {
                         <div class="col-3">
                             <p>@collaborator.Collaborators.Name</p>
-                            <i style="font-size:40px" class="fa-solid fa-user-vneck-hair"></i>
+                            <i style="font-size:50px" class="fa-solid text-center ps-5 fa-user"></i>
                         </div>
                     }
                 </div>
@@ -54,9 +58,11 @@
 
         </div>
     </div>
-    <div class="row">
-        <a asp-action="Edit" asp-route-id="@Model?.MachineMaintenanceId">Edit</a> |
-        <a asp-action="Index">Back to List</a>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <a asp-action="Edit" asp-route-id="@Model?.MachineMaintenanceId">Edit</a> |
+            <a asp-action="Index">Back to List</a>
+        </div>
     </div>
 </div>
 
