@@ -12,7 +12,7 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
-            /*
+            
             PopulateGender(db);
             
             PopulateCollaborators(db);
@@ -66,7 +66,7 @@ namespace CarManufactoring.Data
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
-            */
+            
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -185,8 +185,8 @@ namespace CarManufactoring.Data
 
             db.SemiFinishedCar.AddRange(
 
-                new SemiFinishedCar { SemiFinishedId =1, CarId=2},
-                new SemiFinishedCar { SemiFinishedId = 2, CarId = 3}
+                new SemiFinishedCar {SemiFinishedCarsId=1, SemiFinishedId =1, CarId=2},
+                new SemiFinishedCar {SemiFinishedCarsId=2, SemiFinishedId = 2, CarId = 3}
 
                 );
 
