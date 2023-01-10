@@ -12,5 +12,7 @@ namespace CarManufactoring.Models {
 
         public ICollection<SupplierPartsCarParts>? SupplierParts { get; set; }
         public ICollection<PriceSupplierPartsCarParts>? SupplierParts1 { get; set; }
+
+        public ICollection<WarehouseProduct>? Warehouses { get; set; }
     }
 }
