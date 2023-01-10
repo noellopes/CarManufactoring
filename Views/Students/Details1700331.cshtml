@@ -30,12 +30,16 @@
         <th>Priority</th>
     </tr>
     <tr>
-        <td>On delete cascade</td>
+        <td>Prevent deleting brand when it has a car associated with it</td>
         <td class="text-danger">High</td>
     </tr>
     <tr>
-        <td>Roles and permissions</td>
+        <td>Prevent deleting car when it has a car config associated with it</td>
         <td class="text-danger">High</td>
+    </tr>
+    <tr>
+        <td>Automation ( related to price from extras added to base price on creating car config ) ( javascript required ) </td>
+        <td class="text-warning">Medium</td>
     </tr>
 </table>
 <hr />
@@ -48,6 +52,8 @@
 <hr />
 <h4>What I've done so far: </h4>
 <ul class="Scroll">
+    <li>09/01 : Implemented roles and permissions (Only colaborator can create edit or delete brands, car and car configs but everyone can read the data on the DB related to those classes)</li>
+    <li>09/01 : Showing not found for brand, car and car config when trying to edit, view details or delete but it was deleted by other user</li>
     <li>08/01 : Reviewed personal documentation and page</li>
     <li>08/01 : Updated group documentation </li>
     <li>08/01 : Getted rid of duplicated text on CRUD pages </li>
