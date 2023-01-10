@@ -141,6 +141,11 @@ namespace CarManufactoring.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
 
+            modelBuilder.Entity<Breakdown>()
+                .Property(e => e.MachineReplacement)
+                .HasConversion<string>();
+
+
             modelBuilder.Entity<MaterialUsed>().HasKey(bc => new { bc.MaterialId, bc.SemiFinishedId });
 
             modelBuilder.Entity<MaterialUsed>()
@@ -153,6 +158,23 @@ namespace CarManufactoring.Data
                 .HasOne(x => x.Material)
                 .WithMany(s => s.SemiFinished)
                 .HasForeignKey(x => x.MaterialId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
+
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>().HasKey(bc => new { bc.PriceSupplierPartsCarPartsId});
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>()
+                .HasOne(x => x.SupplierParts)
+                .WithMany(c => c.CarParts1)
+                .HasForeignKey(x => x.SupplierPartsId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<PriceSupplierPartsCarParts>()
+                .HasOne(x => x.CarParts)
+                .WithMany(c => c.SupplierParts1)
+                .HasForeignKey(x => x.ProductId)
                 .OnDelete(DeleteBehavior.Restrict);
 
 
@@ -254,7 +276,7 @@ namespace CarManufactoring.Data
         
         public DbSet<CarManufactoring.Models.SupplierParts> SupplierParts { get; set; }
         public DbSet<CarManufactoring.Models.SupplierPartsCarParts> SupplierPartsCarParts { get; set; }
-
+        public DbSet<CarManufactoring.Models.PriceSupplierPartsCarParts> PriceSupplierPartsCarParts { get; set; }
 
 
 

@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,6 +22,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts
+        [Authorize(Roles = "Admin, Mechanical Eginner, Colaborator")]
         public async Task<IActionResult> Index(string CarConfigName = null, string CarPartName = null, int QtdPecas = 0, int page = 1)
         {
             var empty = _context.ModelParts.Count();
@@ -29,8 +31,6 @@ namespace CarManufactoring.Controllers
             {
                 return View("NoDataFound");
             }
-            
-
 
             var ModelPartsVar = _context.ModelParts.Include(s => s.CarConfig).Include(s => s.CarParts)
                 .Where(c => QtdPecas == 0 || c.QtdPecas.Equals(QtdPecas))
@@ -38,42 +38,41 @@ namespace CarManufactoring.Controllers
                 .Where(c => CarPartName == null || c.CarParts.Name.Contains(CarPartName))
                 .OrderBy(c => c.CarConfig.ConfigName);
 
+            if(ModelPartsVar.Count() == 0)
+            {
+                ViewBag.ErrorMessage = "Not Found";
+                return await Index(null, null, 0, page);
+            }
+
             var PagingInfoVar = new PagingInfoViewModel(await ModelPartsVar.CountAsync(), page);
 
             PagingInfoVar.PageSize = 10;
             PagingInfoVar.Pages_Show_Before_After = 6;
 
-            try
+            var model = new ModelPartsIndexViewModel
             {
-                var model = new ModelPartsIndexViewModel
+                ModelPartsList = new ListViewModel<ModelParts>
                 {
-                    ModelPartsList = new ListViewModel<ModelParts>
-                    {
-                        List = await ModelPartsVar
+                    List = await ModelPartsVar
                     .Skip((PagingInfoVar.CurrentPage - 1) * PagingInfoVar.PageSize)
                     .Take(PagingInfoVar.PageSize).ToListAsync(),
-                        PagingInfo = PagingInfoVar
-                    },
-                    QuantitySearched = QtdPecas,
-                    CarConfigNameSearched = CarConfigName,
-                    ModelPartsNameSearched = CarPartName,
-                    CarParts = _context.CarParts
+                    PagingInfo = PagingInfoVar
+                },
+                QuantitySearched = QtdPecas,
+                CarConfigNameSearched = CarConfigName,
+                ModelPartsNameSearched = CarPartName,
+                CarParts = _context.CarParts
                 .OrderBy(c => c.Name).ToList(),
-                    CarConfigs = _context.CarConfig
+                CarConfigs = _context.CarConfig
                 .OrderBy(c => c.ConfigName).ToList(),
-                };
-
-                return View(model);
-            }
-            catch(Exception ex)
-            {
-                ViewBag.ErrorMessage = "Not Found" ;
-                return await Index(null, null, 0, page);
-            }
+            };
+            return View(model);
+            
             
         }
 
         // GET: ModelParts/Details/5
+        [Authorize(Roles = "Admin, Mechanical Eginner, Colaborator")]
         public async Task<IActionResult> Details(int? CarConfigId, int? ProductId)
         {
 
@@ -95,6 +94,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Create
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
@@ -107,8 +107,16 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> Create([Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
+            if(ModelPartsExists(modelParts.ProductId, modelParts.CarConfigId))
+            {
+                ViewBag.CarConfigId = modelParts.CarConfigId;
+                ViewBag.ProductId = modelParts.ProductId;
+                return View("ModelPartAlreadyExists");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(modelParts);
@@ -121,6 +129,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Edit/5
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> Edit(int? CarConfigId, int? ProductId)
         {
             if (CarConfigId == null || ProductId == null || _context.ModelParts == null)
@@ -128,7 +137,7 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var modelParts = await _context.ModelParts.FindAsync(CarConfigId, ProductId);
+            var modelParts = await _context.ModelParts.FirstOrDefaultAsync(c => c.CarConfigId == CarConfigId && c.ProductId == ProductId);
             if (modelParts == null)
             {
                 return NotFound();
@@ -143,6 +152,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> Edit(int CarConfigId, int ProductId, [Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
             if (CarConfigId != modelParts.CarConfigId || ProductId != modelParts.ProductId)
@@ -175,6 +185,7 @@ namespace CarManufactoring.Controllers
             return View(modelParts);
         }
 
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         // GET: ModelParts/Delete/5
         public async Task<IActionResult> Delete(int? CarConfigId, int? ProductId)
         {
@@ -198,6 +209,7 @@ namespace CarManufactoring.Controllers
         // POST: ModelParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> DeleteConfirmed(int CarConfigId, int ProductId)
         {
             if (_context.ModelParts == null)

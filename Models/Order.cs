@@ -5,6 +5,7 @@ namespace CarManufactoring.Models
 {
     public class Order
     {
+        [Display(Name = "Order ID")]
         public int OrderId { get; set; }
 
         [Required]

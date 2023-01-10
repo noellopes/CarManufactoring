@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("WorkerPunctualityId,WeekNumber,MissedHoursLastWeek,LateShiftsLastWeek")] WorkerPunctuality workerPunctuality)
+        public async Task<IActionResult> Create([Bind("WorkerPunctualityId,Name,ScheduledDate,MissedHoursLastWeek,LateShiftsLastWeek")] WorkerPunctuality workerPunctuality)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("WorkerPunctualityId,WeekNumber,MissedHoursLastWeek,LateShiftsLastWeek")] WorkerPunctuality workerPunctuality)
+        public async Task<IActionResult> Edit(int id, [Bind("WorkerPunctualityId,Name,ScheduledDate,MissedHoursLastWeek,LateShiftsLastWeek")] WorkerPunctuality workerPunctuality)
         {
             if (id != workerPunctuality.WorkerPunctualityId)
             {

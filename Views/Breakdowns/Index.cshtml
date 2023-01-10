@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CarManufactoring.Models.Breakdown>
+﻿@using CarManufactoring.ViewModels.Group8
+@model BreakdownIndexViewModel
+
 
 @{
     ViewData["Title"] = "Index";
@@ -6,66 +8,111 @@
 
 <h1>Index</h1>
 
+
+
+
+<div class="card border-secondary mb-4">
+    <div class="card-body">
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="breakdownName" class="form-label">Breakdown Name</label>
+                <input name="breakdownName" class="form-control" type="search" value="@Model.BreakdownNameSearch" />
+            </div>
+            
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear Search</a>
+        </form>
+    </div>
+</div>
+
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.BreakdownName)
+                @Html.DisplayNameFor(model => new Breakdown().BreakdownName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BreakdownDate)
+                @Html.DisplayNameFor(model => new Breakdown().BreakdownDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BreakdownNumber)
+                @Html.DisplayNameFor(model => new Breakdown().BreakdownNumber)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReparationDate)
+                @Html.DisplayNameFor(model => new Breakdown().ReparationDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MachineStop)
+                @Html.DisplayNameFor(model => new Breakdown().MachineStop)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => new Breakdown().MachineReplacement)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MachineReplacement)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RepairInTheCompany)
+                @Html.DisplayNameFor(model => new Breakdown().RepairInTheCompany)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.BreakdownName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BreakdownDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BreakdownNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReparationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MachineStop)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MachineReplacement)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RepairInTheCompany)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BreakdownId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BreakdownId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BreakdownId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (Breakdown breakdowns in Model.BreakdownList.List)
+        {
+            <tr>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.BreakdownName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.BreakdownDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.BreakdownNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.ReparationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.MachineStop)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.MachineReplacement)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => breakdowns.RepairInTheCompany)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@breakdowns.BreakdownId" class="btn btn-warning">Edit</a>
+
+                    <a asp-action="Details" asp-route-id="@breakdowns.BreakdownId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@breakdowns.BreakdownId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.BreakdownList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+        @for (int p = Model.BreakdownList.PagingInfo.InitialPageToShow; p <= Model.BreakdownList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.BreakdownList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+
+            }
+            else
+            {
+
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.BreakdownList.PagingInfo.CurrentPage == Model.BreakdownList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.BreakdownList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
