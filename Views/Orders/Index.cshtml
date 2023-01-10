@@ -88,9 +88,15 @@
                     @Html.DisplayFor(modelItem => item.Customer.CustomerName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-warning">Edit</a>
+                    @if (User.IsInRole("Colaborator"))
+                    {
+
+                        <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn btn-warning">Edit</a>
+
+                        <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Delete</a>
+                    }
+
                     <a asp-action="Details" asp-route-id="@item.OrderId" class="btn btn-info">Details</a>
-                    <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn btn-danger">Delete</a>
                 </td>
             </tr>
         }
@@ -123,3 +129,11 @@
 
     </ul>
 </nav>
+
+    @if (User.IsInRole("Colaborator"))
+    {
+            <div class="mt-3 butt">
+        <a class="btn btn-success" asp-action="Create"><i class="fa-sharp fa-solid fa-plus pe-2"></i>Create New</a>
+    </div> 
+
+    }
