@@ -23,13 +23,13 @@
                     <div class="card-body">
                         <form asp-action="Index" method="get">
                             <div class="mb-3">
-                                <label for="SupplierName" class="form-label">Supplier Name</label>
-                                <input name="SupplierName" class="form-control" type="search" value="@Model.SupplierNameSearch" />
+                                <label for="supplierName" class="form-label">Supplier Name</label>
+                                <input name="supplierName" class="form-control" type="search" value="@Model.SupplierNameSearch" />
                             </div>
 
                             <div class="mb-3">
-                                <label for="SupplierEmail" class="form-label">Supplier Email</label>
-                                <input name="SupplierEmail" class="form-control" type="search" value="@Model.SupplierEmailSearch" />
+                                <label for="supplierEmail" class="form-label">Supplier Email</label>
+                                <input name="supplierEmail" class="form-control" type="search" value="@Model.SupplierEmailSearch" />
                             </div>
                             <input type="submit" value="Search" class="btn btn-primary" />
                             <a asp-action="Index" class="btn btn-secondary">Clear Search</a>

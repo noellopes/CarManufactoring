@@ -27,7 +27,7 @@ namespace CarManufactoring.Controllers
         {
             
             var supplier = _context.Supplier
-              .Where(b => supplierName == null || b.SupplierName.Contains(supplierEmail))
+              .Where(b => supplierName == null || b.SupplierName.Contains(supplierName))
               .Where(b => supplierEmail == null || b.SupplierEmail.Contains(supplierEmail))
               .OrderBy(b => b.SupplierName);
 
@@ -81,7 +81,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Create
-        //[Authorize(Roles = "Admin, Supplier Eginner")]
+        [Authorize(Roles = "SupplierEginner")]
         public IActionResult Create()
         {
             return View();
