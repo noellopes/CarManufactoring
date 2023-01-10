@@ -22,13 +22,13 @@
                 @Html.DisplayNameFor(model => model.QuantityOfParts)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProducedParts)
+                @Html.DisplayNameFor(model => model.NextLevel)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MaintenancePrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Operation)
+                @Html.DisplayNameFor(model => model.Machine)
             </th>
             <th></th>
         </tr>
@@ -46,13 +46,13 @@
                 @Html.DisplayFor(modelItem => item.QuantityOfParts)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProducedParts)
+                @Html.DisplayFor(modelItem => item.NextLevel)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MaintenancePrice)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Operation)
+                @Html.DisplayFor(modelItem => item.Machine.Description)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.MachineAquisitionID">Edit</a> |

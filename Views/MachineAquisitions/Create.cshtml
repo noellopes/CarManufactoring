@@ -28,9 +28,9 @@
                 <span asp-validation-for="QuantityOfParts" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProducedParts" class="control-label"></label>
-                <input asp-for="ProducedParts" class="form-control" />
-                <span asp-validation-for="ProducedParts" class="text-danger"></span>
+                <label asp-for="NextLevel" class="control-label"></label>
+                <input asp-for="NextLevel" class="form-control" />
+                <span asp-validation-for="NextLevel" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MaintenancePrice" class="control-label"></label>
@@ -38,9 +38,8 @@
                 <span asp-validation-for="MaintenancePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Operation" class="control-label"></label>
-                <input asp-for="Operation" class="form-control" />
-                <span asp-validation-for="Operation" class="text-danger"></span>
+                <label asp-for="MachineId" class="control-label"></label>
+                <select asp-for="MachineId" class ="form-control" asp-items="ViewBag.MachineId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
