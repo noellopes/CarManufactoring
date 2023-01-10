@@ -10,6 +10,7 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using Microsoft.VisualBasic;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using System.Drawing;
 
 namespace CarManufactoring.Controllers
 {
@@ -22,7 +23,7 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        int nPage = 6;
+     
 
         // GET: Shifts
         public async Task<IActionResult> Index( string shiftType = null, int page = 0)
@@ -37,8 +38,8 @@ namespace CarManufactoring.Controllers
                 ShiftList = new ListViewModel<Shift>
                 {
                     List = await shifts
-                    .Skip((pagingInfo.CurrentPage - 1) * nPage)
-                    .Take(nPage).ToListAsync(),
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
                 ShiftTypeSearched = shiftType,
@@ -194,6 +195,81 @@ namespace CarManufactoring.Controllers
 
             return View("ShiftDeleted");
         }
+        public IActionResult CreateShifts()
+        {
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateShifts([Bind("ShiftId,StartDate,EndDate,ShiftTypeId,Month,Year")] Shift shift)
+        {
+            var ano = System.DateTime.Now.Year;
+            if (shift.Year < ano)
+            {
+                ModelState.AddModelError("Year", $"Year can not be before {ano}.");
+            }
+            int days = DateTime.DaysInMonth(shift.Year, shift.Month);
+
+            if (ModelState.IsValid)
+            {
+                for(int i = 1; i <= days; i++) { 
+                    var horas = 8;
+                    for (int j = 1; j < 4; j++)
+                    {
+                        shift = new Shift();
+                        shift.StartDate = new DateTime(2027, 03, i, horas, 00, 00);
+                        if (horas > 17)
+                        {
+                            horas = 0;
+                        }
+                        else
+                        {
+                            horas += 6;
+                        }
+                        shift.EndDate = new DateTime(2027, 03, i, horas, 00, 00);
+                        shift.ShiftTypeId = j;
+                        horas -= 6;
+                        if(horas < 16){ 
+                            horas += 8;
+                        }
+                        else
+                        {
+                            horas += 2;
+                        }
+                    
+                        _context.Add(shift);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+                //var newShift = new Shift();
+
+                //newShift.StartDate = new DateTime(2027, 03, 01, 16, 00, 00);
+                //newShift.EndDate = new DateTime(2027, 03, 01, 22, 00, 00);
+                //newShift.ShiftTypeId = 2;
+
+                //var newShift1 = new Shift();
+
+                //newShift1.StartDate = new DateTime(2027, 03, 01, 18, 00, 00);
+                //newShift1.EndDate = new DateTime(2027, 03, 01, 00, 00, 00);
+                //newShift1.ShiftTypeId = 3;
+
+                //_context.Add(shift);
+                //_context.Add(newShift);
+                //_context.Add(newShift1);
+                //await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Shifts created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+
+            }
+
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
+            return View(shift);
+        }
+
 
         private bool ShiftExists(int id)
         {
