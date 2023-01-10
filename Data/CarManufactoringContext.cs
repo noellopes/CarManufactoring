@@ -83,9 +83,6 @@ namespace CarManufactoring.Data
                 .HasForeignKey(x => x.ShiftId)
                 .OnDelete(DeleteBehavior.Restrict);
                 
-                    
-
-
             modelBuilder.Entity<ModelParts>().HasKey(bc => new { bc.ProductId, bc.CarConfigId });
 
             modelBuilder.Entity<ModelParts>()
@@ -227,9 +224,7 @@ namespace CarManufactoring.Data
 
         public DbSet<CarManufactoring.Models.MachineBudget> MachineBudget { get; set; }
 
-
         public DbSet<CarManufactoring.Models.MachineAquisition> MachineAquisition{ get; set; }
-
 
         public DbSet<CarManufactoring.Models.InspectionAndTest> InspectionAndTest { get; set; }
 
