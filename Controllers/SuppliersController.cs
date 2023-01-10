@@ -9,8 +9,8 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group4;
-
-
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
 namespace CarManufactoring.Controllers
 {
     public class SuppliersController : Controller
@@ -81,6 +81,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Create
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public IActionResult Create()
         {
             return View();
@@ -103,6 +104,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Edit/5
+        //[Authorize(Roles = "Admin, Suppliers Eginner")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -123,6 +125,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
         {
             if (id != supplier.SupplierId)
@@ -154,6 +157,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Delete/5
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -174,6 +178,7 @@ namespace CarManufactoring.Controllers
         // POST: Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Supplier == null)
