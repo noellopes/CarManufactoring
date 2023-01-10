@@ -1087,7 +1087,7 @@ namespace CarManufactoring.Migrations
                     b.Property<int?>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SemiFinishedCarId")
+                    b.Property<int>("SemiFinishedCarsId")
                         .HasColumnType("int");
 
                     b.HasKey("SemiFinishedId", "CarId");
