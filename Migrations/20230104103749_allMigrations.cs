@@ -601,7 +601,9 @@ namespace CarManufactoring.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     dataSolicitada = table.Column<DateTime>(type: "datetime2", nullable: false),
                     dataEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Valor = table.Column<double>(type: "float", nullable: false),
+                    Valor = table.Column<double>(type: "float", nullable: true),
+                    prazoGarantia = table.Column<int>(type: "int", nullable: false),
+                    custoManutencao = table.Column<double>(type: "double", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     AquisitionId = table.Column<int>(type: "int", nullable: false)
                 },

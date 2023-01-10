@@ -29,6 +29,16 @@
                 <span asp-validation-for="Valor" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="prazoGarantia" class="control-label"></label>
+                <input asp-for="prazoGarantia" class="form-control" />
+                <span asp-validation-for="prazoGarantia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="custoManutencao" class="control-label"></label>
+                <input asp-for="custoManutencao" class="form-control" />
+                <span asp-validation-for="custoManutencao" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="SupplierId" class="control-label"></label>
                 <select asp-for="SupplierId" class="form-control" asp-items="ViewBag.SupplierId"></select>
                 <span asp-validation-for="SupplierId" class="text-danger"></span>

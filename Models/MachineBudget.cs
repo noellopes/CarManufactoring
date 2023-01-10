@@ -24,7 +24,7 @@ namespace CarManufactoring.Models
         public double Valor { get; set; }
 
         [Required]
-        [Display(Name = "Prazo de Garantia (em meses)")]
+        [Display(Name = "Garantia (em meses)")]
         public int prazoGarantia { get; set; }
 
         [Required]

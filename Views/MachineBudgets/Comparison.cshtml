@@ -2,15 +2,91 @@
 
 @{
     ViewData["Title"] = "Comparison";
+    int count = 0;
 }
 
 <h1>Comparison</h1>
 <h2>The Best Machine Quote Found</h2>
 
+<hr />
 
+<div id="dados">
 
-<p>
-    Price: @ViewBag.price
-    Deadline: @ViewBag.deadline
-</p>
+    @foreach (var item in Model){
+
+        @if (count == 0)
+        {
+            <h3>Best for price</h3>
+        }
+        @if (count == 1)
+        {
+            <h3>Best for deadline</h3>
+        }
+        @if (count == 2)
+        {
+            <h3>Best for parts produced</h3>
+        }
+            <table class="table">
+                <thead>
+                    @* se item igual a primeiro elemento da lista ele vai receber o nome de low cost*@
+                    <tr>
+                        <th>
+                                @Html.DisplayNameFor(model => model.dataSolicitada)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.dataEntrega)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.Valor)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.prazoGarantia)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.custoManutencao)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.Aquisition.ProducedParts)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.Supplier)
+                        </th>
+                        <th>
+                                @Html.DisplayNameFor(model => model.Aquisition)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dataSolicitada)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dataEntrega)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Valor)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.prazoGarantia)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.custoManutencao)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aquisition.ProducedParts)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Aquisition.MachineAquisitionName)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        count++;
+    }  
+</div>
+
 
