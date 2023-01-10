@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Runtime.InteropServices;
 
 namespace CarManufactoring.Controllers
 {
@@ -137,8 +138,8 @@ namespace CarManufactoring.Controllers
             {
                 return View("BrandNotFound");
             }
-            TempData["SuccessMessage"] = " ";
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            ViewBag.Error = "Are you sure you want to delete this brand ? ";
+            ViewBag.NumberCarBrands = await _context.Car.Where(b => b.BrandId == id).CountAsync();
             return View(brand);
         }
 
@@ -158,6 +159,7 @@ namespace CarManufactoring.Controllers
              await _context.SaveChangesAsync();
             }
             TempData["SuccessMessage"] = "Brand removed successfully.";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View("BrandDeleted");
         }
 
