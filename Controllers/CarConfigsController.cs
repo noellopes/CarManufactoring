@@ -168,7 +168,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CarConfigId == id);
             if (carConfig == null)
             {
-                return NotFound();
+                return View("CarConfigNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -185,13 +185,12 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.CarConfig'  is null.");
             }
             var carConfig = await _context.CarConfig.FindAsync(id);
-            if (carConfig == null)
+            if (carConfig != null)
             {
-                //TODO : Carconfig was not found page
-            }
             _context.CarConfig.Remove(carConfig);
-            TempData["SuccessMessage"] = "Car removed successfully.";
             await _context.SaveChangesAsync();
+            }
+            TempData["SuccessMessage"] = "Car removed successfully.";
             return View("CarConfigDeleted");
         }
 

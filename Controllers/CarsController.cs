@@ -165,7 +165,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CarId == id);
             if (car == null)
             {
-                return NotFound();
+                return View("CarNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -182,13 +182,12 @@ namespace CarManufactoring.Controllers
                 return Problem("Entity set 'CarManufactoringContext.Car'  is null.");
             }
             var car = await _context.Car.FindAsync(id);
-            if (car == null)
-            {
-                //TODO: Car was not found page 
+            if (car != null)
+            { 
+                _context.Car.Remove(car);      
+                await _context.SaveChangesAsync();
             }
-            _context.Car.Remove(car);
             TempData["SuccessMessage"] = "Car removed successfully.";
-            await _context.SaveChangesAsync();
             return View("CarDeleted");
         }
 
