@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels.Group2;
+using CarManufactoring.ViewModels;
+
 
 namespace CarManufactoring.Controllers
 {
@@ -20,10 +23,42 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineAquisitions
-        public async Task<IActionResult> Index()
+   
+        public async Task<IActionResult> Index(string machineAquisitionName = null, int page = 1)
         {
-            var carManufactoringContext = _context.MachineAquisition.Include(m => m.Machine);
-            return View(await carManufactoringContext.ToListAsync());
+            var machineAquisition = _context.MachineAquisition
+              .Where(b => machineAquisitionName == null || b.MachineAquisitionName.Contains(machineAquisitionName))              
+              .OrderBy(b => b.MachineAquisitionName);
+
+            var pagingInfo = new PagingInfoViewModel(await machineAquisition.CountAsync(), page);
+
+            try
+            {
+                var model = new MachineAquisitionsIndexViewModel
+                {
+                    MachineAquisitionsList = new ListViewModel<MachineAquisition>
+                    {
+                        List = await machineAquisition
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize)
+                        .Include(m => m.Machine)
+                        .ToListAsync(),
+                        PagingInfo = pagingInfo
+                    },
+
+                    MachineAquisitionNameSearch = machineAquisitionName
+
+
+                };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, page);
+            }
+
         }
 
         // GET: MachineAquisitions/Details/5
