@@ -74,7 +74,7 @@ using(var scope = app.Services.CreateScope()) {
         //SeedData.PopulateUsersAsync(userManager).Wait();
 
         var db = scope.ServiceProvider.GetRequiredService<CarManufactoringContext>();
-        SeedData.Populate(db);
+        //SeedData.Populate(db);
     }
 
 }

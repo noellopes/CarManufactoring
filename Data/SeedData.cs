@@ -12,8 +12,9 @@ namespace CarManufactoring.Data
         internal static void Populate(CarManufactoringContext db)
         {
 
-
+            /*
             PopulateGender(db);
+            
             PopulateCollaborators(db);
             PopulateShiftType(db);
             PopulateShift(db);
@@ -58,13 +59,14 @@ namespace CarManufactoring.Data
             //PopulateLocalizationCar(db);
           
             PopulateStockFinalProduct(db);
-            PopulateBreakdows(db);
-            PopulateBreakdows(db);
+            //PopulateBreakdows(db);
+            //PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
             PopulateSupplierParts(db);
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
+            */
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -183,7 +185,7 @@ namespace CarManufactoring.Data
 
             db.SemiFinishedCar.AddRange(
 
-                new SemiFinishedCar { SemiFinishedId=1, CarId=2},
+                new SemiFinishedCar { SemiFinishedId =1, CarId=2},
                 new SemiFinishedCar { SemiFinishedId = 2, CarId = 3}
 
                 );
@@ -832,7 +834,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-
+        /*
         private static void PopulateBreakdows(CarManufactoringContext db)
         {
             if (db.Breakdown.Any()) return;
@@ -886,6 +888,6 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-        
+        */
     }
 }
