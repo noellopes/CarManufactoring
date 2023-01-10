@@ -61,6 +61,7 @@ namespace CarManufactoring.Data
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
+            PopulateMachineAquisitions(db);
 
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
@@ -863,6 +864,48 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-        
+
+        private static void PopulateMachineAquisitions(CarManufactoringContext db)
+        {
+            if (db.MachineAquisition.Any()) return;
+
+            db.MachineAquisition.AddRange(
+
+               new MachineAquisition
+               {
+                   MachineAquisitionName = "MachineAquisition1",
+                   MaintenancePrice = 10,
+                   NextLevel = 1,
+                   Price = 50,
+                   QuantityOfParts = 15,
+                   MachineId = 1
+
+               },
+
+                new MachineAquisition
+                {
+                    MachineAquisitionName = "MachineAquisition2",
+                    MaintenancePrice = 10,
+                    NextLevel = 1,
+                    Price = 50,
+                    QuantityOfParts = 15,
+                    MachineId = 1
+                },
+                 new MachineAquisition
+                 {
+                     MachineAquisitionName = "MachineAquisition3",
+                     MaintenancePrice = 10,
+                     NextLevel = 1,
+                     Price = 50,
+                     QuantityOfParts = 15,
+                     MachineId = 1
+                 }
+
+
+                );
+
+            db.SaveChanges();
+        }
+
     }
 }
