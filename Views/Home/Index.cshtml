@@ -14,7 +14,10 @@
         <a asp-controller="SemiFinishedCars" asp-action="Index" class="btn btn-secondary">SemiFinisheds - Cars</a>
         <a asp-controller="Shifts" asp-action="Index" class="btn btn-secondary">Shifts</a>
         <a asp-controller="ShiftTypes" asp-action="Index" class="btn btn-secondary">Shift Type</a>
-
+        @if (User.IsInRole("CollaboratorMaintenance"))
+        {
+            <a asp-controller="Collaborators" asp-action="MaintenanceDashboard" class="btn btn-secondary">Maintenance Dashboard</a>
+        }
     </div>
 
     <a asp-controller="Materials" asp-action="Index" class="btn btn-secondary">Materials</a>

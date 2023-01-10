@@ -1,8 +1,13 @@
 ﻿@model IEnumerable<CarManufactoring.Models.OrderState>
 
+
+
 @{
     ViewData["Title"] = "Index";
 }
+
+@if (User.IsInRole("Colaborator"))
+{
 
 <h1>Index</h1>
 
@@ -33,3 +38,4 @@
 }
     </tbody>
 </table>
+}

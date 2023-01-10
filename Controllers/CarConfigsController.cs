@@ -170,8 +170,8 @@ namespace CarManufactoring.Controllers
             {
                 return View("CarConfigNotFound");
             }
-            TempData["SuccessMessage"] = " ";
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            ViewBag.Error = "Are you sure you want to delete this car configuration?";
+            ViewBag.NumberCarConfSalesLines = await _context.SalesLine.Where(b => b.CarConfigId == id).CountAsync();
             return View(carConfig);
         }
 
@@ -191,6 +191,7 @@ namespace CarManufactoring.Controllers
             await _context.SaveChangesAsync();
             }
             TempData["SuccessMessage"] = "Car removed successfully.";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View("CarConfigDeleted");
         }
 
