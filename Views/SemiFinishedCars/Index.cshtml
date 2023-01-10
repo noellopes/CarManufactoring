@@ -31,6 +31,9 @@
     <thead>
         <tr>
             <th>
+                Id
+            </th>
+            <th>
                 S.F. Name
             </th>
             <th>
@@ -53,6 +56,9 @@
         {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.SemiFinishedCarsId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.SemiFinished.Family)
             </td>
             <td>
@@ -72,7 +78,7 @@
 
                 @if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
                 {
-                        <a asp-action="Edit" asp-route-id="@item.SemiFinishedCarsId" class="btn btn-danger">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.SemiFinishedCarsId" class="btn btn-warning">Edit</a>
                 }
 
                 @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
