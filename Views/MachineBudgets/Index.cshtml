@@ -18,8 +18,11 @@
                 <label for="machine" class="form-label">Machine</label>
                 <input name="machine" class="form-control" type="search" value="@Model.MachineAquisitionSearched" />
             </div>
-            <input type="submit" value="Search" class="btn btn-primary" />
-            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+            <div style="display: flex; justify-content: center;">
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary" style="margin-left: 4px">Clear search</a>
+            </div>
+            
         </form>
     </div>
 </div>
@@ -33,7 +36,7 @@
     }
 </div>
 
-<table class="table">
+<table class="table" style="text-align: center; margin: 15px">
     <thead>
         <tr>
             <th>
@@ -60,7 +63,9 @@
             <th>
                 @Html.DisplayNameFor(model => new MachineBudget().Aquisition)
             </th>
-            <th></th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -91,9 +96,9 @@
                 @Html.DisplayFor(modelItem => item.Aquisition.MachineAquisitionName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MachineBudgetID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MachineBudgetID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MachineBudgetID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.MachineBudgetID" class="btn"><i class="fas fa-edit"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.MachineBudgetID" class="btn"><i class="fas fa-info-circle"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.MachineBudgetID" class="btn"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
 

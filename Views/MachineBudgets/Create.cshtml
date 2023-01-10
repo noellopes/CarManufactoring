@@ -44,17 +44,19 @@
             <div class="form-group">
                 <label asp-for="AquisitionId" class="control-label"></label>
                 <select asp-for="AquisitionId" class ="form-select" asp-items="ViewBag.AquisitionId"></select>
+                <p>
+                    <label> Did not fint the machine?</label>
+                    <a asp-controller="MachineAquisitions" asp-action="Create">Click here!</a>
+                </p>
             </div>
-            <div class="form-group">
+            <div class="mt-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
