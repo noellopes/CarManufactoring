@@ -4,7 +4,7 @@
 // Write your JavaScript code.
 
 
-$('option').mousedown(function (e) {
+$(' #select-collaborator option').mousedown(function (e) {
     e.preventDefault();
     $(this).prop('selected', !$(this).prop('selected'));
     return false;

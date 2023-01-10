@@ -44,7 +44,6 @@ namespace CarManufactoring.Controllers
             .Where(m => !m.EffectiveEndDate.HasValue)
             .Where(m => m.Deleted == false)
             .ToListAsync();
-            
 
             var model = new MachineMaintenaceIndexViewModel
             {
@@ -159,9 +158,9 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName", machineMaintenanceViewModel.TaskTypeId);
+            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name", machineMaintenanceViewModel.CollaboratorsId);
-            ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name", machineMaintenanceViewModel.PriorityId);
+            ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
             var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
 
             ViewData["MachinesId"] = machines;
