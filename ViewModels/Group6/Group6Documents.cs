@@ -5,7 +5,7 @@
 
         public readonly static List<Documents> GroupDocuments = new List<Documents>() {
             //Documentos Ana Vidal
-            new Documents {Name = "Diagrama de Classe ", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/DiagramaClasse.pdf"},
+            new Documents {Name = "Diagrama de Classe ", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/DiagramaClasses.pdf"},
             new Documents {Name = "Diagrama de Estado ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DiagramaEstadoTurnos_AnaVidal.pdf"},
             new Documents {Name = "Diagrama de Caso de Uso ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DiagramaCasosUsoTurnos_AnaVidal.drawio.pdf"},
             new Documents {Name = "Diagrama de Sequencia ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DiagramaSequenciaTurnos_AnaVidal.drawio.pdf"},
