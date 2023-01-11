@@ -603,7 +603,7 @@ namespace CarManufactoring.Migrations
                     dataEntrega = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Valor = table.Column<double>(type: "float", nullable: true),
                     prazoGarantia = table.Column<int>(type: "int", nullable: false),
-                    custoManutencao = table.Column<double>(type: "double", nullable: false),
+                    custoManutencao = table.Column<double>(type: "float", nullable: false),
                     SupplierId = table.Column<int>(type: "int", nullable: false),
                     AquisitionId = table.Column<int>(type: "int", nullable: false)
                 },

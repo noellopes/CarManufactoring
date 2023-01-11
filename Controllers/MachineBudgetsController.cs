@@ -38,7 +38,7 @@ namespace CarManufactoring.Controllers
                 MachineBudgetList = new ListViewModel<MachineBudget>
                 {
                     List = await machineBudget
-                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Skip((pagingInfo.CurrentPage == 0 ? 0 : pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
                     .Take(pagingInfo.PageSize).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
