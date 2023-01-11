@@ -45,6 +45,31 @@ namespace CarManufactoring.Models {
 
         }
 
+        public static void setLevelService(CarManufactoringContext context, int prodId)
+        {
+
+            double maxLevelService = 0.5; //50%
+
+            //car part
+            var cp = context.CarParts
+                .Where(cp => cp.ProductId.Equals(prodId));
+
+            //wh
+            var wh = context.WarehouseProduct
+                .Where(wh => wh.ProductId.Equals(prodId));
+
+            var whMaxLS = wh.Sum(wh => wh.StockMax);
+            double MaxQuant = Convert.ToDouble(whMaxLS);
+
+            var whCurrentQuant = wh.Sum(wh => wh.Quantity);
+            double currentQuant = Convert.ToDouble(whCurrentQuant);
+
+            decimal levelService = (decimal)((currentQuant * maxLevelService) / MaxQuant);
+
+            context.CarParts.First(cp => cp.ProductId.Equals(prodId)).LevelService = levelService;
+
+        }
+
         //Filipe will do the buyProdfunction
     }
 }
