@@ -71,6 +71,7 @@ namespace CarManufactoring.Data
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
+            PopulateWarehouseProducts(db);
             //PopulateMachineAquisitions(db);
 
 
@@ -733,6 +734,19 @@ namespace CarManufactoring.Data
                 new Warehouse { Location = "Guarda", CollaboratorID = 1 },
                 new Warehouse { Location = "Lisboa", CollaboratorID = 2 },
                 new Warehouse { Location = "Porto", CollaboratorID = 3 }
+                );
+
+            db.SaveChanges();
+        }
+
+        private static void PopulateWarehouseProducts(CarManufactoringContext db)
+        {
+            if (db.WarehouseProduct.Any()) return;
+
+            db.WarehouseProduct.AddRange(
+                new WarehouseProduct { WarehouseId = 1, ProductId = 5, Quantity = 30, StockMax = 50},
+                new WarehouseProduct { WarehouseId = 2, ProductId = 3, Quantity = 75, StockMax = 200 },
+                new WarehouseProduct { WarehouseId = 3, ProductId = 2, Quantity = 69, StockMax = 150 }
                 );
 
             db.SaveChanges();
