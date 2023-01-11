@@ -45,8 +45,9 @@ namespace CarManufactoring.Data
             //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            //PopulateStocks(db);
+            
             PopulateWarehouseStocks(db);
+            PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
@@ -570,9 +571,12 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 }
+                new Stock { Quantity = 35, Location = "Section 1, left, top", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
+                new Stock { Quantity = 10, Location = "Section 3, right, bottom", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 52, Location = "Section 5, midel, midel", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 },
+                new Stock { Quantity = 28, Location = "Section 2, left, midel", MaterialId = 5, Description = "This is a text sample", WarehouseStockId = 3 },
+                new Stock { Quantity = 16, Location = "Section 4, midel, top", MaterialId = 4, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 9, Location = "Section 1, right, midel", MaterialId = 6, Description = "This is a text sample", WarehouseStockId = 1 }
                 );
 
             db.SaveChanges();
