@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Car Part Not Found";
+}
+
+<h1>@ViewBag.Title</h1>
+<hr />
+
+@{
+    await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel {
+
+                CssClass = "alert-warning",
+                Title = " Unable to retrieve car part",
+                Description = "Car part not found. Maybe it was deleted or removed."
+            });
+}
+<a asp-action="Index" class="btn btn-primary">Car Parts List</a>
