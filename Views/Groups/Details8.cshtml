@@ -1,10 +1,60 @@
-﻿@*
+﻿@using CarManufactoring.ViewModels.Group8;
+@model IEnumerable<Documents>
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewData["Title"] = "Group 8";
 }
-<h1>@ViewBag.Title</h1>
 
+
+
+<h1><a asp-controller="Students" asp-action="Details" asp-route-number="1012646"><img align="right" class="rounded-circle" src="/img/students/1012646.jpg"></a>@ViewData["Title"]</h1>
 <h2> Tema: </h2>
-<p> Reparação de Maquina </>
+<p>
+    Reparação de Maquina </>
+<hr />
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Format</th>
+                        <th scope="col">Document</th>
+                        <th scope="col">From</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                
+                   @* @foreach(Documents d in Model){
+
+                        <tr>
+                            <td scope="col">@d.Name</td>
+                            <td>
+                                <button onclick="downloadPDF(`@d.Name`)" class="border-0">
+                                    <img class="img-fluid pdf-img" src="/documents/grupo1/img/pdf_logo.png">
+                                </button>
+                            </td>
+                        </tr>                        
+                    }*@
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+ <script>
+
+        function downloadPDF(name) {
+
+            var url = '';
+
+            if (name == "relatorio Software") {
+
+                url = "/documents/Group8/GroupDocuments/Relatorio_software_II_Group8.pdf";
+
+                window.location.assign(url);
+            }
+  </script>

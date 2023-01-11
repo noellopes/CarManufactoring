@@ -76,6 +76,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
+            await EnsureRoleIsCreated(roleManager, "Breakdown");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -108,6 +109,9 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
+
+             user = await EnsureUserIsCreated(userManager, "breakdown@ipg.pt", "Pro1012646@");
+            await EnsureUserIsInRoleAsync(userManager, user, "Breakdown");
         }
 
         private static async Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
@@ -852,7 +856,7 @@ namespace CarManufactoring.Data
 
                 new Breakdown
                 {
-                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
+                    BreakdownName = "Guarda-pó muito deteriorada",
                     BreakdownDate = DateTime.Parse("01/01/2023"),
                     BreakdownNumber = 2,
                     ReparationDate = DateTime.Parse("03/01/2023"),
@@ -862,7 +866,7 @@ namespace CarManufactoring.Data
                 },
                  new Breakdown
                  {
-                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownName = "Alinhamento Maximos",
                      BreakdownDate = DateTime.Parse("13/01/2023"),
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("16/01/2023"),
