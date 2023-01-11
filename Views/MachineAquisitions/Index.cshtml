@@ -51,6 +51,9 @@
             <th>
                 @Html.DisplayNameFor(model => new MachineAquisition().Machine.Description)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineAquisition().Machine.MachineState)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -76,6 +79,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => machineAquisition.Machine.Description)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => new MachineAquisition().Machine.MachineState)
                 </td>
             <td>
                     <a asp-action="Edit" asp-route-id="@machineAquisition.MachineAquisitionID" class="btn btn-warning">Edit</a>

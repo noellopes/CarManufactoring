@@ -874,10 +874,10 @@ namespace CarManufactoring.Data
                new MachineAquisition
                {
                    MachineAquisitionName = "MachineAquisition1",
-                   MaintenancePrice = 10,
-                   NextLevel = 1,
-                   Price = 50,
-                   QuantityOfParts = 15,
+                   MaintenancePrice = 15000,
+                   NextLevel = 20,
+                   Price = 50000,
+                   QuantityOfParts = 18,
                    MachineId = 1
 
                },
@@ -885,19 +885,19 @@ namespace CarManufactoring.Data
                 new MachineAquisition
                 {
                     MachineAquisitionName = "MachineAquisition2",
-                    MaintenancePrice = 10,
-                    NextLevel = 1,
-                    Price = 50,
-                    QuantityOfParts = 15,
+                    MaintenancePrice = 10000,
+                    NextLevel = 20,
+                    Price = 50000,
+                    QuantityOfParts = 20,
                     MachineId = 1
                 },
                  new MachineAquisition
                  {
                      MachineAquisitionName = "MachineAquisition3",
-                     MaintenancePrice = 10,
-                     NextLevel = 1,
-                     Price = 50,
-                     QuantityOfParts = 15,
+                     MaintenancePrice = 5000,
+                     NextLevel = 20,
+                     Price = 55000,
+                     QuantityOfParts = 22,
                      MachineId = 1
                  }
 
