@@ -22,16 +22,17 @@ namespace CarManufactoring.Models
         public int QuantityOfParts { get; set; }
 
         [Required]
-        [Display(Name = "Produced Parts")]
-        public double ProducedParts { get; set; }
+        [Display(Name = "Next Level")]
+        public double NextLevel { get; set; }
 
         [Required]
         [Display(Name = "Maintenance Price")]
         public double MaintenancePrice { get; set; }
 
-        [Required]
-        [Display(Name = "Operation")]
-        public string Operation { get; set; }
+
+        [Display(Name = "Machine ")]
+        public int MachineId { get; set; }
+        public Machine? Machine { get; set; }
 
     }
 }

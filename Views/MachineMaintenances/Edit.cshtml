@@ -1,4 +1,5 @@
-﻿@model CarManufactoring.Models.MachineMaintenance
+﻿@model CarManufactoring.ViewModels.Group1.CrudMachineMaintenanceViewModel
+
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,34 +13,45 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="MachineMaintenanceId" />
+            <input type="hidden" asp-for="MachineMaintenanceId"/>
             <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Deleted" /> @Html.DisplayNameFor(model => model.Deleted)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="BeginDate" class="control-label"></label>
-                <input asp-for="BeginDate" class="form-control" />
-                <span asp-validation-for="BeginDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EffectiveEndDate" class="control-label"></label>
-                <input asp-for="EffectiveEndDate" class="form-control" />
-                <span asp-validation-for="EffectiveEndDate" class="text-danger"></span>
-            </div>
             <div class="form-group">
                 <label asp-for="ExpectedEndDate" class="control-label"></label>
-                <input asp-for="ExpectedEndDate" class="form-control" />
+                <input type="date" asp-for="ExpectedEndDate" class="form-control" />
                 <span asp-validation-for="ExpectedEndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="TaskTypeId" class="control-label"></label>
+                <select asp-for="TaskTypeId" class="form-control" asp-items="ViewBag.TaskTypeId"></select>
+                <span asp-validation-for="TaskTypeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PriorityId" class="control-label"></label>
+                <select asp-for="PriorityId" class="form-control" asp-items="ViewBag.PriorityId"></select>
+                <span asp-validation-for="PriorityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollaboratorsId" class="control-label"></label>
+                <select id="select-collaborator" multiple asp-for="CollaboratorsId" class="form-control" asp-items="ViewBag.CollaboratorId"></select>
+                <span asp-validation-for="CollaboratorsId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MachineId" class="control-label"></label>
+                <select asp-for="MachineId" class="form-control">
+                    @foreach (Machine m in ViewBag.MachinesId)
+                    {
+                    <option value="@m.MachineId">@m.MachineId - @m.MachineModel.MachineModelName - @m.MachineModel.MachineBrandNames.MachineBrandName</option>
+                    }
+                </select>
+                <span asp-validation-for="MachineId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group pt-5">
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -50,5 +62,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

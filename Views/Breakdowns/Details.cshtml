@@ -46,9 +46,16 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.MachineReplacement)
         </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RepairInTheCompany)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RepairInTheCompany)
+        </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.BreakdownId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Delete" asp-route-id="@Model?.BreakdownId" class="btn btn-danger">Delete</a>
+    <a asp-action="Edit" asp-route-id="@Model?.BreakdownId" class="btn btn-warning">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

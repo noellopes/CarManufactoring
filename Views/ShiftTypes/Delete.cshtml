@@ -1,13 +1,16 @@
 ﻿@model CarManufactoring.Models.ShiftType
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Shift Type Delete";
 }
 
-<h1>Delete</h1>
+<h1>@ViewBag.Title</h1>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
+<h3 class="mb-3">Are you sure you want to delete this?</h3>
+@{
+    await Html.RenderPartialAsync("_ShiftTypeDetails", Model);
+}
+@*<div>
     <h4>ShiftType</h4>
     <hr />
     <dl class="row">
@@ -36,10 +39,10 @@
             @Html.DisplayFor(model => model.EndTime)
         </dd>
     </dl>
+    </div>*@
     
     <form asp-action="Delete">
         <input type="hidden" asp-for="ShiftTypeId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
     </form>
-</div>

@@ -1,0 +1,46 @@
+﻿@model CarManufactoring.Models.WarehouseStock
+
+@{
+    ViewData["Title"] = "Warehouse Stock Details";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div>
+    
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => new WarehouseStock().Identification)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => new Material().Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => new Stock().Quantity)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Stock item in ViewBag.Stock)
+            {
+                <tr>
+                    <td>
+                        @item.WarehouseStock.Identification
+                    </td>
+                    <td>
+                        @item.Material.Nome
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

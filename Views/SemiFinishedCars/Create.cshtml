@@ -7,17 +7,27 @@
 <h1>@ViewBag.Title</h1>
 
 <hr />
+
+<div class="mb-3">
+    <a asp-controller="Cars" asp-action="Index" class="btn btn-primary">Go to <strong>Cars</strong> to see the Id</a>
+</div>
+
+<div class="mb-3">
+    <a asp-controller="SemiFinisheds" asp-action="Index" class="btn btn-primary">Go to <strong>Semi Finished</strong> to see the Reference</a>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="SemiFinishedId" class="control-label"></label>
-                <select asp-for="SemiFinishedId" class ="form-control" asp-items="ViewBag.SemiFinishedId"></select>
-            </div>
+            
             <div class="form-group">
                 <label asp-for="CarId" class="control-label"></label>
                 <select asp-for="CarId" class="form-control" asp-items="ViewBag.CarId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SemiFinishedId" class="control-label"></label>
+                <select asp-for="SemiFinishedId" class="form-control" asp-items="ViewBag.SemiFinishedId"></select>
             </div>
             <div class="mt-4">
                 <input type="submit" value="Create" class="btn btn-primary" />

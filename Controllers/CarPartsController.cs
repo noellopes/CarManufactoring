@@ -9,9 +9,11 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group2;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CarPartsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -22,6 +24,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string name = null, string reference = null, string partType = null, string brand = null, string cmodel = null,int page = 1) {
             //var CarParts = CarPartsList.CarPart.OrderBy(cp => cp.Name);
            
@@ -50,6 +53,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CarParts == null)
@@ -70,6 +74,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarParts/Create
+        [Authorize(Roles ="Manager")]
         public IActionResult Create()
         {
             return View();
@@ -80,6 +85,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Manager")]
         public async Task<IActionResult> Create([Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
         {
             if (ModelState.IsValid)

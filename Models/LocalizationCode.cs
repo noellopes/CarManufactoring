@@ -16,5 +16,6 @@ namespace CarManufactoring.Models
         [StringLength(1)]
         [Required(ErrorMessage = "Please Enter Line position!")]
         public string Line { get; set; }
+        public ICollection<Machine> MachineLocalization { get; set;}
     }
 }

@@ -9,16 +9,23 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using System.Xml.Linq;
+using CarManufactoring.ViewModels.Group1;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CarManufactoring.Controllers
 {
     public class CollaboratorsController : Controller
     {
         private readonly CarManufactoringContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+   
 
-        public CollaboratorsController(CarManufactoringContext context)
+        public CollaboratorsController(CarManufactoringContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Collaborators
@@ -88,6 +95,8 @@ namespace CarManufactoring.Controllers
                 GenderSearched = Gender,
 
             };
+
+        
             return View(model);
         }
 
@@ -250,10 +259,106 @@ namespace CarManufactoring.Controllers
 
             return View("CollaboratorDeleted");
         }
+        // GET: Collaborators/MaintenanceDashboard
+        [Authorize(Roles = "CollaboratorMaintenance")]
+        public async Task<IActionResult> MaintenanceDashboard(int workState, int page = 0)
+
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var email = user.UserName;
+            IQueryable<MaintenanceCollaborator> filter = null;
+            switch (workState)
+            {
+                case 1:
+                    filter = _context.MaintenanceCollaborators
+                   .Include(m => m.MaintenanceMachine.Machine)
+                   .Include(m => m.MaintenanceMachine.TaskType)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                   .Where(m => m.Collaborators.Email.Equals(email))
+                   .Where(m => m.EffectiveEndDate.HasValue)
+                   .Where(m => m.Deleted == false)
+                   .OrderBy(m => m.EffectiveEndDate);
+
+
+                    break;
+                case 2:
+                    filter = _context.MaintenanceCollaborators
+                   .Include(m => m.MaintenanceMachine.Machine)
+                   .Include(m => m.MaintenanceMachine.TaskType)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                   .Where(m => m.Collaborators.Email.Equals(email))
+                   .Where(m => !m.EffectiveEndDate.HasValue)
+                   .Where(m => m.Deleted == false);
+                   
+                    break;
+
+                default:
+                    filter = _context.MaintenanceCollaborators
+                .Include(m => m.MaintenanceMachine.Machine)
+                .Include(m => m.MaintenanceMachine.TaskType)
+                .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                .Where(m => m.Collaborators.Email.Equals(email))
+                .Where(m => m.Deleted == false)
+                .OrderBy(m => m.EffectiveEndDate);
+                    break;
+            }
+
+            var pagingInfo = new PagingInfoViewModel(await filter.CountAsync(), page);
+            var model = new MaintenanceCollaboratorViewModel
+            {
+                MaintenanceCollaboratorList = new ListViewModel<MaintenanceCollaborator>
+                {
+                    List = await filter
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                CollaboratorWorkState = workState
+            };
+            return View(model);
+        }
+
+        public async Task<IActionResult> FinishCollabMaintenanceWork(int collabid, int Maintenaceid)
+        {
+            if (collabid == null || Maintenaceid == null || _context.MaintenanceCollaborators == null)
+            {
+                return NotFound();
+            }
+            var maintenanceCollaborator = await _context.MaintenanceCollaborators.FindAsync(collabid, Maintenaceid);
+            if (maintenanceCollaborator == null)
+            {
+                return NotFound();
+            }
+            return View("FinishingWork", maintenanceCollaborator);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FinishCollabMaintenanceWork(int collabid, int Maintenaceid, MaintenanceCollaborator maintenanceCollaborator)
+        {
+            if (ModelState.IsValid)
+            {
+                maintenanceCollaborator.EffectiveEndDate = DateTime.UtcNow;
+                _context.MaintenanceCollaborators.Attach(maintenanceCollaborator);
+                _context.Entry(maintenanceCollaborator).Property(w => w.EffectiveEndDate).IsModified = true;
+                _context.SaveChanges();
+            }
+
+
+            return View("MaintenanceJobFinished");
+        }
+
 
         private bool CollaboratorExists(int id)
         {
             return _context.Collaborator.Any(e => e.CollaboratorId == id);
         }
+
+
     }
 }

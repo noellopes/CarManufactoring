@@ -10,9 +10,13 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class SemiFinishedsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -23,6 +27,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string state = null, string manufacter = null, string reference = null, string family = null,  int page = 1)
         {
             // order by  reference
@@ -58,6 +63,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.SemiFinished == null)
@@ -78,6 +84,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Create
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public IActionResult Create()
         {
             return View();
@@ -88,6 +95,8 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
+
         public async Task<IActionResult> Create([Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (ModelState.IsValid)
@@ -102,6 +111,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Edit/5
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SemiFinished == null)
@@ -122,6 +132,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("SemiFinishedId,Family,Reference,Manufacter,Description,SemiFinishedState")] SemiFinished semiFinished)
         {
             if (id != semiFinished.SemiFinishedId)
@@ -155,6 +166,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SemiFinisheds/Delete/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SemiFinished == null)
@@ -175,6 +187,7 @@ namespace CarManufactoring.Controllers
         // POST: SemiFinisheds/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.SemiFinished == null)

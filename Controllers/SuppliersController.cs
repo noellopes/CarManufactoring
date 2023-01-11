@@ -7,7 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
-
+using CarManufactoring.ViewModels;
+using CarManufactoring.ViewModels.Group4;
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
 namespace CarManufactoring.Controllers
 {
     public class SuppliersController : Controller
@@ -20,9 +23,42 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string supplierName = null, string supplierEmail = null, int page = 1)
         {
-              return View(await _context.Supplier.ToListAsync());
+            
+            var supplier = _context.Supplier
+              .Where(b => supplierName == null || b.SupplierName.Contains(supplierName))
+              .Where(b => supplierEmail == null || b.SupplierEmail.Contains(supplierEmail))
+              .OrderBy(b => b.SupplierName);
+
+            var pagingInfo = new PagingInfoViewModel(await supplier.CountAsync(), page);
+
+            try
+            {
+
+                var model = new SupplierIndexViewModel
+                {
+                    SupplierList = new ListViewModel<Supplier>
+                    {
+                        List = await supplier
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                        PagingInfo = pagingInfo
+                    },
+
+                    SupplierNameSearch = supplierEmail,
+                    SupplierEmailSearch = supplierEmail
+
+                };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, null, page);
+            }
+
         }
 
         // GET: Suppliers/Details/5
@@ -33,17 +69,19 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
-            var supplier = await _context.Supplier
+            var Supplier = await _context.Supplier
                 .FirstOrDefaultAsync(m => m.SupplierId == id);
-            if (supplier == null)
+            if (Supplier == null)
             {
                 return NotFound();
             }
+            ViewBag.SuccessMessageSuppliers = TempData["SuccessMessageSuppliers"];
 
-            return View(supplier);
+            return View(Supplier);
         }
 
         // GET: Suppliers/Create
+        //[Authorize(Roles = "Admin, SupplierEginner")]
         public IActionResult Create()
         {
             return View();
@@ -66,6 +104,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Edit/5
+        //[Authorize(Roles = "Admin, Suppliers Eginner")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -86,6 +125,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
         {
             if (id != supplier.SupplierId)
@@ -117,6 +157,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Delete/5
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -137,6 +178,7 @@ namespace CarManufactoring.Controllers
         // POST: Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = "Admin, Supplier Eginner")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Supplier == null)

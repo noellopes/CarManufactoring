@@ -46,13 +46,13 @@ namespace CarManufactoring.Models
         [StringLength(100, MinimumLength = 2)]
         public string Address { get; set; }
 
-        [Required]
+
         [Display(Name = "Country")]
-        [StringLength(100, MinimumLength = 2)]
         public string Country { get; set; }
 
 
         public ICollection<SupplierPartsCarParts>? CarParts {get; set;}
+        public ICollection<PriceSupplierPartsCarParts>? CarParts1 { get; set; }
     }
 }
 

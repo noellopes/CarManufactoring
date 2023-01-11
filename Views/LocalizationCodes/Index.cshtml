@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarManufactoring.Models.LocalizationCode>
+﻿@model LocalizationCodeIndexViewModel
 
 @{
     ViewData["Title"] = "Localization Code List";
@@ -10,21 +10,38 @@
     <a asp-action="Create" class="btn btn-success mt-3">Create New</a>
 </p>
 
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search Localization Code</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="collumn" class="form-label">Collumn</label>
+                <input name="collumn" class="form-control" type="search" value="@Model.LocalizationCodeCollumnSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="line" class="form-label">Line</label>
+                <input name="line" class="form-control" type="search" value="@Model.LocalizationCodeLineSearched" />
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+        </form>
+    </div>
+</div>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Column)
+                @Html.DisplayNameFor(model => new LocalizationCode().Column)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Line)
+                @Html.DisplayNameFor(model => new LocalizationCode().Line)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.LocalizationCodeList.List) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Column)
@@ -41,3 +58,31 @@
 }
     </tbody>
 </table>
+
+<div class="mt-3 butt">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+</div>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.LocalizationCodeList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.LocalizationCodeList.PagingInfo.InitialPageToShow; p <= Model.LocalizationCodeList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.LocalizationCodeList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.LocalizationCodeList.PagingInfo.CurrentPage == Model.LocalizationCodeList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.LocalizationCodeList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

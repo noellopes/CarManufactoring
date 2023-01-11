@@ -8,19 +8,24 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CustomersController : Controller
     {
         private readonly CarManufactoringContext _context;
+        //private readonly UserManager<IdentityUser> _userManager;
 
-        public CustomersController(CarManufactoringContext context)
+        public CustomersController(CarManufactoringContext context /*, UserManager<IdentityUser> userManager*/)
         {
             _context = context;
+            //_userManager = userManager
         }
 
         // GET: Customers
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index(string CustomerName = null, DateTime CustomerFoundDate = default, int page = 1)
         {
 
@@ -47,11 +52,12 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Customers/Details/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
 
             var customer = await _context.Customer
@@ -65,6 +71,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Customers/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             return View();
@@ -75,10 +82,43 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
+        //[AllowAnonymous]
         public async Task<IActionResult> Create([Bind("CustomerId,CustomerName,CustomerFoundDate")] Customer customer)
         {
             if (ModelState.IsValid)
             {
+                /*
+                var user = await _userManager.FindByNameAsync(customerInfo.Email);
+                if (user != null) {
+                    ModelState.AddModelError("Email", "An user with that email already exists. Did you forgot the password?");
+                    return View();
+                }
+
+                user = new IdentityUser(customerInfo.Email);
+                var result = await _userManager.CreateAsync(user, customerInfo.Password);
+
+                if (!result.Succeeded) {
+                    ModelState.AddModelError("", "Something went wrong. Please try again later.");
+                    return View();
+                }
+
+                result = await _userManager.AddToRoleAsync(user, "Customer");
+                if(!result.Succeeded) {
+                    ModelState.AddModelError("", "Something went wrong. Please try again later.");
+                    return View();
+                }
+
+                var customer = new Customer {
+                    Name = customerInfo.Name,
+                    Email = customerInfo.Email,
+                };
+                _context.Add(customer);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+                 */
+
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
                 TempData["SuccessMessage"] = "Customer created successfully.";
@@ -98,7 +138,7 @@ namespace CarManufactoring.Controllers
             var customer = await _context.Customer.FindAsync(id);
             if (customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
             return View(customer);
         }
@@ -126,7 +166,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!CustomerExists(customer.CustomerId))
                     {
-                        return NotFound();
+                        return View("CustomerNotFound");
                     }
                     else
                     {
@@ -150,7 +190,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
             if (customer == null)
             {
-                return NotFound();
+                return View("CustomerNotFound");
             }
 
             return View(customer);

@@ -5,29 +5,36 @@
 }
 
 <h1>@ViewBag.Title</h1>
-
-
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="form-text text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="StockId" />
             <div class="mt-2 mb-2">
-                <label asp-for="Quantity" class="form-label"></label>
+                <label asp-for="Quantity" class="control-label"></label>
                 <input asp-for="Quantity" class="form-control" />
-                <span asp-validation-for="Quantity" class="form-text text-danger"></span>
+                <span asp-validation-for="Quantity" class="text-danger"></span>
             </div>
             <div class="mt-2 mb-2">
-                <label asp-for="Location" class="form-label"></label>
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mt-2 mb-2">
+                <label asp-for="Location" class="control-label"></label>
                 <input asp-for="Location" class="form-control" />
-                <span asp-validation-for="Location" class="form-text text-danger"></span>
+                <span asp-validation-for="Location" class="text-danger"></span>
             </div>
-            
             <div class="mt-2 mb-2">
-                <label asp-for="Material" class="form-label"></label>
+                <label asp-for="WarehouseStockId" class="control-label"></label>
+                <select asp-for="WarehouseStockId" class="form-control" asp-items="ViewBag.WarehouseStockId"></select>
+                <span asp-validation-for="WarehouseStockId" class="text-danger"></span>
+            </div>
+            <div class="mt-2 mb-2">
+                <label asp-for="MaterialId" class="control-label"></label>
                 <select asp-for="MaterialId" class="form-control" asp-items="ViewBag.MaterialId"></select>
-                <span asp-validation-for="MaterialId" class="form-text text-danger"></span>
+                <span asp-validation-for="MaterialId" class="text-danger"></span>
             </div>
             <div class="mt-2 mb-2">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -35,7 +42,10 @@
             </div>
         </form>
     </div>
+</div>
 
+<div>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {

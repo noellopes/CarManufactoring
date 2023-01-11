@@ -15,6 +15,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Brand")]
         public int MachineBrandId { get; set; }
+        [Display(Name = "Brand")]
         public MachineBrand? MachineBrandNames { get; set; }
     }
 }

@@ -4,6 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
+@if (User.IsInRole("Colaborator"))
+{
+
+
 <style>
     .butt {
         padding-bottom: 10px;
@@ -88,3 +92,5 @@
 
     </ul>
 </nav>
+
+}
