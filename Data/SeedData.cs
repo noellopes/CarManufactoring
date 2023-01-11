@@ -91,8 +91,6 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "josav@cars.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
-
-
         }
 
         private static async Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {

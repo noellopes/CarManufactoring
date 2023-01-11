@@ -10,6 +10,8 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group1;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CarManufactoring.Controllers
 {
@@ -24,16 +26,17 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineMaintenances
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 0)
         {
-            var all = await _context.MachineMaintenance
+            var all = _context.MachineMaintenance
             .Include(m => m.Priority)
             .Include(m => m.Machine)
             .Include(m => m.TaskType)
             .Include(m => m.Machine.MachineModel)
-            .Where(m => m.Deleted == false)
             .Include(m => m.Machine.MachineModel.MachineBrandNames)
-            .ToListAsync();
+            .Where(m => m.Deleted == false);
+            
+           
 
             var onProgress = await _context.MachineMaintenance
             .Include(m => m.Priority)
@@ -42,11 +45,21 @@ namespace CarManufactoring.Controllers
             .Include(m => m.Machine.MachineModel)
             .Include(m => m.Machine.MachineModel.MachineBrandNames)
             .Where(m => !m.EffectiveEndDate.HasValue)
-            .Where(m => m.Deleted == false)
+            .Where(m => m.Deleted == false).Take(10)
             .ToListAsync();
+
+            var pagingInfo = new PagingInfoViewModel(await all.CountAsync(), page);
 
             var model = new MachineMaintenaceIndexViewModel
             {
+
+                MachineMaintenanceList = new ListViewModel<MachineMaintenance>
+                {
+                    List = await all
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
                 All = all,
                 OnProgress = onProgress
             };

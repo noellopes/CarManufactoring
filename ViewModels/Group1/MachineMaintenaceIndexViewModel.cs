@@ -9,5 +9,7 @@ namespace CarManufactoring.ViewModels.Group1
         public IEnumerable<MachineMaintenance>  All  { get; set; }
         public IEnumerable<MachineMaintenance>  OnProgress  { get; set; }
 
+        public ListViewModel<MachineMaintenance> MachineMaintenanceList { get; set; }
+
     }
 }
