@@ -8,13 +8,14 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+     <a asp-action="Create" class="btn btn-primary">Create New</a>
+	
 </p>
 <div class="row">
     <div class="col-5">
-        <form asp-action="Index" method="get">
+        <form asp-action="Index" name="MachinStateSelect" method="get">
             <h6 class="form-label">Machine State</h6>
-            <select  asp-for="StateSearched" class="form-control" name="search" asp-items="ViewBag.StateId">
+            <select asp-for="StateSearched" onchange="MachinStateSelect.submit()" class="form-control" name="search" asp-items="ViewBag.StateId">
                 <option value="0"> All</option>
             </select>
             <div class="pt-3">
