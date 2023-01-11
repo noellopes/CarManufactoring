@@ -27,8 +27,11 @@ namespace CarManufactoring.Controllers
 
         // GET: SupplierParts
         int CurrentPageSize = 5;
-        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1, int pagesize = -1)
+        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1, int pagesize = -1, int id = 0)
         {
+            if (id != 0) {
+                ViewBag.Comprar = id;
+            }
             if (pagesize != -1)
             {
                 CurrentPageSize = pagesize;
@@ -97,7 +100,7 @@ namespace CarManufactoring.Controllers
         }
 
 
-        //[Authorize(Roles = "Supplier")]
+        [Authorize(Roles = "SupplierParts")]
 
 
         // POST: SupplierParts/Create
@@ -135,7 +138,7 @@ namespace CarManufactoring.Controllers
             }
             return View(supplierParts);
         }
-
+        [Authorize(Roles = "SupplierParts")]
         // GET: SupplierParts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -152,15 +155,16 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+
         
-        //[Authorize(Roles = "Supplier")]
-        
-        
+
+
         // POST: SupplierParts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SupplierParts")]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierPartsId,Logo,Name,Email,Contact,ZipCode,Address,Country")] SupplierParts supplierParts)
         {
             if (id != supplierParts.SupplierPartsId)
@@ -191,6 +195,8 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+
+        [Authorize(Roles = "SupplierParts")]
         // GET: SupplierParts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -209,12 +215,13 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
-        //[Authorize(Roles = "Supplier")]
         
-        
+
+
         // POST: SupplierParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SupplierParts")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.SupplierParts == null)
