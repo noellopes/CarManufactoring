@@ -7,34 +7,33 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().MachineMaintenanceId)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().MachineMaintenanceId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().Description)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().BeginDate)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().BeginDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().ExpectedEndDate)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().ExpectedEndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().EffectiveEndDate)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().EffectiveEndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().TaskTypeId)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().TaskTypeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().PriorityId)
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().PriorityId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.All.First().MachineId)
-            </th>
+                @Html.DisplayNameFor(model => model.MachineMaintenanceList.List.First().MachineId)
         </tr>
     </thead>
     <tbody>
 
-        @foreach (MachineMaintenance machineMaintenace in Model.All)
+        @foreach (MachineMaintenance machineMaintenace in Model.MachineMaintenanceList.List)
         {
             if (machineMaintenace.EffectiveEndDate != null)
             {

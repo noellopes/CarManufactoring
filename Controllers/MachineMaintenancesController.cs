@@ -48,7 +48,18 @@ namespace CarManufactoring.Controllers
             .Where(m => m.Deleted == false).Take(10)
             .ToListAsync();
 
+            var deleted = _context.MachineMaintenance
+            .Include(m => m.Priority)
+            .Include(m => m.Machine)
+            .Include(m => m.TaskType)
+            .Include(m => m.Machine.MachineModel)
+            .Include(m => m.Machine.MachineModel.MachineBrandNames)
+            .Where(m => !m.EffectiveEndDate.HasValue)
+            .Where(m => m.Deleted == true);
+
+
             var pagingInfo = new PagingInfoViewModel(await all.CountAsync(), page);
+            var pagingInfoDeleted = new PagingInfoViewModel(await deleted.CountAsync(), page);
 
             var model = new MachineMaintenaceIndexViewModel
             {
@@ -60,8 +71,14 @@ namespace CarManufactoring.Controllers
                     .Take(pagingInfo.PageSize).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
-                All = all,
-                OnProgress = onProgress
+                OnProgress = onProgress,
+                Deleted = new ListViewModel<MachineMaintenance>
+                {
+                    List = await deleted
+                    .Skip((pagingInfoDeleted.CurrentPage - 1) * pagingInfoDeleted.PageSize)
+                    .Take(pagingInfoDeleted.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfoDeleted
+                }
             };
 
             return View(model);

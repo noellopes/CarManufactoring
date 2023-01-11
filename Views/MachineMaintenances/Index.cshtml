@@ -166,7 +166,7 @@
             labels: ['Abertas', 'Fechadas'],
             datasets: [{
                 label: 'Estado das Manutenções',
-                data: [@Model.All.Count(), @Model.OnProgress.Count()],
+                data: [@Model.MachineMaintenanceList.List.Count(m => m.EffectiveEndDate.HasValue), @Model.OnProgress.Count()],
                 backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)'
