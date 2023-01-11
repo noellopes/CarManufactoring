@@ -130,6 +130,8 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
 
 
+            user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret");
+            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
         }
 
