@@ -278,7 +278,9 @@ namespace CarManufactoring.Controllers
                    .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
                    .Where(m => m.Collaborators.Email.Equals(email))
                    .Where(m => m.EffectiveEndDate.HasValue)
-                   .Where(m => m.Deleted == false);
+                   .Where(m => m.Deleted == false)
+                   .OrderBy(m => m.EffectiveEndDate);
+
 
                     break;
                 case 2:
@@ -291,6 +293,7 @@ namespace CarManufactoring.Controllers
                    .Where(m => m.Collaborators.Email.Equals(email))
                    .Where(m => !m.EffectiveEndDate.HasValue)
                    .Where(m => m.Deleted == false);
+                   
                     break;
 
                 default:
@@ -301,7 +304,8 @@ namespace CarManufactoring.Controllers
                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
                 .Where(m => m.Collaborators.Email.Equals(email))
-                .Where(m => m.Deleted == false);
+                .Where(m => m.Deleted == false)
+                .OrderBy(m => m.EffectiveEndDate);
                     break;
             }
 
