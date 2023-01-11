@@ -18,20 +18,16 @@
     <div class="row py-4">
 
             <div class="col-lg-6 col-sm-12 pb-3">
-            <form asp-action="MaintenanceDashboard" method="get">
+            <form asp-action="MaintenanceDashboard" name="MaintenanceDashboardForm" method="get">
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 pb-3">
                         <h6 class="form-label">My Jobs State</h6>
-                        <input type="radio" class="form-check-input" asp-for="CollaboratorWorkState" name="workState" value="1" /> Finished
-                        <input type="radio" class="form-check-input" asp-for="CollaboratorWorkState" name="workState" value="2" /> Unfinished
-                        <input type="radio" class="form-check-input" asp-for="CollaboratorWorkState" name="workState" value="0" /> All
+                        <input type="radio" class="form-check-input" onchange="MaintenanceDashboardForm.submit()" asp-for="CollaboratorWorkState" name="workState" value="1" /> Finished
+                        <input type="radio" class="form-check-input" onchange="MaintenanceDashboardForm.submit()" asp-for="CollaboratorWorkState" name="workState" value="2" /> Unfinished
+                        <input type="radio" class="form-check-input" onchange="MaintenanceDashboardForm.submit()" asp-for="CollaboratorWorkState" name="workState" value="0" /> All
                     </div>                   
                 </div>
-                <div class="row">
-                     <div class="col-lg-3 col-sm-6 ">
-                        <input type="submit" value="Search" class="btn btn-primary" />
-                    </div>
-                </div>
+      
                 
             </form>
             </div>
