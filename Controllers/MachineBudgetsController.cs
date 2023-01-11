@@ -242,7 +242,7 @@ namespace CarManufactoring.Controllers
 
             machineBudgetsParameters.Add(machineBudgets.Where(x => x.dataEntrega == machineBudgets.Min(x => x.dataEntrega)).First());
 
-            machineBudgetsParameters.Add(machineBudgets.Where(x => x.Aquisition.ProducedParts == machineBudgets.Max(x => x.Aquisition.ProducedParts)).First());
+            machineBudgetsParameters.Add(machineBudgets.Where(x => x.Aquisition.QuantityOfParts == machineBudgets.Max(x => x.Aquisition.QuantityOfParts)).First());
 
             //fazer um list []
 
