@@ -205,12 +205,58 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateShifts([Bind("ShiftId,StartDate,EndDate,ShiftTypeId,Month,Year")] Shift shift)
         {
-            var ano = System.DateTime.Now.Year;
-            if (shift.Year < ano)
+            var anoCompare = System.DateTime.Now.Year;
+            var terminologia = "";
+            
+
+            switch (shift.Month)
             {
-                ModelState.AddModelError("Year", $"Year can not be before {ano}.");
+                case 1:
+                    terminologia = "January";
+                    break;
+                case 2:
+                    terminologia = "February";
+                    break;
+                case 3:
+                    terminologia = "March";
+                    break;
+                case 4:
+                    terminologia = "April";
+                    break;
+                case 5:
+                    terminologia = "May";
+                    break;
+                case 6:
+                    terminologia = "June";
+                    break;
+                case 7:
+                    terminologia = "July";
+                    break;
+                case 8:
+                    terminologia = "August";
+                    break;
+                case 9:
+                    terminologia = "September";
+                    break;
+                case 10:
+                    terminologia = "October";
+                    break;
+                case 11:
+                    terminologia = "November";
+                    break;
+                case 12:
+                    terminologia = "December";
+                    break;
+            }
+
+            if (shift.Year < anoCompare)
+            {
+                ModelState.AddModelError("Year", $"Year can not be before {anoCompare}.");
             }
             int days = DateTime.DaysInMonth(shift.Year, shift.Month);
+
+            var year = shift.Year;
+            var month = shift.Month;
 
             if (ModelState.IsValid)
             {
@@ -219,7 +265,7 @@ namespace CarManufactoring.Controllers
                     for (int j = 1; j < 4; j++)
                     {
                         shift = new Shift();
-                        shift.StartDate = new DateTime(2027, 03, i, horas, 00, 00);
+                        shift.StartDate = new DateTime(year, month, i, horas, 00, 00);
                         if (horas > 17)
                         {
                             horas = 0;
@@ -228,7 +274,7 @@ namespace CarManufactoring.Controllers
                         {
                             horas += 6;
                         }
-                        shift.EndDate = new DateTime(2027, 03, i, horas, 00, 00);
+                        shift.EndDate = new DateTime(year, month, i, horas, 00, 00);
                         shift.ShiftTypeId = j;
                         horas -= 6;
                         if(horas < 16){ 
@@ -243,26 +289,11 @@ namespace CarManufactoring.Controllers
                         await _context.SaveChangesAsync();
                     }
                 }
-                //var newShift = new Shift();
 
-                //newShift.StartDate = new DateTime(2027, 03, 01, 16, 00, 00);
-                //newShift.EndDate = new DateTime(2027, 03, 01, 22, 00, 00);
-                //newShift.ShiftTypeId = 2;
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+                TempData["SuccessMessage"] = $"All the Shifts for the month of {terminologia} for the year {year} were successfully created .";
 
-                //var newShift1 = new Shift();
-
-                //newShift1.StartDate = new DateTime(2027, 03, 01, 18, 00, 00);
-                //newShift1.EndDate = new DateTime(2027, 03, 01, 00, 00, 00);
-                //newShift1.ShiftTypeId = 3;
-
-                //_context.Add(shift);
-                //_context.Add(newShift);
-                //_context.Add(newShift1);
-                //await _context.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Shifts created successfully.";
-
-                return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+                return View ("DetailsMonthShifts");
 
             }
 
