@@ -23,6 +23,7 @@
     <a asp-controller="Materials" asp-action="Index" class="btn btn-secondary">Materials</a>
     <a asp-controller="InspectionAndTests" asp-action="Index" class="btn btn-secondary">Inspections/Tests</a>
     <a asp-controller="Collaborators" asp-action="Index" class="btn btn-danger">Collaborators-Dev</a>
+    <a asp-controller="stocks" asp-action="Index" class="btn btn-secondary">Stock</a>
 
     <div class="mt-4">
         <a asp-controller="SupplierParts" asp-action="Index" class="btn btn-secondary">Suppliers-Parts</a>
@@ -33,22 +34,34 @@
     <div class="mt-4">
         <a asp-controller="Suppliers" asp-action="Index" class="btn btn-secondary">Supplier</a>
     </div>
+    <div class="mt-4">
+        <a asp-controller="MachineAquisitions" asp-action="Index" class="btn btn-secondary">Machine Aquisitions</a>
+    </div>
+
+    <div class="mt-4">
+        <a asp-controller="MachineBudgets" asp-action="Index" class="btn btn-info">Machine Budgets</a>
+    </div>
 
 
     <div class="mt-4"> 
         <h3>Group 3</h3>
         <hr />
-        <div class="row"> 
-            <a asp-controller="Cars" asp-action="Index"  class="btn btn-secondary">Cars</a>
-            <a asp-controller="CarConfigs" asp-action="Index" class="btn btn-info">Car Configurations</a>
-            <a asp-controller="Brands" asp-action="Index" class="btn btn-secondary">Brands</a>
-            <a asp-controller="Extras" asp-action="Index" class="btn btn-info">Extras</a>
+        <div> 
+            <a asp-controller="Cars" asp-action="Index"  class="btn btn-secondary">See Cars</a>
+            <a asp-controller="CarConfigs" asp-action="Index" class="btn btn-secondary"> See Predefined Car Configurations</a>
+            <a asp-controller="Brands" asp-action="Index" class="btn btn-secondary">Brands that we work with</a>
+            @if (User.IsInRole("Colaborator"))
+            {
+            <a asp-controller="Extras" asp-action="Index" class="btn btn-secondary">Extras</a>
             <a asp-controller="SalesLines" asp-action="Index" class="btn btn-secondary">SalesLines</a>
-            <a asp-controller="Customers" asp-action="Index" class="btn btn-info">Customers</a>
+            <a asp-controller="Customers" asp-action="Index" class="btn btn-secondary">Customers</a>
             <a asp-controller="CustomerContacts" asp-action="Index" class="btn btn-secondary">Customer Contacts</a>
-            <a asp-controller="Orders" asp-action="Index" class="btn btn-info">Orders</a>
+            <a asp-controller="Orders" asp-action="Index" class="btn btn-secondary">Orders</a>
             <a asp-controller="OrderStates" asp-action="Index" class="btn btn-secondary">OrderStates</a>
+            }
+
         </div>
     </div>
+
 </div>
 

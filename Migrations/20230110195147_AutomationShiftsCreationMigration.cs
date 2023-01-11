@@ -4,7 +4,7 @@
 
 namespace CarManufactoring.Migrations
 {
-    public partial class deneme010101 : Migration
+    public partial class AutomationShiftsCreationMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

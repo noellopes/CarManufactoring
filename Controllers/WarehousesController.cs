@@ -27,36 +27,29 @@ namespace CarManufactoring.Controllers
         // GET: Warehouses
         public async Task<IActionResult> Index(string location = null, int page = 1)
         {
-            var warehouses = _context.Warehouse.Where(w => location == null || w.Location.Contains(location)).OrderBy(w => w.Location);
-            
+            var warehouses = _context.Warehouse
+                .Include(w => w.Collaborator)
+                .Where(w => location == null || w.Location.Contains(location)).OrderBy(w => w.Location);
+
+            ViewData["CollaboratorID"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
 
             var pagingInfo = new PagingInfoViewModel(await warehouses.CountAsync(), page);
 
-            try
+
+            var model = new WarehousesIndexViewModel
             {
-                var model = new WarehousesIndexViewModel
+                WarehousesList = new ListViewModel<Warehouse>
                 {
-                    WarehousesList = new ListViewModel<Warehouse>
-                    {
-                        List = await warehouses
+                    List = await warehouses
                         .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
                         .Take(pagingInfo.PageSize).ToListAsync(),
-                        PagingInfo = pagingInfo
-                    },
+                    PagingInfo = pagingInfo
+                },
 
-                    LocationSearch = location
-                };
+                LocationSearch = location
+            };
 
-                return View(model);
-
-            }
-            catch (Exception ex)
-            {
-                return await Index(null, page);
-            }
-
-            //var carManufactoringContext = _context.Warehouse.Include(w => w.Collaborator);
-            //return View(await carManufactoringContext.ToListAsync());
+            return View(model);
         }
 
         // GET: Warehouses/Details/5
@@ -72,9 +65,10 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.WarehouseId == id);
             if (warehouse == null)
             {
-                return NotFound();
+                return View("WarehouseNotFound");
             }
 
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(warehouse);
         }
 
@@ -96,7 +90,8 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(warehouse);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Warehouse Added Successfully.";
+                return RedirectToAction(nameof(Details), new { id = warehouse.WarehouseId });
             }
             ViewData["CollaboratorID"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", warehouse.CollaboratorID);
             return View(warehouse);
@@ -113,7 +108,7 @@ namespace CarManufactoring.Controllers
             var warehouse = await _context.Warehouse.FindAsync(id);
             if (warehouse == null)
             {
-                return NotFound();
+                return View("WarehouseNotFound");
             }
             ViewData["CollaboratorID"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email", warehouse.CollaboratorID);
             return View(warehouse);
@@ -137,12 +132,14 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(warehouse);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Warehouse successfully edited.";
+                    return RedirectToAction(nameof(Details), new { id = warehouse.WarehouseId });
                 }
                 catch (DbUpdateConcurrencyException)
                 {
                     if (!WarehouseExists(warehouse.WarehouseId))
                     {
-                        return NotFound();
+                        return View("WarehouseNotFound");
                     }
                     else
                     {
@@ -168,7 +165,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.WarehouseId == id);
             if (warehouse == null)
             {
-                return NotFound();
+                return View("WarehouseNotFound");
             }
 
             return View(warehouse);
@@ -188,14 +185,14 @@ namespace CarManufactoring.Controllers
             {
                 _context.Warehouse.Remove(warehouse);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool WarehouseExists(int id)
         {
-          return _context.Warehouse.Any(e => e.WarehouseId == id);
+            return _context.Warehouse.Any(e => e.WarehouseId == id);
         }
     }
 }
