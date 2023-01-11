@@ -11,8 +11,49 @@
 </p>
 <table class="table">
     <thead>
-        
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineState)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineLocalizationCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAcquired)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
     </thead>
-
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineModel.MachineModelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineState.StateMachine)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineLocalizationCode.Column)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAcquired)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MachineId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.MachineId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.MachineId">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>

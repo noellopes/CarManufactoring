@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarManufactoring.Models.InspectionAndTest>
+﻿@model InspectionTestIndexViewModel
 
 @{
     ViewData["Title"] = "Inspections and Tests";
@@ -6,38 +6,67 @@
 
 <h1>@ViewBag.Title</h1>
 
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New Test</a>
-</p>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="productions" class="form-label">Production</label>
+                <input name="productions" class="form-control" type="search" value="@Model.ProductionsSearched" />
+            </div>
+
+            <div class="mb-3">
+                <label for="state" class="form-label">State</label>
+                <input name="state" class="form-control" type="search" value="@Model.StateSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="collaborator" class="form-label">Collaborator</label>
+                <input name="collaborator" class="form-control" type="search" value="@Model.CollaboratorSearched" />
+            </div>
+
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-secondary">Clear search</a>
+        </form>
+    </div>
+</div>
+
+
+@if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
+{
+    <p class="mt-2">
+
+        <a asp-action="Create" class="btn btn-success">Create New Test</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Productions)
+                @Html.DisplayNameFor(model => new InspectionAndTest().Productions)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantityTested)
+                @Html.DisplayNameFor(model => new InspectionAndTest().QuantityTested)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+                @Html.DisplayNameFor(model => new InspectionAndTest().State)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => new InspectionAndTest().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @Html.DisplayNameFor(model => new InspectionAndTest().Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Collaborator)
+                @Html.DisplayNameFor(model => new InspectionAndTest().Collaborator)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.InspectionAndTestList.List) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Productions.ProductionId)
+                @Html.DisplayFor(modelItem => item.Productions.CarConfig.ConfigName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.QuantityTested)
@@ -55,11 +84,43 @@
                 @Html.DisplayFor(modelItem => item.Collaborator.Name)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.InspectionId" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.InspectionId" class="btn btn-info">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.InspectionId" class="btn btn-danger">Delete</a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.InspectionId" class="btn btn-warning">Edit</a> 
+                    }@if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.InspectionId" class="btn btn-danger">Delete</a>
+                    }
+                    
+                    <a asp-action="Details" asp-route-id="@item.InspectionId" class="btn btn-info">Details</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.InspectionAndTestList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="">First</a>
+        </li>
+
+        @for (int p = Model.InspectionAndTestList.PagingInfo.InitialPageToShow; p <= Model.InspectionAndTestList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.InspectionAndTestList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.InspectionAndTestList.PagingInfo.CurrentPage == Model.InspectionAndTestList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.InspectionAndTestList.PagingInfo.TotalPages">Last</a>
+        </li>
+
+    </ul>
+</nav>

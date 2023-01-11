@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CarConfigsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -17,6 +19,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarConfigs
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string configName = null, int numExtras = 0, double addedPrice = 0, double finalPrice = 0,string car = null, string brand = null,  int page = 1)
         {
             var carconfigs = _context.CarConfig.Include(c => c.Car).Include(c => c.Car.Brand)
@@ -51,6 +54,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CarConfigs/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CarConfig == null)
@@ -63,13 +67,14 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CarConfigId == id);
             if (carConfig == null)
             {
-                return NotFound();
+                return View("CarConfigNotFound");
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(carConfig);
         }
 
         // GET: CarConfigs/Create
+        [Authorize(Roles ="Colaborator")]
         public IActionResult Create()
         {
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel");
@@ -81,13 +86,17 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Colaborator")]
         public async Task<IActionResult> Create([Bind("CarConfigId,ConfigName,NumExtras,AddedPrice,FinalPrice,CarId")] CarConfig carConfig)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(carConfig);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Car Config created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = carConfig.CarConfigId });
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", carConfig.CarId);
             return View(carConfig);
@@ -104,7 +113,7 @@ namespace CarManufactoring.Controllers
             var carConfig = await _context.CarConfig.FindAsync(id);
             if (carConfig == null)
             {
-                return NotFound();
+                return View("CarConfigNotFound");
             }
             ViewData["CarId"] = new SelectList(_context.Car, "CarId", "CarModel", carConfig.CarId);
             return View(carConfig);
@@ -133,7 +142,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!CarConfigExists(carConfig.CarConfigId))
                     {
-                        return NotFound();
+                        return View("CarConfigNotFound");
                     }
                     else
                     {
@@ -159,9 +168,10 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CarConfigId == id);
             if (carConfig == null)
             {
-                return NotFound();
+                return View("CarConfigNotFound");
             }
-
+            ViewBag.Error = "Are you sure you want to delete this car configuration?";
+            ViewBag.NumberCarConfSalesLines = await _context.SalesLine.Where(b => b.CarConfigId == id).CountAsync();
             return View(carConfig);
         }
 
@@ -177,11 +187,12 @@ namespace CarManufactoring.Controllers
             var carConfig = await _context.CarConfig.FindAsync(id);
             if (carConfig != null)
             {
-                _context.CarConfig.Remove(carConfig);
-            }
-            
+            _context.CarConfig.Remove(carConfig);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            }
+            TempData["SuccessMessage"] = "Car removed successfully.";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            return View("CarConfigDeleted");
         }
 
         private bool CarConfigExists(int id)

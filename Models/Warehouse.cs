@@ -12,6 +12,8 @@ namespace CarManufactoring.Models
         [Display(Name = "Collaborator")]
         public int CollaboratorID { get; set; }
 
-        public Collaborator Collaborator { get; set; }
+        public Collaborator? Collaborator { get; set; }
+
+        public ICollection<WarehouseProduct>? CarParts { get; set; }
     }
 }

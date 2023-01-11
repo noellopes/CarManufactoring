@@ -48,6 +48,7 @@
                 <input asp-for="Country" class="form-control" />
                 <span asp-validation-for="Country" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="Delete" asp-route-id="@Model?.SupplierPartsId" class="btn btn-danger">Delete</a>

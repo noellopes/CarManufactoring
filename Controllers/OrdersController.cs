@@ -9,9 +9,11 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using System.Runtime.ConstrainedExecution;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -22,6 +24,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Orders
+        [AllowAnonymous]
         public async Task<IActionResult> Index(DateTime OrderDate = default, string OrderState = null, DateTime StateDate = default, string Customer = null, int page = 1)
         {
 
@@ -53,6 +56,7 @@ namespace CarManufactoring.Controllers
 
 
         // GET: Orders/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Order == null)
@@ -66,13 +70,14 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
-                return NotFound();
+                return View("OrderNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(order);
         }
 
         // GET: Orders/Create
+        [AllowAnonymous]
         public IActionResult Create()
         {
             Order obj = new();
@@ -86,6 +91,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Create([Bind("OrderId,OrderDate,OrderStateId,StateDate,CustomerId")] Order order)
         {
             if (ModelState.IsValid)
@@ -102,6 +108,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Orders/Edit/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Order == null)
@@ -112,7 +119,7 @@ namespace CarManufactoring.Controllers
             var order = await _context.Order.FindAsync(id);
             if (order == null)
             {
-                return NotFound();
+                return View("OrderNotFound");
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", order.CustomerId);
             ViewData["OrderStateId"] = new SelectList(_context.OrderState, "OrderStateId", "OrderStateName", order.OrderStateId);
@@ -124,6 +131,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int id, [Bind("OrderId,OrderDate,OrderStateId,StateDate,CustomerId")] Order order)
         {
             if (id != order.OrderId)
@@ -142,7 +150,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!OrderExists(order.OrderId))
                     {
-                        return NotFound();
+                        return View("OrderNotFound");
                     }
                     else
                     {
@@ -157,6 +165,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Orders/Delete/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Order == null)
@@ -170,7 +179,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (order == null)
             {
-                return NotFound();
+                return View("OrderNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -180,6 +189,7 @@ namespace CarManufactoring.Controllers
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Order == null)

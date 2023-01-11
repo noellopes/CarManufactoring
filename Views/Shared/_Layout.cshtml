@@ -5,10 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CarManufactoring</title>
     <script src="https://kit.fontawesome.com/aa67676153.js" crossorigin="anonymous"></script>
+    <script src="~/js/chart/chart.umd.min.js"></script>
+    <script src="~/js/chart/helpers.min.js"></script>
+    <script src="~/js/chart/chart.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/fa/css/all.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CarManufactoring.styles.css" asp-append-version="true" />
+    
 
 </head>
 <body>
@@ -31,6 +35,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Students" asp-action="Index">Students</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Productions" asp-action="Index">Productions</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="ModelParts" asp-action="Index">Model Parts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="StockFinalProducts" asp-action="Index">Stock Final Products</a>
+                        </li>
+                         <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Shifting
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" asp-controller="ShiftSchedule" asp-action="Index">Shift Schedule</a></li>
+                                <li><hr class="dropdown-divider"></li>                               
+                              </ul>
+                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Todo">To do</a>
                         </li>
@@ -58,7 +80,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/fa/all.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   
+   
     <script src="~/js/site.js" asp-append-version="true"></script>
+   
     
     @await RenderSectionAsync("Scripts", required: false)
 </body>
