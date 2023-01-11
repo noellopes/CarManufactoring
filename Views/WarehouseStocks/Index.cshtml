@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<CarManufactoring.Models.WarehouseStock>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Warehouse Stock List";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
-<p>
-    <a asp-action="Create" >Create New</a>
+<p class="mt-4">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+    <a asp-controller="stocks" asp-action="Index" class="btn btn-secondary">Stock</a>
 </p>
 <table class="table">
     <thead>
@@ -36,9 +37,9 @@
                 @item.Quantity
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.WarehouseStockId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.WarehouseStock.Identification">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.WarehouseStockId">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.WarehouseStockId" class="btn btn-warning">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.WarehouseStockId" class="btn btn-info">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.WarehouseStockId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
