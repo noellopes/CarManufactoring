@@ -201,7 +201,7 @@ namespace CarManufactoring.Data
 
         private static void PopulateSemiFinishedCars(CarManufactoringContext db)
         {
-            if (db.SemiFinishedCar.Any()) return;
+            /*if (db.SemiFinishedCar.Any()) return;
 
             db.SemiFinishedCar.AddRange(
 
@@ -210,7 +210,7 @@ namespace CarManufactoring.Data
 
                 );
 
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
 
         private static void PopulatePriority(CarManufactoringContext db)
