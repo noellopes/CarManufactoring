@@ -70,14 +70,6 @@
                     <a asp-action="Delete" asp-route-id="@item.ProductionId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
-        <tr>
-            <td>
-                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="@Model.ProductionProgress[pos]" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: @Convert.ToInt32(Model.ProductionProgress[pos])%"></div>
-                    @{pos++;}
-                </div>
-            </td>
-        </tr>
 }
     </tbody>
 </table>

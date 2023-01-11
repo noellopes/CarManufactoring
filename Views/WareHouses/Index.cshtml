@@ -30,7 +30,7 @@
                 @Html.DisplayNameFor(model => new Warehouse().Location)
             </th>
             <th>
-                @Html.DisplayNameFor(model => new Warehouse().CollaboratorID)
+                @Html.DisplayNameFor(model => new Warehouse().Collaborator)
             </th>
             <th></th>
         </tr>
@@ -46,9 +46,9 @@
                 @Html.DisplayFor(modelItem => item.Collaborator.Email)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.WarehouseId" class="btn btn-warning">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.WarehouseId" class="btn btn-info">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.WarehouseId" class="btn btn-danger">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.WarehouseId" class="btn btn-warning">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.WarehouseId" class="btn btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.WarehouseId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

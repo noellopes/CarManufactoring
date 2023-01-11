@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
@@ -21,6 +22,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts
+        [Authorize(Roles = "Admin, Mechanical Eginner, Colaborator")]
         public async Task<IActionResult> Index(string CarConfigName = null, string CarPartName = null, int QtdPecas = 0, int page = 1)
         {
             var empty = _context.ModelParts.Count();
@@ -70,6 +72,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Details/5
+        [Authorize(Roles = "Admin, Mechanical Eginner, Colaborator")]
         public async Task<IActionResult> Details(int? CarConfigId, int? ProductId)
         {
 
@@ -91,6 +94,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Create
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
@@ -103,6 +107,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> Create([Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
             if(ModelPartsExists(modelParts.ProductId, modelParts.CarConfigId))
@@ -124,6 +129,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ModelParts/Edit/5
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> Edit(int? CarConfigId, int? ProductId)
         {
             if (CarConfigId == null || ProductId == null || _context.ModelParts == null)
@@ -146,6 +152,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> Edit(int CarConfigId, int ProductId, [Bind("ProductId,CarConfigId,QtdPecas")] ModelParts modelParts)
         {
             if (CarConfigId != modelParts.CarConfigId || ProductId != modelParts.ProductId)
@@ -178,6 +185,7 @@ namespace CarManufactoring.Controllers
             return View(modelParts);
         }
 
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         // GET: ModelParts/Delete/5
         public async Task<IActionResult> Delete(int? CarConfigId, int? ProductId)
         {
@@ -201,6 +209,7 @@ namespace CarManufactoring.Controllers
         // POST: ModelParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Mechanical Eginner")]
         public async Task<IActionResult> DeleteConfirmed(int CarConfigId, int ProductId)
         {
             if (_context.ModelParts == null)

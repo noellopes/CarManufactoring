@@ -34,17 +34,17 @@
                 <span asp-validation-for="NumExtras" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AddedPrice" class="control-label"></label>
+                <label asp-for="AddedPrice" class="control-label">Added Price (€)</label>
                 <input asp-for="AddedPrice" class="form-control" />
                 <span asp-validation-for="AddedPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FinalPrice" class="control-label"></label>
+                <label asp-for="FinalPrice" class="control-label">Final Price (€)</label>
                 <input asp-for="FinalPrice" class="form-control"  />
                 <span asp-validation-for="FinalPrice" class="text-danger"></span>
             </div>
             <div class="form-group butt">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-success" />
                 <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>

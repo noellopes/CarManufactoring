@@ -1,37 +1,75 @@
-﻿@model IEnumerable<CarManufactoring.Models.MachineBudget>
+﻿@model MachineBudgetIndexViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Machine Budget";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <label for="supplier" class="form-label">Supplier</label>
+                <input name="supplier" class="form-control" type="search" value="@Model.SupplierSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="machine" class="form-label">Machine</label>
+                <input name="machine" class="form-control" type="search" value="@Model.MachineAquisitionSearched" />
+            </div>
+            <div style="display: flex; justify-content: center;">
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary" style="margin-left: 4px">Clear search</a>
+            </div>
+            
+        </form>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a asp-action="Create" class="btn btn-success">Create New</a>
+
+    @if (Model.MachineBudgetList.List.Count() >= 2)
+    {
+            <a asp-action="beforeComparison" class="btn btn-info">Perform Comparison</a>
+    }
+</div>
+
+<table class="table" style="text-align: center; margin: 15px">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.dataSolicitada)
+                @Html.DisplayNameFor(model => new MachineBudget().dataSolicitada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.dataEntrega)
+                @Html.DisplayNameFor(model => new MachineBudget().dataEntrega)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Valor)
+                @Html.DisplayNameFor(model => new MachineBudget().Valor)
+            </th>
+               <th>
+                @Html.DisplayNameFor(model => new MachineBudget().prazoGarantia)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Supplier)
+                @Html.DisplayNameFor(model => new MachineBudget().custoManutencao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Aquisition)
+                @Html.DisplayNameFor(model => new MachineBudget().Aquisition.ProducedParts)
             </th>
-            <th></th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineBudget().Supplier)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineBudget().Aquisition)
+            </th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.MachineBudgetList.List) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.dataSolicitada)
@@ -43,17 +81,56 @@
                 @Html.DisplayFor(modelItem => item.Valor)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Supplier.SupplierAddress)
+                @Html.DisplayFor(modelItem => item.prazoGarantia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.custoManutencao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Aquisition.ProducedParts)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier.SupplierName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Aquisition.MachineAquisitionName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.MachineBudgetID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MachineBudgetID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MachineBudgetID">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.MachineBudgetID" class="btn"><i class="fas fa-edit"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.MachineBudgetID" class="btn"><i class="fas fa-info-circle"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.MachineBudgetID" class="btn"><i class="fas fa-trash"></i></a>
             </td>
         </tr>
+
+       
 }
     </tbody>
 </table>
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.MachineBudgetList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+
+        @for (int p = Model.MachineBudgetList.PagingInfo.InitialPageToShow; p <= Model.MachineBudgetList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.MachineBudgetList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.MachineBudgetList.PagingInfo.CurrentPage == Model.MachineBudgetList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.MachineBudgetList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CarManufactoring.Models.Supplier>
+﻿@using CarManufactoring.ViewModels.Group4
+@model SupplierIndexViewModel
+
 
 @{
     ViewData["Title"] = "Index";
@@ -6,54 +8,124 @@
 
 <h1>Index</h1>
 
+
+
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                Search Supplier
+            </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="card border-secondary mb-4">
+                    <div class="card-body">
+                        <form asp-action="Index" method="get">
+                            <div class="mb-3">
+                                <label for="supplierName" class="form-label">Supplier Name</label>
+                                <input name="supplierName" class="form-control" type="search" value="@Model.SupplierNameSearch" />
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="supplierEmail" class="form-label">Supplier Email</label>
+                                <input name="supplierEmail" class="form-control" type="search" value="@Model.SupplierEmailSearch" />
+                            </div>
+                            <input type="submit" value="Search" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Clear Search</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
+
+
 <table class="table">
     <thead>
+    <thead>
         <tr>
+
             <th>
-                @Html.DisplayNameFor(model => model.SupplierName)
+                    @Html.DisplayNameFor(model => new Supplier().SupplierName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierEmail)
+                    @Html.DisplayNameFor(model => new Supplier().SupplierEmail)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierContact)
+                    @Html.DisplayNameFor(model => new Supplier().SupplierContact)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierZipCode)
+                    @Html.DisplayNameFor(model => new Supplier().SupplierZipCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SupplierAddress)
+                    @Html.DisplayNameFor(model => new Supplier().SupplierAddress)
             </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierEmail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierContact)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierZipCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SupplierAddress)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.SupplierId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.SupplierId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.SupplierId">Delete</a>
-            </td>
-        </tr>
-}
+            @foreach (Supplier Supplier in Model.SupplierList.List)
+            {
+            <tr>
+
+                <td>
+                        @Html.DisplayFor(modelItem => Supplier.SupplierName)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => Supplier.SupplierEmail)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => Supplier.SupplierContact)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => Supplier.SupplierZipCode)
+                </td>
+                <td>
+                        @Html.DisplayFor(modelItem => Supplier.SupplierAddress)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@Supplier.SupplierId" class="btn btn-warning">Edit</a>
+
+                    <a asp-action="Details" asp-route-id="@Supplier.SupplierId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@Supplier.SupplierId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.SupplierList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1" asp-route-pagesize="@Model.SupplierList.PagingInfo.PageSize">First</a>
+        </li>
+        @for (int p = Model.SupplierList.PagingInfo.InitialPageToShow; p <= Model.SupplierList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.SupplierList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" asp-action="Index" asp-route-page="@p" asp-route-pagesize="@Model.SupplierList.PagingInfo.PageSize">@p</a></li>
+
+            }
+            else
+            {
+
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p" asp-route-pagesize="@Model.SupplierList.PagingInfo.PageSize">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.SupplierList.PagingInfo.CurrentPage == Model.SupplierList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.SupplierList.PagingInfo.TotalPages" asp-route-pagesize="@Model.SupplierList.PagingInfo.PageSize">Last</a>
+        </li>
+    </ul>
+</nav>
+
+
+

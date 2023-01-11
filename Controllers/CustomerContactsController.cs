@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CustomerContactsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -21,6 +23,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CustomerContacts
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index(string CustomerName = null, string CustomerRole = null, string CustomerPhone = null, string CustomerEmail = null, string Customer = null, int page = 1)
         {
 
@@ -54,6 +57,7 @@ namespace CarManufactoring.Controllers
 
 
         // GET: CustomerContacts/Details/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CustomerContact == null)
@@ -66,13 +70,14 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerContactId == id);
             if (customerContact == null)
             {
-                return NotFound();
+                return View("CustomerContactsNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(customerContact);
         }
 
         // GET: CustomerContacts/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName");
@@ -84,6 +89,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("CustomerContactId,CustomerName,CustomerRole,CustomerPhone,CustomerEmail,CustomerId")] CustomerContact customerContact)
         {
             if (ModelState.IsValid)
@@ -98,6 +104,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CustomerContacts/Edit/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.CustomerContact == null)
@@ -108,13 +115,14 @@ namespace CarManufactoring.Controllers
             var customerContact = await _context.CustomerContact.FindAsync(id);
             if (customerContact == null)
             {
-                return NotFound();
+                return View("CustomerContactsNotFound");
             }
             ViewData["CustomerId"] = new SelectList(_context.Customer, "CustomerId", "CustomerName", customerContact.CustomerId);
             return View(customerContact);
         }
 
         // POST: CustomerContacts/Edit/5
+        [Authorize(Roles = "Colaborator")]
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -137,7 +145,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!CustomerContactExists(customerContact.CustomerContactId))
                     {
-                        return NotFound();
+                        return View("CustomerContactsNotFound");
                     }
                     else
                     {
@@ -151,6 +159,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CustomerContacts/Delete/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.CustomerContact == null)
@@ -163,7 +172,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.CustomerContactId == id);
             if (customerContact == null)
             {
-                return NotFound();
+                return View("CustomerContactsNotFound");
             }
 
             return View(customerContact);
@@ -172,6 +181,7 @@ namespace CarManufactoring.Controllers
         // POST: CustomerContacts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.CustomerContact == null)

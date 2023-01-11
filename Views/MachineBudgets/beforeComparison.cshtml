@@ -1,0 +1,23 @@
+﻿@model CarManufactoring.Models.MachineBudget
+
+@{
+    ViewData["Title"] = "Before Comparison";
+}
+
+
+<h1>Before Comparison</h1>
+
+<h4>MachineBudget</h4>
+
+<form asp-action="Comparison" method="get">
+    <div class="form-group">
+        <label asp-for="AquisitionId" class="control-label"></label>
+        <select asp-for="AquisitionId" class="form-control" asp-items="ViewBag.AquisitionId"></select>
+        <span asp-validation-for="AquisitionId" class="text-danger"></span>
+    </div>
+
+    <div class="mt-3">
+        <input type="submit" value="Perform Comparison" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</form>

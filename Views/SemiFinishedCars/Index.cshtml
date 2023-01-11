@@ -31,6 +31,9 @@
     <thead>
         <tr>
             <th>
+                Id
+            </th>
+            <th>
                 S.F. Name
             </th>
             <th>
@@ -53,6 +56,9 @@
         {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.SemiFinishedCarsId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.SemiFinished.Family)
             </td>
             <td>
@@ -68,16 +74,16 @@
                 @Html.DisplayFor(modelItem => item.Car.LaunchYear)
             </td>
             <td>
-                <a asp-action="Details" asp-route-id="@item.SemiFinishedCarId" class="btn btn-info">Details</a>
+                <a asp-action="Details" asp-route-id="@item.SemiFinishedId" class="btn btn-info">Details</a>
 
                 @if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
                 {
-                    <a asp-action="Edit" asp-route-id="@item.SemiFinishedCarId" class="btn btn-warning">Edit</a>
+                        <a asp-action="Edit" asp-route-id="@item.SemiFinishedCarsId" class="btn btn-warning">Edit</a>
                 }
 
                 @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
                 {
-                    <a asp-action="Delete" asp-route-id="@item.SemiFinishedCarId" class="btn btn-danger">Delete</a>
+                    <a asp-action="Delete" asp-route-id="@item.SemiFinishedCarsId" class="btn btn-danger">Delete</a>
                 }
             </td>
         </tr>

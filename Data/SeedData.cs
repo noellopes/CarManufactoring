@@ -11,17 +11,18 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-
-
-            PopulateGender(db);
+          
+ PopulateGender(db);
+            
             PopulateCollaborators(db);
             PopulateShiftType(db);
             PopulateShift(db);
 
+            PopulateGender(db);
             PopulateFunction(db);
             PopulateCarParts(db);
             PopulateSemiFinisheds(db);
-            //PopulateSemiFinishedCars(db);
+            PopulateSemiFinishedCars(db);
             PopulateMaterials(db);
             PopulateSection(db);
             PopulateSectionManager(db);
@@ -34,30 +35,38 @@ namespace CarManufactoring.Data
             PopulateMachineBrand(db);
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
-            PopulateMachines(db);
+            //PopulateMachines(db);
             //PopulateMachineMaintenance(db);
             PopulateCars(db);
-            PopulateTimeOfProduction(db);
+            //PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
             PopulateMaterialUsed(db);
             PopulateSupplier(db);
-            //PopulateStocks(db);
+            
             PopulateWarehouseStocks(db);
+            PopulateStocks(db);
             PopulateExtras(db);
             PopulateOrderState(db);
             PopulateProductions(db);
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
+            //PopulateStockFinalProduct(db);
+            //PopulateLocalizationCar(db);
             PopulateStockFinalProduct(db);
-            PopulateBreakdows(db);
-            PopulateLocalizationCar(db);
-            PopulateBreakdows(db);
+
+            
+
+ 
+     
+
+
+            //PopulateBreakdows(db);
+            //PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
-            PopulateSupplierParts(db);
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
@@ -67,11 +76,15 @@ namespace CarManufactoring.Data
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
-            await EnsureRoleIsCreated(roleManager, "ColaboratorMaintenance");
+            await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
             await EnsureRoleIsCreated(roleManager, "Manager");
+            await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
             await EnsureRoleIsCreated(roleManager, "Production");
             await EnsureRoleIsCreated(roleManager, "Customer");
+            await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
+            await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
+            await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -87,14 +100,34 @@ namespace CarManufactoring.Data
             var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Admin");
 
+            user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
+
             user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Manager");
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
 
-            user = await EnsureUserIsCreated(userManager, "Supp@ipg.pt", "Secret");
+            user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user,"Mechanical Eginner");
+
+            user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
+
+            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
+
+
+            user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
+
+            user = await EnsureUserIsCreated(userManager, "mustafabukhari @cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+
+
 
         }
 
@@ -121,6 +154,7 @@ namespace CarManufactoring.Data
         }
 
 
+  
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -171,8 +205,8 @@ namespace CarManufactoring.Data
 
             db.SemiFinishedCar.AddRange(
 
-                new SemiFinishedCar { SemiFinishedId=1, CarId=2},
-                new SemiFinishedCar { SemiFinishedId = 2, CarId = 3}
+                new SemiFinishedCar {SemiFinishedId =1, CarId=2},
+                new SemiFinishedCar {SemiFinishedId = 2, CarId = 3}
 
                 );
 
@@ -283,26 +317,27 @@ namespace CarManufactoring.Data
             db.SaveChanges();
 
         }
-
+        /*
         // Seed da tabela Machine
         private static void PopulateMachines(CarManufactoringContext db)
         {
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2,Description=" "},
-                //new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1 , Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, SectionId = 2},
+                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, SectionId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, SectionId = 2 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, SectionId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, SectionId = 1 },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, SectionId = 5 },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, SectionId = 3 },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, SectionId = 4 }
 
                 );
 
             db.SaveChanges();
         }
+        */
 
         private static void PopulateMachineMaintenance(CarManufactoringContext db)
         {
@@ -463,8 +498,8 @@ namespace CarManufactoring.Data
 
             db.CustomerContact.AddRange(
                 new CustomerContact { CustomerName = "Guilherme Alves", CustomerRole = "Diretor", CustomerPhone = "+351987563215", CustomerEmail = "gui@gmail.com", CustomerId = 1 },
-                new CustomerContact { CustomerName = "Luis Barros", CustomerRole = "Chefe", CustomerPhone = "+351988533215", CustomerEmail = "gui@gmail.com", CustomerId = 2 },
-                new CustomerContact { CustomerName = "Rodrigo Lourenço", CustomerRole = "Tesoureiro", CustomerPhone = "+351987569053", CustomerEmail = "gui@gmail.com", CustomerId = 3 }
+                new CustomerContact { CustomerName = "Luis Barros", CustomerRole = "Chefe", CustomerPhone = "+351988533215", CustomerEmail = "luis@gmail.com", CustomerId = 2 },
+                new CustomerContact { CustomerName = "Rodrigo Lourenço", CustomerRole = "Tesoureiro", CustomerPhone = "+351987569053", CustomerEmail = "rodrigo@gmail.com", CustomerId = 3 }
 
                 );
 
@@ -558,9 +593,12 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 }
+                new Stock { Quantity = 35, Location = "Section 1, left, top", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
+                new Stock { Quantity = 10, Location = "Section 3, right, bottom", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 52, Location = "Section 5, midel, midel", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 },
+                new Stock { Quantity = 28, Location = "Section 2, left, midel", MaterialId = 5, Description = "This is a text sample", WarehouseStockId = 3 },
+                new Stock { Quantity = 16, Location = "Section 4, midel, top", MaterialId = 4, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 9, Location = "Section 1, right, midel", MaterialId = 6, Description = "This is a text sample", WarehouseStockId = 1 }
                 );
 
             db.SaveChanges();
@@ -820,7 +858,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-
+        /*
         private static void PopulateBreakdows(CarManufactoringContext db)
         {
             if (db.Breakdown.Any()) return;
@@ -834,7 +872,7 @@ namespace CarManufactoring.Data
                    BreakdownNumber = 1,
                    ReparationDate = DateTime.Parse("13/02/2022"),
                    MachineStop = 4,
-                   MachineReplacement = "",
+                   MachineReplacement =MachineReplacement.Replacement,
                    RepairInTheCompany = true
                },
 
@@ -845,18 +883,28 @@ namespace CarManufactoring.Data
                     BreakdownNumber = 2,
                     ReparationDate = DateTime.Parse("03/01/2023"),
                     MachineStop = 12,
-                    MachineReplacement = "",
+                    MachineReplacement = MachineReplacement.Repair,
                     RepairInTheCompany = true
                 },
                  new Breakdown
                  {
                      BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownDate = DateTime.Parse("13/01/2023"),
+                     BreakdownNumber = 3,
+                     ReparationDate = DateTime.Parse("16/01/2023"),
+                     MachineStop = 12,
+                     MachineReplacement =MachineReplacement.Replacement,
+                     RepairInTheCompany = false
+                 },
+                 new Breakdown
+                 {
+                     BreakdownName = "Sistema de projeção",
                      BreakdownDate = DateTime.Parse("13/02/2022"),
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("13/02/2022"),
                      MachineStop = 12,
-                     MachineReplacement = "",
-                     RepairInTheCompany = true
+                     MachineReplacement = MachineReplacement.Replacement,
+                     RepairInTheCompany = false
                  }
 
 
@@ -864,6 +912,7 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+
 
         private static void PopulateMachineAquisitions(CarManufactoringContext db)
         {
@@ -906,6 +955,9 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+
+
+        */
 
     }
 }
