@@ -7,5 +7,7 @@ namespace CarManufactoring.ViewModels.Group2
         public ListViewModel<SupplierPartsCarParts> SupplierPartsCarPartsList { get; set; }
 
         public int? SupplierId { get; set; }
+
+        public int? ProductId { get; set; }
     }
 }

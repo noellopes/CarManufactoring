@@ -87,6 +87,7 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
+            await EnsureRoleIsCreated(roleManager, "SupplierParts");
             await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
             await EnsureRoleIsCreated(roleManager, "CarPartsManager");
         }
@@ -119,9 +120,11 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
 
-            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
+            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
+            user = await EnsureUserIsCreated(userManager, "supplierparts@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "SupplierParts");
 
             user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
