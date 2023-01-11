@@ -27,6 +27,7 @@ namespace CarManufactoring.Data
             PopulateLocalizationCode(db);
             PopulateMachines(db);
             PopulateMachineMaintenance(db);
+            PopulateMaintenanceCollaborator(db);
             /*PopulateInspectionTestState(db);
             PopulateInspectionTesting(db);
              PopulateCars(db);
