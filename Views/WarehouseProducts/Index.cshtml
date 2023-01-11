@@ -1,34 +1,59 @@
-﻿@model IEnumerable<CarManufactoring.Models.WarehouseProduct>
+﻿@using CarManufactoring.ViewModels.Group2
+@model WarehouseProductsIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Add WarehouseProduct</a>
 </p>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Warehouse Search</h5>
+        <form asp-action="Index" method="get">
+            <div class="mb-3">
+                <h6 class="form-label">Warehouse</h6>
+                <select asp-for="WarehouseSearch" class="form-control" name="Location" asp-items="ViewBag.WarehouseId">
+                    <option value="0"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <h6 class="form-label">Car Part</h6>
+                <select asp-for="ProductSearch" class="form-control" name="Name" asp-items="ViewBag.ProductId">
+                    <option value="0"></option>
+                </select>
+            </div>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+        </form>
+    </div>
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Warehouses)
+                @Html.DisplayNameFor(model => new WarehouseProduct().Warehouses)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CarParts)
+                @Html.DisplayNameFor(model => new WarehouseProduct().CarParts)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantity)
+                @Html.DisplayNameFor(model => new WarehouseProduct().Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.StockMax)
+                @Html.DisplayNameFor(model => new WarehouseProduct().StockMax)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model.WarehouseProductsList.List)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Warehouses.Location)
@@ -43,11 +68,35 @@
                 @Html.DisplayFor(modelItem => item.StockMax)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    <a asp-action="Edit" asp-route-id="@item.WarehouseId" asp-route-id1="@item.ProductId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.WarehouseId" asp-route-id1="@item.ProductId" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.WarehouseId" asp-route-id1="@item.ProductId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.WarehouseProductsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+
+        @for (int p = Model.WarehouseProductsList.PagingInfo.InitialPageToShow; p <= Model.WarehouseProductsList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.WarehouseProductsList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.WarehouseProductsList.PagingInfo.CurrentPage == Model.WarehouseProductsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.WarehouseProductsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

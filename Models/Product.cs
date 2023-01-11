@@ -100,8 +100,6 @@ namespace CarManufactoring.Models {
 
         }
 
-
-
         //Filipe will do the buyProdfunction
     }
 }

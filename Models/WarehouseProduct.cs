@@ -18,7 +18,7 @@ namespace CarManufactoring.Models
         [Range(0, int.MaxValue, ErrorMessage = "Quantity must be greater than zero")]
         public int Quantity { get; set; }
 
-        [Range(0, int.MaxValue)]
+        [Range(0, int.MaxValue, ErrorMessage = "StockMax must be greater than one")]
         public int StockMax { get; set; }
 
 

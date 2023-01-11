@@ -5,13 +5,13 @@
 
         public readonly static List<Documents> GroupDocuments = new List<Documents>() {
             //Documentos Ana Vidal
-            new Documents {Name = "Diagrama de Classe ", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/DiagramaClasse.pdf"},
+            
             new Documents {Name = "Diagrama de Estado ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DiagramaEstadoTurnos_AnaVidal.pdf"},
             new Documents {Name = "Diagrama de Caso de Uso ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DiagramaCasosUsoTurnos_AnaVidal.drawio.pdf"},
             new Documents {Name = "Diagrama de Sequencia ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DiagramaSequenciaTurnos_AnaVidal.drawio.pdf"},
             new Documents {Name = "Tabela de Funcionalidades ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/TabeladeFuncionalidadesAplicaçõesSemelhantes_AnaVidal.pdf"},
             new Documents {Name = "Descrição Casos de Uso ", From = "Ana Vidal",DocPath="/documents/Group6/GroupDocumentations/DescricaoCasosUsoTurno_AnaVidal.pdf"},
-            new Documents {Name = "Diagrama Atividade", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/DiagramaAtividadeTrabalho_AnaVidal.drawio.pdf"},
+            
            
             //Documentos João Aleixo
             new Documents {Name = "Diagrama de Estado ", From = "João Aleixo",DocPath="/documents/Group6/JoaoAleixo/DiagramaEstadoTurnoAtualizado.pdf"},
@@ -20,6 +20,11 @@
             new Documents {Name = "Tabela de Funcionalidades ", From = "João Aleixo",DocPath="/documents/Group6/JoaoAleixo/Tabela Funcionalidades.docx"},
             new Documents {Name = "Descrição Casos de Uso ", From = "João Aleixo",DocPath="/documents/Group6/JoaoAleixo/DescricaoCasosUsoTurnoAtualizada.docx"},
 
+            //Documentos Grupo
+            new Documents {Name = "Diagrama de Classe ", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/DiagramaClasses.pdf"},
+            new Documents {Name = "Diagrama Atividade", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/DiagramaAtividadeTrabalho_AnaVidal.drawio.pdf"},
+            new Documents {Name = "Relatório Final", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/Relatório_Engenharia_Software.pdf"},
+            new Documents {Name = "Apresentação", From = "Grupo",DocPath="/documents/Group6/GroupDocumentations/ApresentacaoESII.pptx"},
 
         };
     }

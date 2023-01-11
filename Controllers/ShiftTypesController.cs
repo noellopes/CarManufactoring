@@ -151,6 +151,8 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.Error = "Are you sure you want to delete this shift type?";
+            ViewBag.NumberShifts = await _context.Shift.Where(b => b.ShiftTypeId == id).CountAsync();
             return View(shiftType);
         }
 
@@ -169,7 +171,8 @@ namespace CarManufactoring.Controllers
                 _context.ShiftType.Remove(shiftType);
                 await _context.SaveChangesAsync();
             }
-            
+
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View("ShiftTypeDelete");
         }
 

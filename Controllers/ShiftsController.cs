@@ -207,9 +207,10 @@ namespace CarManufactoring.Controllers
         {
             var anoCompare = System.DateTime.Now.Year;
             var terminologia = "";
-            
+            var year = shift.Year;
+            var month = shift.Month;
 
-            switch (shift.Month)
+            switch (month)
             {
                 case 1:
                     terminologia = "January";
@@ -253,10 +254,9 @@ namespace CarManufactoring.Controllers
             {
                 ModelState.AddModelError("Year", $"Year can not be before {anoCompare}.");
             }
-            int days = DateTime.DaysInMonth(shift.Year, shift.Month);
+            int days = DateTime.DaysInMonth(year, month);
 
-            var year = shift.Year;
-            var month = shift.Month;
+            
 
             if (ModelState.IsValid)
             {
@@ -290,8 +290,8 @@ namespace CarManufactoring.Controllers
                     }
                 }
 
-                ViewBag.SuccessMessage = TempData["SuccessMessage"];
                 TempData["SuccessMessage"] = $"All the Shifts for the month of {terminologia} for the year {year} were successfully created .";
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
 
                 return View ("DetailsMonthShifts");
 

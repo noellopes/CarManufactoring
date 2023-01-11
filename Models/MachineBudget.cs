@@ -12,23 +12,23 @@ namespace CarManufactoring.Models
         public int MachineBudgetID { get; set; }
 
         [Required]
-        [Display(Name = "Data de Solicitamento")]
+        [Display(Name = "Request Date")]
         public DateTime dataSolicitada { get; set; }
 
         [Required]
-        [Display(Name = "Data de Entrega")]
+        [Display(Name = "Delivery Date")]
         public DateTime dataEntrega { get; set; }
 
         [Required]
-        [Display(Name = "Valor")]
+        [Display(Name = "Price €")]
         public double Valor { get; set; }
 
         [Required]
-        [Display(Name = "Garantia (em meses)")]
+        [Display(Name = "Warranty (month)")]
         public int prazoGarantia { get; set; }
 
         [Required]
-        [Display(Name = "Custo Manutenção")]
+        [Display(Name = "Maintenance cost (by Supplier)")]
         public double custoManutencao { get; set; }
 
         [Display(Name = "Supplier")]
