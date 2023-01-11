@@ -544,7 +544,8 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MachineId"), 1L, 1);
 
-                    b.Property<DateTime>("DateAcquired")
+                    b.Property<DateTime?>("DateAcquired")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")

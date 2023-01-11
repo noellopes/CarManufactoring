@@ -1206,6 +1206,35 @@ namespace CarManufactoring.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.DropColumn(
+                name: "Operation",
+                table: "MachineAquisition");
+
+            migrationBuilder.RenameColumn(
+                name: "ProducedParts",
+                table: "MachineAquisition",
+                newName: "NextLevel");
+
+            migrationBuilder.AddColumn<int>(
+                name: "MachineId",
+                table: "MachineAquisition",
+                type: "int",
+                nullable: false,
+                defaultValue: 0);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MachineAquisition_MachineId",
+                table: "MachineAquisition",
+                column: "MachineId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_MachineAquisition_Machine_MachineId",
+                table: "MachineAquisition",
+                column: "MachineId",
+                principalTable: "Machine",
+                principalColumn: "MachineId",
+                onDelete: ReferentialAction.Cascade);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Warehouse_CarPartsProductId",
                 table: "Warehouse",
