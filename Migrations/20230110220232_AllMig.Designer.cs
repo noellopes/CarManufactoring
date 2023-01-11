@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarManufactoring.Migrations
 {
     [DbContext(typeof(CarManufactoringContext))]
-    [Migration("20230110174157_warehouseproduct")]
-    partial class warehouseproduct
+    [Migration("20230110220232_AllMig")]
+    partial class AllMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -1089,7 +1089,7 @@ namespace CarManufactoring.Migrations
                     b.Property<int?>("CarId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SemiFinishedCarId")
+                    b.Property<int>("SemiFinishedCarsId")
                         .HasColumnType("int");
 
                     b.HasKey("SemiFinishedId", "CarId");
@@ -1424,9 +1424,6 @@ namespace CarManufactoring.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarehouseId"), 1L, 1);
 
-                    b.Property<int?>("CarPartsProductId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CollaboratorID")
                         .HasColumnType("int");
 
@@ -1435,8 +1432,6 @@ namespace CarManufactoring.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("WarehouseId");
-
-                    b.HasIndex("CarPartsProductId");
 
                     b.HasIndex("CollaboratorID");
 
@@ -2025,10 +2020,6 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Warehouse", b =>
                 {
-                    b.HasOne("CarManufactoring.Models.CarParts", null)
-                        .WithMany("Warehouses")
-                        .HasForeignKey("CarPartsProductId");
-
                     b.HasOne("CarManufactoring.Models.Collaborator", "Collaborator")
                         .WithMany("Warehouses")
                         .HasForeignKey("CollaboratorID")
@@ -2041,13 +2032,13 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.WarehouseProduct", b =>
                 {
                     b.HasOne("CarManufactoring.Models.CarParts", "CarParts")
-                        .WithMany("WarehouseProducts")
+                        .WithMany("Warehouses")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CarManufactoring.Models.Warehouse", "Warehouses")
-                        .WithMany("WarehouseProducts")
+                        .WithMany("CarParts")
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -2094,8 +2085,6 @@ namespace CarManufactoring.Migrations
                     b.Navigation("SupplierParts");
 
                     b.Navigation("SupplierParts1");
-
-                    b.Navigation("WarehouseProducts");
 
                     b.Navigation("Warehouses");
                 });
@@ -2213,7 +2202,7 @@ namespace CarManufactoring.Migrations
 
             modelBuilder.Entity("CarManufactoring.Models.Warehouse", b =>
                 {
-                    b.Navigation("WarehouseProducts");
+                    b.Navigation("CarParts");
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.WarehouseStock", b =>

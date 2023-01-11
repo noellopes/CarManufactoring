@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarManufactoring.Migrations
 {
-    public partial class all_migrations : Migration
+    public partial class AllMig : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -873,7 +873,7 @@ namespace CarManufactoring.Migrations
                         column: x => x.CollaboratorID,
                         principalTable: "Collaborator",
                         principalColumn: "CollaboratorId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1053,6 +1053,32 @@ namespace CarManufactoring.Migrations
                         principalTable: "TaskType",
                         principalColumn: "TaskTypeId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WarehouseProduct",
+                columns: table => new
+                {
+                    WarehouseId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    StockMax = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WarehouseProduct", x => new { x.WarehouseId, x.ProductId });
+                    table.ForeignKey(
+                        name: "FK_WarehouseProduct_CarParts_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "CarParts",
+                        principalColumn: "ProductId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_WarehouseProduct_Warehouse_WarehouseId",
+                        column: x => x.WarehouseId,
+                        principalTable: "Warehouse",
+                        principalColumn: "WarehouseId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -1399,6 +1425,11 @@ namespace CarManufactoring.Migrations
                 column: "CollaboratorID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_WarehouseProduct_ProductId",
+                table: "WarehouseProduct",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_WorkerPunctuality_CollaboratorId",
                 table: "WorkerPunctuality",
                 column: "CollaboratorId");
@@ -1467,7 +1498,7 @@ namespace CarManufactoring.Migrations
                 name: "TimeOfProduction");
 
             migrationBuilder.DropTable(
-                name: "Warehouse");
+                name: "WarehouseProduct");
 
             migrationBuilder.DropTable(
                 name: "WorkerPunctuality");
@@ -1509,16 +1540,16 @@ namespace CarManufactoring.Migrations
                 name: "LocalizationCar");
 
             migrationBuilder.DropTable(
-                name: "CarParts");
-
-            migrationBuilder.DropTable(
                 name: "SupplierParts");
 
             migrationBuilder.DropTable(
-                name: "ShiftType");
+                name: "CarParts");
 
             migrationBuilder.DropTable(
-                name: "Collaborator");
+                name: "Warehouse");
+
+            migrationBuilder.DropTable(
+                name: "ShiftType");
 
             migrationBuilder.DropTable(
                 name: "InspectionTestState");
@@ -1542,10 +1573,7 @@ namespace CarManufactoring.Migrations
                 name: "OrderState");
 
             migrationBuilder.DropTable(
-                name: "Gender");
-
-            migrationBuilder.DropTable(
-                name: "Task");
+                name: "Collaborator");
 
             migrationBuilder.DropTable(
                 name: "CarConfig");
@@ -1561,6 +1589,12 @@ namespace CarManufactoring.Migrations
 
             migrationBuilder.DropTable(
                 name: "Section");
+
+            migrationBuilder.DropTable(
+                name: "Gender");
+
+            migrationBuilder.DropTable(
+                name: "Task");
 
             migrationBuilder.DropTable(
                 name: "Car");
