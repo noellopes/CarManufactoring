@@ -1,18 +1,103 @@
-﻿@model IEnumerable<CarManufactoring.Models.Machine>
+﻿@using CarManufactoring.ViewModels.Group1
+@model MachineViewModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Machines";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+     <a asp-action="Create" class="btn btn-primary">Create New</a>
+	
 </p>
-<table class="table">
-    <thead>
-        
-    </thead>
+<div class="row">
+    <div class="col-5">
+        <form asp-action="Index" name="MachinStateSelect" method="get">
+            <h6 class="form-label">Machine State</h6>
+            <select asp-for="StateSearched" onchange="MachinStateSelect.submit()" class="form-control" name="search" asp-items="ViewBag.StateId">
+                <option value="0"> All</option>
+            </select>            
+        </form>
 
-    </tbody>
-</table>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => new Machine().MachineModel.MachineBrandId) - @Html.DisplayNameFor(model => new Machine().MachineModel.MachineModelName) 
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => new Machine().MachineState.StateMachine)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => new Machine().LocalizationCodeId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => new Machine().DateAcquired)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => new Machine().Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.MachineList.List)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MachineModel.MachineBrandNames.MachineBrandName) -  @Html.DisplayFor(modelItem => item.MachineModel.MachineModelName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MachineState.StateMachine)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MachineLocalizationCode.Column) -  @Html.DisplayFor(modelItem => item.MachineLocalizationCode.Line)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateAcquired)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.MachineId" class="btn btn-warning">Edit</a> 
+                            <a asp-action="Details" asp-route-id="@item.MachineId" class="btn btn-info">Details</a> 
+                            <a asp-action="Delete" asp-route-id="@item.MachineId" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.MachineList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+
+        @for (int p = Model.MachineList.PagingInfo.InitialPageToShow; p <= Model.MachineList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.MachineList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.MachineList.PagingInfo.CurrentPage == Model.MachineList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.MachineList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

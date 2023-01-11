@@ -6,7 +6,7 @@ namespace CarManufactoring.ViewModels.Group1
 {
     public class MachineMaintenaceIndexViewModel
     {
-        public IEnumerable<MachineMaintenance>  All  { get; set; }
+        public ListViewModel<MachineMaintenance>  All  { get; set; }
         public IEnumerable<MachineMaintenance>  OnProgress  { get; set; }
 
 

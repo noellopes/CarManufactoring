@@ -64,7 +64,7 @@ namespace CarManufactoring.Controllers
             var model = new MachineMaintenaceIndexViewModel
             {
 
-                MachineMaintenanceList = new ListViewModel<MachineMaintenance>
+                All= new ListViewModel<MachineMaintenance>
                 {
                     List = await all
                     .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
