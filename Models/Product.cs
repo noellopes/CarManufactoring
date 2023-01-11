@@ -76,7 +76,7 @@ namespace CarManufactoring.Models {
         //CurrentQuant - x
         //x = (Quant*0.5)/Maxquant
 
-        public static void setLevelService(CarManufactoringContext context, int prodId, int wareHouseId) {
+        public static void setLevelService(CarManufactoringContext context, int prodId) {
 
             double maxLevelService = 0.5; //50%
 
