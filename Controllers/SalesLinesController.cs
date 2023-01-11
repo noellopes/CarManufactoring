@@ -65,7 +65,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (salesLine == null)
             {
-                return NotFound();
+                return View("SalesLineNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(salesLine);
@@ -116,7 +116,7 @@ namespace CarManufactoring.Controllers
             var salesLine = await _context.SalesLine.FindAsync(id);
             if (salesLine == null)
             {
-                return NotFound();
+                return View("SalesLineNotFound");
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", salesLine.CarConfigId);
             ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", salesLine.OrderId);
@@ -147,7 +147,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!SalesLineExists(salesLine.OrderId))
                     {
-                        return NotFound();
+                        return View("SalesLineNotFound");
                     }
                     else
                     {
@@ -176,7 +176,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (salesLine == null)
             {
-                return NotFound();
+                return View("SalesLineNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];

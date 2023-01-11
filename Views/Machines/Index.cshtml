@@ -5,7 +5,7 @@
     ViewData["Title"] = "Machines";
 }
 
-<h1>Index</h1>
+<h1>@ViewBag.Title</h1>
 
 <p>
      <a asp-action="Create" class="btn btn-primary">Create New</a>
@@ -17,11 +17,7 @@
             <h6 class="form-label">Machine State</h6>
             <select asp-for="StateSearched" onchange="MachinStateSelect.submit()" class="form-control" name="search" asp-items="ViewBag.StateId">
                 <option value="0"> All</option>
-            </select>
-            <div class="pt-3">
-                <input type="submit" value="Search" class="btn btn-primary" />
-            </div>
-            
+            </select>            
         </form>
 
 

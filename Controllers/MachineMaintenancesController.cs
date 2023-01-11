@@ -99,33 +99,42 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CrudMachineMaintenanceViewModel machineMaintenancePost )
         {
-
-            if (ModelState.IsValid)
+            
+            if(DateTime.Compare(machineMaintenancePost.ExpectedEndDate,machineMaintenancePost.BeginDate) < 0)
             {
-                
-                MachineMaintenance machineMaintenance = new MachineMaintenance();
-
-                machineMaintenance.Description = machineMaintenancePost.Description;
-                machineMaintenance.PriorityId = machineMaintenancePost.PriorityId;
-                machineMaintenance.ExpectedEndDate = machineMaintenancePost.ExpectedEndDate;
-                machineMaintenance.MachineId = machineMaintenancePost.MachineId;
-                machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
-
-                _context.Add(machineMaintenance);
-                await _context.SaveChangesAsync();
-                if(machineMaintenancePost.CollaboratorsId != null ){
-                    foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
-                    {
-                        MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
-                        maintenanceCollaborator.CollaboratorId = collaboratorId;
-                        maintenanceCollaborator.MachineMaintenanceId =                      machineMaintenance.MachineMaintenanceId;
-                        _context.Add(maintenanceCollaborator);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-                
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("ExpectedEndDate", "The Expected End Date can not be inferior to the Begin Date");
             }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+
+                    MachineMaintenance machineMaintenance = new MachineMaintenance();
+
+                    machineMaintenance.Description = machineMaintenancePost.Description;
+                    machineMaintenance.PriorityId = machineMaintenancePost.PriorityId;
+                    machineMaintenance.ExpectedEndDate = machineMaintenancePost.ExpectedEndDate;
+                    machineMaintenance.MachineId = machineMaintenancePost.MachineId;
+                    machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
+
+                    _context.Add(machineMaintenance);
+                    await _context.SaveChangesAsync();
+                    if (machineMaintenancePost.CollaboratorsId != null)
+                    {
+                        foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
+                        {
+                            MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
+                            maintenanceCollaborator.CollaboratorId = collaboratorId;
+                            maintenanceCollaborator.MachineMaintenanceId = machineMaintenance.MachineMaintenanceId;
+                            _context.Add(maintenanceCollaborator);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+             
 
             ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
             ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
@@ -309,5 +318,7 @@ namespace CarManufactoring.Controllers
         {
           return _context.MachineMaintenance.Any(e => e.MachineMaintenanceId == id);
         }
+
+
     }
 }
