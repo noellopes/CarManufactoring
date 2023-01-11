@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
-using CarManufactoring.ViewModels.Group2;
 using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group8;
 
