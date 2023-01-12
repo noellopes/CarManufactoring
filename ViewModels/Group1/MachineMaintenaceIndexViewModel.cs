@@ -15,5 +15,15 @@ namespace CarManufactoring.ViewModels.Group1
 
         public IEnumerable<MachineMaintenance> OpenToGraph;
         public IEnumerable<MachineMaintenance> ClosedToGraph;
+
+        public ListViewModel <MachineMaintenance> MachineMaintenanceList { get; set; }
+
+        public string? PrioritySearched { get; set; }
+
+        public string? TaskTypeSearched { get; set; }
+
+        public string? MachineSearched { get; set; }
+
+
     }
 }
