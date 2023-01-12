@@ -66,7 +66,7 @@ namespace CarManufactoring.Controllers
 
             var pagingInfo = new PagingInfoViewModel(await all.CountAsync(), page);
             var pagingInfoDeleted = new PagingInfoViewModel(await deleted.CountAsync(), page);
-            var pagingOnprogress = new PagingInfoViewModel( all.Count(), page);
+            var pagingOnprogress = new PagingInfoViewModel(onProgress.Count(), page);
             var pagingClosed = new PagingInfoViewModel(await closed.CountAsync(), page);
 
             var model = new MachineMaintenaceIndexViewModel
