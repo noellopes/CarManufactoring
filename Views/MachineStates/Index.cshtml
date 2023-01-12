@@ -1,14 +1,15 @@
 ﻿@model IEnumerable<CarManufactoring.Models.MachineState>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Machine State List";
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success mt-3">Create </a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
@@ -19,17 +20,18 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.StateMachine)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MachineStateId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MachineStateId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MachineStateId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StateMachine)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.MachineStateId" class="btn btn-info">Details</a>
+                    <a asp-action="Edit" asp-route-id="@item.MachineStateId" class="btn btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@item.MachineStateId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
