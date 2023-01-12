@@ -99,19 +99,7 @@ namespace CarManufactoring.Data
 
         }
 
-        internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
-            await EnsureRoleIsCreated(roleManager, "Admin");
-            //await EnsureRoleIsCreated(roleManager, "Colaborator");
-            //await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
-            //await EnsureRoleIsCreated(roleManager, "Manager");
-            //await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
-            //await EnsureRoleIsCreated(roleManager, "Production");
-            //await EnsureRoleIsCreated(roleManager, "Customer");
-            //await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
-            await EnsureRoleIsCreated(roleManager, "ProdutionManager");
-            //await EnsureRoleIsCreated(roleManager, "Supplier");
-            await EnsureRoleIsCreated(roleManager, "Suppliereng");
-        }
+       
 
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
