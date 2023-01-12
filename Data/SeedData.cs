@@ -93,7 +93,7 @@ namespace CarManufactoring.Data
             //await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             //await EnsureRoleIsCreated(roleManager, "Supplier");
-            //await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+            await EnsureRoleIsCreated(roleManager, "Suppliereng");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -128,8 +128,8 @@ namespace CarManufactoring.Data
             //await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
 
-            //user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
-            //await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
+            user = await EnsureUserIsCreated(userManager, "suppliereng@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Suppliereng");
 
             //user = await EnsureUserIsCreated(userManager, "mustafabukhari @cars.pt", "Secret123$");
             //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
