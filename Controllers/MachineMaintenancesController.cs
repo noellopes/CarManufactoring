@@ -106,6 +106,37 @@ namespace CarManufactoring.Controllers
             return View(model);
         }
 
+        public async Task<IActionResult> Search(string priority = null, string taskType = null, string machine = null, int page = 0)
+        {
+            var machineMaintenances = _context.MachineMaintenance
+                .Include(m => m.Priority)
+                .Include(m => m.Machine)
+                .Include(m => m.Machine.MachineModel)
+                .Include(m => m.Machine.MachineModel.MachineBrandNames)
+                .Include(m => m.TaskType)
+                .Where(m => priority == null || m.Priority.Name.Contains(priority))
+                .Where(m => taskType == null || m.TaskType.TaskName.Contains(taskType))
+                .Where(m => machine == null || m.Machine.MachineModel.MachineModelName.Contains(machine) || m.Machine.MachineModel.MachineBrandNames.MachineBrandName.Contains(machine));
+
+            var pagingInfo = new PagingInfoViewModel(await machineMaintenances.CountAsync(), page);
+
+            var model = new MachineMaintenaceIndexViewModel
+            {
+                MachineMaintenanceList = new ListViewModel<MachineMaintenance>
+                {
+                    List = await machineMaintenances
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                PrioritySearched = priority,
+                TaskTypeSearched = taskType,
+                MachineSearched = machine
+            };
+            return View(model);
+        }
+
+
         // GET: MachineMaintenances/Details/5
         public async Task<IActionResult> Details(int? id)
         {
