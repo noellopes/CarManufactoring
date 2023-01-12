@@ -156,23 +156,23 @@ namespace CarManufactoring.Controllers
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
             return View();
         }
-        [Authorize(Roles = "Admin,ProdutionManager")]
-        // POST: Productions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductionId,Date,CarConfigId,Quantity")] Production production)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(production);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", production.CarConfigId);
-            return View(production);
-        }
+        //[Authorize(Roles = "Admin,ProdutionManager")]
+        //// POST: Productions/Create
+        //// To protect from overposting attacks, enable the specific properties you want to bind to.
+        //// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("ProductionId,Date,CarConfigId,Quantity")] Production production)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(production);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", production.CarConfigId);
+        //    return View(production);
+        //}
         [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions/Edit/5
         public async Task<IActionResult> Edit(int? id)
