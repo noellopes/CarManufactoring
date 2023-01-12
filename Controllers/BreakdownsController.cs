@@ -23,7 +23,7 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        // [Authorize(Roles = "Admin,Breakdown")]
+         
 
         // GET: Breakdowns
         public async Task<IActionResult> Index(string breakdownName = null, int page = 1)
@@ -77,6 +77,9 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
+
+        [Authorize(Roles = "Admin,Breakdownpr")]
+
         // GET: Breakdowns/Create
         public IActionResult Create()
         {
@@ -99,8 +102,8 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
-        
-        // [Authorize(Roles = "Admin,BreakdownManager")]
+
+        [Authorize(Roles = "Admin,Breakdownpr")]
 
         // GET: Breakdowns/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -117,6 +120,8 @@ namespace CarManufactoring.Controllers
             }
             return View(breakdown);
         }
+
+        [Authorize(Roles = "Admin,Breakdownpr")]
 
         // POST: Breakdowns/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -154,7 +159,7 @@ namespace CarManufactoring.Controllers
         }
 
 
-        //[Authorize(Roles = "Admin,BreakdownManager")]
+        [Authorize(Roles = "Admin,Breakdownpr")]
 
         // GET: Breakdowns/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -173,7 +178,8 @@ namespace CarManufactoring.Controllers
 
             return View(breakdown);
         }
-  
+
+        [Authorize(Roles = "Admin,Breakdownpr")]
 
         // POST: Breakdowns/Delete/5
         [HttpPost, ActionName("Delete")]
