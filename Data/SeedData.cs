@@ -87,9 +87,13 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
+ group8
+            await EnsureRoleIsCreated(roleManager, "Breakdown");
+
             await EnsureRoleIsCreated(roleManager, "SupplierParts");
             await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
             await EnsureRoleIsCreated(roleManager, "CarPartsManager");
+ master
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -123,6 +127,10 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
+ group8
+             user = await EnsureUserIsCreated(userManager, "breakdown@ipg.pt", "Pro1012646@");
+            await EnsureUserIsInRoleAsync(userManager, user, "Breakdown");
+
             user = await EnsureUserIsCreated(userManager, "supplierparts@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "SupplierParts");
 
@@ -141,6 +149,7 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "carPartsManager@ipg.pt", "CarParts");
             await EnsureUserIsInRoleAsync(userManager, user, "CarPartsManagerManager");
 
+ master
         }
 
         private static async Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
@@ -903,7 +912,7 @@ namespace CarManufactoring.Data
 
                 new Breakdown
                 {
-                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
+                    BreakdownName = "Guarda-pó muito deteriorada",
                     BreakdownDate = DateTime.Parse("01/01/2023"),
                     BreakdownNumber = 2,
                     ReparationDate = DateTime.Parse("03/01/2023"),
@@ -913,7 +922,7 @@ namespace CarManufactoring.Data
                 },
                  new Breakdown
                  {
-                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownName = "Alinhamento Maximos",
                      BreakdownDate = DateTime.Parse("13/01/2023"),
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("16/01/2023"),
