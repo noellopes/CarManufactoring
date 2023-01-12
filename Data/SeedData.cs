@@ -94,7 +94,7 @@ namespace CarManufactoring.Data
                 ////await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
                 //await EnsureRoleIsCreated(roleManager, "ProdutionManager");
                 //await EnsureRoleIsCreated(roleManager, "Supplier");
-                //await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+                await EnsureRoleIsCreated(roleManager, "Suppliereng");
                 await EnsureRoleIsCreated(roleManager, "ShiftManager");
 
         }
