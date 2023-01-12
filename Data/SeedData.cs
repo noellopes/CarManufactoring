@@ -1,6 +1,7 @@
 ﻿using CarManufactoring.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using System.Collections.Generic;
 using Task = System.Threading.Tasks.Task;
@@ -8,10 +9,13 @@ using Task = System.Threading.Tasks.Task;
 namespace CarManufactoring.Data
 {
     public static class SeedData
+
+
     {
         internal static void Populate(CarManufactoringContext db)
         {
-          
+
+
  PopulateGender(db);
             
             PopulateCollaborators(db);
@@ -80,16 +84,16 @@ namespace CarManufactoring.Data
         }
         internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
-            await EnsureRoleIsCreated(roleManager, "Colaborator");
-            await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
-            await EnsureRoleIsCreated(roleManager, "Manager");
-            await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
-            await EnsureRoleIsCreated(roleManager, "Production");
-            await EnsureRoleIsCreated(roleManager, "Customer");
-            await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
+            //await EnsureRoleIsCreated(roleManager, "Colaborator");
+            //await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
+            //await EnsureRoleIsCreated(roleManager, "Manager");
+            //await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
+            //await EnsureRoleIsCreated(roleManager, "Production");
+            //await EnsureRoleIsCreated(roleManager, "Customer");
+            //await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
-            await EnsureRoleIsCreated(roleManager, "Supplier");
-            await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+            //await EnsureRoleIsCreated(roleManager, "Supplier");
+            //await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -108,33 +112,33 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
 
-            user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "Manager");
+            //user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Manager");
 
-            user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+            //user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Customer");
 
-            user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user,"Mechanical Eginner");
+            //user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user,"Mechanical Eginner");
 
-            user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
+            //user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
 
-            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
-            await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
-
-
-            user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
-
-            user = await EnsureUserIsCreated(userManager, "mustafabukhari @cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
-
-            user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+            //user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
 
-            user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret");
-            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+            //user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
+
+            //user = await EnsureUserIsCreated(userManager, "mustafabukhari @cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            //user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+
+
+            //user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret");
+            //await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
         }
 
