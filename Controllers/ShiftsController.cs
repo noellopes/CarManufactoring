@@ -11,9 +11,12 @@ using CarManufactoring.ViewModels;
 using Microsoft.VisualBasic;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class ShiftsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -23,9 +26,10 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-     
+
 
         // GET: Shifts
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Index( string shiftType = null, int page = 0)
         {
             var shifts = _context.Shift.Include(m => m.ShiftType)
@@ -48,6 +52,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Details/5
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Shift == null)
@@ -68,6 +73,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Create
+        [Authorize(Roles = "ShiftManager")]
         public IActionResult Create()
         {
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description");
@@ -79,6 +85,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Create([Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
             var valor = DateTime.Compare(shift.EndDate, shift.StartDate);
@@ -102,6 +109,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Edit/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Shift == null)
@@ -123,6 +131,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int id, [Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
             if (id != shift.ShiftId)
@@ -158,6 +167,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Delete/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Shift == null)
@@ -179,6 +189,7 @@ namespace CarManufactoring.Controllers
         // POST: Shifts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Shift == null)
@@ -203,6 +214,7 @@ namespace CarManufactoring.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> CreateShifts([Bind("ShiftId,StartDate,EndDate,ShiftTypeId,Month,Year")] Shift shift)
         {
             var anoCompare = System.DateTime.Now.Year;

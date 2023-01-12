@@ -8,10 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class ShiftTypesController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -22,6 +23,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ShiftTypes
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Index(String ShiftTypeDescriptionSearched = null, int page = 0)
         {
             var shiftTypes = _context.ShiftType.Include(m => m.ShiftTypeSearch)
@@ -42,6 +44,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ShiftTypes/Details/5
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.ShiftType == null)
@@ -60,6 +63,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ShiftTypes/Create
+        [Authorize(Roles = "ShiftManager")]
         public IActionResult Create()
         {
             return View();
@@ -84,6 +88,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ShiftTypes/Edit/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.ShiftType == null)
@@ -104,6 +109,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int id, [Bind("ShiftTypeId,ShiftTime,Description,StartTime,EndTime")] ShiftType shiftType)
         {
             if (id != shiftType.ShiftTypeId)
@@ -137,6 +143,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: ShiftTypes/Delete/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ShiftType == null)
@@ -159,6 +166,7 @@ namespace CarManufactoring.Controllers
         // POST: ShiftTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.ShiftType == null)
