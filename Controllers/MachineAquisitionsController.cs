@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels.Group2;
+using CarManufactoring.ViewModels;
+
 
 namespace CarManufactoring.Controllers
 {
@@ -20,9 +23,42 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineAquisitions
-        public async Task<IActionResult> Index()
+   
+        public async Task<IActionResult> Index(string machineAquisitionName = null, int page = 1)
         {
-              return View(await _context.MachineAquisition.ToListAsync());
+            var machineAquisition = _context.MachineAquisition
+              .Where(b => machineAquisitionName == null || b.MachineAquisitionName.Contains(machineAquisitionName))              
+              .OrderBy(b => b.MachineAquisitionName);
+
+            var pagingInfo = new PagingInfoViewModel(await machineAquisition.CountAsync(), page);
+
+            try
+            {
+                var model = new MachineAquisitionsIndexViewModel
+                {
+                    MachineAquisitionsList = new ListViewModel<MachineAquisition>
+                    {
+                        List = await machineAquisition
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize)
+                        .Include(m => m.Machine)
+                        .ToListAsync(),
+                        PagingInfo = pagingInfo
+                    },
+
+                    MachineAquisitionNameSearch = machineAquisitionName
+
+
+                };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, page);
+            }
+
         }
 
         // GET: MachineAquisitions/Details/5
@@ -34,6 +70,7 @@ namespace CarManufactoring.Controllers
             }
 
             var machineAquisition = await _context.MachineAquisition
+                .Include(m => m.Machine)
                 .FirstOrDefaultAsync(m => m.MachineAquisitionID == id);
             if (machineAquisition == null)
             {
@@ -46,6 +83,7 @@ namespace CarManufactoring.Controllers
         // GET: MachineAquisitions/Create
         public IActionResult Create()
         {
+            ViewData["MachineId"] = new SelectList(_context.Machine, "MachineId", "Description");
             return View();
         }
 
@@ -54,7 +92,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineAquisitionID,MachineAquisitionName,Price,QuantityOfParts,ProducedParts,MaintenancePrice,Operation")] MachineAquisition machineAquisition)
+        public async Task<IActionResult> Create([Bind("MachineAquisitionID,MachineAquisitionName,Price,QuantityOfParts,NextLevel,MaintenancePrice,MachineId")] MachineAquisition machineAquisition)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +100,7 @@ namespace CarManufactoring.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MachineId"] = new SelectList(_context.Machine, "MachineId", "Description", machineAquisition.MachineId);
             return View(machineAquisition);
         }
 
@@ -78,6 +117,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
+            ViewData["MachineId"] = new SelectList(_context.Machine, "MachineId", "Description", machineAquisition.MachineId);
             return View(machineAquisition);
         }
 
@@ -86,7 +126,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachineAquisitionID,MachineAquisitionName,Price,QuantityOfParts,ProducedParts,MaintenancePrice,Operation")] MachineAquisition machineAquisition)
+        public async Task<IActionResult> Edit(int id, [Bind("MachineAquisitionID,MachineAquisitionName,Price,QuantityOfParts,NextLevel,MaintenancePrice,MachineId")] MachineAquisition machineAquisition)
         {
             if (id != machineAquisition.MachineAquisitionID)
             {
@@ -113,6 +153,7 @@ namespace CarManufactoring.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MachineId"] = new SelectList(_context.Machine, "MachineId", "Description", machineAquisition.MachineId);
             return View(machineAquisition);
         }
 
@@ -125,6 +166,7 @@ namespace CarManufactoring.Controllers
             }
 
             var machineAquisition = await _context.MachineAquisition
+                .Include(m => m.Machine)
                 .FirstOrDefaultAsync(m => m.MachineAquisitionID == id);
             if (machineAquisition == null)
             {

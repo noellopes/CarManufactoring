@@ -74,6 +74,7 @@ if (Model.SupplierPartsCarPartsList.List.ToArray().Length != 0){
     </thead>
     <tbody>
 @foreach (var item in Model.SupplierPartsCarPartsList.List) {
+            if (item.SupplierPartsId == Model.SupplierId){
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CarParts.ProductId)
@@ -88,9 +89,14 @@ if (Model.SupplierPartsCarPartsList.List.ToArray().Length != 0){
                 @Html.DisplayFor(modelItem => item.Disponibilidade)
             </td>
             <td>
+                <form asp-action="Buy" asp-controller="SupplierPartsCarParts" method="get" style="display: inline;">
+                            <input type="hidden" name="productid" value="@item.ProductId">
+                            <button name="supplierid" value="@item.SupplierPartsId" class="btn btn-success">Buy</button>
+                </form>
                 @Html.ActionLink("Delete", "Delete", new { item.SupplierPartsId, item.ProductId }, new { @class = "btn btn-danger"})
             </td>
         </tr>
+            }
 }
     </tbody>
 </table>

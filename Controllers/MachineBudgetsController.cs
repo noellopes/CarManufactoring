@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using System.Collections;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
@@ -19,13 +24,37 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string supplier = null, string machine = null, int page = 1)
         {
-            var carManufactoringContext = _context.MachineBudget.Include(m => m.Aquisition).Include(m => m.Supplier);
-            return View(await carManufactoringContext.ToListAsync());
+
+            var machineBudget = _context.MachineBudget.Include(m => m.Supplier).Include(m => m.Aquisition)
+               .Where(m => supplier == null || m.Supplier.SupplierName.Contains(supplier))
+               .Where(m => machine == null || m.Aquisition.MachineAquisitionName.Contains(machine))
+               .OrderBy(m => m.Supplier.SupplierName);
+
+            var pagingInfo = new PagingInfoViewModel(await machineBudget.CountAsync(), page);
+
+            var model = new MachineBudgetIndexViewModel
+            {
+                MachineBudgetList = new ListViewModel<MachineBudget>
+                {
+                    List = await machineBudget
+                    .Skip((pagingInfo.CurrentPage == 0 ? 0 : pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
+                    PagingInfo = pagingInfo
+                },
+                SupplierSearched = supplier,
+                MachineAquisitionSearched = machine
+            };
+
+            //var carManufactoringContext = _context.MachineBudget.Include(m => m.Aquisition).Include(m => m.Supplier);
+
+            return View(model);
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -46,6 +75,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Create
         public IActionResult Create()
         {
@@ -54,12 +84,13 @@ namespace CarManufactoring.Controllers
             return View();
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // POST: MachineBudgets/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,SupplierId,AquisitionId")] MachineBudget machineBudget)
+        public async Task<IActionResult> Create([Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,prazoGarantia,custoManutencao,SupplierId,AquisitionId")] MachineBudget machineBudget)
         {
             if (ModelState.IsValid)
             {
@@ -68,10 +99,11 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -86,16 +118,17 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // POST: MachineBudgets/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,SupplierId,AquisitionId")] MachineBudget machineBudget)
+        public async Task<IActionResult> Edit(int id, [Bind("MachineBudgetID,dataSolicitada,dataEntrega,Valor,prazoGarantia,custoManutencao,SupplierId,AquisitionId")] MachineBudget machineBudget)
         {
             if (id != machineBudget.MachineBudgetID)
             {
@@ -123,10 +156,11 @@ namespace CarManufactoring.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
-            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierAddress", machineBudget.SupplierId);
+            ViewData["SupplierId"] = new SelectList(_context.Supplier, "SupplierId", "SupplierName", machineBudget.SupplierId);
             return View(machineBudget);
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -147,6 +181,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
+        //[Authorize(Roles = "Admin,ProdutionManager")]
         // POST: MachineBudgets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -166,6 +201,36 @@ namespace CarManufactoring.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> beforeComparison(MachineBudget machineBudget)
+        {
+            ViewData["AquisitionId"] = new SelectList(_context.MachineAquisition, "MachineAquisitionID", "MachineAquisitionName", machineBudget.AquisitionId);
+
+            return View(machineBudget);
+        }
+
+        public async Task<IActionResult> Comparison(int AquisitionId)
+        {
+            //Comparação
+            string queryValue = $"SELECT * FROM MachineBudget WHERE AquisitionId = {AquisitionId}";
+            List<MachineBudget> machineBudgets = await _context.MachineBudget.FromSqlRaw(queryValue).Include(m => m.Aquisition).Include(s => s.Supplier).ToListAsync();
+
+           
+            if (machineBudgets == null || machineBudgets.Count() <= 0)
+            {
+                return NotFound();
+            }
+
+            List<MachineBudget> machineBudgetsParameters = new List<MachineBudget>();
+
+            machineBudgetsParameters.Add(machineBudgets.Where(x => x.Valor == machineBudgets.Min(x => x.Valor)).First());
+            machineBudgetsParameters.Add(machineBudgets.Where(x => x.dataEntrega == machineBudgets.Min(x => x.dataEntrega)).First());
+            machineBudgetsParameters.Add(machineBudgets.Where(x => x.Aquisition.QuantityOfParts == machineBudgets.Max(x => x.Aquisition.QuantityOfParts)).First());
+
+
+            return View(machineBudgetsParameters);
+
+        }
+ 
         private bool MachineBudgetExists(int id)
         {
           return _context.MachineBudget.Any(e => e.MachineBudgetID == id);

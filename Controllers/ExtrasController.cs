@@ -63,7 +63,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ExtraID == id);
             if (extra == null)
             {
-                return NotFound();
+                return View("ExtrasNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(extra);
@@ -105,7 +105,7 @@ namespace CarManufactoring.Controllers
             var extra = await _context.Extra.FindAsync(id);
             if (extra == null)
             {
-                return NotFound();
+                return View("ExtrasNotFound");
             }
             return View(extra);
         }
@@ -133,7 +133,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!ExtraExists(extra.ExtraID))
                     {
-                        return NotFound();
+                        return View("ExtrasNotFound");
                     }
                     else
                     {
@@ -157,7 +157,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ExtraID == id);
             if (extra == null)
             {
-                return NotFound();
+                return View("ExtrasNotFound");
             }
             TempData["SuccessMessage"] = " ";
             ViewBag.SuccessMessage = TempData["SuccessMessage"];

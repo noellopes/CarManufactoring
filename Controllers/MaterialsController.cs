@@ -9,9 +9,11 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class MaterialsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -21,8 +23,9 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        // GET: Materials
-        public async Task<IActionResult> Index(string nome = null, string type = null, int page = 1)
+		// GET: Materials
+		[AllowAnonymous]
+		public async Task<IActionResult> Index(string nome = null, string type = null, int page = 1)
         {
             var material = _context.Material.Where(b => nome == null || b.Nome.Contains(nome))
                 .Where(b => type == null || b.Type.Contains(type))
@@ -46,8 +49,9 @@ namespace CarManufactoring.Controllers
             return View(model);
         }
 
-        // GET: Materials/Details/5
-        public async Task<IActionResult> Details(int? id)
+		// GET: Materials/Details/5
+		[Authorize(Roles = "Admin,Colaborator,Manager")]
+		public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Material == null)
             {
@@ -65,8 +69,9 @@ namespace CarManufactoring.Controllers
             return View(material);
         }
 
-        // GET: Materials/Create
-        public IActionResult Create()
+		// GET: Materials/Create
+		[Authorize(Roles = "Admin,Colaborator,Manager")]
+		public IActionResult Create()
         {
             return View();
         }
@@ -76,7 +81,8 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaterialId,Nome,Description,State,Type")] Material material)
+		[Authorize(Roles = "Admin,Colaborator,Manager")]
+		public async Task<IActionResult> Create([Bind("MaterialId,Nome,Description,State,Type")] Material material)
         {
             if (ModelState.IsValid)
             {
@@ -90,8 +96,9 @@ namespace CarManufactoring.Controllers
             return View(material);
         }
 
-        // GET: Materials/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+		// GET: Materials/Edit/5
+		[Authorize(Roles = "Admin,Colaborator,Manager")]
+		public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Material == null)
             {
@@ -111,7 +118,8 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaterialId,Nome,Description,State,Type")] Material material)
+		[Authorize(Roles = "Admin,Colaborator,Manager")]
+		public async Task<IActionResult> Edit(int id, [Bind("MaterialId,Nome,Description,State,Type")] Material material)
         {
             if (id != material.MaterialId)
             {
@@ -146,8 +154,9 @@ namespace CarManufactoring.Controllers
             return View(material);
         }
 
-        // GET: Materials/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+		// GET: Materials/Delete/5
+		[Authorize(Roles = "Admin,Manager")]
+		public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Material == null)
             {
@@ -167,7 +176,8 @@ namespace CarManufactoring.Controllers
         // POST: Materials/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+		[Authorize(Roles = "Admin,Manager")]
+		public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Material == null)
             {

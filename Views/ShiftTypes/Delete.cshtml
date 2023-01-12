@@ -1,5 +1,6 @@
 ﻿@model CarManufactoring.Models.ShiftType
 
+@*
 @{
     ViewData["Title"] = "Shift Type Delete";
 }
@@ -10,6 +11,26 @@
 @{
     await Html.RenderPartialAsync("_ShiftTypeDetails", Model);
 }
+*@
+
+ @if(ViewBag.NumberShifts > 0)
+    {
+            await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel {
+                        CssClass = "alert-warning",
+                        Title = "The shift type cannot be deleted",
+                        Description = $"This shift type cannot be deleted since it has already {ViewBag.NumberShifts} associated. In order to delete the shift type first you must delete his shifts."
+                    });
+    }
+    else
+    {
+                await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel
+                    {
+                        CssClass = "alert-danger",
+                        Title = "Caution ",
+                        Description = @ViewBag.Error
+                    });
+    }
+
 @*<div>
     <h4>ShiftType</h4>
     <hr />
@@ -41,8 +62,21 @@
     </dl>
     </div>*@
     
-    <form asp-action="Delete">
+    @if (ViewBag.NumberCarConfSalesLines == 0)
+    {
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="ShiftTypeId" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    </form>
+}
+else
+{
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+}
+
+    @*<form asp-action="Delete">
         <input type="hidden" asp-for="ShiftTypeId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-secondary">Cancel</a>
-    </form>
+    </form>*@
