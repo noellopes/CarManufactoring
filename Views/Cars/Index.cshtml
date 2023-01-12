@@ -73,9 +73,13 @@
             <th>
                 @Html.DisplayNameFor(model => new Car().BasePrice)
             </th>
+            @if (User.IsInRole("Colaborator"))
+            {
             <th>
                 @Html.DisplayNameFor(model => new Car().TimeProduction)
-            </th>
+            </th> 
+            }
+    
             <th></th>
         </tr>
     </thead>
@@ -96,9 +100,12 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BasePrice)€
                 </td>
+                @if (User.IsInRole("Colaborator"))
+                {
                 <td>
                     @Html.DisplayFor(modelItem => item.TimeProduction) days
                 </td>
+                }
                 <td>
                     <a asp-action="Details" asp-route-id="@item.CarId" class="btn btn-info">Details</a>
                     @if (User.IsInRole("Colaborator"))
