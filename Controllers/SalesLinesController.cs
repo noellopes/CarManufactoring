@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
-    [Authorize]
     public class SalesLinesController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -19,7 +18,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index(int quantity = 0, double price = 0, DateTime deliveryDate = default, string order = null, string carconfig = null, int page = 1)
         {
             
@@ -51,7 +50,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Details/5
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.SalesLine == null)
@@ -72,7 +71,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Create
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
@@ -85,7 +84,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("OrderId,CarConfigId,Quantity,DeliveryDate,Price")] SalesLine salesLine)
         {
             if (ModelState.IsValid)
@@ -105,7 +104,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Edit/5
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SalesLine == null)
@@ -128,7 +127,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int id, [Bind("OrderId,CarConfigId,Quantity,DeliveryDate,Price")] SalesLine salesLine)
         {
             if (id != salesLine.OrderId)
@@ -162,7 +161,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Delete/5
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SalesLine == null)
@@ -186,7 +185,7 @@ namespace CarManufactoring.Controllers
         // POST: SalesLines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> DeleteConfirmed(int OrderId, int CarConfigId)
         {
             if (_context.SalesLine == null)
