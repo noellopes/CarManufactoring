@@ -72,19 +72,20 @@ namespace CarManufactoring.Data
 
             PopulateMachineBudgets(db);
 
-        }        internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
-            await EnsureRoleIsCreated(roleManager, "Admin");
-            await EnsureRoleIsCreated(roleManager, "Colaborator");
-            await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
+        }   internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
+                await EnsureRoleIsCreated(roleManager, "Admin");
+                await EnsureRoleIsCreated(roleManager, "Colaborator");
+                await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
 
-            //await EnsureRoleIsCreated(roleManager, "Manager");
-            await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
-            //await EnsureRoleIsCreated(roleManager, "Production");
-            //await EnsureRoleIsCreated(roleManager, "Customer");
-            ////await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
-            //await EnsureRoleIsCreated(roleManager, "ProdutionManager");
-            //await EnsureRoleIsCreated(roleManager, "Supplier");
-            //await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+                //await EnsureRoleIsCreated(roleManager, "Manager");
+                await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
+                //await EnsureRoleIsCreated(roleManager, "Production");
+                //await EnsureRoleIsCreated(roleManager, "Customer");
+                ////await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
+                //await EnsureRoleIsCreated(roleManager, "ProdutionManager");
+                //await EnsureRoleIsCreated(roleManager, "Supplier");
+                //await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+                await EnsureRoleIsCreated(roleManager, "ShiftManager");
 
         }
 
@@ -116,8 +117,11 @@ namespace CarManufactoring.Data
             ////user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
             ////await EnsureUserIsInRoleAsync(userManager, user, "Mechanical Eginner");
 
-            //user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
-            //await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
+            user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
+
+            user = await EnsureUserIsCreated(userManager, "shiftmanagerb@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "ShiftManager");
 
             //user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
             //await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
@@ -781,15 +785,15 @@ namespace CarManufactoring.Data
 
         private static void PopulateWarehouseProducts(CarManufactoringContext db)
         {
-            if (db.WarehouseProduct.Any()) return;
+            //if (db.WarehouseProduct.Any()) return;
 
-            db.WarehouseProduct.AddRange(
+            /*db.WarehouseProduct.AddRange(
                 new WarehouseProduct { WarehouseId = 1, ProductId = 5, Quantity = 30, StockMax = 50},
                 new WarehouseProduct { WarehouseId = 2, ProductId = 3, Quantity = 75, StockMax = 200 },
                 new WarehouseProduct { WarehouseId = 3, ProductId = 2, Quantity = 69, StockMax = 150 }
                 );
 
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
 
         private static void PopulateModelParts(CarManufactoringContext db)
@@ -976,16 +980,16 @@ namespace CarManufactoring.Data
         {
             if (db.MachineAquisition.Any()) return;
 
-            db.MachineAquisition.AddRange(
+           /* db.MachineAquisition.AddRange(
 
                new MachineAquisition
                {
                    MachineAquisitionName = "MachineAquisition1",
                    MaintenancePrice = 15000,
-                   NextLevel = 20,
+                   //NextLevel = 20,
                    Price = 50000,
                    QuantityOfParts = 18,
-                   MachineId = 1
+                   //MachineId = 1
 
                },
 
@@ -993,25 +997,22 @@ namespace CarManufactoring.Data
                 {
                     MachineAquisitionName = "MachineAquisition2",
                     MaintenancePrice = 10000,
-                    NextLevel = 20,
+                    //NextLevel = 20,
                     Price = 50000,
                     QuantityOfParts = 20,
-                    MachineId = 1
+                   // MachineId = 1
                 },
                  new MachineAquisition
                  {
                      MachineAquisitionName = "MachineAquisition3",
                      MaintenancePrice = 5000,
-                     NextLevel = 20,
+                     //NextLeve = 20,
                      Price = 55000,
                      QuantityOfParts = 22,
-                     MachineId = 1
+                     //MachineId = 1
                  }
-
-
                 );
-
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
 
 
@@ -1022,14 +1023,14 @@ namespace CarManufactoring.Data
 
             if (db.MachineBudget.Any()) return;
 
-            db.MachineBudget.AddRange(
+           /* db.MachineBudget.AddRange(
                 new MachineBudget
                 {
                     dataSolicitada = DateTime.Parse("11/01/2023 10:11:00 AM"),
                     dataEntrega = DateTime.Parse("28/01/2023 10:11:00 AM"),
                     Valor = 40000,
-                    prazoGarantia = 5,
-                    custoManutencao = 50,
+                    //prazoGarantia = 5,
+                    //custoManutencao = 50,
                     SupplierId = 1,
                     AquisitionId = 1
                 },
@@ -1039,15 +1040,15 @@ namespace CarManufactoring.Data
                     dataSolicitada = DateTime.Parse("13/01/2023 10:11:00 AM"),
                     dataEntrega = DateTime.Parse("26/01/2023 10:11:00 AM"),
                     Valor = 20000,
-                    prazoGarantia = 4,
-                    custoManutencao = 50,
+                    //prazoGarantia = 4,
+                    //custoManutencao = 50,
                     SupplierId = 2,
                     AquisitionId = 1
                 }
 
                 );
 
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
 
     }
