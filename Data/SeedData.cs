@@ -94,13 +94,10 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
- group8
             await EnsureRoleIsCreated(roleManager, "Breakdown");
-
             await EnsureRoleIsCreated(roleManager, "SupplierParts");
             await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
             await EnsureRoleIsCreated(roleManager, "CarPartsManager");
- master
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -134,7 +131,6 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
- group8
              user = await EnsureUserIsCreated(userManager, "breakdown@ipg.pt", "Pro1012646@");
             await EnsureUserIsInRoleAsync(userManager, user, "Breakdown");
 
@@ -155,8 +151,6 @@ namespace CarManufactoring.Data
 
             user = await EnsureUserIsCreated(userManager, "carPartsManager@ipg.pt", "CarParts");
             await EnsureUserIsInRoleAsync(userManager, user, "CarPartsManagerManager");
-
- master
         }
 
         private static async Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
