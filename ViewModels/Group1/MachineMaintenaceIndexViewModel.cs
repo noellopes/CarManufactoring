@@ -13,5 +13,13 @@ namespace CarManufactoring.ViewModels.Group1
 
         public ListViewModel<MachineMaintenance> Deleted { get; set; }
 
+        public ListViewModel <MachineMaintenance> MachineMaintenanceList { get; set; }
+
+        public string? PrioritySearched { get; set; }
+
+        public string? TaskTypeSearched { get; set; }
+
+        public string? MachineSearched { get; set; }
+
     }
 }

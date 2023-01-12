@@ -106,19 +106,6 @@
             </table>
         </div>
     </div>
-    <div class="row">
-        <div class="col-6">
-            <form asp-action="Index" method="get">
-                <div class="mb-3">
-                    <label for="brand" class="form-label">Pesquisa</label>
-                    <input name="brand" class="form-control" type="search" value="" />
-                </div>
-
-                <input type="submit" value="Search" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
-            </form>
-        </div>
-    </div>
     <div class="row py-4">
         <div class="col-12">
             <h3>Tarefas</h3>
@@ -177,3 +164,25 @@
        
     });
 </script>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Pesquisa</h5>
+            <form asp-action="Search" method="get">
+                <div class="mb-3">
+                    <label for="priority" class="form-label">Priority</label>
+                    <input name="priority" class="form-control" type="search" value="@Model.PrioritySearched" />
+                </div>
+                <div class="mb-3">
+                    <label for="taskType" class="form-label">Task Type </label>
+                    <input name="taskType" class="form-control" type="search" value="@Model.TaskTypeSearched" />
+                </div>
+                <div class="mb-3">
+                    <label for="machine" class="form-label">Machine</label>
+                    <input name="machine" class="form-control" type="search" value="@Model.MachineSearched" />
+                </div>
+                <input type="submit" value="Search" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>
+            </form>
+        </div>
+    </div>
