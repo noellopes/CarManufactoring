@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class SalesLinesController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -72,7 +72,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Create
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
@@ -85,7 +85,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Colaborator")]
+        //[Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("OrderId,CarConfigId,Quantity,DeliveryDate,Price")] SalesLine salesLine)
         {
             if (ModelState.IsValid)

@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class OrdersController : Controller
     {
         private readonly CarManufactoringContext _context;
