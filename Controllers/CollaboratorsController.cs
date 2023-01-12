@@ -9,18 +9,25 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using System.Xml.Linq;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
+using CarManufactoring.ViewModels.Group1;
+
 using CarManufactoring.ViewModels.Group1;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CollaboratorsController : Controller
     {
         private readonly CarManufactoringContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-   
 
         public CollaboratorsController(CarManufactoringContext context, UserManager<IdentityUser> userManager)
         {
@@ -29,7 +36,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators
-
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Index(int Gender, int OnDuty, string Name = null, string Phone = null, int page = 0)
         {
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
@@ -101,6 +108,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Details/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Collaborator == null)
@@ -121,6 +129,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Create
+        [Authorize(Roles = "ShiftManager")]
         public IActionResult Create()
         {
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
@@ -132,6 +141,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Create([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
             if (ModelState.IsValid)
@@ -159,6 +169,7 @@ namespace CarManufactoring.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> CreateDuplicte([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator duplicated)
         {
             _context.Add(duplicated);
@@ -168,6 +179,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Edit/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Collaborator == null)
@@ -189,6 +201,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int id, [Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
             if (id != collaborator.CollaboratorId)
@@ -223,6 +236,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Delete/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Collaborator == null)
@@ -244,6 +258,7 @@ namespace CarManufactoring.Controllers
         // POST: Collaborators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Collaborator == null)
@@ -348,7 +363,6 @@ namespace CarManufactoring.Controllers
                 _context.Entry(maintenanceCollaborator).Property(w => w.EffectiveEndDate).IsModified = true;
                 _context.SaveChanges();
             }
-
 
             return View("MaintenanceJobFinished");
         }

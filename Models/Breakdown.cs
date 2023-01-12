@@ -36,7 +36,7 @@ namespace CarManufactoring.Models
         public DateTime ReparationDate { get; set; }
 
         [Required]
-        [Display(Name = "Machine Stop")]
+        [Display(Name = "Days that the machine will stand still")]
         [Range(0,99)]
         public int MachineStop { get; set; }
 
