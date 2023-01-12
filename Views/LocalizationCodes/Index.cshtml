@@ -16,7 +16,11 @@
         <form asp-action="Index" method="get">
             <div class="mb-3">
                 <label for="collumn" class="form-label">Collumn</label>
-                <input name="collumn" class="form-control" type="search" value="@Model.LocalizationCodeSearched" />
+                <input name="collumn" class="form-control" type="search" value="@Model.LocalizationCodeCollumnSearched" />
+            </div>
+            <div class="mb-3">
+                <label for="line" class="form-label">Line</label>
+                <input name="line" class="form-control" type="search" value="@Model.LocalizationCodeLineSearched" />
             </div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn btn-secondary">Clear Search</a>

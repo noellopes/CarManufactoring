@@ -36,7 +36,9 @@
 }
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-warning">Edit</a>
-    <a asp-action="Delete" asp-route-id="@Model?.ProductId" class="btn btn-danger">Remove</a>
+    @if(User.IsInRole("Manager")){
+        <a asp-action="Edit" asp-route-id="@Model?.ProductId" class="btn btn-warning">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model?.ProductId" class="btn btn-danger">Remove</a>
+    }
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

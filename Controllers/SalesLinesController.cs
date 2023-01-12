@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    //[Authorize]
     public class SalesLinesController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -17,6 +19,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index(int quantity = 0, double price = 0, DateTime deliveryDate = default, string order = null, string carconfig = null, int page = 1)
         {
             
@@ -48,6 +51,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Details/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.SalesLine == null)
@@ -61,13 +65,14 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (salesLine == null)
             {
-                return NotFound();
+                return View("SalesLineNotFound");
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(salesLine);
         }
 
         // GET: SalesLines/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName");
@@ -80,13 +85,19 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("OrderId,CarConfigId,Quantity,DeliveryDate,Price")] SalesLine salesLine)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(salesLine);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var Order = await _context.Order.FindAsync(salesLine.OrderId);
+
+                _context.Production.Add(new Production { CarConfigId = salesLine.CarConfigId, Quantity = salesLine.Quantity, Date = DateTime.Now });
+                await _context.SaveChangesAsync();
+                TempData["SuccessMessage"] = "Extra created successfully";
+                return RedirectToAction(nameof(Details), new { id = salesLine.OrderId});
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", salesLine.CarConfigId);
             ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", salesLine.OrderId);
@@ -94,6 +105,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Edit/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.SalesLine == null)
@@ -104,7 +116,7 @@ namespace CarManufactoring.Controllers
             var salesLine = await _context.SalesLine.FindAsync(id);
             if (salesLine == null)
             {
-                return NotFound();
+                return View("SalesLineNotFound");
             }
             ViewData["CarConfigId"] = new SelectList(_context.CarConfig, "CarConfigId", "ConfigName", salesLine.CarConfigId);
             ViewData["OrderId"] = new SelectList(_context.Order, "OrderId", "OrderId", salesLine.OrderId);
@@ -116,6 +128,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Edit(int id, [Bind("OrderId,CarConfigId,Quantity,DeliveryDate,Price")] SalesLine salesLine)
         {
             if (id != salesLine.OrderId)
@@ -134,7 +147,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!SalesLineExists(salesLine.OrderId))
                     {
-                        return NotFound();
+                        return View("SalesLineNotFound");
                     }
                     else
                     {
@@ -149,6 +162,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SalesLines/Delete/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.SalesLine == null)
@@ -162,29 +176,33 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.OrderId == id);
             if (salesLine == null)
             {
-                return NotFound();
+                return View("SalesLineNotFound");
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(salesLine);
         }
 
         // POST: SalesLines/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize(Roles = "Colaborator")]
+        public async Task<IActionResult> DeleteConfirmed(int OrderId, int CarConfigId)
         {
             if (_context.SalesLine == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.SalesLine'  is null.");
             }
-            var salesLine = await _context.SalesLine.FindAsync(id);
-            if (salesLine != null)
+            var salesLine = await _context.SalesLine.FindAsync(OrderId, CarConfigId);
+            if (salesLine == null)
             {
-                _context.SalesLine.Remove(salesLine);
+                //TODO : Extra was not found page
             }
-            
+            _context.SalesLine.Remove(salesLine);
+            TempData["SuccessMessage"] = "Sales Line removed successfully.";
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("SalesLineDeleted");
         }
 
         private bool SalesLineExists(int id)

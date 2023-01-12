@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using CarManufactoring.ViewModels;
+using CarManufactoring.ViewModels.Group8;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
@@ -19,12 +23,42 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        // GET: Breakdowns
-        public async Task<IActionResult> Index()
-        {
-              return View(await _context.Breakdown.ToListAsync());
-        }
+        // [Authorize(Roles = "Admin,Breakdown")]
 
+        // GET: Breakdowns
+        public async Task<IActionResult> Index(string breakdownName = null, int page = 1)
+        {
+            var breakdowns = _context.Breakdown
+              .Where(b => breakdownName == null || b.BreakdownName.Contains(breakdownName))
+              .OrderBy(b => b.BreakdownName);
+
+            var pagingInfo = new PagingInfoViewModel(await breakdowns.CountAsync(), page);
+
+            try
+            {
+                var model = new BreakdownIndexViewModel
+                {
+                    BreakdownList = new ListViewModel<Breakdown>
+                    {
+                        List = await breakdowns
+                        .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                        .Take(pagingInfo.PageSize).ToListAsync(),
+                        PagingInfo = pagingInfo
+                    },
+
+                    BreakdownNameSearch = breakdownName
+
+
+                };
+
+                return View(model);
+
+            }
+            catch (Exception ex)
+            {
+                return await Index(null, page);
+            }
+        }
         // GET: Breakdowns/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -64,6 +98,9 @@ namespace CarManufactoring.Controllers
             }
             return View(breakdown);
         }
+
+        
+        // [Authorize(Roles = "Admin,BreakdownManager")]
 
         // GET: Breakdowns/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -116,6 +153,9 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
+
+        //[Authorize(Roles = "Admin,BreakdownManager")]
+
         // GET: Breakdowns/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -133,6 +173,7 @@ namespace CarManufactoring.Controllers
 
             return View(breakdown);
         }
+  
 
         // POST: Breakdowns/Delete/5
         [HttpPost, ActionName("Delete")]

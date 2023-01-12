@@ -196,6 +196,7 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CrudMachineMaintenanceViewModel machineMaintenancePost )
         {
+
             if (DateTime.Compare(machineMaintenancePost.ExpectedEndDate, machineMaintenancePost.BeginDate) <= 0)
             {
                 ModelState.AddModelError("ExpectedEndDate", "The Expected End Date can not be inferior to the Begin Date");
@@ -210,6 +211,15 @@ namespace CarManufactoring.Controllers
             }
             else
             {
+
+            
+            if(DateTime.Compare(machineMaintenancePost.ExpectedEndDate,machineMaintenancePost.BeginDate) < 0)
+            {
+                ModelState.AddModelError("ExpectedEndDate", "The Expected End Date can not be inferior to the Begin Date");
+            }
+            else
+            {
+
                 if (ModelState.IsValid)
                 {
 
@@ -237,6 +247,10 @@ namespace CarManufactoring.Controllers
 
                     return RedirectToAction(nameof(Index));
                 }
+
+            }
+             
+
 
                 ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
                 ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
@@ -423,6 +437,7 @@ namespace CarManufactoring.Controllers
           return _context.MachineMaintenance.Any(e => e.MachineMaintenanceId == id);
         }
 
+
         // GET: MachineMaintenances/Restore/5
         public async Task<IActionResult> Restore(int? id)
         {
@@ -455,5 +470,6 @@ namespace CarManufactoring.Controllers
             return RedirectToAction(nameof(Index));
 
         }
+
     }
 }

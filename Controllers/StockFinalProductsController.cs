@@ -207,10 +207,19 @@ namespace CarManufactoring.Controllers
             if (stockFinalProduct != null)
             {
                 _context.StockFinalProduct.Remove(stockFinalProduct);
+                await _context.SaveChangesAsync();
+
+                var pos = await _context.LocalizationCar.
+                       FirstOrDefaultAsync(m => m.LocalizationCarId == stockFinalProduct.LocalizationCarId);
+
+                pos.IsOccupied = false;
+
+                _context.LocalizationCar.Update(pos);
+                await _context.SaveChangesAsync();
+
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            return View("StockFinalProductDeleted");
         }
 
         private bool StockFinalProductExists(int id)

@@ -30,10 +30,14 @@
     </div>
 </div>
 
-<p class="mt-2">
 
-    <a asp-action="Create" class="btn btn-success">Create New Test</a>
-</p>
+@if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
+{
+    <p class="mt-2">
+
+        <a asp-action="Create" class="btn btn-success">Create New Test</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -80,9 +84,15 @@
                 @Html.DisplayFor(modelItem => item.Collaborator.Name)
             </td>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.InspectionId" class="btn btn-warning">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.InspectionId" class="btn btn-info">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.InspectionId" class="btn btn-danger">Delete</a>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.InspectionId" class="btn btn-warning">Edit</a> 
+                    }@if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <a asp-action="Delete" asp-route-id="@item.InspectionId" class="btn btn-danger">Delete</a>
+                    }
+                    
+                    <a asp-action="Details" asp-route-id="@item.InspectionId" class="btn btn-info">Details</a>
             </td>
         </tr>
 }

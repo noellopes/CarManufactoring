@@ -31,7 +31,13 @@
     await Html.RenderPartialAsync("_MaterialDetails", Model);
 }
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.MaterialId" class="btn btn-warning">Edit</a>
-    <a asp-action="Delete" asp-route-id="@Model?.MaterialId" class="btn btn-danger">Delete</a>
+    @if (User.IsInRole("Admin") || User.IsInRole("Colaborator") || User.IsInRole("Manager"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model?.MaterialId" class="btn btn-warning">Edit</a>
+    }
+    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+    {
+        <a asp-action="Delete" asp-route-id="@Model?.MaterialId" class="btn btn-danger">Delete</a>
+    }
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

@@ -8,7 +8,7 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Search</h5>
-        <form asp-action="Index" method="get">
+        <form asp-action="Index" method="get" class="was-validated">
             <div class="mb-3">
                 <label for="carConfig" class="form-label">CarConfig</label>
                 <select name="CarConfig" class="form-control" type="search" id="CarConfig" value="@Model.CarConfigSearched">
@@ -21,7 +21,8 @@
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity</label>
-                <input name="quantity" class="form-control" type="number" value="@Model.QuantitySearched" />
+                <input name="quantity" class="form-control" type="number" value="" min="1" />
+                <div class="invalid-feedback">Please choose a number bigger than 1</div>
             </div>
             <input type="submit" value="Search" class="btn btn-primary" />
             <a asp-action="Index" class="btn btn-secondary">Clear search</a>
@@ -43,15 +44,22 @@
             <th>
                 @Html.DisplayNameFor(model => new Production().Quantity)
             </th>
+            <th>
+
+            </th>
             <th></th>
         </tr>
     </thead>
+    @{
+        int index = 0;
+    }
     <tbody>
         @foreach (var item in Model.ProductionList.List)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
+            <tr>
+                <td>
+                    @{string date = item.Date.ToString("dd/MM/yyyy hh:mm:ss");}
+                    @Html.DisplayFor(modelItem => date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarConfig.ConfigName)
@@ -59,13 +67,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
+            
             <td>
                     <a asp-action="Edit" asp-route-id="@item.ProductionId" class="btn btn-warning">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.ProductionId" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.ProductionId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
-}
+        <tr>
+            <td>
+                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="@Model.progressList.List.ElementAt(index)" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: @Model.progressList.List.ElementAt(index)%"></div>
+                    </div>
+            </td>
+        </tr>
+        index++;
+        }
     </tbody>
 </table>
 <nav aria-label="Page navigation">

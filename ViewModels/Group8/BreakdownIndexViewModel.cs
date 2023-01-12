@@ -8,6 +8,7 @@ namespace CarManufactoring.ViewModels.Group8
 
         public string? BreakdownNameSearch { get; set; }
         public string? BreakdownNumberSearch { get; set; }
+        public string? MachineReplacementSearch { get; set; }
 
     }
 }

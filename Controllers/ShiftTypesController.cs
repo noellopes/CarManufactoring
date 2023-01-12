@@ -55,7 +55,7 @@ namespace CarManufactoring.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(shiftType);
         }
 
@@ -76,7 +76,9 @@ namespace CarManufactoring.Controllers
             {
                 _context.Add(shiftType);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Shift Type created successfully.";
+
+                return RedirectToAction(nameof(Details), new { id = shiftType.ShiftTypeId});
             }
             return View(shiftType);
         }
@@ -115,6 +117,8 @@ namespace CarManufactoring.Controllers
                 {
                     _context.Update(shiftType);
                     await _context.SaveChangesAsync();
+                    TempData["SuccessMessage"] = "Shift Type edited successfully.";
+                    return RedirectToAction(nameof(Details), new { id = shiftType.ShiftTypeId});
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -147,6 +151,8 @@ namespace CarManufactoring.Controllers
                 return NotFound();
             }
 
+            ViewBag.Error = "Are you sure you want to delete this shift type?";
+            ViewBag.NumberShifts = await _context.Shift.Where(b => b.ShiftTypeId == id).CountAsync();
             return View(shiftType);
         }
 
@@ -163,10 +169,11 @@ namespace CarManufactoring.Controllers
             if (shiftType != null)
             {
                 _context.ShiftType.Remove(shiftType);
+                await _context.SaveChangesAsync();
             }
-            
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            return View("ShiftTypeDelete");
         }
 
         private bool ShiftTypeExists(int id)

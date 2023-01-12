@@ -31,6 +31,8 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.StockFinalProductId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.StockFinalProductId" class="btn-warning" >Edit</a>
+    <a asp-action="Delete" asp-route-id="@Model?.StockFinalProductId" class="btn btn-danger ">Delete</a>|
+    <a asp-action="Index" class="btn-secundary">Back to List</a>
+
 </div>
