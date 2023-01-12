@@ -25,7 +25,7 @@ namespace CarManufactoring.Controllers
         {
             _context = context;
         }
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions
         public async Task<IActionResult> Index(String carConfig = null, int quantity = 0, int page = 1)
         {
