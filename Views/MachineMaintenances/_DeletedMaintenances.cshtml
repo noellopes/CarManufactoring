@@ -1,4 +1,102 @@
 ﻿@using CarManufactoring.ViewModels.Group1;
 @model MachineMaintenaceIndexViewModel
 @{
+    var state = "Aberto";
 }
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().MachineMaintenanceId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().BeginDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().ExpectedEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().EffectiveEndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().TaskTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().PriorityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted.List.First().MachineId)
+            </th>
+            <th>
+                Voltar Abrir Tarefa
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var machineMaintenace in Model.Deleted.List)
+        {
+            <tr class="text-decoration-none ">
+                <td scope="col">
+                        @machineMaintenace.MachineMaintenanceId
+                </td>
+                <td scope="col">
+                        @machineMaintenace.Description
+                </td>
+                <td scope="col">
+                        @machineMaintenace.BeginDate.ToShortDateString()
+              
+                </td>
+                <td scope="col">
+                        @machineMaintenace.ExpectedEndDate.ToShortDateString()
+                 
+                </td>
+                <td scope="col">
+                        @machineMaintenace.EffectiveEndDate?.ToShortDateString()
+                </td>
+                <td scope="col">
+                        @machineMaintenace.TaskType.TaskName
+                </td>
+                <td scope="col">
+                        @machineMaintenace.Priority.Name
+                </td>
+                <td scope="col">
+                        @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
+
+                </td>
+                <td scope="col">
+                    <a class="text-black" asp-action="Restore" asp-route-id="@machineMaintenace.MachineMaintenanceId">
+                        <i class="fa-solid fa-upload"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.Deleted.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pageDeleted="1">First</a>
+        </li>
+
+        @for (int p = Model.Deleted.PagingInfo.InitialPageToShow; p <= Model.OnPogressPaginated.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.Deleted.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageDeleted="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.Deleted.PagingInfo.CurrentPage == Model.Deleted.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pageDeleted="@Model.Deleted.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

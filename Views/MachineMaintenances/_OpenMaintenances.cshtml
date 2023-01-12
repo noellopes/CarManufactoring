@@ -1,42 +1,45 @@
 ﻿@using CarManufactoring.ViewModels.Group1;
 @model MachineMaintenaceIndexViewModel
 @{
-
+    var state = "Aberto";
 }
 <table class="table table-striped table-hover">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().MachineMaintenanceId)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().MachineMaintenanceId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().Description)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().BeginDate)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().BeginDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().ExpectedEndDate)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().ExpectedEndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().EffectiveEndDate)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().EffectiveEndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().TaskTypeId)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().TaskTypeId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().PriorityId)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().PriorityId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Closed.List.First().MachineId)
+                @Html.DisplayNameFor(model => model.OnPogressPaginated.List.First().MachineId)
+            </th>
+            <th>
+                Estado
+            </th>
         </tr>
     </thead>
     <tbody>
 
-        @foreach (MachineMaintenance machineMaintenace in Model.Closed.List)
+        @foreach (var machineMaintenace in Model.OnPogressPaginated.List)
         {
-            
-                <tr class="text-decoration-none ">
+            <tr class="text-decoration-none ">
                 <td scope="col">
                     <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
                         @machineMaintenace.MachineMaintenanceId
@@ -77,32 +80,43 @@
                         @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
                     </a>
                 </td>
+                <td scope="col">
+                    @if (machineMaintenace.EffectiveEndDate != null)
+                    {
+                        state = "Fechado";
+
+                    }
+                    else
+                    {
+                        state = "Aberto";
+                    }
+                    @state
+                </td>
             </tr>
-          
         }
     </tbody>
 </table>
 
 <nav aria-label="Page navigation">
     <ul class="pagination">
-        <li class="page-item @(Model.Closed.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-pageClosed="1">First</a>
+        <li class="page-item @(Model.OnPogressPaginated.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pageOnProgress="1">First</a>
         </li>
 
-        @for (int p = Model.Closed.PagingInfo.InitialPageToShow; p <= Model.Closed.PagingInfo.FinalPageToShow; p++)
+        @for (int p = Model.OnPogressPaginated.PagingInfo.InitialPageToShow; p <= Model.OnPogressPaginated.PagingInfo.FinalPageToShow; p++)
         {
-            if (p == Model.Closed.PagingInfo.CurrentPage)
+            if (p == Model.OnPogressPaginated.PagingInfo.CurrentPage)
             {
                 <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
             }
             else
             {
-                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageClosed="@p">@p</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageOnProgress="@p">@p</a></li>
             }
         }
 
-        <li class="page-item @(Model.Closed.PagingInfo.CurrentPage == Model.Closed.PagingInfo.TotalPages ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-pageClosed="@Model.Closed.PagingInfo.TotalPages">Last</a>
+        <li class="page-item @(Model.OnPogressPaginated.PagingInfo.CurrentPage == Model.OnPogressPaginated.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pageOnProgress="@Model.OnPogressPaginated.PagingInfo.TotalPages">Last</a>
         </li>
     </ul>
 </nav>

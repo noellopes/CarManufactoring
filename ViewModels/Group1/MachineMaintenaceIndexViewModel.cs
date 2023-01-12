@@ -13,6 +13,9 @@ namespace CarManufactoring.ViewModels.Group1
 
         public ListViewModel<MachineMaintenance> Deleted { get; set; }
 
+        public IEnumerable<MachineMaintenance> OpenToGraph;
+        public IEnumerable<MachineMaintenance> ClosedToGraph;
+
         public ListViewModel <MachineMaintenance> MachineMaintenanceList { get; set; }
 
         public string? PrioritySearched { get; set; }
@@ -20,6 +23,7 @@ namespace CarManufactoring.ViewModels.Group1
         public string? TaskTypeSearched { get; set; }
 
         public string? MachineSearched { get; set; }
+
 
     }
 }

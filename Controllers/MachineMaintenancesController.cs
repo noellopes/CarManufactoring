@@ -26,7 +26,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineMaintenances
-        public async Task<IActionResult> Index(int page = 0)
+        public async Task<IActionResult> Index(int pageAll = 0, int pageDeleted = 0, int pageOnProgress = 0, int pageClosed = 0)
         {
             var all = _context.MachineMaintenance
             .Include(m => m.Priority)
@@ -46,6 +46,15 @@ namespace CarManufactoring.Controllers
             .Where(m => m.Deleted == false).Take(10)
             .ToListAsync();
 
+            var onProgressToPaginated = _context.MachineMaintenance
+           .Include(m => m.Priority)
+           .Include(m => m.Machine)
+           .Include(m => m.TaskType)
+           .Include(m => m.Machine.MachineModel)
+           .Include(m => m.Machine.MachineModel.MachineBrandNames)
+           .Where(m => !m.EffectiveEndDate.HasValue)
+           .Where(m => m.Deleted == false);
+           
             var deleted = _context.MachineMaintenance
             .Include(m => m.Priority)
             .Include(m => m.Machine)
@@ -64,15 +73,18 @@ namespace CarManufactoring.Controllers
             .Where(m => m.Deleted == false);
 
 
-            var pagingInfo = new PagingInfoViewModel(await all.CountAsync(), page);
-            var pagingInfoDeleted = new PagingInfoViewModel(await deleted.CountAsync(), page);
-            var pagingOnprogress = new PagingInfoViewModel(onProgress.Count(), page);
-            var pagingClosed = new PagingInfoViewModel(await closed.CountAsync(), page);
+            var pagingInfo = new PagingInfoViewModel(await all.CountAsync(), pageAll);
+            var pagingInfoDeleted = new PagingInfoViewModel(await deleted.CountAsync(), pageDeleted);
+            var pagingOnprogress = new PagingInfoViewModel(onProgressToPaginated.Count(), pageOnProgress);
+            var pagingClosed = new PagingInfoViewModel(await closed.CountAsync(), pageClosed);
+
+            var OpenToGraph = onProgressToPaginated;
+            var ClosedToGraph = closed;
 
             var model = new MachineMaintenaceIndexViewModel
             {
 
-                All= new ListViewModel<MachineMaintenance>
+                All = new ListViewModel<MachineMaintenance>
                 {
                     List = await all
                     .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
@@ -82,7 +94,7 @@ namespace CarManufactoring.Controllers
                 OnProgress = onProgress,
                 OnPogressPaginated = new ListViewModel<MachineMaintenance>
                 {
-                    List = onProgress
+                    List = onProgressToPaginated
                     .Skip((pagingOnprogress.CurrentPage - 1) * pagingOnprogress.PageSize)
                     .Take(pagingOnprogress.PageSize).ToList(),
                     PagingInfo = pagingOnprogress
@@ -100,7 +112,9 @@ namespace CarManufactoring.Controllers
                     .Skip((pagingClosed.CurrentPage - 1) * pagingClosed.PageSize)
                     .Take(pagingClosed.PageSize).ToListAsync(),
                     PagingInfo = pagingClosed
-                }
+                },
+                OpenToGraph = await onProgressToPaginated.ToListAsync(),
+                ClosedToGraph = await ClosedToGraph.ToListAsync()
             };
 
             return View(model);
@@ -185,6 +199,14 @@ namespace CarManufactoring.Controllers
             if (DateTime.Compare(machineMaintenancePost.ExpectedEndDate, machineMaintenancePost.BeginDate) <= 0)
             {
                 ModelState.AddModelError("ExpectedEndDate", "The Expected End Date can not be inferior to the Begin Date");
+
+                ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
+                ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
+                ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
+
+                var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
+
+                ViewData["MachinesId"] = machines;
             }
             else
             {
@@ -399,6 +421,39 @@ namespace CarManufactoring.Controllers
         private bool MachineMaintenanceExists(int id)
         {
           return _context.MachineMaintenance.Any(e => e.MachineMaintenanceId == id);
+        }
+
+        // GET: MachineMaintenances/Restore/5
+        public async Task<IActionResult> Restore(int? id)
+        {
+            if (id == null || _context.MachineMaintenance == null)
+            {
+                return NotFound();
+            }
+
+            //buscamos os colaboradores a trazer de volta
+            var machineMaintenanceCollaborators = await _context.MaintenanceCollaborators.Where(m => m.MachineMaintenanceId == id).ToListAsync();
+            var machineMaintenance = await _context.MachineMaintenance.FindAsync(id);
+
+
+            if (machineMaintenance != null)
+            {
+                machineMaintenance.Deleted = false;
+
+                await _context.SaveChangesAsync();
+
+                //percorremos todos os colaboradores e mudamos os estado para trazer de volta
+                foreach (var collaborator in machineMaintenanceCollaborators)
+                {
+                    collaborator.Deleted = false;
+                    await _context.SaveChangesAsync();
+
+                }
+            }
+
+
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }
