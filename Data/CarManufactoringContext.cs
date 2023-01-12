@@ -236,8 +236,6 @@ namespace CarManufactoring.Data
         public DbSet<CarManufactoring.Models.Stock> Stock { get; set; }
         public DbSet<CarManufactoring.Models.Shift> Shift { get; set; }
 
-      
-
         public DbSet<CarManufactoring.Models.Customer> Customer { get; set; }
 
         public DbSet<CarManufactoring.Models.Order> Order { get; set; }

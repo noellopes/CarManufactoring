@@ -36,6 +36,13 @@
   </ItemGroup>
 
   <ItemGroup>
+
+    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\documents\Group08\FabioViegas\" />
+    <Folder Include="wwwroot\documents\Group08\GroupDocumentation\" />
+    <Folder Include="wwwroot\documents\Group08\PropauloFerreira\" />
+
+
     <Folder Include="wwwroot\documents\Group10\GroupDoc\" />
     <Folder Include="wwwroot\documents\Group4\JuanSilva\" />
     <Folder Include="wwwroot\documents\Group4\GroupDocuments\" />

@@ -1,0 +1,59 @@
+﻿@using CarManufactoring.ViewModels.Group1;
+@model MachineMaintenaceIndexViewModel
+
+@{
+    ViewData["Title"] = "Search";
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => new MachineMaintenance().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineMaintenance().Priority)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineMaintenance().TaskType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineMaintenance().Machine.MachineModel.MachineBrandNames.MachineBrandName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineMaintenance().Machine.MachineModel.MachineModelName)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.MachineMaintenanceList.List)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Priority.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskType.TaskName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Machine.MachineModel.MachineBrandNames.MachineBrandName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Machine.MachineModel.MachineModelName)
+                </td>
+                <td>
+                 <a asp-action="Details" asp-route-id="@item.MachineMaintenanceId" class="btn btn-info">Details</a>
+                   
+                 <a asp-action="Delete" asp-route-id="@item.MachineMaintenanceId" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
