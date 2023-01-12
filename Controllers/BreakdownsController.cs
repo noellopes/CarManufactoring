@@ -23,7 +23,7 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        
+        // [Authorize(Roles = "Admin,Breakdown")]
 
         // GET: Breakdowns
         public async Task<IActionResult> Index(string breakdownName = null, int page = 1)
@@ -99,7 +99,8 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
-        [Authorize(Roles = "Admin,BreakdownManager")]
+        
+        // [Authorize(Roles = "Admin,BreakdownManager")]
 
         // GET: Breakdowns/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -152,7 +153,8 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
-        [Authorize(Roles = "Admin,BreakdownManager")]
+
+        //[Authorize(Roles = "Admin,BreakdownManager")]
 
         // GET: Breakdowns/Delete/5
         public async Task<IActionResult> Delete(int? id)
