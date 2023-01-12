@@ -24,7 +24,7 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets
         public async Task<IActionResult> Index(string supplier = null, string machine = null, int page = 1)
         {
@@ -54,7 +54,7 @@ namespace CarManufactoring.Controllers
             return View(model);
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -75,7 +75,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Create
         public IActionResult Create()
         {
@@ -103,7 +103,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -122,7 +122,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // POST: MachineBudgets/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -160,7 +160,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: MachineBudgets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -181,7 +181,7 @@ namespace CarManufactoring.Controllers
             return View(machineBudget);
         }
 
-        //[Authorize(Roles = "Admin,ProdutionManager")]
+        [Authorize(Roles = "Admin,ProdutionManager")]
         // POST: MachineBudgets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
