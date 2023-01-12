@@ -36,7 +36,7 @@ namespace CarManufactoring.Data
             PopulateMachineModel(db);
             PopulateLocalizationCode(db);
 
-            //PopulateMachines(db);
+            PopulateMachines(db);
             //PopulateMachineMaintenance(db);
             PopulateCars(db);
             //PopulateTimeOfProduction(db);
@@ -72,7 +72,9 @@ namespace CarManufactoring.Data
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
             PopulateWarehouseProducts(db);
-            //PopulateMachineAquisitions(db);
+            PopulateMachineAquisitions(db);
+
+            PopulateMachineBudgets(db);
 
 
         }
@@ -322,7 +324,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
 
         }
-        /*
+        
         // Seed da tabela Machine
         private static void PopulateMachines(CarManufactoringContext db)
         {
@@ -342,7 +344,7 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
-        */
+        
 
         private static void PopulateMachineMaintenance(CarManufactoringContext db)
         {
@@ -931,6 +933,8 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
+        */
+
 
         private static void PopulateMachineAquisitions(CarManufactoringContext db)
         {
@@ -975,7 +979,40 @@ namespace CarManufactoring.Data
         }
 
 
-        */
+        
+
+        private static void PopulateMachineBudgets(CarManufactoringContext db)
+        {
+
+            if (db.MachineBudget.Any()) return;
+
+            db.MachineBudget.AddRange(
+                new MachineBudget
+                {
+                    dataSolicitada = DateTime.Parse("11/01/2023 10:11:00 AM"),
+                    dataEntrega = DateTime.Parse("28/01/2023 10:11:00 AM"),
+                    Valor = 40000,
+                    prazoGarantia = 5,
+                    custoManutencao = 50,
+                    SupplierId = 1,
+                    AquisitionId = 1
+                },
+
+                new MachineBudget
+                {
+                    dataSolicitada = DateTime.Parse("13/01/2023 10:11:00 AM"),
+                    dataEntrega = DateTime.Parse("26/01/2023 10:11:00 AM"),
+                    Valor = 20000,
+                    prazoGarantia = 4,
+                    custoManutencao = 50,
+                    SupplierId = 2,
+                    AquisitionId = 1
+                }
+
+                );
+
+            db.SaveChanges();
+        }
 
     }
 }
