@@ -9,6 +9,8 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using CarManufactoring.ViewModels.Group8;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
@@ -20,6 +22,8 @@ namespace CarManufactoring.Controllers
         {
             _context = context;
         }
+
+        // [Authorize(Roles = "Admin,Breakdown")]
 
         // GET: Breakdowns
         public async Task<IActionResult> Index(string breakdownName = null, int page = 1)
@@ -95,6 +99,9 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
+        
+        // [Authorize(Roles = "Admin,BreakdownManager")]
+
         // GET: Breakdowns/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -146,6 +153,9 @@ namespace CarManufactoring.Controllers
             return View(breakdown);
         }
 
+
+        //[Authorize(Roles = "Admin,BreakdownManager")]
+
         // GET: Breakdowns/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -163,6 +173,7 @@ namespace CarManufactoring.Controllers
 
             return View(breakdown);
         }
+  
 
         // POST: Breakdowns/Delete/5
         [HttpPost, ActionName("Delete")]

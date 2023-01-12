@@ -11,13 +11,10 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
-          
- PopulateGender(db);
-            
+            PopulateGender(db);
             PopulateCollaborators(db);
             PopulateShiftType(db);
             PopulateShift(db);
-
             PopulateGender(db);
             PopulateFunction(db);
             PopulateCarParts(db);
@@ -39,31 +36,29 @@ namespace CarManufactoring.Data
             PopulateMachines(db);
             //PopulateMachineMaintenance(db);
             PopulateCars(db);
-            //PopulateTimeOfProduction(db);
+            PopulateTimeOfProduction(db);
             PopulateCarConfigs(db);
             PopulateCustomers(db);
             PopulateCustomerContacts(db);
             //PopulateOrder(db);
-            PopulateMaterialUsed(db);
+            //PopulateMaterialUsed(db);
             PopulateSupplier(db);
+
             
             PopulateWarehouseStocks(db);
             PopulateStocks(db);
+
             PopulateExtras(db);
             PopulateOrderState(db);
-            PopulateProductions(db);
+            //PopulateProductions(db);
             PopulateWarehouses(db);
             PopulateModelParts(db);
             PopulateLocalizationCar(db);
+            //PopulateSalesLine(db);
             //PopulateStockFinalProduct(db);
             //PopulateLocalizationCar(db);
-            PopulateStockFinalProduct(db);
 
-            
-
- 
-     
-
+            //PopulateStockFinalProduct(db);
 
             //PopulateBreakdows(db);
             //PopulateBreakdows(db);
@@ -71,14 +66,13 @@ namespace CarManufactoring.Data
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
+
             PopulateWarehouseProducts(db);
             PopulateMachineAquisitions(db);
 
             PopulateMachineBudgets(db);
 
-
-        }
-        internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
+        }        internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
             await EnsureRoleIsCreated(roleManager, "Admin");
             await EnsureRoleIsCreated(roleManager, "Colaborator");
             await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
@@ -89,7 +83,10 @@ namespace CarManufactoring.Data
             await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
             await EnsureRoleIsCreated(roleManager, "ProdutionManager");
             await EnsureRoleIsCreated(roleManager, "Supplier");
+            await EnsureRoleIsCreated(roleManager, "Breakdown");
+            await EnsureRoleIsCreated(roleManager, "SupplierParts");
             await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+            await EnsureRoleIsCreated(roleManager, "CarPartsManager");
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -120,9 +117,14 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
 
-            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
+            user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
+             user = await EnsureUserIsCreated(userManager, "breakdown@ipg.pt", "Pro1012646@");
+            await EnsureUserIsInRoleAsync(userManager, user, "Breakdown");
+
+            user = await EnsureUserIsCreated(userManager, "supplierparts@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "SupplierParts");
 
             user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
@@ -136,6 +138,8 @@ namespace CarManufactoring.Data
             user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret");
             await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
+            user = await EnsureUserIsCreated(userManager, "carPartsManager@ipg.pt", "CarParts");
+            await EnsureUserIsInRoleAsync(userManager, user, "CarPartsManagerManager");
         }
 
         private static async Task EnsureUserIsInRoleAsync(UserManager<IdentityUser> userManager, IdentityUser user, string role) {
@@ -898,7 +902,7 @@ namespace CarManufactoring.Data
 
                 new Breakdown
                 {
-                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
+                    BreakdownName = "Guarda-pó muito deteriorada",
                     BreakdownDate = DateTime.Parse("01/01/2023"),
                     BreakdownNumber = 2,
                     ReparationDate = DateTime.Parse("03/01/2023"),
@@ -908,7 +912,7 @@ namespace CarManufactoring.Data
                 },
                  new Breakdown
                  {
-                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownName = "Alinhamento Maximos",
                      BreakdownDate = DateTime.Parse("13/01/2023"),
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("16/01/2023"),

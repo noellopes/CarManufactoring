@@ -136,9 +136,16 @@
 
                     <a asp-action="Details" asp-route-id="@sp.SupplierPartsId" class="btn btn-info">Details</a>
 
-                    <form asp-action="Index" asp-controller="SupplierPartsCarParts" method="get" style="display: inline;">
-                        <button name="supplierid" value="@sp.SupplierPartsId" class="btn btn-success">Product List</button>
-                    </form>
+                    @if (ViewBag.Comprar > 0){
+                        <form asp-action="Index" asp-controller="SupplierPartsCarParts" method="get" style="display: inline;">
+                            <input type="hidden" name="productid" value="@ViewBag.Comprar">
+                            <button name="supplierid" value="@sp.SupplierPartsId" class="btn btn-success">Buy</button>
+                        </form>
+                    }else{
+                        <form asp-action="Index" asp-controller="SupplierPartsCarParts" method="get" style="display: inline;">
+                            <button name="supplierid" value="@sp.SupplierPartsId" class="btn btn-success">Product List</button>
+                        </form>
+                    }
             </td>
         </tr>
 }
