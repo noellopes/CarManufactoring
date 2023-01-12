@@ -8,9 +8,8 @@ namespace CarManufactoring.ViewModels.Group1
     {
         public ListViewModel<MachineMaintenance>  All  { get; set; }
         public IEnumerable<MachineMaintenance>  OnProgress  { get; set; }
-
-
-        public ListViewModel<MachineMaintenance> MachineMaintenanceList { get; set; }
+        public ListViewModel<MachineMaintenance> OnPogressPaginated { get; set; }
+        public ListViewModel<MachineMaintenance> Closed { get; set; }
 
         public ListViewModel<MachineMaintenance> Deleted { get; set; }
 

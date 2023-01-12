@@ -35,8 +35,6 @@ namespace CarManufactoring.Controllers
             .Include(m => m.Machine.MachineModel)
             .Include(m => m.Machine.MachineModel.MachineBrandNames)
             .Where(m => m.Deleted == false);
-            
-           
 
             var onProgress = await _context.MachineMaintenance
             .Include(m => m.Priority)
@@ -54,12 +52,22 @@ namespace CarManufactoring.Controllers
             .Include(m => m.TaskType)
             .Include(m => m.Machine.MachineModel)
             .Include(m => m.Machine.MachineModel.MachineBrandNames)
-            .Where(m => !m.EffectiveEndDate.HasValue)
             .Where(m => m.Deleted == true);
+
+            var closed = _context.MachineMaintenance
+            .Include(m => m.Priority)
+            .Include(m => m.Machine)
+            .Include(m => m.TaskType)
+            .Include(m => m.Machine.MachineModel)
+            .Include(m => m.Machine.MachineModel.MachineBrandNames)
+            .Where(m => m.EffectiveEndDate.HasValue)
+            .Where(m => m.Deleted == false);
 
 
             var pagingInfo = new PagingInfoViewModel(await all.CountAsync(), page);
             var pagingInfoDeleted = new PagingInfoViewModel(await deleted.CountAsync(), page);
+            var pagingOnprogress = new PagingInfoViewModel(onProgress.Count(), page);
+            var pagingClosed = new PagingInfoViewModel(await closed.CountAsync(), page);
 
             var model = new MachineMaintenaceIndexViewModel
             {
@@ -72,12 +80,26 @@ namespace CarManufactoring.Controllers
                     PagingInfo = pagingInfo
                 },
                 OnProgress = onProgress,
+                OnPogressPaginated = new ListViewModel<MachineMaintenance>
+                {
+                    List = onProgress
+                    .Skip((pagingOnprogress.CurrentPage - 1) * pagingOnprogress.PageSize)
+                    .Take(pagingOnprogress.PageSize).ToList(),
+                    PagingInfo = pagingOnprogress
+                },
                 Deleted = new ListViewModel<MachineMaintenance>
                 {
                     List = await deleted
                     .Skip((pagingInfoDeleted.CurrentPage - 1) * pagingInfoDeleted.PageSize)
                     .Take(pagingInfoDeleted.PageSize).ToListAsync(),
                     PagingInfo = pagingInfoDeleted
+                },
+                Closed = new ListViewModel<MachineMaintenance>
+                {
+                    List = await closed
+                    .Skip((pagingClosed.CurrentPage - 1) * pagingClosed.PageSize)
+                    .Take(pagingClosed.PageSize).ToListAsync(),
+                    PagingInfo = pagingClosed
                 }
             };
 
@@ -129,41 +151,49 @@ namespace CarManufactoring.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CrudMachineMaintenanceViewModel machineMaintenancePost )
         {
-
-            if (ModelState.IsValid)
+            if (DateTime.Compare(machineMaintenancePost.ExpectedEndDate, machineMaintenancePost.BeginDate) <= 0)
             {
-                
-                MachineMaintenance machineMaintenance = new MachineMaintenance();
-
-                machineMaintenance.Description = machineMaintenancePost.Description;
-                machineMaintenance.PriorityId = machineMaintenancePost.PriorityId;
-                machineMaintenance.ExpectedEndDate = machineMaintenancePost.ExpectedEndDate;
-                machineMaintenance.MachineId = machineMaintenancePost.MachineId;
-                machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
-
-                _context.Add(machineMaintenance);
-                await _context.SaveChangesAsync();
-                if(machineMaintenancePost.CollaboratorsId != null ){
-                    foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
-                    {
-                        MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
-                        maintenanceCollaborator.CollaboratorId = collaboratorId;
-                        maintenanceCollaborator.MachineMaintenanceId =                      machineMaintenance.MachineMaintenanceId;
-                        _context.Add(maintenanceCollaborator);
-                        await _context.SaveChangesAsync();
-                    }
-                }
-                
-                return RedirectToAction(nameof(Index));
+                ModelState.AddModelError("ExpectedEndDate", "The Expected End Date can not be inferior to the Begin Date");
             }
+            else
+            {
+                if (ModelState.IsValid)
+                {
 
-            ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
-            ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
+                    MachineMaintenance machineMaintenance = new MachineMaintenance();
 
-            var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
+                    machineMaintenance.Description = machineMaintenancePost.Description;
+                    machineMaintenance.PriorityId = machineMaintenancePost.PriorityId;
+                    machineMaintenance.ExpectedEndDate = machineMaintenancePost.ExpectedEndDate;
+                    machineMaintenance.MachineId = machineMaintenancePost.MachineId;
+                    machineMaintenance.TaskTypeId = machineMaintenancePost.TaskTypeId;
 
-            ViewData["MachinesId"] = machines;
+                    _context.Add(machineMaintenance);
+                    await _context.SaveChangesAsync();
+                    if (machineMaintenancePost.CollaboratorsId != null)
+                    {
+                        foreach (int collaboratorId in machineMaintenancePost.CollaboratorsId)
+                        {
+                            MaintenanceCollaborator maintenanceCollaborator = new MaintenanceCollaborator();
+                            maintenanceCollaborator.CollaboratorId = collaboratorId;
+                            maintenanceCollaborator.MachineMaintenanceId = machineMaintenance.MachineMaintenanceId;
+                            _context.Add(maintenanceCollaborator);
+                            await _context.SaveChangesAsync();
+                        }
+                    }
+
+                    return RedirectToAction(nameof(Index));
+                }
+
+                ViewData["TaskTypeId"] = new SelectList(_context.TaskType, "TaskTypeId", "TaskName");
+                ViewData["CollaboratorId"] = new SelectList(_context.Collaborator.Include(c => c.MaintenanceCollaborators), "CollaboratorId", "Name");
+                ViewData["PriorityId"] = new SelectList(_context.Priority, "PriorityId", "Name");
+
+                var machines = await _context.Machine.Include(m => m.MachineModel.MachineBrandNames).ToListAsync();
+
+                ViewData["MachinesId"] = machines;
+            }
+            
             return View(machineMaintenancePost);
         }
 

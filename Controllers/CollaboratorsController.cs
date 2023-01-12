@@ -284,7 +284,6 @@ namespace CarManufactoring.Controllers
                    .Where(m => m.Deleted == false)
                    .OrderBy(m => m.EffectiveEndDate);
 
-
                     break;
                 case 2:
                     filter = _context.MaintenanceCollaborators

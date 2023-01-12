@@ -41,10 +41,14 @@
              <div class="form-group">
                 <label asp-for="MachineId" class="control-label"></label>
                 <select  asp-for="MachineId" class="form-control">
-                    @foreach (Machine m in ViewBag.MachinesId)
+                    @if (ViewBag.MachinesId != null)
                     {
-                        <option value="@m.MachineId">@m.MachineId - @m.MachineModel.MachineModelName - @m.MachineModel.MachineBrandNames.MachineBrandName</option>
+                        @foreach (Machine m in ViewBag.MachinesId)
+                        {
+                            <option value="@m.MachineId">@m.MachineId - @m.MachineModel.MachineModelName - @m.MachineModel.MachineBrandNames.MachineBrandName</option>
+                        }
                     }
+ 
                 </select>
                 <span asp-validation-for="MachineId" class="text-danger"></span>
             </div>
