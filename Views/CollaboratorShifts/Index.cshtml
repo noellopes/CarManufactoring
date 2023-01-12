@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary mt-3">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -28,7 +28,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.EffectiveStartDate)
@@ -40,12 +40,12 @@
                 @Html.DisplayFor(modelItem => item.Shift.ShiftId)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Collaborator.Email)
+                @Html.DisplayFor(modelItem => item.Collaborator.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CollaboratorShiftId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CollaboratorShiftId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CollaboratorShiftId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.CollaboratorShiftId" class="btn btn-warning">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CollaboratorShiftId" class="btn btn-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CollaboratorShiftId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }

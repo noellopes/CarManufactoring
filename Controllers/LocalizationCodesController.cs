@@ -21,10 +21,11 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: LocalizationCodes
-        public async Task<IActionResult> Index(string collumn = null, int page = 0)
+        public async Task<IActionResult> Index(string collumn = null, string line = null, int page = 0)
         {
             var localizationCode = _context.LocalizationCode
                 .Where(m => collumn == null || m.Column.Contains(collumn))
+                .Where(m => line == null || m.Line.Contains(line))
                 .OrderBy(m => m.Column)
                 .ThenBy(m => m.Line);
 
@@ -39,7 +40,9 @@ namespace CarManufactoring.Controllers
                     .Take(pagingInfo.PageSize).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
-                LocalizationCodeSearched = collumn,
+                LocalizationCodeCollumnSearched = collumn,
+                LocalizationCodeLineSearched = line,
+                
             };
             return View(model);
         }

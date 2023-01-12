@@ -111,7 +111,7 @@ namespace CarManufactoring.Controllers
             var carParts = await _context.CarParts.FindAsync(id);
             if (carParts == null)
             {
-                return NotFound();
+                return View("CarPartsNotFound");
             }
             return View(carParts);
         }
@@ -121,32 +121,28 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts)
-        {
-            if (id != carParts.ProductId)
-            {
+        public async Task<IActionResult> Edit(int id, [Bind("PartType,ProductId,Reference,Name,PointOfPurchase,SafetyStock,LevelService")] CarParts carParts){
+            if (id != carParts.ProductId) {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
+            if (ModelState.IsValid){
+                try {
                     _context.Update(carParts);
                     await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Changes saved sucessfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = carParts.ProductId });
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CarPartsExists(carParts.ProductId))
-                    {
-                        return NotFound();
+                catch (DbUpdateConcurrencyException){
+                    if (!CarPartsExists(carParts.ProductId)){
+                        return View("CarPartNotFound");
                     }
-                    else
-                    {
+                    else{
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
             return View(carParts);
         }
@@ -156,14 +152,14 @@ namespace CarManufactoring.Controllers
         {
             if (id == null || _context.CarParts == null)
             {
-                return NotFound();
+                return View("CarPartNotFound");
             }
 
             var carParts = await _context.CarParts
                 .FirstOrDefaultAsync(m => m.ProductId == id);
             if (carParts == null)
             {
-                return NotFound();
+                return View("CarPartNotFound");
             }
 
             return View(carParts);
@@ -182,10 +178,11 @@ namespace CarManufactoring.Controllers
             if (carParts != null)
             {
                 _context.CarParts.Remove(carParts);
+                await _context.SaveChangesAsync();
             }
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+           
+            return View("_CarPartDeleted");
         }
 
         private bool CarPartsExists(int id)

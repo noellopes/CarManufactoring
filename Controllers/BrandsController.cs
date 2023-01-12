@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using Microsoft.AspNetCore.Authorization;
+using System.Runtime.InteropServices;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class BrandsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -20,12 +23,14 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Brands
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
               return View(await _context.Brand.ToListAsync());
         }
 
         // GET: Brands/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Brand == null)
@@ -37,13 +42,14 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.BrandId == id);
             if (brand == null)
             {
-                return NotFound();
+                return View("BrandNotFound");
             }
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(brand);
         }
 
         // GET: Brands/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +60,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("BrandId,BrandName")] Brand brand)
         {
             if (ModelState.IsValid)
@@ -77,7 +84,7 @@ namespace CarManufactoring.Controllers
             var brand = await _context.Brand.FindAsync(id);
             if (brand == null)
             {
-                return NotFound();
+                return View("BrandNotFound");
             }
             return View(brand);
         }
@@ -105,7 +112,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!BrandExists(brand.BrandId))
                     {
-                        return NotFound();
+                        return View("BrandNotFound");
                     }
                     else
                     {
@@ -129,10 +136,10 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.BrandId == id);
             if (brand == null)
             {
-                return NotFound();
+                return View("BrandNotFound");
             }
-            TempData["SuccessMessage"] = " ";
-            ViewBag.SuccessMessage = TempData["SuccessMessage"];
+            ViewBag.Error = "Are you sure you want to delete this brand ? ";
+            ViewBag.NumberCarBrands = await _context.Car.Where(b => b.BrandId == id).CountAsync();
             return View(brand);
         }
 
@@ -148,11 +155,11 @@ namespace CarManufactoring.Controllers
             var brand = await _context.Brand.FindAsync(id);
             if (brand != null)
             {
-               //TODO : Brand was not found page
+             _context.Brand.Remove(brand);
+             await _context.SaveChangesAsync();
             }
-            _context.Brand.Remove(brand);
             TempData["SuccessMessage"] = "Brand removed successfully.";
-            await _context.SaveChangesAsync();
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View("BrandDeleted");
         }
 

@@ -49,7 +49,7 @@ namespace CarManufactoring.Controllers
         // GET: CollaboratorShifts/Create
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             ViewData["ShiftId"] = new SelectList(_context.Shift, "ShiftId", "ShiftId");
             return View();
         }
@@ -138,7 +138,7 @@ namespace CarManufactoring.Controllers
             var collaboratorShifts = await _context.CollaboratorShifts
                 .Include(c => c.Collaborator)
                 .Include(c => c.Shift)
-                .FirstOrDefaultAsync(m => m.CollaboratorShiftId == id);
+                .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaboratorShifts == null)
             {
                 return NotFound();
@@ -150,13 +150,13 @@ namespace CarManufactoring.Controllers
         // POST: CollaboratorShifts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int CollaboratorId, int ShiftId)
         {
             if (_context.CollaboratorShifts == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.CollaboratorShifts'  is null.");
             }
-            var collaboratorShifts = await _context.CollaboratorShifts.FindAsync(id);
+            var collaboratorShifts = await _context.CollaboratorShifts.FindAsync(CollaboratorId, ShiftId);
             if (collaboratorShifts != null)
             {
                 _context.CollaboratorShifts.Remove(collaboratorShifts);
