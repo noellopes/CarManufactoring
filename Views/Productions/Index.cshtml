@@ -29,9 +29,7 @@
         </form>
     </div>
 </div>
-<p>
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -44,15 +42,22 @@
             <th>
                 @Html.DisplayNameFor(model => new Production().Quantity)
             </th>
+            <th>
+
+            </th>
             <th></th>
         </tr>
     </thead>
+    @{
+        int index = 0;
+    }
     <tbody>
         @foreach (var item in Model.ProductionList.List)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
+            <tr>
+                <td>
+                    @{string date = item.Date.ToString("dd/MM/yyyy hh:mm:ss");}
+                    @Html.DisplayFor(modelItem => date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarConfig.ConfigName)
@@ -60,13 +65,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </td>
+            
             <td>
                     <a asp-action="Edit" asp-route-id="@item.ProductionId" class="btn btn-warning">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.ProductionId" class="btn btn-info">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.ProductionId" class="btn btn-danger">Delete</a>
             </td>
         </tr>
-}
+        <tr>
+            <td>
+                    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="@Model.progressList.List.ElementAt(index)" aria-valuemin="0" aria-valuemax="100">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: @Model.progressList.List.ElementAt(index)%"></div>
+                    </div>
+            </td>
+        </tr>
+        index++;
+        }
     </tbody>
 </table>
 <nav aria-label="Page navigation">

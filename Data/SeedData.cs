@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using System.Collections.Generic;
 using Task = System.Threading.Tasks.Task;
 
 namespace CarManufactoring.Data
@@ -10,22 +11,82 @@ namespace CarManufactoring.Data
     {
         internal static void Populate(CarManufactoringContext db)
         {
+            PopulateGender(db);
+            PopulateCollaborators(db);
+            PopulateShiftType(db);
+            PopulateShift(db);
+            PopulateGender(db);
+            PopulateFunction(db);
+            PopulateCarParts(db);
+            PopulateSemiFinisheds(db);
+            PopulateSemiFinishedCars(db);
+            PopulateMaterials(db);
+            PopulateSection(db);
+            PopulateSectionManager(db);
+            PopulateMachineState(db);
+            PopulateTaskType(db);
+            PopulateBrands(db);
+            //PopulateInspectionTesting(db);
+            //PopulateInspectionTestState(db);
+            PopulatePriority(db);
+            PopulateMachineBrand(db);
+            PopulateMachineModel(db);
+            PopulateLocalizationCode(db);
 
+            PopulateMachines(db);
+            //PopulateMachineMaintenance(db);
+            PopulateCars(db);
+            PopulateTimeOfProduction(db);
+            PopulateCarConfigs(db);
+            PopulateCustomers(db);
+            PopulateCustomerContacts(db);
+            //PopulateOrder(db);
+            //PopulateMaterialUsed(db);
+            PopulateSupplier(db);
 
             
+            PopulateWarehouseStocks(db);
+            PopulateStocks(db);
 
-           
+            PopulateExtras(db);
+            PopulateOrderState(db);
+            //PopulateProductions(db);
+            PopulateWarehouses(db);
+            PopulateModelParts(db);
+            PopulateLocalizationCar(db);
+            //PopulateSalesLine(db);
+            //PopulateStockFinalProduct(db);
+            //PopulateLocalizationCar(db);
 
+            //PopulateStockFinalProduct(db);
 
+            //PopulateBreakdows(db);
+            //PopulateBreakdows(db);
+            //PopulateSupplierPartsCarParts(db);
 
-        }
-        internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
-            await EnsureRoleIsCreated(roleManager, "Admin");
-            await EnsureRoleIsCreated(roleManager, "Colaborator");
-            await EnsureRoleIsCreated(roleManager, "ColaboratorMaintenance");
-            await EnsureRoleIsCreated(roleManager, "Manager");
-            await EnsureRoleIsCreated(roleManager, "Production");
-            await EnsureRoleIsCreated(roleManager, "Customer");
+            PopulateSupplierParts(db);
+            PopulateSupplierPartsCarParts(db);
+
+            PopulateWarehouseProducts(db);
+            PopulateMachineAquisitions(db);
+
+            PopulateMachineBudgets(db);
+
+        }   internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
+                await EnsureRoleIsCreated(roleManager, "Admin");
+                await EnsureRoleIsCreated(roleManager, "Colaborator");
+                await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
+
+                //await EnsureRoleIsCreated(roleManager, "Manager");
+                await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
+                //await EnsureRoleIsCreated(roleManager, "Production");
+                //await EnsureRoleIsCreated(roleManager, "Customer");
+                ////await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
+                //await EnsureRoleIsCreated(roleManager, "ProdutionManager");
+                //await EnsureRoleIsCreated(roleManager, "Supplier");
+                //await EnsureRoleIsCreated(roleManager, "SupplierEnginner");
+                await EnsureRoleIsCreated(roleManager, "ShiftManager");
+
         }
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -41,13 +102,83 @@ namespace CarManufactoring.Data
             var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Admin");
 
-            user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "Manager");
 
             user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Customer");
             user = await EnsureUserIsCreated(userManager, "osman@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "ShiftSchedule");
+
+            //user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
+
+
+            //user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Manager");
+
+
+            //user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Customer");
+
+            ////user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+            ////await EnsureUserIsInRoleAsync(userManager, user, "Mechanical Eginner");
+
+            user = await EnsureUserIsCreated(userManager, "colab@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
+
+            user = await EnsureUserIsCreated(userManager, "shiftmanagerb@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "ShiftManager");
+
+            //user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
+
+
+            //user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
+
+
+            //user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
+
+            user = await EnsureUserIsCreated(userManager, "mustafabukhari@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "elizabethcady@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "josephvissari@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "lisaholland@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "harishowel@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "theamoss@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "jamesmcgee@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "luckbrown@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+            user = await EnsureUserIsCreated(userManager, "kylehoffman@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+
+
+            //user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
+
+            user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+
+            user = await EnsureUserIsCreated(userManager, "josav@cars.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+
+
+            //user = await EnsureUserIsCreated(userManager, "carPartsManager@ipg.pt", "CarParts");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CarPartsManagerManager");
+
 
 
             user = await EnsureUserIsCreated(userManager, "mahmut@ipg.pt", "Secret123$");
@@ -77,6 +208,7 @@ namespace CarManufactoring.Data
         }
 
 
+  
         // SeedData for Material Class
         private static void PopulateMaterials(CarManufactoringContext db)
         {
@@ -123,16 +255,16 @@ namespace CarManufactoring.Data
 
         private static void PopulateSemiFinishedCars(CarManufactoringContext db)
         {
-            if (db.SemiFinishedCar.Any()) return;
+            /*if (db.SemiFinishedCar.Any()) return;
 
             db.SemiFinishedCar.AddRange(
 
-                new SemiFinishedCar { SemiFinishedId=1, CarId=2},
-                new SemiFinishedCar { SemiFinishedId = 2, CarId = 3}
+                new SemiFinishedCar {SemiFinishedId =1, CarId=2},
+                new SemiFinishedCar {SemiFinishedId = 2, CarId = 3}
 
                 );
 
-            db.SaveChanges();
+            db.SaveChanges();*/
         }
 
         private static void PopulatePriority(CarManufactoringContext db)
@@ -239,26 +371,27 @@ namespace CarManufactoring.Data
             db.SaveChanges();
 
         }
-
+        
         // Seed da tabela Machine
         private static void PopulateMachines(CarManufactoringContext db)
         {
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2,Description=" "},
-                //new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1 , Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
+                  new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
 
                 );
 
             db.SaveChanges();
         }
+        
 
         private static void PopulateMachineMaintenance(CarManufactoringContext db)
         {
@@ -419,8 +552,8 @@ namespace CarManufactoring.Data
 
             db.CustomerContact.AddRange(
                 new CustomerContact { CustomerName = "Guilherme Alves", CustomerRole = "Diretor", CustomerPhone = "+351987563215", CustomerEmail = "gui@gmail.com", CustomerId = 1 },
-                new CustomerContact { CustomerName = "Luis Barros", CustomerRole = "Chefe", CustomerPhone = "+351988533215", CustomerEmail = "gui@gmail.com", CustomerId = 2 },
-                new CustomerContact { CustomerName = "Rodrigo Lourenço", CustomerRole = "Tesoureiro", CustomerPhone = "+351987569053", CustomerEmail = "gui@gmail.com", CustomerId = 3 }
+                new CustomerContact { CustomerName = "Luis Barros", CustomerRole = "Chefe", CustomerPhone = "+351988533215", CustomerEmail = "luis@gmail.com", CustomerId = 2 },
+                new CustomerContact { CustomerName = "Rodrigo Lourenço", CustomerRole = "Tesoureiro", CustomerPhone = "+351987569053", CustomerEmail = "rodrigo@gmail.com", CustomerId = 3 }
 
                 );
 
@@ -497,9 +630,15 @@ namespace CarManufactoring.Data
         {
             if (db.Collaborator.Any()) return;
             db.Collaborator.AddRange(
-                new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true },
-                new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true },
-                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("07 / 04 / 1991"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = false }
+                new Collaborator { Name = "Mustafa Bukhari", BirthDate = DateTime.Parse("09 / 11 / 1999"), Phone = "+351936584254", Email = "mustafabukhari@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Elizabeth Cady", BirthDate = DateTime.Parse("04 / 07 / 2000"), Phone = "+351496251487", Email = "elizabethcady@cars.pt", GenderId = 2, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Joseph Vissari", BirthDate = DateTime.Parse("12 / 06 / 1989"), Phone = "+351930706133", Email = "josephvissari@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Lisa Holland", BirthDate = DateTime.Parse("10 / 02 / 1991"), Phone = "+351970560731", Email = "lisaholland@cars.pt", GenderId = 2, OnDuty = false, Status = "Not Available" },
+                new Collaborator { Name = "Haris  Howell", BirthDate = DateTime.Parse("11 / 09 / 1997"), Phone = "+351996321856", Email = "harishowel@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Thea Moss", BirthDate = DateTime.Parse("06 / 12 / 1995"), Phone = "+351951357488", Email = "theamoss@cars.pt", GenderId = 2, OnDuty = false, Status = "Available" },
+                new Collaborator { Name = "James Mcgee", BirthDate = DateTime.Parse("07 / 10 / 1998"), Phone = "+351987535926", Email = "jamesmcgee@cars.pt", GenderId = 1, OnDuty = false, Status = "Available" },
+                new Collaborator { Name = "Luck Brown", BirthDate = DateTime.Parse("02 / 05 / 1997"), Phone = "+351954852358", Email = "luckbrown@cars.pt", GenderId = 1, OnDuty = true, Status = "Not Available" },
+                new Collaborator { Name = "Kyle Hoffman", BirthDate = DateTime.Parse("06 / 08 / 1996"), Phone = "+351987565233", Email = "kylehoffman@cars.pt", GenderId = 1, OnDuty = false, Status = "Available" }
                 );
             db.SaveChanges();
         }
@@ -508,9 +647,12 @@ namespace CarManufactoring.Data
             if (db.Stock.Any()) return;
 
             db.Stock.AddRange(
-                new Stock { Quantity = 35, Location = "Warehouse 2", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
-                new Stock { Quantity = 10, Location = "Warehouse 1", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
-                new Stock { Quantity = 52, Location = "Warehouse 4", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 }
+                new Stock { Quantity = 35, Location = "Section 1, left, top", MaterialId = 1, Description = "This is a text sample", WarehouseStockId = 1 },
+                new Stock { Quantity = 10, Location = "Section 3, right, bottom", MaterialId = 2, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 52, Location = "Section 5, midel, midel", MaterialId = 3, Description = "This is a text sample", WarehouseStockId = 2 },
+                new Stock { Quantity = 28, Location = "Section 2, left, midel", MaterialId = 5, Description = "This is a text sample", WarehouseStockId = 3 },
+                new Stock { Quantity = 16, Location = "Section 4, midel, top", MaterialId = 4, Description = "This is a text sample", WarehouseStockId = 4 },
+                new Stock { Quantity = 9, Location = "Section 1, right, midel", MaterialId = 6, Description = "This is a text sample", WarehouseStockId = 1 }
                 );
 
             db.SaveChanges();
@@ -623,6 +765,8 @@ namespace CarManufactoring.Data
 
         }
 
+
+
         private static void PopulateFunction(CarManufactoringContext db)
         {
             if (db.Function.Any()) return;
@@ -646,6 +790,19 @@ namespace CarManufactoring.Data
                 );
 
             db.SaveChanges();
+        }
+
+        private static void PopulateWarehouseProducts(CarManufactoringContext db)
+        {
+            //if (db.WarehouseProduct.Any()) return;
+
+            /*db.WarehouseProduct.AddRange(
+                new WarehouseProduct { WarehouseId = 1, ProductId = 5, Quantity = 30, StockMax = 50},
+                new WarehouseProduct { WarehouseId = 2, ProductId = 3, Quantity = 75, StockMax = 200 },
+                new WarehouseProduct { WarehouseId = 3, ProductId = 2, Quantity = 69, StockMax = 150 }
+                );
+
+            db.SaveChanges();*/
         }
 
         private static void PopulateModelParts(CarManufactoringContext db)
@@ -746,15 +903,31 @@ namespace CarManufactoring.Data
         private static void PopulateSupplierPartsCarParts(CarManufactoringContext db)
         {
             if (db.SupplierPartsCarParts.Any()) return;
+            //Aproveitando a ideia do professor, como a ordem importa
+            //Caso não exista a tabela SupplierParts e CarParts é chamada a funçãi para criar a mesmo e depois sim criar a tabela intermedia
+            if (!db.SupplierParts.Any()) PopulateSupplierParts(db);
+            if (!db.CarParts.Any()) PopulateCarParts(db);
 
-            db.SupplierPartsCarParts.AddRange(
-                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 1, PrazoEntrega = 12, Disponibilidade = true },
-                new SupplierPartsCarParts { ProductId = 1, SupplierPartsId = 2, PrazoEntrega = 6, Disponibilidade = true },
-                new SupplierPartsCarParts { ProductId = 2, SupplierPartsId = 2, PrazoEntrega = 4, Disponibilidade = false }
-                );
+            Random rnd = new Random();
+            int dias;
+            int disp;
+
+
+            foreach (SupplierParts sp in db.SupplierParts.ToArray())
+            {
+                foreach (CarParts cp in db.CarParts.ToArray())
+                {
+                    dias = rnd.Next(1, 31);
+                    disp = rnd.Next(0, 2);
+                    db.SupplierPartsCarParts.AddRange(
+                        new SupplierPartsCarParts { ProductId = cp.ProductId, SupplierPartsId = sp.SupplierPartsId, PrazoEntrega = dias, Disponibilidade = Convert.ToBoolean(disp) }
+                    );
+                }
+            };
             db.SaveChanges();
         }
 
+        /*
         private static void PopulateBreakdows(CarManufactoringContext db)
         {
             if (db.Breakdown.Any()) return;
@@ -768,29 +941,39 @@ namespace CarManufactoring.Data
                    BreakdownNumber = 1,
                    ReparationDate = DateTime.Parse("13/02/2022"),
                    MachineStop = 4,
-                   MachineReplacement = "",
+                   MachineReplacement =MachineReplacement.Replacement,
                    RepairInTheCompany = true
                },
 
                 new Breakdown
                 {
-                    BreakdownName = "Trasmissão - Guarda-pó muito deteriorada",
+                    BreakdownName = "Guarda-pó muito deteriorada",
                     BreakdownDate = DateTime.Parse("01/01/2023"),
                     BreakdownNumber = 2,
                     ReparationDate = DateTime.Parse("03/01/2023"),
                     MachineStop = 12,
-                    MachineReplacement = "",
+                    MachineReplacement = MachineReplacement.Repair,
                     RepairInTheCompany = true
                 },
                  new Breakdown
                  {
-                     BreakdownName = "Alinhamento das rodas direcionais, Alinhamento dos medios, Maximo e médio - Sistema de projeção",
+                     BreakdownName = "Alinhamento Maximos",
+                     BreakdownDate = DateTime.Parse("13/01/2023"),
+                     BreakdownNumber = 3,
+                     ReparationDate = DateTime.Parse("16/01/2023"),
+                     MachineStop = 12,
+                     MachineReplacement =MachineReplacement.Replacement,
+                     RepairInTheCompany = false
+                 },
+                 new Breakdown
+                 {
+                     BreakdownName = "Sistema de projeção",
                      BreakdownDate = DateTime.Parse("13/02/2022"),
                      BreakdownNumber = 3,
                      ReparationDate = DateTime.Parse("13/02/2022"),
                      MachineStop = 12,
-                     MachineReplacement = "",
-                     RepairInTheCompany = true
+                     MachineReplacement = MachineReplacement.Replacement,
+                     RepairInTheCompany = false
                  }
 
 
@@ -798,6 +981,84 @@ namespace CarManufactoring.Data
 
             db.SaveChanges();
         }
+
+        */
+
+
+        private static void PopulateMachineAquisitions(CarManufactoringContext db)
+        {
+            if (db.MachineAquisition.Any()) return;
+
+           /* db.MachineAquisition.AddRange(
+
+               new MachineAquisition
+               {
+                   MachineAquisitionName = "MachineAquisition1",
+                   MaintenancePrice = 15000,
+                   //NextLevel = 20,
+                   Price = 50000,
+                   QuantityOfParts = 18,
+                   //MachineId = 1
+
+               },
+
+                new MachineAquisition
+                {
+                    MachineAquisitionName = "MachineAquisition2",
+                    MaintenancePrice = 10000,
+                    //NextLevel = 20,
+                    Price = 50000,
+                    QuantityOfParts = 20,
+                   // MachineId = 1
+                },
+                 new MachineAquisition
+                 {
+                     MachineAquisitionName = "MachineAquisition3",
+                     MaintenancePrice = 5000,
+                     //NextLeve = 20,
+                     Price = 55000,
+                     QuantityOfParts = 22,
+                     //MachineId = 1
+                 }
+                );
+            db.SaveChanges();*/
+        }
+
+
         
+
+        private static void PopulateMachineBudgets(CarManufactoringContext db)
+        {
+
+            if (db.MachineBudget.Any()) return;
+
+           /* db.MachineBudget.AddRange(
+                new MachineBudget
+                {
+                    dataSolicitada = DateTime.Parse("11/01/2023 10:11:00 AM"),
+                    dataEntrega = DateTime.Parse("28/01/2023 10:11:00 AM"),
+                    Valor = 40000,
+                    //prazoGarantia = 5,
+                    //custoManutencao = 50,
+                    SupplierId = 1,
+                    AquisitionId = 1
+                },
+
+                new MachineBudget
+                {
+                    dataSolicitada = DateTime.Parse("13/01/2023 10:11:00 AM"),
+                    dataEntrega = DateTime.Parse("26/01/2023 10:11:00 AM"),
+                    Valor = 20000,
+                    //prazoGarantia = 4,
+                    //custoManutencao = 50,
+                    SupplierId = 2,
+                    AquisitionId = 1
+                }
+
+                );
+
+            db.SaveChanges();*/
+        }
+
     }
 }

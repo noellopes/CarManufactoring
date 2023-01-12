@@ -40,7 +40,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="MachineReplacement" class="control-label"></label>
-                <input asp-for="MachineReplacement" class="form-control" />
+                <select asp-for="MachineReplacement" class="form-control" asp-items="Html.GetEnumSelectList<MachineReplacement>()">
+                     <option value="">-- Select Option --</option>
+                </select>
                 <span asp-validation-for="MachineReplacement" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -50,14 +52,14 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Delete" asp-route-id="@Model?.BreakdownId" class="btn btn-danger">Delete</a>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Sales Line not found";
+}
+
+<h1>@ViewBag.Title</h1>
+<hr />
+
+@{
+    await Html.RenderPartialAsync("_AlertProblem",
+             new AlertProblemViewModel
+                     {
+                         CssClass = "alert-warning",
+                         Title = "It was not possible to retrive the Sales Line",
+                         Description = "Sales Line not found. Maybe it was deleted by another user."
+                     });
+}
+
+<a asp-action="Index" class="btn btn-secondary">Sales Line List</a>

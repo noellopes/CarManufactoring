@@ -73,9 +73,13 @@
             <th>
                 @Html.DisplayNameFor(model => new Car().BasePrice)
             </th>
+            @if (User.IsInRole("Colaborator"))
+            {
             <th>
                 @Html.DisplayNameFor(model => new Car().TimeProduction)
-            </th>
+            </th> 
+            }
+    
             <th></th>
         </tr>
     </thead>
@@ -96,21 +100,30 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.BasePrice)€
                 </td>
+                @if (User.IsInRole("Colaborator"))
+                {
                 <td>
                     @Html.DisplayFor(modelItem => item.TimeProduction) days
                 </td>
+                }
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.CarId" class="btn btn-warning">Edit</a> 
-                    <a asp-action="Details" asp-route-id="@item.CarId" class="btn btn-info">Details</a> 
+                    <a asp-action="Details" asp-route-id="@item.CarId" class="btn btn-info">Details</a>
+                    @if (User.IsInRole("Colaborator"))
+                    {
+                    <a asp-action="Edit" asp-route-id="@item.CarId" class="btn btn-warning">Edit</a>  
                     <a asp-action="Delete" asp-route-id="@item.CarId" class="btn btn-danger">Delete</a>
+                    }
                 </td>
             </tr>
         }
     </tbody>
 </table>
-<div class="mt-3 butt">
-    <a asp-action="Create" class="btn btn-success">Create New</a>
-</div>
+    @if (User.IsInRole("Colaborator"))
+    {
+        <div class="mt-3 butt">
+        <a class="btn btn-success" asp-action="Create"><i class="fa-sharp fa-solid fa-plus pe-2"></i>Create New</a>
+    </div>
+    }
 <nav aria-label="Page navigation">
     <ul class="pagination">
         <li class="page-item @(Model.CarsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">

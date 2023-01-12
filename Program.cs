@@ -66,10 +66,11 @@ using(var scope = app.Services.CreateScope()) {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
     SeedData.PopulateRolesAsync(roleManager).Wait();
 
-
     if (app.Environment.IsDevelopment()) {
     
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+        
+        
         SeedData.PopulateUsersAsync(userManager).Wait();
 
         var db = scope.ServiceProvider.GetRequiredService<CarManufactoringContext>();

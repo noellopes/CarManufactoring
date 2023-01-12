@@ -26,7 +26,7 @@ namespace CarManufactoring.Models
         [Required]
         [Display(Name = "Date Acquired")]
         [DataType(DataType.Date)]
-        public DateTime DateAcquired { get; set; }
+        public DateTime? DateAcquired { get; set; }
 
         [Required]
         [Display(Name = "Description")]

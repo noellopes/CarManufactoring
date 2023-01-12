@@ -1,15 +1,16 @@
-﻿@model CarManufactoring.Models.MachineMaintenance
+﻿@model CarManufactoring.ViewModels.Group1.CrudMachineMaintenanceViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Machine Maintenance";
 }
 
-<h1>Create</h1>
+<h1>@ViewBag.title</h1>
 
-<h4>MachineMaintenance</h4>
+<h4>Area for creating the machine management task</h4>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -24,19 +25,43 @@
             </div>
             <div class="form-group">
                 <label asp-for="TaskTypeId" class="control-label"></label>
-                <select asp-for="TaskTypeId" class="form-control" asp-items="ViewBag.TaskTypeId"></select>
+                <select  asp-for="TaskTypeId" class="form-control" asp-items="ViewBag.TaskTypeId"></select>
                 <span asp-validation-for="TaskTypeId" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="PriorityId" class="control-label"></label>
+                <select  asp-for="PriorityId" class="form-control" asp-items="ViewBag.PriorityId"></select>
+                <span asp-validation-for="PriorityId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CollaboratorsId" class="control-label"></label>
+                <select id="select-collaborator" multiple asp-for="CollaboratorsId" class="form-control" asp-items="ViewBag.CollaboratorId"></select>
+                <span asp-validation-for="CollaboratorsId" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="MachineId" class="control-label"></label>
+                <select  asp-for="MachineId" class="form-control">
+                    @if (ViewBag.MachinesId != null)
+                    {
+                        @foreach (Machine m in ViewBag.MachinesId)
+                        {
+                            <option value="@m.MachineId">@m.MachineId - @m.MachineModel.MachineModelName - @m.MachineModel.MachineBrandNames.MachineBrandName</option>
+                        }
+                    }
+ 
+                </select>
+                <span asp-validation-for="MachineId" class="text-danger"></span>
+            </div>
+            
             <div class="form-group pt-5">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

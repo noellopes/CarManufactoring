@@ -208,6 +208,15 @@ namespace CarManufactoring.Controllers
             {
                 _context.StockFinalProduct.Remove(stockFinalProduct);
                 await _context.SaveChangesAsync();
+
+                var pos = await _context.LocalizationCar.
+                       FirstOrDefaultAsync(m => m.LocalizationCarId == stockFinalProduct.LocalizationCarId);
+
+                pos.IsOccupied = false;
+
+                _context.LocalizationCar.Update(pos);
+                await _context.SaveChangesAsync();
+
             }
 
             return View("StockFinalProductDeleted");

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CollaboratorShiftsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -20,6 +22,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CollaboratorShifts
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Index()
         {
             var carManufactoringContext = _context.CollaboratorShifts.Include(c => c.Collaborator).Include(c => c.Shift);
@@ -27,6 +30,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CollaboratorShifts/Details/5
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.CollaboratorShifts == null)
@@ -47,9 +51,10 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CollaboratorShifts/Create
+        [Authorize(Roles = "ShiftManager")]
         public IActionResult Create()
         {
-            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Email");
+            ViewData["CollaboratorId"] = new SelectList(_context.Collaborator, "CollaboratorId", "Name");
             ViewData["ShiftId"] = new SelectList(_context.Shift, "ShiftId", "ShiftId");
             return View();
         }
@@ -59,6 +64,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Create([Bind("CollaboratorShiftId,EffectiveStartDate,EffectiveEndDate,ShiftId,CollaboratorId")] CollaboratorShifts collaboratorShifts)
         {
             if (ModelState.IsValid)
@@ -73,6 +79,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CollaboratorShifts/Edit/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.CollaboratorShifts == null)
@@ -93,6 +100,7 @@ namespace CarManufactoring.Controllers
         // POST: CollaboratorShifts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "ShiftManager")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CollaboratorShiftId,EffectiveStartDate,EffectiveEndDate,ShiftId,CollaboratorId")] CollaboratorShifts collaboratorShifts)
@@ -128,6 +136,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: CollaboratorShifts/Delete/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.CollaboratorShifts == null)
@@ -138,7 +147,7 @@ namespace CarManufactoring.Controllers
             var collaboratorShifts = await _context.CollaboratorShifts
                 .Include(c => c.Collaborator)
                 .Include(c => c.Shift)
-                .FirstOrDefaultAsync(m => m.CollaboratorShiftId == id);
+                .FirstOrDefaultAsync(m => m.CollaboratorId == id);
             if (collaboratorShifts == null)
             {
                 return NotFound();
@@ -150,13 +159,14 @@ namespace CarManufactoring.Controllers
         // POST: CollaboratorShifts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        [Authorize(Roles = "ShiftManager")]
+        public async Task<IActionResult> DeleteConfirmed(int CollaboratorId, int ShiftId)
         {
             if (_context.CollaboratorShifts == null)
             {
                 return Problem("Entity set 'CarManufactoringContext.CollaboratorShifts'  is null.");
             }
-            var collaboratorShifts = await _context.CollaboratorShifts.FindAsync(id);
+            var collaboratorShifts = await _context.CollaboratorShifts.FindAsync(CollaboratorId, ShiftId);
             if (collaboratorShifts != null)
             {
                 _context.CollaboratorShifts.Remove(collaboratorShifts);

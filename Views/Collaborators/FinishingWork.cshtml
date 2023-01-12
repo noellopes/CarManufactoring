@@ -1,0 +1,28 @@
+﻿@model CarManufactoring.Models.MaintenanceCollaborator
+
+@{
+    ViewData["Title"] = "Finishing Job";
+}
+
+<h1>@ViewBag.Title</h1>
+
+
+@{
+    await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel
+    {
+        CssClass="alert-warning",
+        Title = "Finishing Job",
+        Description = "You Are setting this job as Finished!!"
+    });
+}
+<h3>Are you Sure You Want to Finish the Job?</h3>
+
+<div>
+    <form  asp-action="FinishCollabMaintenanceWork">
+        <input type="hidden" asp-for="CollaboratorId" />
+        <input type="hidden" asp-for="MachineMaintenanceId" />
+        <input type="submit" value="Finishing"  class="btn btn-primary" />
+        <a asp-action="MaintenanceDashboard" class="btn btn-secondary">Back to Dashboard</a>
+    </form>
+</div>
+

@@ -16,8 +16,6 @@
     }
 </style>
 
-
-
 <h1><img align="right"  class="rounded-circle" src="/img/students/1700331.jpg" >@ViewData["Title"]</h1>
 <h2>Group 3</h2>
 <h3>Number: 1700331</h3>
@@ -32,32 +30,33 @@
         <th>Priority</th>
     </tr>
     <tr>
-        <td>On delete cascade</td>
+        <td>Show what extras are associated to the car configuration</td>
         <td class="text-danger">High</td>
     </tr>
     <tr>
-        <td>Roles and permissions</td>
-        <td class="text-danger">High</td>
-    </tr>
-    <tr>
-        <td>(In Group) Update group documentation and page</td>
-        <td class="text-warning">Low</td>
-    </tr>
-    <tr>
-        <td>Review personal documentation and page</td>
-        <td class="text-warning">Low</td>
+        <td>Automation (related to price from extras and base price from cars to final price in car configurations and final price in sales lines) ( JavaScript required ) </td>
+        <td class="text-warning">Medium</td>
     </tr>
 </table>
 <hr />
 
 <h4> What I'm doing:</h4>
 <ul>
+    <li>Roles and permissions</li>
     <li>System automation to calculate final price on car config class, using added price from car config and base price from car</li>
-    <li>Interfaces related to Car, CarConfig and Brand Classes, specifically adding search, paging on index view and notifications when Creating and Deleting data for those classes </li>
 </ul>
 <hr />
 <h4>What I've done so far: </h4>
 <ul class="Scroll">
+    <li>10/01 : Prevent deleting car configurations when it has sales lines associated </li>
+    <li>10/01 : Prevent deleting car when it has car configurations associated</li>
+    <li>10/01 : Prevent deleting brand when it has cars associated</li>
+    <li>09/01 : Implemented roles and permissions (Only colaborator can create edit or delete brands, car and car configs but everyone can read the data on the DB related to those classes)</li>
+    <li>09/01 : Showing not found for brand, car and car config when trying to edit, view details or delete but it was deleted by other user</li>
+    <li>08/01 : Reviewed personal documentation and page</li>
+    <li>08/01 : Updated group documentation </li>
+    <li>08/01 : Getted rid of duplicated text on CRUD pages </li>
+    <li>08/01 : Buttons on home page </li>
     <li>08/01 : Notifications when creating and before and post deleting Brand </li>
     <li>07/01 : Notifications when creating and before and post deleting Car config </li>
     <li>06/01 : Dropdown for brand when searching in car and car config index pages</li>
@@ -78,18 +77,18 @@
     <li>09/12 : When creating car , the year launch is predefined as the system's year</li>
     <li>09/12 : Relations between those classes done </li>
     <li>09/12 : Brand , Car and CarConfig CRUD working perfectly </li>
-    <li>09/12: Solved problems related to migrations (all migrations in one single file) </li>
-    <li> 27/11: Relation between classes Car and Car Configuration, Scaffolgind, Add Migration and DB Update </li>
-    <li>26/11: Migration and DB Updated </li>
-    <li>25/11:Scaffolding for Car and Configuration Classes</li>
-    <li>8/11 to 24/11:  Group and personal view with documentation with links implemented, uploaded documents and personal photo</li>
+    <li>09/12 : Solved problems related to migrations (all migrations in one single file) </li>
+    <li>27/11 : Relation between classes Car and Car Configuration, Scaffolgind, Add Migration and DB Update </li>
+    <li>26/11 : Migration and DB Updated </li>
+    <li>25/11 : Scaffolding for Car and Configuration Classes</li>
+    <li>8/11 to 24/11 : Group and personal view with documentation with links implemented, uploaded documents and personal photo</li>
 </ul>
 
 <hr />
 <div>
 <h4>Notes:</h4>
 <p>I didn't do the pagination and search for brand class because in practice normally a car factory doesn't
-    work with many brands, that's why I thought it was unnecessary to implement, since the user can perfectly see all the brands without scrolling to much
+    work with many brands, that's why I thought it was unnecessary to implement, since the user can perfectly see all the brands without scrolling too much
 </p>
 </div>
 <hr />

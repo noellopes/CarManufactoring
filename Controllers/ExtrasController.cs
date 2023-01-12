@@ -10,9 +10,11 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Drawing.Drawing2D;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class ExtrasController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -23,6 +25,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Extras
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Index(string descExtra = null, double price = 0, int page = 1)
         {
             var extras = _context.Extra
@@ -48,6 +51,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Extras/Details/5
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Extra == null)
@@ -59,13 +63,14 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ExtraID == id);
             if (extra == null)
             {
-                return NotFound();
+                return View("ExtrasNotFound");
             }
-
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(extra);
         }
 
         // GET: Extras/Create
+        [Authorize(Roles = "Colaborator")]
         public IActionResult Create()
         {
             return View();
@@ -76,13 +81,15 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Colaborator")]
         public async Task<IActionResult> Create([Bind("ExtraID,DescExtra,Price")] Extra extra)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(extra);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = "Extra created successfully";
+                return RedirectToAction(nameof(Details), new {id = extra.ExtraID});
             }
             return View(extra);
         }
@@ -98,7 +105,7 @@ namespace CarManufactoring.Controllers
             var extra = await _context.Extra.FindAsync(id);
             if (extra == null)
             {
-                return NotFound();
+                return View("ExtrasNotFound");
             }
             return View(extra);
         }
@@ -126,7 +133,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!ExtraExists(extra.ExtraID))
                     {
-                        return NotFound();
+                        return View("ExtrasNotFound");
                     }
                     else
                     {
@@ -150,9 +157,10 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ExtraID == id);
             if (extra == null)
             {
-                return NotFound();
+                return View("ExtrasNotFound");
             }
-
+            TempData["SuccessMessage"] = " ";
+            ViewBag.SuccessMessage = TempData["SuccessMessage"];
             return View(extra);
         }
 
@@ -168,11 +176,13 @@ namespace CarManufactoring.Controllers
             var extra = await _context.Extra.FindAsync(id);
             if (extra != null)
             {
-                _context.Extra.Remove(extra);
+                //TODO : Extra was not found page
             }
-            
+            _context.Extra.Remove(extra);
+            TempData["SuccessMessage"] = "Brand removed successfully.";
+
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return View("ExtraDeleted");
         }
 
         private bool ExtraExists(int id)

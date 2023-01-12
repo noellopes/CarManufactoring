@@ -10,6 +10,9 @@ using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 
 using CarManufactoring.ViewModels.Group2;
+using Microsoft.AspNetCore.Authorization;
+using static System.Formats.Asn1.AsnWriter;
+using Microsoft.AspNetCore.Identity;
 
 namespace CarManufactoring.Controllers
 {
@@ -23,22 +26,31 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: SupplierParts
-        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1)
+        int CurrentPageSize = 5;
+        public async Task<IActionResult> Index(string name = null ,string country= null, string email = null ,int page = 1, int pagesize = -1, int id = 0)
         {
+            if (id != 0) {
+                ViewBag.Comprar = id;
+            }
+            if (pagesize != -1)
+            {
+                CurrentPageSize = pagesize;
+            }
             var supplierparts = _context.SupplierParts
               .Where(b => name == null || b.Name.Contains(name))
               .Where(b => country == null || b.Country.Contains(country))
               .Where(b => email == null || b.Email.Contains(email))
               .OrderBy(b => b.Name);
 
-            var pagingInfo = new PagingInfoViewModel(await supplierparts.CountAsync(), page);
+            var pagingInfo = new PagingInfoViewModel(await supplierparts.CountAsync(), page, CurrentPageSize);
 
             try
             {
+                
                 var model = new SupplierPartsIndexViewModel
-            {
-                SupplierPartsList = new ListViewModel<SupplierParts>
                 {
+                    SupplierPartsList = new ListViewModel<SupplierParts>
+                    {
                     List = await supplierparts
                         .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
                         .Take(pagingInfo.PageSize).ToListAsync(),
@@ -56,7 +68,7 @@ namespace CarManufactoring.Controllers
             }
             catch (Exception ex)
             {
-                return await Index(null, null, null ,page);
+                return await Index(null, null, null ,page, CurrentPageSize);
             }
 
         }
@@ -80,11 +92,16 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+
         // GET: SupplierParts/Create
         public IActionResult Create()
         {
             return View();
         }
+
+
+        [Authorize(Roles = "SupplierParts")]
+
 
         // POST: SupplierParts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
@@ -97,15 +114,31 @@ namespace CarManufactoring.Controllers
             {
                 string[] PaisNum = supplierParts.Country.Split(' ');
                 supplierParts.Country = PaisNum[0];
-                supplierParts.Contact = PaisNum[1] +" "+ supplierParts.Contact;
+                supplierParts.Contact = PaisNum[1] + " " + supplierParts.Contact;
                 _context.Add(supplierParts);
                 await _context.SaveChangesAsync();
-                TempData["SuccessMessageSuppliersParts"] = "Created "+supplierParts.Name+" Successfully!";
-                return RedirectToAction(nameof(Details),new { id = supplierParts.SupplierPartsId });
+
+                //Adicionar Produtos ao novo Fornecedor
+                Random rnd = new Random();
+                int dias;
+                int disp;
+                foreach (CarParts cp in _context.CarParts.ToArray()) {
+                    dias = rnd.Next(1, 31);
+                    disp = rnd.Next(0, 2);
+                    _context.SupplierPartsCarParts.AddRange(
+                        new SupplierPartsCarParts { ProductId = cp.ProductId, SupplierPartsId = supplierParts.SupplierPartsId, PrazoEntrega = dias, Disponibilidade = Convert.ToBoolean(disp) }
+                    );
+                    Console.WriteLine(cp.ProductId);
+                }
+                await _context.SaveChangesAsync();
+                //Adicionados todos os produtos existentes ao fornecedor criado
+
+                TempData["SuccessMessageSuppliersParts"] = "Created " + supplierParts.Name + " Successfully!";
+                return RedirectToAction(nameof(Details), new { id = supplierParts.SupplierPartsId });
             }
             return View(supplierParts);
         }
-
+        [Authorize(Roles = "SupplierParts")]
         // GET: SupplierParts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -122,11 +155,16 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+
+        
+
+
         // POST: SupplierParts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SupplierParts")]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierPartsId,Logo,Name,Email,Contact,ZipCode,Address,Country")] SupplierParts supplierParts)
         {
             if (id != supplierParts.SupplierPartsId)
@@ -157,6 +195,8 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+
+        [Authorize(Roles = "SupplierParts")]
         // GET: SupplierParts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -175,9 +215,13 @@ namespace CarManufactoring.Controllers
             return View(supplierParts);
         }
 
+        
+
+
         // POST: SupplierParts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "SupplierParts")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.SupplierParts == null)
@@ -187,10 +231,17 @@ namespace CarManufactoring.Controllers
             var supplierParts = await _context.SupplierParts.FindAsync(id);
             if (supplierParts != null)
             {
-                _context.SupplierParts.Remove(supplierParts);
+                try
+                {
+                    _context.SupplierParts.Remove(supplierParts);
+                    await _context.SaveChangesAsync();
+                }
+                catch
+                {
+                    return View("SupplierPartCascade");
+                }
             }
-            
-            await _context.SaveChangesAsync();
+
             return View("SupplierPartDeleted");
         }
 

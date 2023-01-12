@@ -7,7 +7,6 @@
 <h1>@ViewBag.Title</h1>
 
 <div>
-    <h4>CarConfig</h4>
     <hr />
    @if (ViewBag.SuccessMessage != null)
     {
@@ -23,18 +22,19 @@
                 Success
             </h4>
 
-            <p>
+            <h6>
                 @ViewBag.SuccessMessage
-            </p>
+            </h6>
         </div>
     }
-
+    <hr />
     @{
         await Html.RenderPartialAsync("_CarConfigDetails", Model);
     }
 
 </div>
 <div>
-    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model?.CarConfigId">Edit</a> 
+    <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model?.CarConfigId">Edit</a>
+ <a asp-action="Delete" asp-route-id="@Model?.CarConfigId" class="btn btn-danger">Delete</a>
     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>

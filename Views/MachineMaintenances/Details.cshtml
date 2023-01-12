@@ -2,47 +2,68 @@
 
 @{
     ViewData["Title"] = "Details";
+    var state = "Aberto";
 }
 
-<h1>Details</h1>
+<h1>Manutenção de Máquina  nº @Model.MachineMaintenanceId</h1>
 
-<div>
-    <h4>MachineMaintenance</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BeginDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BeginDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EffectiveEndDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EffectiveEndDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExpectedEndDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExpectedEndDate)
-        </dd>
-    </dl>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <h2>Dados de Manutenção</h2>
+            <p>
+                <span class="text-bold "> Máquina: </span> @Model.Machine.MachineModel.MachineBrandNames.MachineBrandName - @Model.Machine.MachineModel.MachineModelName
+            </p>
+            <p>
+                @if (Model.EffectiveEndDate != null)
+                {
+                    state = "Fechado";
+                 
+                } else
+                {
+                    state = "Aberto";
+                }               
+                <span class="text-bold "> Estado: @state </span>
+            </p>
+            <p>
+                <span class="text-bold "> Data de abertura : @Model.BeginDate.ToLongDateString() </span>
+            </p>
+            <p>
+                <span class="text-bold "> Data prevista de Término : @Model.ExpectedEndDate.ToLongDateString() </span>
+            </p>
+            @if (Model.EffectiveEndDate != null)
+            {
+                <p>
+                    <span class="text-bold "> Data Efectiva de Término: @Model.EffectiveEndDate..ToLongDateString() </span>
+
+                </p>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 p-5">
+            <h2>Colaboradores</h2>
+            <hr />
+            <div class="container">
+                <div class="row ">
+                    @foreach (MaintenanceCollaborator collaborator in ViewBag.Collaborators)
+                    {
+                        <div class="col-3">
+                            <p>@collaborator.Collaborators.Name</p>
+                            <i style="font-size:50px" class="fa-solid text-center ps-5 fa-user"></i>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <a asp-action="Edit" asp-route-id="@Model?.MachineMaintenanceId" class="btn btn-warning">Edit</a>
+            <a asp-action="Delete" asp-route-id="@Model?.MachineMaintenanceId" class="btn btn-danger">Delete</a>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.MachineMaintenanceId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

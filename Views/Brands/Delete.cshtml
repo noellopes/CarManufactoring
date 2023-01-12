@@ -1,38 +1,39 @@
 ﻿@model CarManufactoring.Models.Brand
 
-@{
-    ViewData["Title"] = "Delete";
-}
+<hr />
 
-<h1>@ViewBag.Title</h1>
-@if (ViewBag.SuccessMessage != null)
+@if (ViewBag.NumberCarBrands > 0)
 {
-    <div class="alert alert-danger" role="alert">
-
-        <h4 class="alert-heading">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
-                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
-            </svg>
-            Are you sure you want to delete all the information related to this brand ?
-        </h4>
-
-        <p>
-            @ViewBag.SuccessMessage
-        </p>
-    </div>
+    await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel {
+                    CssClass = "alert-warning",
+                    Title = "The brand cannot be deleted",
+                    Description = $"This brand  cannot be deleted since it has already {ViewBag.NumberCarBrands} cars associated. In order to delete the brand first you must delete his cars."
+                });
+}else
+{
+    await Html.RenderPartialAsync("_AlertProblem", new AlertProblemViewModel
+                {
+                    CssClass = "alert-danger",
+                    Title = "Caution ",
+                    Description = @ViewBag.Error
+                });
 }
-
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Brand</h4>
     <hr />
     @{
         await Html.RenderPartialAsync("_BrandDetails", Model);
     }
     
-    <form asp-action="Delete">
+    @if(ViewBag.NumberCarBrands == 0)
+    {
+        <form asp-action="Delete">
         <input type="hidden" asp-for="BrandId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> 
         <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-    </form>
+        </form>
+    }else
+    {
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+    }
+
 </div>

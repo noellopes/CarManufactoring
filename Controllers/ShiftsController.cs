@@ -8,9 +8,15 @@ using Microsoft.EntityFrameworkCore;
 using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
+using Microsoft.VisualBasic;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using System.Drawing;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class ShiftsController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -20,9 +26,10 @@ namespace CarManufactoring.Controllers
             _context = context;
         }
 
-        int nPage = 6;
+
 
         // GET: Shifts
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Index( string shiftType = null, int page = 0)
         {
             var shifts = _context.Shift.Include(m => m.ShiftType)
@@ -35,8 +42,8 @@ namespace CarManufactoring.Controllers
                 ShiftList = new ListViewModel<Shift>
                 {
                     List = await shifts
-                    .Skip((pagingInfo.CurrentPage - 1) * nPage)
-                    .Take(nPage).ToListAsync(),
+                    .Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToListAsync(),
                     PagingInfo = pagingInfo
                 },
                 ShiftTypeSearched = shiftType,
@@ -45,6 +52,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Details/5
+        [Authorize(Roles = "ShiftManager, Colaborator")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Shift == null)
@@ -57,7 +65,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ShiftId == id);
             if (shift == null)
             {
-                return NotFound();
+                return View("ShiftNotFound");
             }
 
             ViewBag.SuccessMessage = TempData["SuccessMessage"];
@@ -65,6 +73,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Create
+        [Authorize(Roles = "ShiftManager")]
         public IActionResult Create()
         {
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description");
@@ -76,22 +85,31 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Create([Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(shift);
-                await _context.SaveChangesAsync();
-
-                TempData["SuccessMessage"] = "Shift created successfully.";
-
-                return RedirectToAction(nameof(Details),new { id = shift.ShiftId });
+            var valor = DateTime.Compare(shift.EndDate, shift.StartDate);
+            if(valor < 0 || valor == 0) {
+                ModelState.AddModelError("EndDate", "End Date can not be before Start Date.");
             }
+            else{
+                if (ModelState.IsValid)
+                {
+                    _context.Add(shift);
+                    await _context.SaveChangesAsync();
+
+                    TempData["SuccessMessage"] = "Shift created successfully.";
+
+                    return RedirectToAction(nameof(Details), new { id = shift.ShiftId });
+                }
+            }
+            
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
         }
 
         // GET: Shifts/Edit/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Shift == null)
@@ -102,7 +120,7 @@ namespace CarManufactoring.Controllers
             var shift = await _context.Shift.FindAsync(id);
             if (shift == null)
             {
-                return NotFound();
+                View("ShiftNotFound");
             }
             ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
             return View(shift);
@@ -113,6 +131,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int id, [Bind("ShiftId,StartDate,EndDate,ShiftTypeId")] Shift shift)
         {
             if (id != shift.ShiftId)
@@ -134,7 +153,7 @@ namespace CarManufactoring.Controllers
                 {
                     if (!ShiftExists(shift.ShiftId))
                     {
-                        return NotFound();
+                        View("ShiftNotFound");
                     }
                     else
                     {
@@ -148,6 +167,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Shifts/Delete/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Shift == null)
@@ -160,7 +180,7 @@ namespace CarManufactoring.Controllers
                 .FirstOrDefaultAsync(m => m.ShiftId == id);
             if (shift == null)
             {
-                return NotFound();
+                return View("ShiftNotFound");
             }
 
             return View(shift);
@@ -169,6 +189,7 @@ namespace CarManufactoring.Controllers
         // POST: Shifts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Shift == null)
@@ -185,6 +206,113 @@ namespace CarManufactoring.Controllers
 
             return View("ShiftDeleted");
         }
+        public IActionResult CreateShifts()
+        {
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
+        public async Task<IActionResult> CreateShifts([Bind("ShiftId,StartDate,EndDate,ShiftTypeId,Month,Year")] Shift shift)
+        {
+            var anoCompare = System.DateTime.Now.Year;
+            var terminologia = "";
+            var year = shift.Year;
+            var month = shift.Month;
+
+            switch (month)
+            {
+                case 1:
+                    terminologia = "January";
+                    break;
+                case 2:
+                    terminologia = "February";
+                    break;
+                case 3:
+                    terminologia = "March";
+                    break;
+                case 4:
+                    terminologia = "April";
+                    break;
+                case 5:
+                    terminologia = "May";
+                    break;
+                case 6:
+                    terminologia = "June";
+                    break;
+                case 7:
+                    terminologia = "July";
+                    break;
+                case 8:
+                    terminologia = "August";
+                    break;
+                case 9:
+                    terminologia = "September";
+                    break;
+                case 10:
+                    terminologia = "October";
+                    break;
+                case 11:
+                    terminologia = "November";
+                    break;
+                case 12:
+                    terminologia = "December";
+                    break;
+            }
+
+            if (shift.Year < anoCompare)
+            {
+                ModelState.AddModelError("Year", $"Year can not be before {anoCompare}.");
+            }
+            int days = DateTime.DaysInMonth(year, month);
+
+            
+
+            if (ModelState.IsValid)
+            {
+                for(int i = 1; i <= days; i++) { 
+                    var horas = 8;
+                    for (int j = 1; j < 4; j++)
+                    {
+                        shift = new Shift();
+                        shift.StartDate = new DateTime(year, month, i, horas, 00, 00);
+                        if (horas > 17)
+                        {
+                            horas = 0;
+                        }
+                        else
+                        {
+                            horas += 6;
+                        }
+                        shift.EndDate = new DateTime(year, month, i, horas, 00, 00);
+                        shift.ShiftTypeId = j;
+                        horas -= 6;
+                        if(horas < 16){ 
+                            horas += 8;
+                        }
+                        else
+                        {
+                            horas += 2;
+                        }
+                    
+                        _context.Add(shift);
+                        await _context.SaveChangesAsync();
+                    }
+                }
+
+                TempData["SuccessMessage"] = $"All the Shifts for the month of {terminologia} for the year {year} were successfully created .";
+                ViewBag.SuccessMessage = TempData["SuccessMessage"];
+
+                return View ("DetailsMonthShifts");
+
+            }
+
+            ViewData["ShiftTypeId"] = new SelectList(_context.ShiftType, "ShiftTypeId", "Description", shift.ShiftTypeId);
+            return View(shift);
+        }
+
 
         private bool ShiftExists(int id)
         {

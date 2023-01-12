@@ -9,18 +9,25 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using System.Xml.Linq;
+
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using System.Data;
+using CarManufactoring.ViewModels.Group1;
+
 using CarManufactoring.ViewModels.Group1;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
+
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class CollaboratorsController : Controller
     {
         private readonly CarManufactoringContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-   
 
         public CollaboratorsController(CarManufactoringContext context, UserManager<IdentityUser> userManager)
         {
@@ -29,7 +36,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators
-
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Index(int Gender, int OnDuty, string Name = null, string Phone = null, int page = 0)
         {
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
@@ -101,6 +108,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Details/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Collaborator == null)
@@ -121,6 +129,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Create
+        [Authorize(Roles = "ShiftManager")]
         public IActionResult Create()
         {
             ViewData["GenderId"] = new SelectList(_context.Gender, "GenderId", "GenderDefinition");
@@ -132,6 +141,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Create([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
             if (ModelState.IsValid)
@@ -159,6 +169,7 @@ namespace CarManufactoring.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> CreateDuplicte([Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator duplicated)
         {
             _context.Add(duplicated);
@@ -168,6 +179,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Edit/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Collaborator == null)
@@ -189,6 +201,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Edit(int id, [Bind("CollaboratorId,Name,BirthDate,Phone,Email,GenderId,OnDuty,Status")] Collaborator collaborator)
         {
             if (id != collaborator.CollaboratorId)
@@ -223,6 +236,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Collaborators/Delete/5
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Collaborator == null)
@@ -244,6 +258,7 @@ namespace CarManufactoring.Controllers
         // POST: Collaborators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "ShiftManager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Collaborator == null)
@@ -259,12 +274,16 @@ namespace CarManufactoring.Controllers
 
             return View("CollaboratorDeleted");
         }
-        //[Authorize(Roles = "ColaboratorMaintenance")]
+        // GET: Collaborators/MaintenanceDashboard
+        [Authorize(Roles = "CollaboratorMaintenance")]
         public async Task<IActionResult> MaintenanceDashboard(int workState, int page = 0)
 
         {
+            var user = await _userManager.GetUserAsync(User);
+            var email = user.UserName;
             IQueryable<MaintenanceCollaborator> filter = null;
-            switch (workState) {
+            switch (workState)
+            {
                 case 1:
                     filter = _context.MaintenanceCollaborators
                    .Include(m => m.MaintenanceMachine.Machine)
@@ -272,19 +291,24 @@ namespace CarManufactoring.Controllers
                    .Include(m => m.MaintenanceMachine.Machine.MachineModel)
                    .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                    .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                   .Where(m => m.Collaborators.Email.Equals(email))
                    .Where(m => m.EffectiveEndDate.HasValue)
-                   .Where(m => m.Deleted == false);
-                   
+                   .Where(m => m.Deleted == false)
+                   .OrderBy(m => m.EffectiveEndDate);
+
+
                     break;
                 case 2:
-                  filter =  _context.MaintenanceCollaborators
-                 .Include(m => m.MaintenanceMachine.Machine)
-                 .Include(m => m.MaintenanceMachine.TaskType)
-                 .Include(m => m.MaintenanceMachine.Machine.MachineModel)
-                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
-                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
-                 .Where(m => !m.EffectiveEndDate.HasValue)
-                 .Where(m => m.Deleted == false);
+                    filter = _context.MaintenanceCollaborators
+                   .Include(m => m.MaintenanceMachine.Machine)
+                   .Include(m => m.MaintenanceMachine.TaskType)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
+                   .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
+                   .Where(m => m.Collaborators.Email.Equals(email))
+                   .Where(m => !m.EffectiveEndDate.HasValue)
+                   .Where(m => m.Deleted == false);
+                   
                     break;
 
                 default:
@@ -294,11 +318,12 @@ namespace CarManufactoring.Controllers
                 .Include(m => m.MaintenanceMachine.Machine.MachineModel)
                 .Include(m => m.MaintenanceMachine.Machine.MachineModel.MachineBrandNames)
                 .Include(m => m.MaintenanceMachine.Machine.MachineLocalizationCode)
-         
-                .Where(m => m.Deleted == false);
+                .Where(m => m.Collaborators.Email.Equals(email))
+                .Where(m => m.Deleted == false)
+                .OrderBy(m => m.EffectiveEndDate);
                     break;
-            
-        }
+            }
+
             var pagingInfo = new PagingInfoViewModel(await filter.CountAsync(), page);
             var model = new MaintenanceCollaboratorViewModel
             {
@@ -311,9 +336,37 @@ namespace CarManufactoring.Controllers
                 },
                 CollaboratorWorkState = workState
             };
-
             return View(model);
         }
+
+        public async Task<IActionResult> FinishCollabMaintenanceWork(int collabid, int Maintenaceid)
+        {
+            if (collabid == null || Maintenaceid == null || _context.MaintenanceCollaborators == null)
+            {
+                return NotFound();
+            }
+            var maintenanceCollaborator = await _context.MaintenanceCollaborators.FindAsync(collabid, Maintenaceid);
+            if (maintenanceCollaborator == null)
+            {
+                return NotFound();
+            }
+            return View("FinishingWork", maintenanceCollaborator);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FinishCollabMaintenanceWork(int collabid, int Maintenaceid, MaintenanceCollaborator maintenanceCollaborator)
+        {
+            if (ModelState.IsValid)
+            {
+                maintenanceCollaborator.EffectiveEndDate = DateTime.UtcNow;
+                _context.MaintenanceCollaborators.Attach(maintenanceCollaborator);
+                _context.Entry(maintenanceCollaborator).Property(w => w.EffectiveEndDate).IsModified = true;
+                _context.SaveChanges();
+            }
+
+            return View("MaintenanceJobFinished");
+        }
+
 
         private bool CollaboratorExists(int id)
         {

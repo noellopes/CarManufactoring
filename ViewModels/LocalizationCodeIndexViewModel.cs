@@ -6,6 +6,8 @@ namespace CarManufactoring.ViewModels
     {
         public ListViewModel<LocalizationCode> LocalizationCodeList { get; set; }
 
-        public string? LocalizationCodeSearched { get; set; }
+        public string? LocalizationCodeCollumnSearched { get; set; }
+
+        public string? LocalizationCodeLineSearched { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<CarManufactoring.Models.MachineAquisition>
+﻿@using CarManufactoring.ViewModels.Group2
+@model MachineAquisitionsIndexViewModel
+
 
 @{
     ViewData["Title"] = "Index";
@@ -6,60 +8,112 @@
 
 <h1>Index</h1>
 
+
+
+
+                <div class="card border-secondary mb-4">
+                    <div class="card-body">
+                        <form asp-action="Index" method="get">
+                            <div class="mb-3">
+                <label for="machineAquisitionName" class="form-label">Machine Aquisition Name</label>
+                <input name="machineAquisitionName" class="form-control" type="search" value="@Model.MachineAquisitionNameSearch" />
+                            </div>
+                          
+                            <input type="submit" value="Search" class="btn btn-primary" />
+                            <a asp-action="Index" class="btn btn-secondary">Clear Search</a>
+                        </form>
+                    </div>
+                </div>
+
+
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            
             <th>
-                @Html.DisplayNameFor(model => model.MachineAquisitionName)
+                @Html.DisplayNameFor(model => new MachineAquisition().MachineAquisitionName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => new MachineAquisition().Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantityOfParts)
+                @Html.DisplayNameFor(model => new MachineAquisition().QuantityOfParts)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProducedParts)
+                @Html.DisplayNameFor(model => new MachineAquisition().NextLevel)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaintenancePrice)
+                @Html.DisplayNameFor(model => new MachineAquisition().MaintenancePrice)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Operation)
+                @Html.DisplayNameFor(model => new MachineAquisition().Machine.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => new MachineAquisition().Machine.MachineState)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
+        @foreach (MachineAquisition machineAquisition in Model.MachineAquisitionsList.List)
+        {
+            <tr>
+           
             <td>
-                @Html.DisplayFor(modelItem => item.MachineAquisitionName)
+                    @Html.DisplayFor(modelItem => machineAquisition.MachineAquisitionName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                    @Html.DisplayFor(modelItem => machineAquisition.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuantityOfParts)
+                    @Html.DisplayFor(modelItem => machineAquisition.QuantityOfParts)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ProducedParts)
+                    @Html.DisplayFor(modelItem => machineAquisition.NextLevel)
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => machineAquisition.MaintenancePrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => machineAquisition.Machine.Description)
+                </td>
+                <td>
+                    @Html.DisplayNameFor(model => new MachineAquisition().Machine.MachineState)
+                </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaintenancePrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Operation)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MachineAquisitionID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MachineAquisitionID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MachineAquisitionID">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@machineAquisition.MachineAquisitionID" class="btn btn-warning">Edit</a>
+
+                    <a asp-action="Details" asp-route-id="@machineAquisition.MachineAquisitionID" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@machineAquisition.MachineAquisitionID" class="btn btn-danger">Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.MachineAquisitionsList.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+        </li>
+        @for (int p = Model.MachineAquisitionsList.PagingInfo.InitialPageToShow; p <= Model.MachineAquisitionsList.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.MachineAquisitionsList.PagingInfo.CurrentPage)
+            {
+                <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+
+            }
+            else
+            {
+
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+            }
+        }
+        <li class="page-item @(Model.MachineAquisitionsList.PagingInfo.CurrentPage == Model.MachineAquisitionsList.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-page="@Model.MachineAquisitionsList.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

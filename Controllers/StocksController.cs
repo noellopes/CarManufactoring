@@ -9,9 +9,11 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels;
 using static System.Reflection.Metadata.BlobBuilder;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarManufactoring.Controllers
 {
+    [Authorize]
     public class StocksController : Controller
     {
         private readonly CarManufactoringContext _context;
@@ -22,6 +24,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks
+        [AllowAnonymous]
         public async Task<IActionResult> Index(string material = null, string warehouseStock = null, int page = 1)
         {
             var stocks = _context.Stock.Include(s => s.Material).Include(s => s.WarehouseStock)
@@ -48,6 +51,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks/Details/5
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Stock == null)
@@ -68,6 +72,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks/Create
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public IActionResult Create()
         {
             ViewData["MaterialId"] = new SelectList(_context.Material, "MaterialId", "Nome");
@@ -80,6 +85,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Create([Bind("StockId,Quantity,Description,Location,WarehouseStockId,MaterialId")] Stock stock)
         {
             if (ModelState.IsValid)
@@ -94,6 +100,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks/Edit/5
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Stock == null)
@@ -116,6 +123,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Colaborator,Manager")]
         public async Task<IActionResult> Edit(int id, [Bind("StockId,Quantity,Description,Location,WarehouseStockId,MaterialId")] Stock stock)
         {
             if (id != stock.StockId)
@@ -149,6 +157,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Stocks/Delete/5
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Stock == null)
@@ -171,6 +180,7 @@ namespace CarManufactoring.Controllers
         // POST: Stocks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Manager")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Stock == null)
