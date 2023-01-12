@@ -43,42 +43,42 @@
                                     <tr class="text-decoration-none ">
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.MachineMaintenanceId
+                                                @machineMaintenace.MachineMaintenanceId
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.Description
+                                                @machineMaintenace.Description
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.BeginDate.ToShortDateString()
+                                                @machineMaintenace.BeginDate.ToShortDateString()
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.ExpectedEndDate.ToShortDateString()
+                                                @machineMaintenace.ExpectedEndDate.ToShortDateString()
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.EffectiveEndDate
+                                                @machineMaintenace.EffectiveEndDate?.ToShortDateString()
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.TaskType.TaskName
+                                                @machineMaintenace.TaskType.TaskName
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.Priority.Name
+                                                 @machineMaintenace.Priority.Name
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
+                                                    @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
                                             </a>
                                         </td>
                                         <td scope="col">
@@ -101,7 +101,7 @@
  <nav aria-label="Page navigation">
     <ul class="pagination">
         <li class="page-item @(Model.All.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="1">First</a>
+            <a class="page-link" asp-action="Index" asp-route-pageAll="1">First</a>
         </li>
 
         @for (int p = Model.All.PagingInfo.InitialPageToShow; p <= Model.All.PagingInfo.FinalPageToShow; p++)
@@ -112,12 +112,12 @@
             }
             else
             {
-                        <li class="page-item"><a class="page-link" asp-action="Index" asp-route-page="@p">@p</a></li>
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageAll="@p">@p</a></li>
             }
         }
 
         <li class="page-item @(Model.All.PagingInfo.CurrentPage == Model.All.PagingInfo.TotalPages ? "disabled" : "")">
-            <a class="page-link" asp-action="Index" asp-route-page="@Model.All.PagingInfo.TotalPages">Last</a>
+            <a class="page-link" asp-action="Index" asp-route-pageAll="@Model.All.PagingInfo.TotalPages">Last</a>
         </li>
     </ul>
 </nav>

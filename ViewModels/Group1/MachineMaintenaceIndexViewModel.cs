@@ -13,5 +13,7 @@ namespace CarManufactoring.ViewModels.Group1
 
         public ListViewModel<MachineMaintenance> Deleted { get; set; }
 
+        public IEnumerable<MachineMaintenance> OpenToGraph;
+        public IEnumerable<MachineMaintenance> ClosedToGraph;
     }
 }
