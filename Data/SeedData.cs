@@ -66,7 +66,7 @@ namespace CarManufactoring.Data
 
             PopulateSupplierParts(db);
             PopulateSupplierPartsCarParts(db);
-            PopulateWarehouseProducts(db);
+            //PopulateWarehouseProducts(db);
             //PopulateMachineAquisitions(db);
 
 

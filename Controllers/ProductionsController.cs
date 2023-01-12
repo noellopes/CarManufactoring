@@ -46,6 +46,8 @@ namespace CarManufactoring.Controllers
 
             var listaProducao = await production.ToListAsync();
 
+            var listaProgresso = new List<int>();
+
             for(int i = listaProducao.Count-1; i >= 0; i--)
             {
                 DateTime startDate = listaProducao[i].Date;
@@ -59,6 +61,13 @@ namespace CarManufactoring.Controllers
                 double percentagemCompleta = currentMinuts / totalMinuts;
 
                 percentagemCompleta = percentagemCompleta * 100;
+
+                if(percentagemCompleta > 100)
+                {
+                    percentagemCompleta = 100;
+                }
+
+                listaProgresso.Add(Convert.ToInt32(percentagemCompleta));
 
 
                 var order = await _context.Order.FirstOrDefaultAsync(m => m.OrderId == salesLine[i].OrderId);
@@ -96,9 +105,15 @@ namespace CarManufactoring.Controllers
                 
             }
 
+            listaProgresso.Reverse();
 
             var model = new ProductionIndexViewModel
             {
+                progressList = new ListViewModel<int>
+                {
+                    List = listaProgresso.Skip((pagingInfo.CurrentPage - 1) * pagingInfo.PageSize)
+                    .Take(pagingInfo.PageSize).ToList()
+                },
 
                 ProductionList = new ListViewModel<Production>
                 {
