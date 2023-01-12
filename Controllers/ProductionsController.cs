@@ -35,17 +35,22 @@ namespace CarManufactoring.Controllers
             {
                 return View("NoDataFound");
             }
+
             var production = _context.Production.Include(s => s.CarConfig)
                 .Where(c => carConfig == null || c.CarConfig.ConfigName.Contains(carConfig))
                 .Where(c => quantity == 0 || c.Quantity.Equals(quantity));
 
             var pagingInfo = new PagingInfoViewModel(await production.CountAsync(), page);
 
-            foreach(var item in await production.ToListAsync())
+            var salesLine = await _context.SalesLine.ToListAsync();
+
+            var listaProducao = await production.ToListAsync();
+
+            for(int i = listaProducao.Count-1; i >= 0; i--)
             {
-                DateTime startDate = item.Date;
-                var time = await _context.TimeOfProduction.Include(s => s.CarConfig).FirstOrDefaultAsync(c => c.CarConfigId == item.CarConfigId);
-                DateTime endDate = item.Date.AddMinutes(time.Time);
+                DateTime startDate = listaProducao[i].Date;
+                var time = await _context.TimeOfProduction.Include(s => s.CarConfig).FirstOrDefaultAsync(c => c.CarConfigId == listaProducao[i].CarConfigId);
+                DateTime endDate = listaProducao[i].Date.AddMinutes(time.Time);
                 DateTime currentDate = DateTime.Now;
 
                 double totalMinuts = endDate.Subtract(startDate).TotalMinutes;
@@ -55,19 +60,40 @@ namespace CarManufactoring.Controllers
 
                 percentagemCompleta = percentagemCompleta * 100;
 
-                if(percentagemCompleta >= 100 && !AlreadyInStockFinal(item.ProductionId))
-                {
-                    var pos = await _context.LocalizationCar.
-                       FirstOrDefaultAsync(m => !m.IsOccupied);
 
-                    _context.StockFinalProduct.Add(new StockFinalProduct { ProductionId = item.ProductionId, InsertionDate = DateTime.Now, ChassiNumber = "", LocalizationCarId = pos.LocalizationCarId });
+                var order = await _context.Order.FirstOrDefaultAsync(m => m.OrderId == salesLine[i].OrderId);
+
+                //var orderStates = await _context.OrderState.ToListAsync();
+
+                if(order.OrderStateId == 1)
+                {
+                    order.OrderStateId = 2;
+                    _context.Order.Update(order);
                     await _context.SaveChangesAsync();
+                }
+
+                if (percentagemCompleta >= 100 && order.OrderStateId == 2)
+                {
+                    
+                    order.OrderStateId = 3;
+                    order.StateDate = endDate;
+                    _context.Update(order);
+                    await _context.SaveChangesAsync();
+
+                    
+                   
+                    var pos = await _context.LocalizationCar.
+                    FirstOrDefaultAsync(m => !m.IsOccupied);
+
+                    _context.StockFinalProduct.Add(new StockFinalProduct { ProductionId = listaProducao[i].ProductionId, InsertionDate = DateTime.Now, ChassiNumber = "", LocalizationCarId = pos.LocalizationCarId });
 
                     pos.IsOccupied = true;
 
                     _context.LocalizationCar.Update(pos);
                     await _context.SaveChangesAsync();
+                    
                 }
+                
             }
 
 
@@ -88,6 +114,7 @@ namespace CarManufactoring.Controllers
 
             return View(model);
         }
+
         [Authorize(Roles = "Admin,ProdutionManager")]
         // GET: Productions/Details/5
         public async Task<IActionResult> Details(int? id)

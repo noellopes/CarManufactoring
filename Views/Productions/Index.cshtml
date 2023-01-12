@@ -47,16 +47,14 @@
             <th></th>
         </tr>
     </thead>
-    @{
-        int pos = 0;
-    }
     <tbody>
         @foreach (var item in Model.ProductionList.List)
         {
-                    
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
+
+            <tr>
+                <td>
+                    @{string date = item.Date.ToString("dd/MM/yyyy hh:mm:ss");}
+                    @Html.DisplayFor(modelItem => date)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CarConfig.ConfigName)
