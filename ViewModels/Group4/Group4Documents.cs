@@ -9,7 +9,7 @@
             new Documents {Name = "Diagrama de Sequencia "},
             new Documents {Name = "Tabela de Funcionalidades "},
             new Documents {Name = "Fornecedores "},
-
+            new Documents {Name = "Relatorio Final"},
 
         };
 

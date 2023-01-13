@@ -45,7 +45,6 @@
 
     <Folder Include="wwwroot\documents\Group10\GroupDoc\" />
     <Folder Include="wwwroot\documents\Group4\JuanSilva\" />
-    <Folder Include="wwwroot\documents\Group4\GroupDocuments\" />
     <Folder Include="wwwroot\documents\Group4\RafaelaLopes\" />
     <Folder Include="wwwroot\documents\Group9\TelmoMorais\" />
     <Folder Include="wwwroot\documents\Grupo2\FilipeSantos\" />

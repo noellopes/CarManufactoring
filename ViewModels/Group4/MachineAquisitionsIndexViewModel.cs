@@ -1,6 +1,6 @@
 ﻿using CarManufactoring.Models;
 
-namespace CarManufactoring.ViewModels.Group2
+namespace CarManufactoring.ViewModels.Group4
 {
     public class MachineAquisitionsIndexViewModel
     {

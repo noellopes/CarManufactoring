@@ -1,4 +1,4 @@
-﻿@using CarManufactoring.ViewModels.Group2
+﻿@using CarManufactoring.ViewModels.Group4
 @model MachineAquisitionsIndexViewModel
 
 
@@ -88,6 +88,9 @@
 
                     <a asp-action="Details" asp-route-id="@machineAquisition.MachineAquisitionID" class="btn btn-info">Details</a>
                     <a asp-action="Delete" asp-route-id="@machineAquisition.MachineAquisitionID" class="btn btn-danger">Delete</a>
+                    <form asp-action="Index" asp-controller="Machines" method="get" style="display: inline;">
+                        <button value="@machineAquisition.MachineAquisitionID" class="btn btn-success">Machine List</button>
+                    </form>
             </td>
         </tr>
 }
