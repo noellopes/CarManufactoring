@@ -25,12 +25,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="QuantityOfParts" class="control-label"></label>
-                <input asp-for="QuantityOfParts" class="form-control" />
+                <input id="QuantityOfParts" asp-for="QuantityOfParts" class="form-control" />
                 <span asp-validation-for="QuantityOfParts" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NextLevel" class="control-label"></label>
-                <input asp-for="NextLevel" class="form-control" />
+                <input id="NextLevel" asp-for="NextLevel" class="form-control" onblur="viabilidade()" />
                 <span asp-validation-for="NextLevel" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -44,7 +44,7 @@
                 <span asp-validation-for="MachineId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input id="botao" type="submit" value="Save" class="btn btn-primary" />
                 <a asp-action="Delete" asp-route-id="@Model?.MachineAquisitionID" class="btn btn-danger">Delete</a>
                 <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
@@ -56,3 +56,21 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+    <script>
+
+        function viabilidade() {
+            var QuantityOfParts = parseInt(document.getElementById('QuantityOfParts').value);
+            var NextLevel = parseInt(document.getElementById('NextLevel').value);
+
+            if (QuantityOfParts > NextLevel) {
+                document.getElementById("botao").disabled = true;
+                alert("Devido a viabilidade, não é possível inserir uma quantidade de peças maior que a capacidade da próxima máquina.");
+            }
+            else {
+                document.getElementById("botao").disabled = false;
+            }
+        }
+
+
+    </script>
