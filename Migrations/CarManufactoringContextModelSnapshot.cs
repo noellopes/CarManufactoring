@@ -1673,7 +1673,8 @@ namespace CarManufactoring.Migrations
             modelBuilder.Entity("CarManufactoring.Models.Machine", b =>
                 {
                     b.HasOne("CarManufactoring.Models.LocalizationCode", "MachineLocalizationCode")
-                        .WithMany("MachineLocalization")
+                        .WithMany()
+
                         .HasForeignKey("LocalizationCodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1699,6 +1700,7 @@ namespace CarManufactoring.Migrations
                     b.Navigation("MachineModel");
 
                     b.Navigation("MachineState");
+
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineAquisition", b =>
@@ -1710,6 +1712,7 @@ namespace CarManufactoring.Migrations
                         .IsRequired();
 
                     b.Navigation("Machine");
+
                 });
 
             modelBuilder.Entity("CarManufactoring.Models.MachineBudget", b =>

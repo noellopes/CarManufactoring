@@ -28,7 +28,6 @@
                 @Html.DisplayFor(modelItem => item.BrandName)
             </td>
                 <td>
-                <a asp-action="Details" asp-route-id="@item.BrandId" class="btn btn-info">Details</a>
                     @if (User.IsInRole("Colaborator"))
                     {
                 <a asp-action="Edit" asp-route-id="@item.BrandId" class="btn btn-warning">Edit</a> 

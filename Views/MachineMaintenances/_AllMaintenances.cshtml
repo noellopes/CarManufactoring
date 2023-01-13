@@ -8,28 +8,28 @@
                         <thead>
                             <tr>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().MachineMaintenanceId)
+                @Html.DisplayNameFor(model => model.All.List.First().MachineMaintenanceId)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().Description)
+                @Html.DisplayNameFor(model => model.All.List.First().Description)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().BeginDate)
+                @Html.DisplayNameFor(model => model.All.List.First().BeginDate)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().ExpectedEndDate)
+                @Html.DisplayNameFor(model => model.All.List.First().ExpectedEndDate)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().EffectiveEndDate)
+                @Html.DisplayNameFor(model => model.All.List.First().EffectiveEndDate)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().TaskTypeId)
+                @Html.DisplayNameFor(model => model.All.List.First().TaskTypeId)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().PriorityId)
+                @Html.DisplayNameFor(model => model.All.List.First().PriorityId)
                                 </th>
                                 <th>
-                @Html.DisplayNameFor(model => model.All.First().MachineId)
+                @Html.DisplayNameFor(model => model.All.List.First().MachineId)
                                 </th>
                                 <th>
                                     Estado
@@ -38,47 +38,47 @@
                         </thead>
                         <tbody>
 
-        @foreach (var machineMaintenace in Model.All)
+        @foreach (var machineMaintenace in Model.All.List)
         {
                                     <tr class="text-decoration-none ">
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.MachineMaintenanceId
+                                                @machineMaintenace.MachineMaintenanceId
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.Description
+                                                @machineMaintenace.Description
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.BeginDate.ToShortDateString()
+                                                @machineMaintenace.BeginDate.ToShortDateString()
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.ExpectedEndDate.ToShortDateString()
+                                                @machineMaintenace.ExpectedEndDate.ToShortDateString()
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.EffectiveEndDate
+                                                @machineMaintenace.EffectiveEndDate?.ToShortDateString()
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.TaskType.TaskName
+                                                @machineMaintenace.TaskType.TaskName
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.Priority.Name
+                                                 @machineMaintenace.Priority.Name
                                             </a>
                                         </td>
                                         <td scope="col">
                                             <a class="text-decoration-none text-black" asp-action="Details" asp-route-id="@machineMaintenace.MachineMaintenanceId">
-                        @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
+                                                    @machineMaintenace.Machine.MachineModel.MachineBrandNames.MachineBrandName - @machineMaintenace.Machine.MachineModel.MachineModelName
                                             </a>
                                         </td>
                                         <td scope="col">
@@ -97,3 +97,27 @@
         }
        </tbody>                 
  </table>
+
+ <nav aria-label="Page navigation">
+    <ul class="pagination">
+        <li class="page-item @(Model.All.PagingInfo.CurrentPage == 1 ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pageAll="1">First</a>
+        </li>
+
+        @for (int p = Model.All.PagingInfo.InitialPageToShow; p <= Model.All.PagingInfo.FinalPageToShow; p++)
+        {
+            if (p == Model.All.PagingInfo.CurrentPage)
+            {
+                        <li class="page-item active" aria-current="page"><a class="page-link" href="#">@p</a></li>
+            }
+            else
+            {
+                <li class="page-item"><a class="page-link" asp-action="Index" asp-route-pageAll="@p">@p</a></li>
+            }
+        }
+
+        <li class="page-item @(Model.All.PagingInfo.CurrentPage == Model.All.PagingInfo.TotalPages ? "disabled" : "")">
+            <a class="page-link" asp-action="Index" asp-route-pageAll="@Model.All.PagingInfo.TotalPages">Last</a>
+        </li>
+    </ul>
+</nav>

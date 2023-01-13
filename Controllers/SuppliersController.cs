@@ -23,6 +23,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers
+        
         public async Task<IActionResult> Index(string supplierName = null, string supplierEmail = null, int page = 1)
         {
             
@@ -81,7 +82,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Create
-        //[Authorize(Roles = "Admin, SupplierEginner")]
+        [Authorize(Roles = "Admin,Suppliereng")]
         public IActionResult Create()
         {
             return View();
@@ -104,7 +105,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Edit/5
-        //[Authorize(Roles = "Admin, Suppliers Eginner")]
+        [Authorize(Roles = "Admin,Suppliereng")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -125,7 +126,7 @@ namespace CarManufactoring.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, Supplier Eginner")]
+        [Authorize(Roles = "Admin,Suppliereng")]
         public async Task<IActionResult> Edit(int id, [Bind("SupplierId,SupplierName,SupplierEmail,SupplierContact,SupplierZipCode,SupplierAddress")] Supplier supplier)
         {
             if (id != supplier.SupplierId)
@@ -157,7 +158,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: Suppliers/Delete/5
-        //[Authorize(Roles = "Admin, Supplier Eginner")]
+        [Authorize(Roles = "Admin,Suppliereng")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Supplier == null)
@@ -178,7 +179,7 @@ namespace CarManufactoring.Controllers
         // POST: Suppliers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = "Admin, Supplier Eginner")]
+        [Authorize(Roles = "Admin,Suppliereng")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Supplier == null)
