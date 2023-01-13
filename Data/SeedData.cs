@@ -84,20 +84,20 @@ namespace CarManufactoring.Data
 
         }   internal static async Task PopulateRolesAsync(RoleManager<IdentityRole> roleManager) {
                 await EnsureRoleIsCreated(roleManager, "Admin");
-                await EnsureRoleIsCreated(roleManager, "Colaborator");
-                await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
+                //await EnsureRoleIsCreated(roleManager, "Colaborator");
+                //await EnsureRoleIsCreated(roleManager, "CollaboratorMaintenance");
 
                 //await EnsureRoleIsCreated(roleManager, "Manager");
-                await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
+                //await EnsureRoleIsCreated(roleManager, "MaintenanceManager");
                 //await EnsureRoleIsCreated(roleManager, "Production");
                 //await EnsureRoleIsCreated(roleManager, "Customer");
                 ////await EnsureRoleIsCreated(roleManager, "Mechanical Eginner");
                 //await EnsureRoleIsCreated(roleManager, "ProdutionManager");
                 //await EnsureRoleIsCreated(roleManager, "Machineaqui");
                 await EnsureRoleIsCreated(roleManager, "Suppliereng");
-                await EnsureRoleIsCreated(roleManager, "ShiftManager");
+                //await EnsureRoleIsCreated(roleManager, "ShiftManager");
 
-                await EnsureRoleIsCreated(roleManager, "Breakdownpr");
+                //await EnsureRoleIsCreated(roleManager, "Breakdownpr");
 
         }
 
@@ -117,8 +117,8 @@ namespace CarManufactoring.Data
             var user = await EnsureUserIsCreated(userManager, "admin@ipg.pt", "Secret123$");
             await EnsureUserIsInRoleAsync(userManager, user, "Admin");
 
-            user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
+            //user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
 
             //user = await EnsureUserIsCreated(userManager, "john@ipg.pt", "Secret123$");
             //await EnsureUserIsInRoleAsync(userManager, user, "Manager");
@@ -130,12 +130,12 @@ namespace CarManufactoring.Data
             //await EnsureUserIsInRoleAsync(userManager, user,"Mechanical Eginner");
 
 
-            user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
-            user = await EnsureUserIsCreated(userManager, "osman@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
-            user = await EnsureUserIsCreated(userManager, "mahmut@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "mary@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "osman@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "mahmut@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
             //user = await EnsureUserIsCreated(userManager, "p@ipg.pt", "Secret123$");
             //await EnsureUserIsInRoleAsync(userManager, user, "ProdutionManager");
@@ -156,8 +156,8 @@ namespace CarManufactoring.Data
             //await EnsureUserIsInRoleAsync(userManager, user, "Colaborator");
 
 
-            user = await EnsureUserIsCreated(userManager, "shiftmanagerb@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "ShiftManager");
+            //user = await EnsureUserIsCreated(userManager, "shiftmanagerb@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "ShiftManager");
 
 
             //user = await EnsureUserIsCreated(userManager, "machineaqui@ipg.pt", "Secret123$");
@@ -165,8 +165,8 @@ namespace CarManufactoring.Data
 
 
 
-            user = await EnsureUserIsCreated(userManager, "breakdownpr@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "Breakdownpr");
+            //user = await EnsureUserIsCreated(userManager, "breakdownpr@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "Breakdownpr");
 
 
             user = await EnsureUserIsCreated(userManager, "suppliereng@ipg.pt", "Secret123$");
@@ -184,47 +184,47 @@ namespace CarManufactoring.Data
             //user = await EnsureUserIsCreated(userManager, "supplierEng@ipg.pt", "Secret123$");
             //await EnsureUserIsInRoleAsync(userManager, user, "SupplierEnginner");
 
-            user = await EnsureUserIsCreated(userManager, "mustafabukhari@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "mustafabukhari@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
-            user = await EnsureUserIsCreated(userManager, "elizabethcady@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "elizabethcady@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
 
-            user = await EnsureUserIsCreated(userManager, "josephvissari@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "josephvissari@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
 
             //user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret");
             //await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
-            user = await EnsureUserIsCreated(userManager, "lisaholland@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "lisaholland@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
-            user = await EnsureUserIsCreated(userManager, "harishowel@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "harishowel@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
-            user = await EnsureUserIsCreated(userManager, "theamoss@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "theamoss@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
-            user = await EnsureUserIsCreated(userManager, "jamesmcgee@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "jamesmcgee@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
-            user = await EnsureUserIsCreated(userManager, "luckbrown@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "luckbrown@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
-            user = await EnsureUserIsCreated(userManager, "kylehoffman@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
+            //user = await EnsureUserIsCreated(userManager, "kylehoffman@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "CollaboratorMaintenance");
 
 
             //user = await EnsureUserIsCreated(userManager, "peter@ipg.pt", "Secret123$");
 
-            user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+            //user = await EnsureUserIsCreated(userManager, "maintenaceManager@ipg.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
 
-            user = await EnsureUserIsCreated(userManager, "josav@cars.pt", "Secret123$");
-            await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
+            //user = await EnsureUserIsCreated(userManager, "josav@cars.pt", "Secret123$");
+            //await EnsureUserIsInRoleAsync(userManager, user, "MaintenanceManager");
 
 
             //user = await EnsureUserIsCreated(userManager, "carPartsManager@ipg.pt", "CarParts");
@@ -304,7 +304,7 @@ namespace CarManufactoring.Data
 
         private static void PopulateSemiFinishedCars(CarManufactoringContext db)
         {
-            /*if (db.SemiFinishedCar.Any()) return;
+            if (db.SemiFinishedCar.Any()) return;
 
             db.SemiFinishedCar.AddRange(
 
@@ -313,7 +313,7 @@ namespace CarManufactoring.Data
 
                 );
 
-            db.SaveChanges();*/
+            db.SaveChanges();
         }
 
         private static void PopulatePriority(CarManufactoringContext db)
@@ -427,7 +427,7 @@ namespace CarManufactoring.Data
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                //  new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2, Description = " " },
+                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2, Description = " " }
                 //new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
                 //new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
                 //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
@@ -1038,16 +1038,16 @@ namespace CarManufactoring.Data
         {
             if (db.MachineAquisition.Any()) return;
 
-           /* db.MachineAquisition.AddRange(
+            db.MachineAquisition.AddRange(
 
                new MachineAquisition
                {
                    MachineAquisitionName = "MachineAquisition1",
                    MaintenancePrice = 15000,
-                   //NextLevel = 20,
+                   NextLevel = 20,
                    Price = 50000,
                    QuantityOfParts = 18,
-                   //MachineId = 1
+                   MachineId = 1
 
                },
 
@@ -1055,22 +1055,22 @@ namespace CarManufactoring.Data
                 {
                     MachineAquisitionName = "MachineAquisition2",
                     MaintenancePrice = 10000,
-                    //NextLevel = 20,
+                    NextLevel = 20,
                     Price = 50000,
                     QuantityOfParts = 20,
-                   // MachineId = 1
+                   MachineId = 1
                 },
                  new MachineAquisition
                  {
                      MachineAquisitionName = "MachineAquisition3",
                      MaintenancePrice = 5000,
-                     //NextLeve = 20,
+                     NextLevel = 20,
                      Price = 55000,
                      QuantityOfParts = 22,
-                     //MachineId = 1
+                     MachineId = 1
                  }
                 );
-            db.SaveChanges();*/
+            db.SaveChanges();
         }
 
 
@@ -1081,14 +1081,14 @@ namespace CarManufactoring.Data
 
             if (db.MachineBudget.Any()) return;
 
-           /* db.MachineBudget.AddRange(
+            db.MachineBudget.AddRange(
                 new MachineBudget
                 {
                     dataSolicitada = DateTime.Parse("11/01/2023 10:11:00 AM"),
                     dataEntrega = DateTime.Parse("28/01/2023 10:11:00 AM"),
                     Valor = 40000,
-                    //prazoGarantia = 5,
-                    //custoManutencao = 50,
+                    prazoGarantia = 5,
+                    custoManutencao = 50,
                     SupplierId = 1,
                     AquisitionId = 1
                 },
@@ -1098,15 +1098,15 @@ namespace CarManufactoring.Data
                     dataSolicitada = DateTime.Parse("13/01/2023 10:11:00 AM"),
                     dataEntrega = DateTime.Parse("26/01/2023 10:11:00 AM"),
                     Valor = 20000,
-                    //prazoGarantia = 4,
-                    //custoManutencao = 50,
+                    prazoGarantia = 4,
+                    custoManutencao = 50,
                     SupplierId = 2,
                     AquisitionId = 1
                 }
 
                 );
 
-            db.SaveChanges();*/
+            db.SaveChanges();
         }
 
     }
