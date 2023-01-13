@@ -27,7 +27,7 @@
                 </thead>
 
                 <tbody>
-                
+                        
                     @*@foreach(Documents d in Model){
 
                         <tr>
@@ -40,6 +40,8 @@
                         </tr>                        
                     }*@
                    
+                    <h1><img align="right" class="rounded-circle" src="/img/documents/Group8/GroupDocuments/casos_d_uso.PNG"></h1>
+
                 </tbody>
             </table>
         </div>
@@ -54,8 +56,15 @@
             if (name == "relatorio Software") {
 
                 url = "/documents/Group8/GroupDocuments/Relatorio_software_II_Group8.pdf";
-                url = "/documents/Group8/GroupDocuments/Todos_Os_Diagramas.pdf";
 
                 window.location.assign(url);
+
             }
+
+            if (name == "Todos os Relatorio ") {
+
+                url = "/documents/Group8/GroupDocuments/Todos_Os_Diagramas.pdf";
+
+            window.location.assign(url);
+        }
   </script>
