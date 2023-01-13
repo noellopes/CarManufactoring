@@ -70,7 +70,7 @@ namespace CarManufactoring.Data
 
             //PopulateStockFinalProduct(db);
 
-            //PopulateBreakdows(db);
+            PopulateBreakdows(db);
             //PopulateBreakdows(db);
             //PopulateSupplierPartsCarParts(db);
 
@@ -97,8 +97,11 @@ namespace CarManufactoring.Data
                 await EnsureRoleIsCreated(roleManager, "Suppliereng");
                 await EnsureRoleIsCreated(roleManager, "ShiftManager");
 
+                await EnsureRoleIsCreated(roleManager, "Breakdownpr");
+
         }
 
+       
 
 
         private static async Task EnsureRoleIsCreated(RoleManager<IdentityRole> roleManager, string role) {
@@ -160,6 +163,10 @@ namespace CarManufactoring.Data
             //user = await EnsureUserIsCreated(userManager, "supplier@ipg.pt", "Secret");
             //await EnsureUserIsInRoleAsync(userManager, user, "Supplier");
 
+
+
+            user = await EnsureUserIsCreated(userManager, "breakdownpr@ipg.pt", "Secret123$");
+            await EnsureUserIsInRoleAsync(userManager, user, "Breakdownpr");
 
 
             user = await EnsureUserIsCreated(userManager, "suppliereng@ipg.pt", "Secret123$");
@@ -420,14 +427,14 @@ namespace CarManufactoring.Data
             if (db.Machine.Any()) return;
 
             db.Machine.AddRange(
-                  new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
-                new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
+                //  new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 1, MachineStateId = 1, LocalizationCodeId = 2, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("24/06/2019"), MachineModelId = 2, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("04/03/2018"), MachineModelId = 1, MachineStateId = 3, LocalizationCodeId = 2, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 2, MachineStateId = 2, LocalizationCodeId = 1, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("15/10/2020"), MachineModelId = 2, MachineStateId = 3, LocalizationCodeId = 1, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("03/01/2018"), MachineModelId = 4, MachineStateId = 2, LocalizationCodeId = 5, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("04/03/2021"), MachineModelId = 3, MachineStateId = 1, LocalizationCodeId = 3, Description = " " },
+                //new Machine { DateAcquired = DateTime.Parse("12/03/2018"), MachineModelId = 4, MachineStateId = 1, LocalizationCodeId = 4, Description = " " }
 
                 );
 
@@ -969,7 +976,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        /*
+        
         private static void PopulateBreakdows(CarManufactoringContext db)
         {
             if (db.Breakdown.Any()) return;
@@ -1024,7 +1031,7 @@ namespace CarManufactoring.Data
             db.SaveChanges();
         }
 
-        */
+        
 
 
         private static void PopulateMachineAquisitions(CarManufactoringContext db)
