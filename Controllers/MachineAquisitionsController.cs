@@ -9,6 +9,7 @@ using CarManufactoring.Data;
 using CarManufactoring.Models;
 using CarManufactoring.ViewModels.Group4;
 using CarManufactoring.ViewModels;
+using System.Data;
 
 
 namespace CarManufactoring.Controllers
@@ -81,6 +82,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineAquisitions/Create
+        //[Authorize(Roles = "Admin,Machineaqui")]
         public IActionResult Create()
         {
             ViewData["MachineId"] = new SelectList(_context.Machine, "MachineId", "Description");
@@ -105,6 +107,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineAquisitions/Edit/5
+        //[Authorize(Roles = "Admin,Machineaqui")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.MachineAquisition == null)
@@ -122,6 +125,7 @@ namespace CarManufactoring.Controllers
         }
 
         // POST: MachineAquisitions/Edit/5
+        //[Authorize(Roles = "Admin,Machineaqui")]
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -158,6 +162,7 @@ namespace CarManufactoring.Controllers
         }
 
         // GET: MachineAquisitions/Delete/5
+        //[Authorize(Roles = "Admin,Machineaqui")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.MachineAquisition == null)
@@ -177,6 +182,7 @@ namespace CarManufactoring.Controllers
         }
 
         // POST: MachineAquisitions/Delete/5
+        //[Authorize(Roles = "Admin,Machineaqui")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
